@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/homescreen/home_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/notifications/notifications_screeen.dart';
 
+import 'profile/profile_screen.dart';
+import 'request/request_screen.dart';
+
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({super.key});
 
@@ -11,17 +14,22 @@ class BottomNavigator extends StatefulWidget {
 
 class _BottomNavigatorState extends State<BottomNavigator> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 10, fontWeight: FontWeight.bold);
   static final List<Widget> _widgetOptions = <Widget>[
     const NotificationScreen(),
     const HomeScreen(),
-    const Text('Index 2: School', style: optionStyle),
-    const Text('Index 2: School', style: optionStyle),
+    const HomeScreen(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      print(index);
+      if (index == 2) {
+        _selectedIndex = _selectedIndex;
+        requestBottomSheet(context);
+      } else {
+        _selectedIndex = index;
+      }
     });
   }
 

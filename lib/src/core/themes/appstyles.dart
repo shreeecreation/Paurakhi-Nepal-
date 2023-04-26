@@ -5,14 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 abstract class AppStyles {
   // text 9px
   //regular
-  static TextStyle text9Px = GoogleFonts.lato(
+  static TextStyle text9Px = GoogleFonts.openSans(
     fontSize: 9.sp,
     height: calculateHeight(11, 9),
     fontStyle: FontStyle.normal,
   );
 
   //medium
-  static TextStyle text9PxMedium = GoogleFonts.lato(
+  static TextStyle text9PxMedium = GoogleFonts.openSans(
     fontSize: 9.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(11, 9),
@@ -20,7 +20,7 @@ abstract class AppStyles {
   );
 
   //SemiBold
-  static TextStyle text9PxSemiBold = GoogleFonts.lato(
+  static TextStyle text9PxSemiBold = GoogleFonts.openSans(
     fontSize: 9.sp,
     fontWeight: FontWeight.w600,
     height: calculateHeight(11, 9),
@@ -28,7 +28,7 @@ abstract class AppStyles {
   );
 
   //bold
-  static TextStyle text9PxBold = GoogleFonts.lato(
+  static TextStyle text9PxBold = GoogleFonts.openSans(
     fontSize: 9.sp,
     fontWeight: FontWeight.bold,
     height: calculateHeight(11, 9),
@@ -38,14 +38,14 @@ abstract class AppStyles {
   // text 12px
 
   //regular
-  static TextStyle text12Px = GoogleFonts.lato(
+  static TextStyle text12Px = GoogleFonts.openSans(
     fontSize: 12.sp,
     height: calculateHeight(14, 12),
     fontStyle: FontStyle.normal,
   );
 
   //medium
-  static TextStyle text12PxMedium = GoogleFonts.lato(
+  static TextStyle text12PxMedium = GoogleFonts.openSans(
     fontSize: 12.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(14, 12),
@@ -53,7 +53,7 @@ abstract class AppStyles {
   );
 
   //SemiBold
-  static TextStyle text12PxSemiBold = GoogleFonts.lato(
+  static TextStyle text12PxSemiBold = GoogleFonts.openSans(
     fontSize: 12.sp,
     fontWeight: FontWeight.w600,
     height: calculateHeight(14, 12),
@@ -61,7 +61,7 @@ abstract class AppStyles {
   );
 
   //bold
-  static TextStyle text12PxBold = GoogleFonts.lato(
+  static TextStyle text12PxBold = GoogleFonts.openSans(
     fontSize: 12.sp,
     fontWeight: FontWeight.bold,
     height: calculateHeight(14, 12),
@@ -70,14 +70,14 @@ abstract class AppStyles {
 
   // text 13px
   //regular
-  static TextStyle text13Px = GoogleFonts.lato(
+  static TextStyle text13Px = GoogleFonts.openSans(
     fontSize: 13.sp,
     height: calculateHeight(17, 13),
     fontStyle: FontStyle.normal,
   );
 
   //medium
-  static TextStyle text13PxMedium = GoogleFonts.lato(
+  static TextStyle text13PxMedium = GoogleFonts.openSans(
     fontSize: 13.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(17, 13),
@@ -85,7 +85,7 @@ abstract class AppStyles {
   );
 
   //SemiBold
-  static TextStyle text13PxSemiBold = GoogleFonts.lato(
+  static TextStyle text13PxSemiBold = GoogleFonts.openSans(
     fontSize: 13.sp,
     fontWeight: FontWeight.w600,
     height: calculateHeight(17, 13),
@@ -93,7 +93,7 @@ abstract class AppStyles {
   );
 
   //bold
-  static TextStyle text13PxBold = GoogleFonts.lato(
+  static TextStyle text13PxBold = GoogleFonts.openSans(
     fontSize: 13.sp,
     fontWeight: FontWeight.bold,
     height: calculateHeight(17, 13),
@@ -102,14 +102,14 @@ abstract class AppStyles {
 
   // text 14px
   //regular
-  static TextStyle text14Px = GoogleFonts.lato(
+  static TextStyle text14Px = GoogleFonts.openSans(
     fontSize: 14.sp,
     height: calculateHeight(17, 14),
     fontStyle: FontStyle.normal,
   );
 
   //medium
-  static TextStyle text14PxMedium = GoogleFonts.lato(
+  static TextStyle text14PxMedium = GoogleFonts.openSans(
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(17, 14),
@@ -117,7 +117,7 @@ abstract class AppStyles {
   );
 
   //SemiBold
-  static TextStyle text14PxSemiBold = GoogleFonts.lato(
+  static TextStyle text14PxSemiBold = GoogleFonts.openSans(
     fontSize: 14.sp,
     fontWeight: FontWeight.w600,
     height: calculateHeight(17, 14),
@@ -125,7 +125,7 @@ abstract class AppStyles {
   );
 
   //bold
-  static TextStyle text14PxBold = GoogleFonts.lato(
+  static TextStyle text14PxBold = GoogleFonts.openSans(
     fontSize: 14.sp,
     fontWeight: FontWeight.bold,
     height: calculateHeight(17, 14),
@@ -134,14 +134,14 @@ abstract class AppStyles {
 
   // text 16px
   //regular
-  static TextStyle text16Px = GoogleFonts.lato(
+  static TextStyle text16Px = GoogleFonts.openSans(
     fontSize: 16.sp,
     height: calculateHeight(19, 16),
     fontStyle: FontStyle.normal,
   );
 
   //medium
-  static TextStyle text16PxMedium = GoogleFonts.lato(
+  static TextStyle text16PxMedium = GoogleFonts.openSans(
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(19, 16),
@@ -149,7 +149,7 @@ abstract class AppStyles {
   );
 
   //SemiBold
-  static TextStyle text16PxSemiBold = GoogleFonts.lato(
+  static TextStyle text16PxSemiBold = GoogleFonts.openSans(
     fontSize: 16.sp,
     fontWeight: FontWeight.w600,
     height: calculateHeight(19, 16),
@@ -157,7 +157,7 @@ abstract class AppStyles {
   );
 
   //bold
-  static TextStyle text16PxBold = GoogleFonts.lato(
+  static TextStyle text16PxBold = GoogleFonts.openSans(
     fontSize: 16.sp,
     fontWeight: FontWeight.bold,
     height: calculateHeight(19, 16),
@@ -166,14 +166,14 @@ abstract class AppStyles {
 
   // text 18px
   //regular
-  static TextStyle text18Px = GoogleFonts.lato(
+  static TextStyle text18Px = GoogleFonts.openSans(
     fontSize: 18.sp,
     height: calculateHeight(21, 18),
     fontStyle: FontStyle.normal,
   );
 
   //medium
-  static TextStyle text18PxMedium = GoogleFonts.lato(
+  static TextStyle text18PxMedium = GoogleFonts.openSans(
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(21, 18),
@@ -181,7 +181,7 @@ abstract class AppStyles {
   );
 
   //SemiBold
-  static TextStyle text18PxSemiBold = GoogleFonts.lato(
+  static TextStyle text18PxSemiBold = GoogleFonts.openSans(
     fontSize: 18.sp,
     fontWeight: FontWeight.w600,
     height: calculateHeight(21, 18),
@@ -189,7 +189,7 @@ abstract class AppStyles {
   );
 
   //bold
-  static TextStyle text18PxBold = GoogleFonts.lato(
+  static TextStyle text18PxBold = GoogleFonts.openSans(
     fontSize: 18.sp,
     fontWeight: FontWeight.bold,
     height: calculateHeight(21, 18),
@@ -198,14 +198,14 @@ abstract class AppStyles {
 
   // text 20px
   //regular
-  static TextStyle text20Px = GoogleFonts.lato(
+  static TextStyle text20Px = GoogleFonts.openSans(
     fontSize: 20.sp,
     height: calculateHeight(24, 20),
     fontStyle: FontStyle.normal,
   );
 
   //medium
-  static TextStyle text30PxBold = GoogleFonts.lato(
+  static TextStyle text30PxBold = GoogleFonts.openSans(
     fontSize: 30.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(28, 22),
@@ -213,7 +213,7 @@ abstract class AppStyles {
   );
 
   //medium
-  static TextStyle text31PxBold = GoogleFonts.lato(
+  static TextStyle text31PxBold = GoogleFonts.openSans(
     fontSize: 31.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(28, 26),
@@ -221,7 +221,7 @@ abstract class AppStyles {
   );
 
   //SemiBold
-  static TextStyle text20PxSemiBold = GoogleFonts.lato(
+  static TextStyle text20PxSemiBold = GoogleFonts.openSans(
     fontSize: 20.sp,
     fontWeight: FontWeight.w600,
     height: calculateHeight(24, 20),
@@ -229,7 +229,7 @@ abstract class AppStyles {
   );
 
   //bold
-  static TextStyle text20PxBold = GoogleFonts.lato(
+  static TextStyle text20PxBold = GoogleFonts.openSans(
     fontSize: 20.sp,
     fontWeight: FontWeight.bold,
     height: calculateHeight(24, 20),
@@ -238,14 +238,14 @@ abstract class AppStyles {
 
   // text 24px
   //regular
-  static TextStyle text24Px = GoogleFonts.lato(
+  static TextStyle text24Px = GoogleFonts.openSans(
     fontSize: 24.sp,
     height: calculateHeight(28, 24),
     fontStyle: FontStyle.normal,
   );
 
   //medium
-  static TextStyle text24PxMedium = GoogleFonts.lato(
+  static TextStyle text24PxMedium = GoogleFonts.openSans(
     fontSize: 24.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(28, 24),
@@ -253,7 +253,7 @@ abstract class AppStyles {
   );
 
   //SemiBold
-  static TextStyle text24PxSemiBold = GoogleFonts.lato(
+  static TextStyle text24PxSemiBold = GoogleFonts.openSans(
     fontSize: 24.sp,
     fontWeight: FontWeight.w600,
     height: calculateHeight(28, 24),
@@ -261,7 +261,7 @@ abstract class AppStyles {
   );
 
   //bold
-  static TextStyle text24PxBold = GoogleFonts.lato(
+  static TextStyle text24PxBold = GoogleFonts.openSans(
     fontSize: 24.sp,
     fontWeight: FontWeight.bold,
     height: calculateHeight(28, 24),
@@ -270,7 +270,7 @@ abstract class AppStyles {
 
   // text 32px
   //regular
-  static TextStyle text32Px = GoogleFonts.lato(
+  static TextStyle text32Px = GoogleFonts.openSans(
     fontSize: 32.sp,
     height: calculateHeight(43, 36),
     fontStyle: FontStyle.normal,
@@ -278,7 +278,7 @@ abstract class AppStyles {
   );
 
   //medium
-  static TextStyle text32PxMedium = GoogleFonts.lato(
+  static TextStyle text32PxMedium = GoogleFonts.openSans(
     fontSize: 32.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(43, 36),
@@ -288,7 +288,7 @@ abstract class AppStyles {
 
   // text 34px
   //regular
-  static TextStyle text34Px = GoogleFonts.lato(
+  static TextStyle text34Px = GoogleFonts.openSans(
     fontSize: 34.sp,
     height: calculateHeight(43, 36),
     fontStyle: FontStyle.normal,
@@ -296,7 +296,7 @@ abstract class AppStyles {
   );
 
   //medium
-  static TextStyle text34PxMedium = GoogleFonts.lato(
+  static TextStyle text34PxMedium = GoogleFonts.openSans(
     fontSize: 34.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(43, 36),
@@ -305,7 +305,7 @@ abstract class AppStyles {
   );
 
   //SemiBold
-  static TextStyle text34PxSemiBold = GoogleFonts.lato(
+  static TextStyle text34PxSemiBold = GoogleFonts.openSans(
     fontSize: 34.sp,
     fontWeight: FontWeight.w600,
     height: calculateHeight(43, 36),
@@ -314,7 +314,7 @@ abstract class AppStyles {
   );
 
   //bold
-  static TextStyle text34PxBold = GoogleFonts.lato(
+  static TextStyle text34PxBold = GoogleFonts.openSans(
     fontSize: 34.sp,
     fontWeight: FontWeight.bold,
     height: calculateHeight(43, 36),
@@ -323,7 +323,7 @@ abstract class AppStyles {
   );
   // text 36px
   //regular
-  static TextStyle text36Px = GoogleFonts.lato(
+  static TextStyle text36Px = GoogleFonts.openSans(
     fontSize: 34.sp,
     height: calculateHeight(43, 36),
     fontStyle: FontStyle.normal,
@@ -331,7 +331,7 @@ abstract class AppStyles {
   );
 
   //medium
-  static TextStyle text36PxMedium = GoogleFonts.lato(
+  static TextStyle text36PxMedium = GoogleFonts.openSans(
     fontSize: 36.sp,
     fontWeight: FontWeight.w500,
     height: calculateHeight(43, 36),
@@ -340,7 +340,7 @@ abstract class AppStyles {
   );
 
   //SemiBold
-  static TextStyle text36PxSemiBold = GoogleFonts.lato(
+  static TextStyle text36PxSemiBold = GoogleFonts.openSans(
     fontSize: 36.sp,
     fontWeight: FontWeight.w600,
     height: calculateHeight(43, 36),
@@ -349,7 +349,7 @@ abstract class AppStyles {
   );
 
   //bold
-  static TextStyle text36PxBold = GoogleFonts.lato(
+  static TextStyle text36PxBold = GoogleFonts.openSans(
     fontSize: 36.sp,
     fontWeight: FontWeight.bold,
     height: calculateHeight(43, 36),
@@ -358,7 +358,7 @@ abstract class AppStyles {
   );
 
   //bold
-  static TextStyle text56PxBold = GoogleFonts.lato(
+  static TextStyle text56PxBold = GoogleFonts.openSans(
     fontSize: 56.sp,
     fontWeight: FontWeight.bold,
     height: calculateHeight(67, 56),
