@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'src/app/screens/home/presentation/home_page.dart';
+import 'src/app/screens/auth/login/otp.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -17,10 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light),
-        home: const HomePage(),
-      ),
+          debugShowCheckedModeBanner: false, theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light), home: OTPScreen()),
     );
   }
 }
