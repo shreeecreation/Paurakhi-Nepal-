@@ -19,7 +19,12 @@ dependencies:
   #using the pinput for OTP
   pinput: ^2.2.31
   buttons_tabbar: ^1.3.6
+  #used for routing 
+  get: ^4.6.5
+
+  #used for word functionality 
   cupertino_icons: ^1.0.2
+  
 
 dev_dependencies:
   flutter_test:

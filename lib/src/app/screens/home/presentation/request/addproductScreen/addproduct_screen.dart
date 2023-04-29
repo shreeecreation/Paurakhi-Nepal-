@@ -24,7 +24,7 @@ void addProduct(BuildContext context) {
         padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SingleChildScrollView(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height / 1.5,
+            height: MediaQuery.of(context).size.height,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(50.0),
@@ -93,6 +93,7 @@ void addProduct(BuildContext context) {
                             // quotationBottomSheet(context);
                           },
                         ),
+                        const SizedBox(height: 10),
                         Center(
                           child: SizedBox(
                               height: 50,

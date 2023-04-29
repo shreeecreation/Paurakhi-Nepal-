@@ -23,7 +23,6 @@ class _BottomNavigatorState extends State<BottomNavigator> {
 
   void _onItemTapped(int index) {
     setState(() {
-      print(index);
       if (index == 2) {
         _selectedIndex = _selectedIndex;
         requestBottomSheet(context);

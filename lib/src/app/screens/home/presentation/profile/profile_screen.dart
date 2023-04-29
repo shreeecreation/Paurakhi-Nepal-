@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
-import 'quotation/quotation_screen.dart';
+import 'quotation/quotationhistory_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -12,7 +13,6 @@ class ProfileScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
           child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, children: [
             const SizedBox(height: 20),
             Row(
@@ -25,6 +25,7 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 15),
             userProfile(context),
             const SizedBox(height: 20),
+            openTicket(context),
             editProfile(context),
             changePassword(context),
             quotationhistory(context),
@@ -33,6 +34,24 @@ class ProfileScreen extends StatelessWidget {
             logOut(context)
           ]),
         ));
+  }
+
+  Padding openTicket(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width - 30,
+        child: ListTile(
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+          tileColor: Colors.white,
+          title: const Text("Open Ticket"),
+          trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
+          onTap: () {
+            ProfileRoutes.openticketRoute();
+          },
+        ),
+      ),
+    );
   }
 
   Padding editProfile(BuildContext context) {
@@ -52,6 +71,24 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Padding editProfile(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: SizedBox(
+      width: MediaQuery.of(context).size.width - 30,
+      child: ListTile(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+        tileColor: Colors.white,
+        title: const Text("Edit Profile"),
+        trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
+        onTap: () {
+          quotationBottomSheet(context);
+        },
+      ),
+    ),
+  );
 }
 
 Padding changePassword(BuildContext context) {
@@ -161,17 +198,24 @@ Widget userProfile(context) {
             const SizedBox(width: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Birendra Bikram ", style: AppStyles.text20PxSemiBold),
+                const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Icon(Icons.local_activity),
+                    const Icon(Icons.location_on_outlined),
                     Text("Jukot, Bajura", style: AppStyles.text14Px),
                   ],
                 ),
-                Text("+977 98104200", style: AppStyles.text14Px),
+                const SizedBox(height: 5),
+                Row(
+                  children: [
+                    const Icon(Icons.phone_outlined),
+                    Text("+977 98104200", style: AppStyles.text14Px),
+                  ],
+                ),
               ],
             ),
           ],

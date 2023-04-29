@@ -13,6 +13,7 @@ extension TypographyExtension on TextStyle {
   TextStyle get textLight => copyWith(color: AppColors.textLight);
 
   TextStyle get textGrey => copyWith(color: AppColors.textGrey);
+  TextStyle get textGreen => copyWith(color: AppColors.textGreen);
 
   TextStyle get statusRed => copyWith(color: AppColors.statusRed);
 

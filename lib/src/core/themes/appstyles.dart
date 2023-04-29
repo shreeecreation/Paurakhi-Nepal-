@@ -235,7 +235,13 @@ abstract class AppStyles {
     height: calculateHeight(24, 20),
     fontStyle: FontStyle.normal,
   );
-
+  //text 22Px
+  static TextStyle text22PxBold = GoogleFonts.openSans(
+    fontSize: 22.sp,
+    fontWeight: FontWeight.bold,
+    height: calculateHeight(26, 22),
+    fontStyle: FontStyle.normal,
+  );
   // text 24px
   //regular
   static TextStyle text24Px = GoogleFonts.openSans(

@@ -24,7 +24,7 @@ void requestProduct(BuildContext context) {
         padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SingleChildScrollView(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height / 2,
+            height: MediaQuery.of(context).size.height / 1.2,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(50.0),
@@ -55,7 +55,6 @@ void requestProduct(BuildContext context) {
                         addRequestTitle(context),
                         const SizedBox(height: 5),
                         addProductDescripttion(context),
-                    
                         Center(
                           child: SizedBox(
                               height: 50,

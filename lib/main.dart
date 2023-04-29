@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/home_page.dart';
 
-import 'src/app/screens/auth/login/otp.dart';
+import 'src/core/utils/focuesnode.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -15,9 +17,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false, theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light), home: OTPScreen()),
+    return GestureDetector(
+      onTap: () {
+        unFocusNode(context);
+      },
+      child: SafeArea(
+        child: GetMaterialApp(
+            debugShowCheckedModeBanner: false, theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light), home: const HomePage()),
+      ),
     );
   }
 }

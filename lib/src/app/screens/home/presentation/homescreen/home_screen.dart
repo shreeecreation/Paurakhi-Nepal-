@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/tab_bar.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+import 'package:paurakhi/src/core/utils/searchwidget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -63,20 +64,22 @@ class HomeScreen extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             itemCount: myMap.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 2),
-                                child: Container(
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xFF34A853)),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Center(
-                                        child: Text(myMap.entries.elementAt(index).key, style: AppStyles.text14Px.white),
-                                      ),
-                                      Center(
-                                        child: Text(myMap.entries.elementAt(index).value, style: AppStyles.text14PxBold.white),
-                                      ),
-                                    ],
+                              return GestureDetector(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 2),
+                                  child: Container(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xFF34A853)),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Center(
+                                          child: Text(myMap.entries.elementAt(index).key, style: AppStyles.text14Px.white),
+                                        ),
+                                        Center(
+                                          child: Text(myMap.entries.elementAt(index).value, style: AppStyles.text14PxBold.white),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
@@ -114,25 +117,4 @@ class HomeScreen extends StatelessWidget {
       ]),
     );
   }
-}
-
-//TODO search functionality
-Widget searchWidget(BuildContext context) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      SizedBox(
-        width: MediaQuery.of(context).size.width - 20,
-        child: TextField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(9.0)),
-                hintText: 'Search...',
-                filled: true,
-                fillColor: const Color(0xFFF4F4F4),
-                contentPadding: const EdgeInsets.all(8.0),
-                suffixIcon: const Icon(Icons.menu),
-                prefixIcon: const Icon(Icons.search))),
-      ),
-    ],
-  );
 }
