@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:paurakhi/main.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/blog/blog_screen.dart';
 
 class DrawerRoutes {
   static void blogRoute() {
-    
+    Get.to(const BlogScreen());
+    scaffoldKey.currentState!.openEndDrawer();
   }
 
   static void homeRoute(context) {

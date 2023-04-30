@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/main.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/tab_bar.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
-
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,17 +15,19 @@ class HomeScreen extends StatelessWidget {
     Map<String, String> myMap = {'Listings': '7120+', 'Users': '7120+', 'Grant Proceded': '7120+', 'Loan Passed': '7120+'};
     return Scaffold(
         endDrawerEnableOpenDragGesture: true, // This!
-        key: _scaffoldKey,
-        endDrawer: EndDrawer(scaffoldKey: _scaffoldKey,),
+        key: scaffoldKey,
+        endDrawer: const EndDrawer(),
         body: SingleChildScrollView(
           child: SizedBox(
               child: Column(children: [
             // ---------------------------------------------------------------------Search Widget
-            searchWidget(context, _scaffoldKey),
+            searchWidget(
+              context,scaffoldKey
+            ),
             const SizedBox(height: 24),
 
             // ----------------------------------------------------------------------User widget
-            userWidget(context, userName, _scaffoldKey),
+            userWidget(context, userName, scaffoldKey),
 
             // ----------------------------------------------------------------------GridView Widget
             gridViewWidget(context, myMap),
@@ -103,24 +104,22 @@ class HomeScreen extends StatelessWidget {
 //TODO User Widget manage
   Widget userWidget(BuildContext context, String userName, scaffoldkey) {
     return SizedBox(
-      height: 50,
-      width: MediaQuery.of(context).size.width,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        Row(
-          children: [
-            const SizedBox(width: 11),
-            Text("नमस्कार $userName", style: AppStyles.text24PxBold),
-            Image.asset("assets/images/nepalflag.png", scale: 5)
-          ],
-        ),
-        const SizedBox(width: 20),
-        ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), backgroundColor: const Color(0xFF34A853), elevation: 0),
-            onPressed: () {},
-            child: const Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [Text("Sell"), Icon(Icons.arrow_drop_down)]))
-      ]),
-    );
+        height: 50,
+        width: MediaQuery.of(context).size.width,
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Row(
+            children: [
+              const SizedBox(width: 11),
+              Text("नमस्कार $userName", style: AppStyles.text24PxBold),
+              Image.asset("assets/images/nepalflag.png", scale: 5)
+            ],
+          ),
+          const SizedBox(width: 20),
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), backgroundColor: const Color(0xFF34A853), elevation: 0),
+              onPressed: () {},
+              child: const Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [Text("Sell"), Icon(Icons.arrow_drop_down)]))
+        ]));
   }
 }
-

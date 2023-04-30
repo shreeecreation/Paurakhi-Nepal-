@@ -1,7 +1,8 @@
 //TODO search functionality
 import 'package:flutter/material.dart';
+import 'package:paurakhi/main.dart';
 
-Widget searchWidget(BuildContext context,scaffoldkey) {
+Widget searchWidget(BuildContext context,key) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -16,9 +17,7 @@ Widget searchWidget(BuildContext context,scaffoldkey) {
                 contentPadding: const EdgeInsets.all(8.0),
                 suffixIcon: IconButton(
                     onPressed: () {
-                
-              scaffoldkey.currentState.openEndDrawer();
-
+                      key.currentState!.openEndDrawer();
                     },
                     icon: const Icon(Icons.menu)),
                 prefixIcon: const Icon(Icons.search))),
