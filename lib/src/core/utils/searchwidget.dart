@@ -1,7 +1,7 @@
 //TODO search functionality
 import 'package:flutter/material.dart';
 
-Widget searchWidget(BuildContext context) {
+Widget searchWidget(BuildContext context,scaffoldkey) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -14,7 +14,13 @@ Widget searchWidget(BuildContext context) {
                 filled: true,
                 fillColor: const Color(0xFFF4F4F4),
                 contentPadding: const EdgeInsets.all(8.0),
-                suffixIcon: const Icon(Icons.menu),
+                suffixIcon: IconButton(
+                    onPressed: () {
+                
+              scaffoldkey.currentState.openEndDrawer();
+
+                    },
+                    icon: const Icon(Icons.menu)),
                 prefixIcon: const Icon(Icons.search))),
       ),
     ],

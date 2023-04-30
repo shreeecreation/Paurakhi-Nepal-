@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
-void quotationBottomSheet(BuildContext context) {
+void financeEnquiryBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
     shape: const RoundedRectangleBorder(
@@ -27,7 +27,7 @@ void quotationBottomSheet(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("  Get Quotation", style: AppStyles.text20PxBold),
+                      Text("Enquire Now", style: AppStyles.text20PxBold),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -106,7 +106,7 @@ void quotationBottomSheet(BuildContext context) {
                                   ),
                                   backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                                   foregroundColor: MaterialStateProperty.all<Color>(Colors.green)),
-                              child: const Text('Click me')),
+                              child: const Text('Cancel')),
                         )),
                         const SizedBox(width: 10)
                       ])
@@ -134,7 +134,7 @@ Padding quantity(BuildContext context) {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
-          hintText: 'Quantity...',
+          hintText: 'Purpose of loan...',
         ),
       ),
     ),
@@ -155,7 +155,7 @@ Padding budget(BuildContext context) {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
-          hintText: 'Add Request Title',
+          hintText: 'Estimated Valuation...',
         ),
       ),
     ),

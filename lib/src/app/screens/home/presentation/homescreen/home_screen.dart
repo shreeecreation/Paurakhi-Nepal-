@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/tab_bar.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
+
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,27 +13,29 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String userName = "कुशल काफ्ले";
-
     Map<String, String> myMap = {'Listings': '7120+', 'Users': '7120+', 'Grant Proceded': '7120+', 'Loan Passed': '7120+'};
     return Scaffold(
+        endDrawerEnableOpenDragGesture: true, // This!
+        key: _scaffoldKey,
+        endDrawer: EndDrawer(scaffoldKey: _scaffoldKey,),
         body: SingleChildScrollView(
-      child: SizedBox(
-          child: Column(children: [
-        // ---------------------------------------------------------------------Search Widget
-        searchWidget(context),
-        const SizedBox(height: 24),
+          child: SizedBox(
+              child: Column(children: [
+            // ---------------------------------------------------------------------Search Widget
+            searchWidget(context, _scaffoldKey),
+            const SizedBox(height: 24),
 
-        // ----------------------------------------------------------------------User widget
-        userWidget(context, userName),
+            // ----------------------------------------------------------------------User widget
+            userWidget(context, userName, _scaffoldKey),
 
-        // ----------------------------------------------------------------------GridView Widget
-        gridViewWidget(context, myMap),
+            // ----------------------------------------------------------------------GridView Widget
+            gridViewWidget(context, myMap),
 
-        SizedBox(width: MediaQuery.of(context).size.width / 1.3, child: const Divider(thickness: 2, color: Color(0xFFE0E0E0))),
+            SizedBox(width: MediaQuery.of(context).size.width / 1.3, child: const Divider(thickness: 2, color: Color(0xFFE0E0E0))),
 
-        const Tabbar(),
-      ])),
-    ));
+            const Tabbar(),
+          ])),
+        ));
   }
 
 // TODO GirdView Widget
@@ -96,7 +101,7 @@ class HomeScreen extends StatelessWidget {
   }
 
 //TODO User Widget manage
-  Widget userWidget(BuildContext context, String userName) {
+  Widget userWidget(BuildContext context, String userName, scaffoldkey) {
     return SizedBox(
       height: 50,
       width: MediaQuery.of(context).size.width,
@@ -118,3 +123,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+

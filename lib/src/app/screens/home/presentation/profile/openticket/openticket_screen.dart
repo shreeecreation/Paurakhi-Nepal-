@@ -49,15 +49,19 @@ class OpenTicket extends StatelessWidget {
                           hintText: 'Message')),
                 ),
               ),
-              
-              ElevatedButton(
-                                    onPressed: () {
-                                      //TODO submit
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(0xFF34A853),
-                                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                    child: Text("Submit", style: AppStyles.text16Px))
+              Center(
+                child: SizedBox(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width - 50,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          // addProduct(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF34A853),
+                            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+                        child: Text("Submit", style: AppStyles.text16Px))),
+              )
             ],
           ),
         ));

@@ -138,7 +138,7 @@ Padding financeenrquiry(BuildContext context) {
         title: const Text("Finance Enquiry History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
-          quotationBottomSheet(context);
+          ProfileRoutes.financeenquiryRoute();
         },
       ),
     ),
