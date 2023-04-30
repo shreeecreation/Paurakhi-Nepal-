@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
+import 'changepassword.dart';
 import 'quotation/quotationhistory_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -102,7 +103,7 @@ Padding changePassword(BuildContext context) {
         title: const Text("Change Password"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
-          quotationBottomSheet(context);
+          changepassword(context);
         },
       ),
     ),

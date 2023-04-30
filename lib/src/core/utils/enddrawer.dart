@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:paurakhi/main.dart';
 import 'package:paurakhi/src/core/routes/drawerroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
@@ -46,6 +45,8 @@ class EndDrawer extends StatelessWidget {
             title: Text("News", style: textStyle),
             onTap: () {
               //action on press
+              DrawerRoutes.newsRoute();
+              Scaffold.of(context).closeEndDrawer();
             },
           ),
           SafeArea(
