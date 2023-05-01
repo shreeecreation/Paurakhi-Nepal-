@@ -4,6 +4,7 @@ import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 import 'changepassword.dart';
+import 'editprofile.dart';
 import 'quotation/quotationhistory_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -67,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
           title: const Text("Edit Profile"),
           trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
           onTap: () {
-            quotationBottomSheet(context);
+            editProfileDialog(context);
           },
         ),
       ),

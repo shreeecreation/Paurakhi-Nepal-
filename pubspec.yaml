@@ -24,6 +24,14 @@ dependencies:
 
   #used for word functionality 
   cupertino_icons: ^1.0.2
+
+  #env 
+  flutter_dotenv: ^5.0.2
+
+  #image picker in flutter 
+  image_picker: ^0.8.7+4
+  provider: ^6.0.5
+  image_cropper: ^3.0.3
   
 
 dev_dependencies:
@@ -36,6 +44,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - .env
+    - .env.production
+    - .env.development
   #   - images/a_dot_ham.jpeg
 
   # fonts:

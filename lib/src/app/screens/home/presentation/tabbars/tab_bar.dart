@@ -1,35 +1,65 @@
-import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
-import 'package:paurakhi/src/core/themes/appstyles.dart';
 
-import 'all.dart';
-
-class Tabbar extends StatelessWidget {
+class Tabbar extends StatefulWidget {
   const Tabbar({super.key});
 
   @override
+  State<Tabbar> createState() => _TabbarState();
+}
+
+class _TabbarState extends State<Tabbar> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 2,
-      child: ContainedTabBarView(
-        tabs: [
-          Text('All', style: AppStyles.text14Px),
-          Text('Finance', style: AppStyles.text14Px),
-          Text('Grants', style: AppStyles.text14Px),
-          Text('Products', style: AppStyles.text14Px),
-          Text('Tools', style: AppStyles.text14Px)
-        ],
-        tabBarProperties: TabBarProperties(
-          unselectedLabelColor: Colors.black,
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          indicator:
-              ContainerTabIndicator(radius: BorderRadius.circular(8.0), borderColor: Colors.black, borderWidth: 2, color: const Color(0xFF34A853)),
-        ),
-        views: const [All(), All(), All(), All(), All()],
-        onChange: (index) => {},
-      ),
-    );
+    return DefaultTabController(
+        length: 6,
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: const TabBar(tabs: [
+                  Text("All"),
+                  Text("Product"),
+                  Text("Grants"),
+                  Text("Tools"),
+                  Text("Finance"),
+                  Text("Tools"),
+                ]),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: const TabBarView(children: [
+                  Icon(Icons.key),
+                  Icon(Icons.key),
+                  Icon(Icons.key),
+                  Icon(Icons.key),
+                  Icon(Icons.key),
+                  Icon(Icons.key),
+                ]),
+              ),
+            ],
+          ),
+        ));
   }
 }
+
+
+      //  SizedBox(
+      //       height: 40,
+      //       width: 85,
+      //       child: Padding(
+      //           padding: const EdgeInsets.only(top: 2.0, left: 2.0, right: 2.0),
+      //           child: ElevatedButton(
+      //               onPressed: null,
+      //               style: ElevatedButton.styleFrom(
+      //                   disabledBackgroundColor: Colors.transparent,
+      //                   elevation: 0,
+      //                   shape: RoundedRectangleBorder(
+      //                       borderRadius: BorderRadius.circular(7), side: const BorderSide(color: Color(0xFFBDBDBD), width: 1.5)),
+      //                   backgroundColor: Colors.white),
+      //               child: const Text('Finance'))),
+      //     ),

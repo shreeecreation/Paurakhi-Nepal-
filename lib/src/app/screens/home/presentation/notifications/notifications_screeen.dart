@@ -20,16 +20,8 @@ class NotificationScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            Row(
-              children: [
-                const SizedBox(width: 10),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.arrow_back),
-                ),
-                const SizedBox(width: 10),
-                const Text("Notification", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w500))
-              ],
+            const Row(
+              children: [SizedBox(width: 10), Text("Notification", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w500))],
             ),
             const SizedBox(height: 20),
             notificationTile(context, myMapList),

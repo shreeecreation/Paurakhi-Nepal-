@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
+import 'package:paurakhi/src/core/routes/authroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -89,7 +90,11 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Don't have an account ? ", style: AppStyles.text14PxMedium),
-                    TextButton(onPressed: () {}, child: const Text("Create an account"))
+                    TextButton(
+                        onPressed: () {
+                          AuthRoutes.createUserRoute();
+                        },
+                        child: const Text("Create an account"))
                   ],
                 ),
                 const SizedBox(height: 70),
