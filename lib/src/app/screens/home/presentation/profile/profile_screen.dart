@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
@@ -175,7 +176,7 @@ Padding logOut(BuildContext context) {
         title: const Text("Log Out"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
-          quotationBottomSheet(context);
+          logoutDialog(context);
         },
       ),
     ),
