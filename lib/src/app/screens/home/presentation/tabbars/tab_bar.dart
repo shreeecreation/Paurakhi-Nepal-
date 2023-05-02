@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'all.dart';
+
 class Tabbar extends StatefulWidget {
   const Tabbar({super.key});
 
@@ -7,42 +9,64 @@ class Tabbar extends StatefulWidget {
   State<Tabbar> createState() => _TabbarState();
 }
 
-class _TabbarState extends State<Tabbar> {
+class _TabbarState extends State<Tabbar> with SingleTickerProviderStateMixin {
+  TabController? _tabController;
+  @override
+  void initState() {
+    _tabController = TabController(length: 5, vsync: this);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 6,
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: const TabBar(tabs: [
-                  Text("All"),
-                  Text("Product"),
-                  Text("Grants"),
-                  Text("Tools"),
-                  Text("Finance"),
-                  Text("Tools"),
-                ]),
+    return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              child: TabBar(
+                isScrollable: true,
+                labelPadding: const EdgeInsets.symmetric(horizontal: 20),
+                unselectedLabelColor: Colors.black,
+                labelColor: Colors.white,
+                splashBorderRadius: BorderRadius.circular(20),
+                indicator: ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
+                tabs: const [
+                  Tab(
+                    child: Text("All"),
+                  ),
+                  Tab(
+                    child: Text("Grants"),
+                  ),
+                  Tab(
+                    child: Text("Products"),
+                  ),
+                  Tab(
+                    child: Text("Finance"),
+                  ),
+                  Tab(
+                    child: Text("Tools"),
+                  ),
+                ],
+                controller: _tabController,
+                indicatorSize: TabBarIndicatorSize.tab,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: const TabBarView(children: [
-                  Icon(Icons.key),
-                  Icon(Icons.key),
-                  Icon(Icons.key),
-                  Icon(Icons.key),
-                  Icon(Icons.key),
-                  Icon(Icons.key),
-                ]),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 2,
+              child: TabBarView(
+                controller: _tabController,
+                children: const [
+                  All(),
+                  All(),
+                  All(),
+                  All(),
+                  All(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ));
   }
 }

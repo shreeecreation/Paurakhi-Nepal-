@@ -14,25 +14,27 @@ dependencies:
   adaptive_sizer: ^0.0.4
   #using the google fonts
   google_fonts: ^4.0.1
-  contained_tab_bar_view: ^0.8.0
   
   #using the pinput for OTP
   pinput: ^2.2.31
-  buttons_tabbar: ^1.3.6
+
   #used for routing 
   get: ^4.6.5
-
-  #used for word functionality 
-  cupertino_icons: ^1.0.2
 
   #env 
   flutter_dotenv: ^5.0.2
 
-  #image picker in flutter 
+  #image picker in flutter  and image cropper 
   image_picker: ^0.8.7+4
-  provider: ^6.0.5
   image_cropper: ^3.0.3
+
+  #state management
+  provider: ^6.0.5
+
+  #encryption tool to store the cookies 
+  flutter_secure_storage: ^8.0.0
   
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:

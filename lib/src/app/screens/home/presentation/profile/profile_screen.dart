@@ -18,11 +18,10 @@ class ProfileScreen extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, children: [
             const SizedBox(height: 20),
-            Row(
+            const Row(
               children: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
-                const SizedBox(width: 15),
-                const Text("My Profile", style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
+                SizedBox(width: 20),
+                Text("My Profile", style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
               ],
             ),
             const SizedBox(height: 15),
