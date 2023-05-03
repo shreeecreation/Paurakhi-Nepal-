@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/core/API/CookieManager/managelogincookie.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
-import 'domain/loginendpoint.dart';
+import '../../../../core/API/login/loginapi.dart';
 import 'validators/validators.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -98,17 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: MediaQuery.of(context).size.width / 1.2,
                       child: ElevatedButton(
                           onPressed: () async {
-                            //TODO validate all the forms
-                            if (formKey.currentState!.validate()) {
-                              var response = await LoginEndpoints.loginPoint(phoneNo.text, password.text, context);
-                              var responseBody = jsonDecode(response!.body);
-                              // print(responseBody);
-                              if (!responseBody["twoFactor"]) {
-                                print("otp not send ");
-                              } else {
-                                print("otp send ");
-                              }
-                            }
+                            //TODO login functionality
+                            loginFunction(formKey, phoneNo, password, context);
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF34A853),
@@ -144,5 +136,20 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ));
+  }
+}
+
+void loginFunction(formKey, phoneNo, password, context) async {
+  if (formKey.currentState!.validate()) {
+    var response = await LoginAPI.loginPoint(phoneNo.text, password.text, context);
+    var data = response?.body;
+    if (data != null) {
+      var responseBody = jsonDecode(data);
+      if (!responseBody["twoFactor"]) {
+        ManageLoginCookie.manageLoginCookieTwoFactorFalse(response);
+      } else {
+        ManageLoginCookie.manageLoginCookieTwoFactorTrue(response);
+      }
+    }
   }
 }

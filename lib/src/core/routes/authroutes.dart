@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/auth/login/google_login.dart';
 import 'package:paurakhi/src/app/screens/auth/login/login_screen.dart';
+import 'package:paurakhi/src/app/screens/auth/login/otp.dart';
 import 'package:paurakhi/src/app/screens/auth/register/register.dart';
 
 class AuthRoutes {
@@ -16,7 +17,10 @@ class AuthRoutes {
     Get.offAll(const GoogleSignin());
   }
 
-  static void categoryRoute() {}
+  static void otpRoute(url) {
+    Get.offAll(OTPScreen(url:url));
+  }
+
   static void agricultureRoute() {}
   static void ticketRoute() {}
   static void ticketHistoryRoute() {}

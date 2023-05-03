@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/core/API/otp/otpconfirm.dart';
+import 'package:paurakhi/src/core/countdowntimer/countdowntimer.dart';
 import 'package:pinput/pinput.dart';
 
 // ignore: must_be_immutable
 class OTPScreen extends StatelessWidget {
-  OTPScreen({super.key});
+  OTPScreen({super.key, required this.url});
+  String url;
   String verifypin = "";
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class OTPScreen extends StatelessWidget {
                   const Text("Please Check your SMS for the OTP", style: TextStyle(fontSize: 17), textAlign: TextAlign.center),
                   const SizedBox(height: 30),
                   Pinput(
-                    length: 6,
+                    length: 4,
                     showCursor: true,
                     onCompleted: (pin) => verifypin = pin,
                   ),
@@ -41,11 +44,7 @@ class OTPScreen extends StatelessWidget {
                   Row(
                     children: [
                       const Text("Didn't received OTP? ", style: TextStyle(fontSize: 14), textAlign: TextAlign.center),
-                      TextButton(
-                          onPressed: () {},
-                          child: const Text("Request again",
-                              style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 0, 81, 194)), textAlign: TextAlign.center)),
-                      const Text("in 24s ", style: TextStyle(fontSize: 14), textAlign: TextAlign.center),
+                      CoutDownTimerManager.coutDownTimer(),
                     ],
                   ),
                   const SizedBox(
@@ -57,19 +56,20 @@ class OTPScreen extends StatelessWidget {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green.shade600, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                        onPressed: () async {},
+                        onPressed: () async {
+                          ConfirmOTP.confirmOtp(verifypin);
+                        },
                         child: const Text("Continue")),
                   ),
                   const SizedBox(height: 70),
-                  
                 ],
               ),
             ),
           ),
           Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Image.asset('assets/images/design.png', fit: BoxFit.cover),
-                  ),
+            alignment: Alignment.bottomCenter,
+            child: Image.asset('assets/images/design.png', fit: BoxFit.cover),
+          ),
         ]),
       ),
     );

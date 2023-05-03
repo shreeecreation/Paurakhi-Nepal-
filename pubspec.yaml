@@ -31,12 +31,10 @@ dependencies:
   #state management
   provider: ^6.0.5
 
-  #encryption tool to store the cookies 
-  flutter_secure_storage: ^8.0.0
-  
   cupertino_icons: ^1.0.2
-  dio: ^5.1.1
   http: ^0.13.6
+
+  shared_preferences: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -47,20 +45,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/
+    - assets/images/  
     - .env
     - .env.production
     - .env.development
-  #   - images/a_dot_ham.jpeg
-
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
