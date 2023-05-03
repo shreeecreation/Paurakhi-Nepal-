@@ -147,8 +147,14 @@ void loginFunction(formKey, phoneNo, password, context) async {
       var responseBody = jsonDecode(data);
       if (!responseBody["twoFactor"]) {
         ManageLoginCookie.manageLoginCookieTwoFactorFalse(response);
+        phoneNo.text = "";
+        password.text = "";
       } else {
         ManageLoginCookie.manageLoginCookieTwoFactorTrue(response);
+        phoneNo.text = "";
+        password.text = "";
+
+
       }
     }
   }
