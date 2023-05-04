@@ -9,21 +9,24 @@ class LoginAPI {
     final url = Uri.parse('${Environment.apiUrl}/auth/user/login'); // Replace with your API endpoint URL
 
     final data = {'phoneNumber': phoneNo, 'password': password};
-
-    final response = await http.post(
-      url,
-      body: jsonEncode(data),
-      headers: {'Content-Type': 'application/json'}, // Replace with your headers if needed
-    );
-    print(response.headers);
-    var code = response.statusCode;
-    if (code >= 200 && code < 300) {
-      return response;
-    } else if (code == 400) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        LoginDialogs().showIncorrectPassword(context);
-      });
-    } else if (code == 500) {}
+    try {
+      final response = await http.post(
+        url,
+        body: jsonEncode(data),
+        headers: {'Content-Type': 'application/json'}, // Replace with your headers if needed
+      );
+      var code = response.statusCode;
+      if (code >= 200 && code < 300) {
+        return response;
+      } else if (code == 400) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          LoginDialogs().showIncorrectPassword(context);
+        });
+      } else if (code == 500) {}
+      return null;
+    } catch (e) {
+      print("Error");
+    }
     return null;
   }
 }

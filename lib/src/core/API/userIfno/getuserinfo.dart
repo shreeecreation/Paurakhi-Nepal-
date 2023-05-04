@@ -6,11 +6,15 @@ class GetUserInfo {
   static Future<void> getUserInfo() async {
     var cookie = await ManageCookie.getCookie();
     print(cookie);
-    final response = await http.get(
-      Uri.parse('${Environment.apiUrl}/user/get-profile'),
-      headers: {'Cookie': cookie}, // Replace with your headers if needed
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('${Environment.apiUrl}/user/get-profile'),
+        headers: {'Cookie': cookie}, // Replace with your headers if needed
+      );
 
-    print(response.body);
+      print(response.body);
+    } catch (e) {
+      print("Error");
+    }
   }
 }
