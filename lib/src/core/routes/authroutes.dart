@@ -18,7 +18,11 @@ class AuthRoutes {
   }
 
   static void otpRoute(url) {
-    Get.offAll(OTPScreen(url:url));
+    Get.offAll(OTPScreen(url: url));
+  }
+
+  static void googleAuthFieldRoute() {
+    Get.offAll(const GoogleSignin());
   }
 
   static void agricultureRoute() {}

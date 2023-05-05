@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managelogincookie.dart';
+import 'package:paurakhi/src/core/API/GoogleAuthAPI/googleauthapi.dart';
+import 'package:paurakhi/src/core/API/GoogleAuthAPI/googleauthscreen.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
@@ -112,7 +115,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       "http://pngimg.com/uploads/google/google_PNG19635.png",
                       height: 30,
                     ),
-                    const Text("Login with Google ")
+                    TextButton(
+                        onPressed: () async {
+                          //TODO goole auth
+                          var response = await GoogleAuthAPI.googleAuthAPI();
+
+                          var data = response?.body;
+                          if (data != null) {
+                            var responseBody = jsonDecode(data);
+                            Get.to(ChooseGooleAccountScreen(authUrl: responseBody["redirect_url"]));
+                          }
+                        },
+                        child: const Text("Login with Google "))
                   ]),
                   const SizedBox(height: 5),
                   Row(
@@ -153,8 +167,6 @@ void loginFunction(formKey, phoneNo, password, context) async {
         ManageLoginCookie.manageLoginCookieTwoFactorTrue(response);
         phoneNo.text = "";
         password.text = "";
-
-
       }
     }
   }

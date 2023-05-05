@@ -184,7 +184,7 @@ class _CreateScreenState extends State<CreateScreen> {
                 var data = response?.body;
                 if (data != null) {
                   var responseBody = jsonDecode(data);
-                  print(responseBody);
+                  AuthRoutes.loginRoute();
                 }
               }
             },
