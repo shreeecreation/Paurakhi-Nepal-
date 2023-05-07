@@ -21,9 +21,7 @@ class HomeScreen extends StatelessWidget {
           child: SizedBox(
               child: Column(children: [
             // ---------------------------------------------------------------------Search Widget
-            searchWidget(
-              context,scaffoldKey
-            ),
+            searchWidget(context, scaffoldKey),
             const SizedBox(height: 24),
 
             // ----------------------------------------------------------------------User widget
@@ -103,6 +101,11 @@ class HomeScreen extends StatelessWidget {
 
 //TODO User Widget manage
   Widget userWidget(BuildContext context, String userName, scaffoldkey) {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(value: "Sell", child: Text("Sell", style: AppStyles.text16PxBold)),
+      DropdownMenuItem(value: "Request", child: Text("Request", style: AppStyles.text16PxBold)),
+    ];
+    String? selectedValue = "Sell";
     return SizedBox(
         height: 50,
         width: MediaQuery.of(context).size.width,
@@ -114,12 +117,32 @@ class HomeScreen extends StatelessWidget {
               Image.asset("assets/images/nepalflag.png", scale: 5)
             ],
           ),
-          const SizedBox(width: 20),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), backgroundColor: const Color(0xFF34A853), elevation: 0),
-              onPressed: () {},
-              child: const Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [Text("Sell"), Icon(Icons.arrow_drop_down)]))
+          const SizedBox(width: 5),
+          Center(
+            child: SizedBox(
+              height: 50,
+              width: 115,
+              child: DropdownButtonFormField(
+                  itemHeight: 50,
+                  style: AppStyles.text14PxSemiBold,
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    filled: true,
+                    fillColor: Colors.green,
+                  ),
+                  iconEnabledColor: Colors.white,
+                  validator: (value) => value == null ? "Sell" : null,
+                  dropdownColor: const Color.fromARGB(255, 57, 115, 48),
+                  value: selectedValue,
+                  onChanged: (String? newValue) {
+                    selectedValue = newValue!;
+                  },
+                  items: menuItems),
+            ),
+          ),
         ]));
   }
 }

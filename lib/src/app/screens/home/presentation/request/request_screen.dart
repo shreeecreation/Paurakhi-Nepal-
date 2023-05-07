@@ -8,16 +8,12 @@ void requestBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(30.0),
-        topRight: Radius.circular(30.0),
-      ),
+      borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
     ),
     builder: (BuildContext context) {
       return ClipRRect(
         borderRadius: const BorderRadius.only(topLeft: Radius.circular(50.0), topRight: Radius.circular(50.0)),
         child: Container(
-
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -66,7 +62,8 @@ void requestBottomSheet(BuildContext context) {
                                         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
                                     child: Text("Request ", style: AppStyles.text16Px)))),
                         const SizedBox(width: 10)
-                      ])
+                      ]),
+                      const SizedBox(height: 30),
                     ],
                   ),
                 ),

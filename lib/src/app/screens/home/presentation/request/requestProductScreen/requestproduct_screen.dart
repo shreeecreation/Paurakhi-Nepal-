@@ -23,16 +23,16 @@ void requestProduct(BuildContext context) {
       return Padding(
         padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height / 1.2,
+            height: MediaQuery.of(context).size.height / 1.5,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(50.0),
                 topRight: Radius.circular(50.0),
               ),
-              child: Container(
+              child: SizedBox(
                   height: MediaQuery.of(context).size.height,
-                  color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
@@ -55,13 +55,16 @@ void requestProduct(BuildContext context) {
                         addRequestTitle(context),
                         const SizedBox(height: 5),
                         addProductDescripttion(context),
+                        const SizedBox(height: 10),
                         Center(
                           child: SizedBox(
                               height: 50,
                               width: MediaQuery.of(context).size.width - 50,
                               child: ElevatedButton(
                                   onPressed: () {
-                                    // addProduct(context);
+                                    //TODO request screen
+
+                                    // RequestProductAPI.sellProduct();
                                   },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: const Color(0xFF34A853),

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/core/API/SellScreenAPI/sell_product_api.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+
+import 'addtag.dart';
+import 'model/product_model.dart';
 
 void addProduct(BuildContext context) {
   String? selectedValue = "Farming Product";
@@ -23,20 +27,18 @@ void addProduct(BuildContext context) {
       return Padding(
         padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(50.0),
                 topRight: Radius.circular(50.0),
               ),
               child: Container(
-                  height: MediaQuery.of(context).size.height / 1.5,
                   color: const Color(0xFFF4FBF3),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 1.5,
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,8 +91,8 @@ void addProduct(BuildContext context) {
                           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
                           title: Text("Type to add more tags ...", style: AppStyles.text14PxBold),
                           trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
-                          onTap: () {
-                            // quotationBottomSheet(context);
+                          onTap: () async {
+                            final tags = await TagGenerator.showTagDialog(context);
                           },
                         ),
                         const SizedBox(height: 10),
@@ -100,13 +102,17 @@ void addProduct(BuildContext context) {
                               width: MediaQuery.of(context).size.width - 50,
                               child: ElevatedButton(
                                   onPressed: () {
-                                    // addProduct(context);
+                                    //TODO add product function
+
+                                    // RequestProductModel model = RequestProductModel();
+                                    // SellProductAPI.sellProduct(model);
                                   },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: const Color(0xFF34A853),
                                       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
                                   child: Text("Add Product", style: AppStyles.text16Px))),
-                        )
+                        ),
+                        const SizedBox(height: 30),
                       ]),
                     ),
                   )),
