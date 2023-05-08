@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/API/SellScreenAPI/sell_product_api.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+import 'package:paurakhi/src/core/utils/addmultipleimage.dart';
 
 import 'addtag.dart';
+import 'domain/dropdown.dart';
+import 'domain/tag.dart';
 import 'model/product_model.dart';
 
 void addProduct(BuildContext context) {
-  String? selectedValue = "Farming Product";
-  List<DropdownMenuItem<String>> menuItems = [
-    const DropdownMenuItem(value: "Farming Product", child: Text("Farming Product")),
-    const DropdownMenuItem(value: "Canada", child: Text("Canada")),
-    const DropdownMenuItem(value: "Brazil", child: Text("Brazil")),
-    const DropdownMenuItem(value: "England", child: Text("England")),
-  ];
-
+  TextEditingController productTitleController = TextEditingController();
+  TextEditingController productPriceController = TextEditingController();
+  TextEditingController minQtyController = TextEditingController();
+  TextEditingController productDescriptionController = TextEditingController();
+  String selectedValIndex = "";
 // modal bottom sheet go up with the keyboard appears
   showModalBottomSheet(
     context: context,
@@ -43,7 +43,7 @@ void addProduct(BuildContext context) {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("  Add Product", style: AppStyles.text20PxBold),
+                            Text("  Sell Product", style: AppStyles.text20PxBold),
                             Flexible(
                                 child: IconButton(
                                     onPressed: () {
@@ -54,16 +54,39 @@ void addProduct(BuildContext context) {
                         ),
                         Row(
                           children: [
-                            dropdownButton(context, selectedValue, menuItems),
                             const SizedBox(width: 5),
-                            Container(
-                                height: 55,
-                                width: 50,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFFFFFFF),
-                                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                                ),
-                                child: const Icon(Icons.image_rounded, color: Color(0xFF34A853)))
+                            FutureBuilder<List<DropdownMenuItem<String>>>(
+                              future: DropdownList.returnDropdown(),
+                              builder: (context, snapshot) {
+                                List<DropdownMenuItem<String>>? menuItems = snapshot.data;
+                                if (menuItems != null) {
+                                  return dropdownButton(context, "1", menuItems, selectedValIndex);
+                                } else {
+                                  return const CircularProgressIndicator();
+                                }
+                              },
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                const SizedBox(height: 5),
+                                Container(
+                                    height: 55,
+                                    width: 50,
+                                    decoration: const BoxDecoration(
+                                      color: Color(0xFFFFFFFF),
+                                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                                    ),
+                                    child: IconButton(
+                                        icon: const Icon(Icons.image_rounded),
+                                        onPressed: () {
+                                          int length = 0;
+                                          MultipleImageChooser.pickImages(length);
+                                        },
+                                        color: const Color(0xFF34A853))),
+                                const Text(""),
+                              ],
+                            )
                           ],
                         ),
                         const SizedBox(height: 5),
@@ -104,13 +127,21 @@ void addProduct(BuildContext context) {
                                   onPressed: () {
                                     //TODO add product function
 
-                                    // RequestProductModel model = RequestProductModel();
-                                    // SellProductAPI.sellProduct(model);
+                                    SellProductModel model = SellProductModel(
+                                        productTitleController.text,
+                                        "request",
+                                        productDescriptionController.text,
+                                        Tag.allTag,
+                                        int.parse(selectedValIndex),
+                                        MultipleImageChooser.images,
+                                        int.parse(minQtyController.text),
+                                        int.parse(productPriceController.text));
+                                    SellProductAPI.sellProduct(model);
                                   },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: const Color(0xFF34A853),
                                       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                  child: Text("Add Product", style: AppStyles.text16Px))),
+                                  child: Text("Sell Product", style: AppStyles.text16Px))),
                         ),
                         const SizedBox(height: 30),
                       ]),
@@ -124,7 +155,7 @@ void addProduct(BuildContext context) {
   );
 }
 
-Center dropdownButton(BuildContext context, String? selectedValue, List<DropdownMenuItem<String>> menuItems) {
+Center dropdownButton(BuildContext context, String? selectedValue, List<DropdownMenuItem<String>> menuItems, selectedValIndex) {
   return Center(
     child: SizedBox(
       height: 60,
@@ -146,6 +177,7 @@ Center dropdownButton(BuildContext context, String? selectedValue, List<Dropdown
           dropdownColor: const Color(0xFFFFFFFF),
           value: selectedValue,
           onChanged: (String? newValue) {
+            selectedValIndex = menuItems.indexWhere((item) => item.value == newValue);
             selectedValue = newValue!;
           },
           items: menuItems),

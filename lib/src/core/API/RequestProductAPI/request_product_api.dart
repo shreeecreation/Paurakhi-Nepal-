@@ -18,12 +18,8 @@ class RequestProductAPI {
       );
       if (response.statusCode == 200) {
         return response;
-      } else {
-        print('Failed to post data.');
-      }
-    } catch (e) {
-      print(e);
-    }
+      } else {}
+    } catch (e) {}
     return null;
   }
 }

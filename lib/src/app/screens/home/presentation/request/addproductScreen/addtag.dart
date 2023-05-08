@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'domain/tag.dart';
+
 class TagGenerator {
   static Future<Future<List<String>?>> showTagDialog(BuildContext context) async {
     final List<String> tags = [];
@@ -17,7 +19,7 @@ class TagGenerator {
                   ...tags.map((tag) {
                     return InputChip(
                       label: Text(tag),
-                      onDeleted: () { 
+                      onDeleted: () {
                         setState(() {
                           tags.remove(tag);
                         });
@@ -51,6 +53,8 @@ class TagGenerator {
                                     final String tag = controller.text.trim();
                                     if (tag.isNotEmpty) {
                                       tags.add(tag);
+                                      Tag.allTag.add(tag);
+                                      print(Tag.allTag);
                                     }
                                     Navigator.pop(context);
                                   });
