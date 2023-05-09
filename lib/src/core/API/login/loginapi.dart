@@ -15,7 +15,7 @@ class LoginAPI {
         body: jsonEncode(data),
         headers: {'Content-Type': 'application/json'}, // Replace with your headers if needed
       );
-      var code = response.statusCode;
+      var code = response.statusCode; 
       if (code >= 200 && code < 300) {
         return response;
       } else if (code == 400) {
@@ -25,7 +25,7 @@ class LoginAPI {
       } else if (code == 500) {}
       return null;
     } catch (e) {
-      print("Error");
+      print(e);
     }
     return null;
   }

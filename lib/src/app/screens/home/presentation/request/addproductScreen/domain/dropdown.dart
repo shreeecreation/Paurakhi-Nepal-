@@ -7,4 +7,9 @@ class DropdownList {
     List<DropdownMenuItem<String>> list = await DropDownAPI.dropdownAPI();
     return list;
   }
+
+  static Future<List<String>> returnCatergory() async {
+    List<String> list = await DropDownAPI.categoryAPI();
+    return list;
+  }
 }

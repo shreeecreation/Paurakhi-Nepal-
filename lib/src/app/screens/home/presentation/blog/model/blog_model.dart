@@ -1,1 +1,5 @@
-class BlogModel {}
+class CreateBlogModel {}
+
+class EditBlogModel {}
+
+class GetBlogModel {}

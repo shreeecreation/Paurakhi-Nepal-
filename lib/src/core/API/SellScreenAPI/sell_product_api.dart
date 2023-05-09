@@ -13,7 +13,7 @@ class SellProductAPI {
 
     try {
       final response = await http.post(
-        Uri.parse('${Environment.apiUrl}/${AllAPIEndPoint.createCategory}'),
+        Uri.parse('${Environment.apiUrl}${AllAPIEndPoint.createCategory}'),
         headers: {'Cookie': cookie}, // Replace with your headers if needed
         body: json.encode(requestModel.toMap()),
       );

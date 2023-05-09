@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown_api.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 
 import 'all.dart';
 
@@ -11,79 +15,65 @@ class Tabbar extends StatefulWidget {
 
 class _TabbarState extends State<Tabbar> with SingleTickerProviderStateMixin {
   TabController? _tabController;
+  int tabBarLength = 0;
   @override
   void initState() {
-    _tabController = TabController(length: 5, vsync: this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: TabBar(
-                isScrollable: true,
-                labelPadding: const EdgeInsets.symmetric(horizontal: 20),
-                unselectedLabelColor: Colors.black,
-                labelColor: Colors.white,
-                splashBorderRadius: BorderRadius.circular(20),
-                indicator: ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
-                tabs: const [
-                  Tab(
-                    child: Text("All"),
+    return BlocBuilder<TabBlocBloc, TabBlocState>(
+      builder: (context, state) {
+        if (state is TabBlocInitial) {
+          var a = DropDownAPI.categoryAPI();
+          a.then((value) {
+            tabBarLength = value.length;
+            _tabController = TabController(length: tabBarLength, vsync: this);
+            BlocProvider.of<TabBlocBloc>(context).add(GetTabLengthEvent());
+          });
+        }
+
+        if (state is GetTabLengthState) {
+          return SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: FutureBuilder<List<String>>(
+                        future: DropdownList.returnCatergory(),
+                        builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+                          if (snapshot.hasData) {
+                            final List<String> tabTextList = snapshot.data!;
+                            return TabBar(
+                              isScrollable: true,
+                              labelPadding: const EdgeInsets.symmetric(horizontal: 10),
+                              unselectedLabelColor: Colors.black,
+                              labelColor: Colors.white,
+                              splashBorderRadius: BorderRadius.circular(20),
+                              indicator: ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
+                              tabs: tabTextList.map((tabText) => Tab(child: Text(tabText))).toList(),
+                              controller: _tabController,
+                              indicatorSize: TabBarIndicatorSize.tab,
+                            );
+                          } else {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                        }),
                   ),
-                  Tab(
-                    child: Text("Grants"),
-                  ),
-                  Tab(
-                    child: Text("Products"),
-                  ),
-                  Tab(
-                    child: Text("Finance"),
-                  ),
-                  Tab(
-                    child: Text("Tools"),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: List.generate(tabBarLength, (index) => const All()),
+                    ),
                   ),
                 ],
-                controller: _tabController,
-                indicatorSize: TabBarIndicatorSize.tab,
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 2,
-              child: TabBarView(
-                controller: _tabController,
-                children: const [
-                  All(),
-                  All(),
-                  All(),
-                  All(),
-                  All(),
-                ],
-              ),
-            ),
-          ],
-        ));
+              ));
+        }
+        return const CircularProgressIndicator();
+      },
+    );
   }
 }
-
-
-      //  SizedBox(
-      //       height: 40,
-      //       width: 85,
-      //       child: Padding(
-      //           padding: const EdgeInsets.only(top: 2.0, left: 2.0, right: 2.0),
-      //           child: ElevatedButton(
-      //               onPressed: null,
-      //               style: ElevatedButton.styleFrom(
-      //                   disabledBackgroundColor: Colors.transparent,
-      //                   elevation: 0,
-      //                   shape: RoundedRectangleBorder(
-      //                       borderRadius: BorderRadius.circular(7), side: const BorderSide(color: Color(0xFFBDBDBD), width: 1.5)),
-      //                   backgroundColor: Colors.white),
-      //               child: const Text('Finance'))),
-      //     ),

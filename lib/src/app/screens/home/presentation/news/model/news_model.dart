@@ -1,3 +1,1 @@
-class NewsModel{
-  
-}
+class NewsModel {}
