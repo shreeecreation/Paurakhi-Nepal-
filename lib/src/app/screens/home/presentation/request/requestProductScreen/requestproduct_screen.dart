@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 void requestProduct(BuildContext context) {
-  String? selectedValue = "Farming Product";
-  List<DropdownMenuItem<String>> menuItems = [
-    const DropdownMenuItem(value: "Farming Product", child: Text("Farming Product")),
-    const DropdownMenuItem(value: "Canada", child: Text("Canada")),
-    const DropdownMenuItem(value: "Brazil", child: Text("Brazil")),
-    const DropdownMenuItem(value: "England", child: Text("England")),
-  ];
+  String selectedValIndex = "";
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  GlobalKey<FormState> formKeyRequestProduct = GlobalKey<FormState>();
 
 // modal bottom sheet go up with the keyboard appears
   showModalBottomSheet(
@@ -31,49 +31,62 @@ void requestProduct(BuildContext context) {
                 topLeft: Radius.circular(50.0),
                 topRight: Radius.circular(50.0),
               ),
-              child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 1.5,
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("  Request Product", style: AppStyles.text20PxBold),
-                            Flexible(
-                                child: IconButton(
+              child: Form(
+                key: formKeyRequestProduct,
+                child: SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.5,
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("  Request Product", style: AppStyles.text20PxBold),
+                              Flexible(
+                                  child: IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: const Icon(Icons.close))),
+                            ],
+                          ),
+                          FutureBuilder<List<DropdownMenuItem<String>>>(
+                            future: DropdownList.returnDropdown(),
+                            builder: (context, snapshot) {
+                              List<DropdownMenuItem<String>>? menuItems = snapshot.data;
+                              if (menuItems != null) {
+                                return DropdownList.dropdownButton(context, "1", menuItems, selectedValIndex);
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            },
+                          ),
+                          const SizedBox(height: 5),
+                          addRequestTitle(context, titleController),
+                          const SizedBox(height: 5),
+                          addProductDescripttion(context, descriptionController),
+                          const SizedBox(height: 10),
+                          Center(
+                            child: SizedBox(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width - 50,
+                                child: ElevatedButton(
                                     onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    icon: const Icon(Icons.close))),
-                          ],
-                        ),
-                        dropdownButton(context, selectedValue, menuItems),
-                        const SizedBox(height: 5),
-                        addRequestTitle(context),
-                        const SizedBox(height: 5),
-                        addProductDescripttion(context),
-                        const SizedBox(height: 10),
-                        Center(
-                          child: SizedBox(
-                              height: 50,
-                              width: MediaQuery.of(context).size.width - 50,
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    //TODO request screen
+                                      //TODO request screen
 
-                                    // RequestProductAPI.sellProduct();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(0xFF34A853),
-                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                  child: Text("Request Product", style: AppStyles.text16Px))),
-                        )
-                      ]),
-                    ),
-                  )),
+                                      // RequestProductAPI.sellProduct();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color(0xFF34A853),
+                                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+                                    child: Text("Request Product", style: AppStyles.text16Px))),
+                          )
+                        ]),
+                      ),
+                    )),
+              ),
             ),
           ),
         ),
@@ -82,41 +95,17 @@ void requestProduct(BuildContext context) {
   );
 }
 
-Center dropdownButton(BuildContext context, String? selectedValue, List<DropdownMenuItem<String>> menuItems) {
-  return Center(
-    child: SizedBox(
-      height: 60,
-      width: MediaQuery.of(context).size.width - 20,
-      child: DropdownButtonFormField(
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Color(0x00ffffff), width: 2),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            border: OutlineInputBorder(
-              borderSide: const BorderSide(color: Color(0x00ffffff), width: 2),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            filled: true,
-            fillColor: const Color(0xFFFFFFFF),
-          ),
-          validator: (value) => value == null ? "Farming Product" : null,
-          dropdownColor: const Color(0xFFFFFFFF),
-          value: selectedValue,
-          onChanged: (String? newValue) {
-            selectedValue = newValue!;
-          },
-          items: menuItems),
-    ),
-  );
-}
-
-Padding addRequestTitle(BuildContext context) {
+Padding addRequestTitle(BuildContext context, controller) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: SizedBox(
       width: MediaQuery.of(context).size.width - 30,
-      child: TextField(
+      child: TextFormField(
+        controller: controller,
+        validator: (val) {
+          if (!ExtString.validateFirstName(val!)) return " Enter a valid Product Title";
+          return null;
+        },
         decoration: InputDecoration(
           filled: true,
           fillColor: const Color(0xFFFFFFFF),
@@ -131,12 +120,17 @@ Padding addRequestTitle(BuildContext context) {
   );
 }
 
-Padding addProductDescripttion(BuildContext context) {
+Padding addProductDescripttion(BuildContext context, controller) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: SizedBox(
       width: MediaQuery.of(context).size.width - 30,
-      child: TextField(
+      child: TextFormField(
+        validator: (val) {
+          if (!ExtString.validateFirstName(val!)) return " Enter some more product description";
+          return null;
+        },
+        controller: controller,
         maxLines: 5,
         decoration: InputDecoration(
           filled: true,

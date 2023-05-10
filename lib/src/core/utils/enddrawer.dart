@@ -36,12 +36,6 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("Home", style: textStyle),
-            onTap: () {
-              //action on press
-            },
-          ),
-          ListTile(
             title: Text("News", style: textStyle),
             onTap: () {
               //action on press
@@ -49,49 +43,34 @@ class EndDrawer extends StatelessWidget {
               Scaffold.of(context).closeEndDrawer();
             },
           ),
-          SafeArea(
-              child: Column(
-            children: [
-              ExpansionTile(
-                title: Text("Category ", style: textStyle),
-                childrenPadding: const EdgeInsets.only(left: 60), //children padding
-                children: [
-                  ListTile(
-                    title: Text("Finance", style: textStyle),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    title: Text("Grants", style: textStyle),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    title: Text("Products", style: textStyle),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    title: Text("Tools", style: textStyle),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    title: Text("Trending", style: textStyle),
-                    onTap: () {},
-                  ),
-                ],
-              ),
-              ListTile(
-                title: Text("Agriculture Value Chain", style: textStyle),
-                onTap: () {},
-              ),
-              ListTile(
-                title: Text("Open Ticket", style: textStyle),
-                onTap: () {},
-              ),
-              ListTile(
-                title: Text("Ticket History", style: textStyle),
-                onTap: () {},
-              ),
-            ],
-          )),
+          ListTile(
+            title: Text("Finance", style: textStyle),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text("Grants", style: textStyle),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text("Products", style: textStyle),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text("Tools", style: textStyle),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text("Trending", style: textStyle),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text("Open Ticket", style: textStyle),
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text("Ticket History", style: textStyle),
+            onTap: () {},
+          ),
         ]),
       ),
     ));

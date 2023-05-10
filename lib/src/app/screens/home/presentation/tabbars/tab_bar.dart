@@ -5,6 +5,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScr
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_model.dart';
+import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 import 'all.dart';
 
@@ -15,7 +16,7 @@ class Tabbar extends StatefulWidget {
   State<Tabbar> createState() => _TabbarState();
 }
 
-class _TabbarState extends State<Tabbar> with TickerProviderStateMixin  {
+class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
   TabController? _tabController;
   int tabBarLength = 0;
   @override
@@ -56,16 +57,20 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin  {
                           GetProductAPI.getProduct(model);
                           if (snapshot.hasData) {
                             final List<String> tabTextList = snapshot.data!;
-                            return TabBar(
-                              isScrollable: true,
-                              labelPadding: const EdgeInsets.symmetric(horizontal: 10),
-                              unselectedLabelColor: Colors.black,
-                              labelColor: Colors.white,
-                              splashBorderRadius: BorderRadius.circular(20),
-                              indicator: ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
-                              tabs: tabTextList.map((tabText) => Tab(child: Text(tabText))).toList(),
-                              controller: _tabController,
-                              indicatorSize: TabBarIndicatorSize.tab,
+                            return Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: TabBar(
+                                isScrollable: true,
+                                labelPadding: const EdgeInsets.symmetric(horizontal: 10),
+                                unselectedLabelColor: Colors.black,
+                                labelColor: Colors.white,
+                                splashBorderRadius: BorderRadius.circular(20),
+                                indicator:
+                                    ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
+                                tabs: tabTextList.map((tabText) => Tab(child: Text(tabText, style: AppStyles.text14PxMedium))).toList(),
+                                controller: _tabController,
+                                indicatorSize: TabBarIndicatorSize.tab,
+                              ),
                             );
                           } else {
                             return const Center(child: CircularProgressIndicator());

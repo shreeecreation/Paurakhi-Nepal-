@@ -3,7 +3,7 @@ import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
 
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+final GlobalKey<ScaffoldState> _scaffoldKeyNews = GlobalKey<ScaffoldState>();
 
 class NewsScreen extends StatelessWidget {
   const NewsScreen({super.key});
@@ -12,13 +12,13 @@ class NewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         endDrawerEnableOpenDragGesture: true, // This!
-        key: _scaffoldKey,
+        key: _scaffoldKeyNews,
         endDrawer: const EndDrawer(),
         body: SingleChildScrollView(
             child: SizedBox(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           // ---------------------------------------------------------------------Search Widget
-          searchWidget(context, _scaffoldKey),
+          searchWidget(context, _scaffoldKeyNews),
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.only(left: 12.0),

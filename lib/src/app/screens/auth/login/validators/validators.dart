@@ -18,6 +18,14 @@ extension ExtString on String {
     final RegExp regex = RegExp(r'^.{4,}$');
     return regex.hasMatch(input);
   }
+   static bool validateProductPrice(String input) {
+    final RegExp regex =  RegExp(r'\d+(?:\.\d+)?');
+    return regex.hasMatch(input);
+  }
+  static bool validateMinQty(String input) {
+    final RegExp regex =  RegExp(r'\d+(?:\.\d+)?');
+    return regex.hasMatch(input);
+  }
 
   static bool isEmailValid(String email) {
     // email validation pattern

@@ -3,7 +3,7 @@ import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
 
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+final GlobalKey<ScaffoldState> _scaffoldKeyBlog = GlobalKey<ScaffoldState>();
 
 class BlogScreen extends StatelessWidget {
   const BlogScreen({super.key});
@@ -12,13 +12,13 @@ class BlogScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         endDrawerEnableOpenDragGesture: true, // This!
-        key: _scaffoldKey,
+        key: _scaffoldKeyBlog,
         endDrawer: const EndDrawer(),
         body: SingleChildScrollView(
             child: SizedBox(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           // ---------------------------------------------------------------------Search Widget
-          searchWidget(context, _scaffoldKey),
+          searchWidget(context, _scaffoldKeyBlog),
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.only(left: 12.0),
