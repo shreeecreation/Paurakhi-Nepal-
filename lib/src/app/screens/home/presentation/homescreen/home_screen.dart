@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/main.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/tab_bar.dart';
+import 'package:paurakhi/src/app/screens/search/bloc/search_bloc.dart';
+import 'package:paurakhi/src/app/screens/search/search_functionality.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
@@ -13,27 +16,39 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     String userName = "कुशल काफ्ले";
     Map<String, String> myMap = {'Listings': '7120+', 'Users': '7120+', 'Grant Proceded': '7120+', 'Loan Passed': '7120+'};
+
     return Scaffold(
         endDrawerEnableOpenDragGesture: true, // This!
         key: scaffoldKey,
         endDrawer: const EndDrawer(),
-        body: SingleChildScrollView(
-          child: SizedBox(
-              child: Column(children: [
-            // ---------------------------------------------------------------------Search Widget
-            searchWidget(context, scaffoldKey),
-            const SizedBox(height: 24),
+        body: BlocBuilder<SearchBloc, SearchState>(
+          builder: (context, state) {
+            if (state is SearchInitialState) {
+              return SingleChildScrollView(
+                child: SizedBox(
+                    child: Column(children: [
+                  // ---------------------------------------------------------------------Search Widget
+                  searchWidget(context, scaffoldKey),
+                  const SizedBox(height: 24),
 
-            // ----------------------------------------------------------------------User widget
-            userWidget(context, userName, scaffoldKey),
+                  // ----------------------------------------------------------------------User widget
+                  userWidget(context, userName, scaffoldKey),
 
-            // ----------------------------------------------------------------------GridView Widget
-            gridViewWidget(context, myMap),
+                  // ----------------------------------------------------------------------GridView Widget
+                  gridViewWidget(context, myMap),
 
-            SizedBox(width: MediaQuery.of(context).size.width / 1.3, child: const Divider(thickness: 2, color: Color(0xFFE0E0E0))),
+                  SizedBox(width: MediaQuery.of(context).size.width / 1.3, child: const Divider(thickness: 2, color: Color(0xFFE0E0E0))),
 
-            const Tabbar(),
-          ])),
+                  const Tabbar(),
+                ])),
+              );
+            }
+
+            if (state is SearchStartState) {
+              return const SearchFunctionality();
+            }
+            return const CircularProgressIndicator();
+          },
         ));
   }
 
@@ -68,6 +83,7 @@ class HomeScreen extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             itemCount: myMap.length,
                             itemBuilder: (BuildContext context, int index) {
+                              
                               return GestureDetector(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 2),

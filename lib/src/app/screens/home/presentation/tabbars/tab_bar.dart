@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown_api.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
+import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
+import 'package:paurakhi/src/core/API/GetProductAPI/get_product_model.dart';
 
 import 'all.dart';
 
@@ -13,12 +15,14 @@ class Tabbar extends StatefulWidget {
   State<Tabbar> createState() => _TabbarState();
 }
 
-class _TabbarState extends State<Tabbar> with SingleTickerProviderStateMixin {
+class _TabbarState extends State<Tabbar> with TickerProviderStateMixin  {
   TabController? _tabController;
   int tabBarLength = 0;
   @override
-  void initState() {
-    super.initState();
+  void dispose() {
+    // TODO: implement dispose
+    _tabController!.dispose();
+    super.dispose();
   }
 
   @override
@@ -26,6 +30,7 @@ class _TabbarState extends State<Tabbar> with SingleTickerProviderStateMixin {
     return BlocBuilder<TabBlocBloc, TabBlocState>(
       builder: (context, state) {
         if (state is TabBlocInitial) {
+          DropdownList.returnCategoryOnly();
           var a = DropDownAPI.categoryAPI();
           a.then((value) {
             tabBarLength = value.length;
@@ -44,6 +49,11 @@ class _TabbarState extends State<Tabbar> with SingleTickerProviderStateMixin {
                     child: FutureBuilder<List<String>>(
                         future: DropdownList.returnCatergory(),
                         builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+                          GetProductModel model = GetProductModel();
+                          model.page = 0;
+                          model.type = "sell";
+
+                          GetProductAPI.getProduct(model);
                           if (snapshot.hasData) {
                             final List<String> tabTextList = snapshot.data!;
                             return TabBar(

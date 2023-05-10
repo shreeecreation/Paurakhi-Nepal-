@@ -6,7 +6,9 @@ part 'tab_bloc_state.dart';
 
 class TabBlocBloc extends Bloc<TabBlocEvent, TabBlocState> {
   TabBlocBloc() : super(TabBlocInitial()) {
-    on<TabBlocEvent>((event, emit) {});
+    on<TabInitialEvent>((event, emit) {
+      emit(TabBlocInitial());
+    });
     on<GetTabLengthEvent>((event, emit) {
       emit(GetTabLengthState());
     });

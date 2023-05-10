@@ -7,6 +7,7 @@ import 'package:paurakhi/src/app/screens/auth/login/login_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'src/app/screens/home/presentation/home_page.dart';
+import 'src/app/screens/search/bloc/search_bloc.dart';
 import 'src/core/API/CheckLogin/check_login.dart';
 import 'src/core/utils/focuesnode.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<TabBlocBloc>(create: (context) => TabBlocBloc()),
+        BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
       ],
       child: GestureDetector(
         onTap: () {

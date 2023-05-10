@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/homescreen/home_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/notifications/notifications_screeen.dart';
 
 import 'profile/profile_screen.dart';
 import 'request/request_screen.dart';
+import 'tabbars/bloc/tab_bloc_bloc.dart';
 
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({super.key});
@@ -23,12 +25,15 @@ class _BottomNavigatorState extends State<BottomNavigator> {
 
   void _onItemTapped(int index) {
     setState(() {
+      BlocProvider.of<TabBlocBloc>(context).add(TabInitialEvent());
+
       if (index == 2) {
         _selectedIndex = _selectedIndex;
         requestBottomSheet(context);
       } else {
         _selectedIndex = index;
       }
+      BlocProvider.of<TabBlocBloc>(context).add(TabInitialEvent());
     });
   }
 

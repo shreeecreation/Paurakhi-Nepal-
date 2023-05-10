@@ -1,5 +1,9 @@
 class GetProductModel {
-  List tag = [];
+  int? id;
+  String? name;
+  String? type;
 
-  var image;
+  int? quantity;
+  int? category;
+  int? page;
 }
