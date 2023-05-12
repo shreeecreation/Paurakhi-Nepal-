@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/homescreen/home_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/notifications/notifications_screeen.dart';
+import 'package:paurakhi/src/core/utils/get_current_location.dart';
 
 import 'profile/profile_screen.dart';
 import 'request/request_screen.dart';
@@ -35,6 +36,17 @@ class _BottomNavigatorState extends State<BottomNavigator> {
       }
       BlocProvider.of<TabBlocBloc>(context).add(TabInitialEvent());
     });
+  }
+
+  @override
+  void initState() {
+    getLocation();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  getLocation() async {
+    await GetCurrentLocation.getCurrentPosition(context);
   }
 
   @override

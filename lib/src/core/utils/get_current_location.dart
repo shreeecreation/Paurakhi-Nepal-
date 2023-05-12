@@ -36,6 +36,8 @@ class GetCurrentLocation {
 
     if (!hasPermission) return;
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position position) {
+      currentPosition = position;
+      
       getAddressFromLatLng(currentPosition!);
     }).catchError((e) {
       debugPrint(e);
@@ -45,7 +47,7 @@ class GetCurrentLocation {
   static Future<void> getAddressFromLatLng(Position position) async {
     await placemarkFromCoordinates(currentPosition!.latitude, currentPosition!.longitude).then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
-      currentAddress = '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+      currentAddress = ' ${place.subLocality}, ${place.subAdministrativeArea},';
     }).catchError((e) {
       debugPrint(e);
     });

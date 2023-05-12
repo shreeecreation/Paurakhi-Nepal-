@@ -9,7 +9,7 @@ class ProfileModel {
 class Profile {
   static String? firstName;
   static String? lastName;
-  static String finalName = firstName! + lastName!;
+  static String finalName = "${firstName!}  ${lastName!}";
   static String? email;
   static String? address;
   static String? picture;

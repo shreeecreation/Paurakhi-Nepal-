@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
+import 'package:paurakhi/src/core/providers/location_provider.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+import 'package:paurakhi/src/core/utils/get_current_location.dart';
+import 'package:provider/provider.dart';
 
 import 'bloc/profile_bloc.dart';
 import 'changepassword.dart';
@@ -76,31 +79,14 @@ class ProfileScreen extends StatelessWidget {
           tileColor: Colors.white,
           title: const Text("Edit Profile"),
           trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
-          onTap: () {
-            editProfileDialog(context);
+          onTap: () async {
+              Provider.of<LocationProvider>(context, listen: false).changeLocation(context);
+              editProfileDialog(context);
           },
         ),
       ),
     );
   }
-}
-
-Padding editProfile(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: SizedBox(
-      width: MediaQuery.of(context).size.width - 30,
-      child: ListTile(
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-        tileColor: Colors.white,
-        title: const Text("Edit Profile"),
-        trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
-        onTap: () {
-          quotationBottomSheet(context);
-        },
-      ),
-    ),
-  );
 }
 
 Padding changePassword(BuildContext context) {

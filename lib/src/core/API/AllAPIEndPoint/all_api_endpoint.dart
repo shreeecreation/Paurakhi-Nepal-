@@ -2,6 +2,7 @@ class AllAPIEndPoint {
   static String createCategory = "/product/create-product";
   static String getCategory = "/category/get-category?";
   static String loginAPI = "/auth/user/login";
+  static String editProfileAPI = "/user/edit-profile";
   static String registerAPI = "";
   static String getUserInfoAPI = "";
   static String blogAPI = "";
