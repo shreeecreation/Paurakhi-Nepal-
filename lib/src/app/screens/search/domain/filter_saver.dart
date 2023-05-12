@@ -20,12 +20,9 @@ class FilterSaver {
       if (decoded is List) {
         List<int> numbers = decoded.map((e) => int.parse(e.toString())).toList();
         filters.filter = numbers;
-        print(numbers);
       }
     }
     filters.type = typeJson ?? 0;
-    print(filters.type);
-    print(filters.filter);
     return filters;
   }
 }

@@ -42,6 +42,9 @@ dependencies:
 
   awesome_dropdown: ^0.0.4
 
+  geolocator: ^8.2.0
+  geocoding: ^2.0.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

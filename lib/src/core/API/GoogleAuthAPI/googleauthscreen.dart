@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
+@immutable
 class ChooseGooleAccountScreen extends StatelessWidget {
   String authUrl = "";
+  
   ChooseGooleAccountScreen({Key? key, required this.authUrl}) : super(key: key);
 
   var webViewController = WebViewController()

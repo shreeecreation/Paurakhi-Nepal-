@@ -2,16 +2,18 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import 'package:http_parser/http_parser.dart'as parser ;
-
+import 'package:http_parser/http_parser.dart' as parser;
 
 import 'package:paurakhi/src/app/screens/auth/register/domain/model.dart';
+import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 
 class RegisterAPI {
   static Future<http.Response?> registerAPI(RegisterModel model) async {
     final url = Uri.parse('${Environment.apiUrl}/auth/user/register'); // Replace with your API endpoint URL
-    List<int> imageBytes = File(model.image.path).readAsBytesSync();
+    var cookie = await ManageCookie.getCookie();
+
+    List<int> imageBytes = File(model.image!.path).readAsBytesSync();
     final dataSample = {
       'phoneNumber': model.phoneNo,
       'password': model.password,
@@ -27,8 +29,13 @@ class RegisterAPI {
       request.fields['phoneNumber'] = model.phoneNo;
       request.fields['password'] = model.password;
       request.fields['email'] = model.email;
-
-      request.files.add(http.MultipartFile.fromBytes('profile', imageBytes, filename: model.image.path.split('/').last,contentType:parser.MediaType('image', 'jpeg'),));
+      request.headers['cookie'] = cookie;
+      request.files.add(http.MultipartFile.fromBytes(
+        'profile',
+        imageBytes,
+        filename: model.image!.path.split('/').last,
+        contentType: parser.MediaType('image', 'jpeg'),
+      ));
       http.Response response = await http.Response.fromStream(await request.send());
       var code = response.statusCode;
       print(response.body);

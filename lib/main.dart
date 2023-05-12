@@ -7,8 +7,10 @@ import 'package:paurakhi/src/app/screens/auth/login/login_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'src/app/screens/home/presentation/home_page.dart';
+import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
 import 'src/app/screens/search/bloc/search_bloc.dart';
 import 'src/core/API/CheckLogin/check_login.dart';
+import 'src/core/API/userIfno/getuserinfo.dart';
 import 'src/core/utils/focuesnode.dart';
 
 Future<void> main() async {
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<TabBlocBloc>(create: (context) => TabBlocBloc()),
         BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
+        BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
       ],
       child: GestureDetector(
         onTap: () {
@@ -48,6 +51,8 @@ class MyApp extends StatelessWidget {
                       // If an error occurred while fetching data, show an error message
                       return Text('Error: ${snapshot.error}');
                     } else if (snapshot.data == true) {
+                      GetUserInfo.getUserInfo();
+
                       return const HomePage();
                     } else {
                       // If the boolean value is false, show a red X

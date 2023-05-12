@@ -68,7 +68,7 @@ void addProduct(BuildContext context) {
                                 builder: (context, snapshot) {
                                   List<DropdownMenuItem<String>>? menuItems = snapshot.data;
                                   if (menuItems != null) {
-                                    return DropdownList.dropdownButton(context, "1", menuItems, selectedValIndex);
+                                    return DropdownList.dropdownButton(context, "1", menuItems);
                                   } else {
                                     return const CircularProgressIndicator();
                                   }
@@ -88,10 +88,7 @@ void addProduct(BuildContext context) {
                                         try {
                                           int length = 0;
                                           images = (await MultipleImageChooser.pickImages(length));
-                                          print(images.length);
-                                        } catch (e) {
-                                          print(e);
-                                        }
+                                        } catch (e) {}
                                       },
                                       color: const Color(0xFF34A853)))
                             ],
@@ -136,10 +133,10 @@ void addProduct(BuildContext context) {
                                       if (formKeyAddProduct.currentState!.validate()) {
                                         SellProductModel model = SellProductModel(
                                             productTitleController.text,
-                                            "request",
+                                            "sell",
                                             productDescriptionController.text,
-                                            Tag.allTag,
-                                            int.parse(selectedValIndex),
+                                            Tag.realTag,
+                                            DropdownList.dropDownIndex,
                                             MultipleImageChooser.images,
                                             int.parse(productMinQtyController.text),
                                             int.parse(productPriceController.text));

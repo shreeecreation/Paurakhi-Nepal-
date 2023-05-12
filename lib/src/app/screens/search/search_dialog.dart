@@ -11,7 +11,7 @@ class OptionsDialog extends StatefulWidget {
   _OptionsDialogState createState() => _OptionsDialogState();
 }
 
-final List<String> _options = DropdownList.allCategory;
+final List<DropdownMenuItem> _options = DropdownList.allCategory;
 
 class _OptionsDialogState extends State<OptionsDialog> {
   final Set<String> _checkedValues = {};
@@ -27,17 +27,17 @@ class _OptionsDialogState extends State<OptionsDialog> {
           children: _options
               .map(
                 (option) => CheckboxListTile(
-                  title: Text(option),
-                  value: _checkedValues.contains(option),
+                  title: Text(option.value),
+                  value: _checkedValues.contains(option.value),
                   onChanged: (checked) {
                     final index = _options.indexOf(option);
                     if (!choosed.contains(index.toString())) {
                       choosed.add(index.toString());
                     }
                     if (checked!) {
-                      _checkedValues.add(option);
+                      _checkedValues.add(option.value);
                     } else {
-                      _checkedValues.remove(option);
+                      _checkedValues.remove(option.value);
                     }
                     setState(() {});
                   },

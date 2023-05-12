@@ -27,11 +27,10 @@ class DropDownAPI {
               child: Text(category['name']),
             ),
           );
-          print(category['productLength']);
+         
         }
         return allCategory;
       } else {
-        print("Dasdas");
       }
     } catch (e) {
       print(e);
@@ -39,9 +38,9 @@ class DropDownAPI {
     return allCategory;
   }
 
-  static Future<List<String>> categoryAPI() async {
+  static Future<List<DropdownMenuItem>> categoryAPI() async {
     var cookie = await ManageCookie.getCookie();
-    List<String> allCategory = [];
+    List<DropdownMenuItem> allCategory = [];
 
     final url = Uri.parse('${Environment.apiUrl}/category/get-category'); // Replace with your API endpoint URL
     try {
@@ -55,7 +54,10 @@ class DropDownAPI {
       if (code == 200) {
         for (var category in categories) {
           if (!allCategory.contains(category['name'])) {
-            allCategory.add(category['name']);
+            allCategory.add(DropdownMenuItem(
+              value: category['id'].toString(),
+              child: Text(category['name']),
+            ));
           }
         }
         return allCategory;

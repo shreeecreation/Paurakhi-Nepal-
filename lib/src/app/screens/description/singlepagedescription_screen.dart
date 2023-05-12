@@ -5,7 +5,6 @@ import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
 
 import 'quotation/quotation_screen.dart';
-
 class SinglePageDescriptionScreen extends StatelessWidget {
   SinglePageDescriptionScreen({super.key, required this.model});
   ProductModel model;

@@ -4,7 +4,7 @@ class SellProductModel {
   String name = "";
   String type = "";
   String description = "";
-  List<dynamic> tags = [];
+  String tags = "";
   int category = 0;
   List<File> image = [];
   int quantity = 0;

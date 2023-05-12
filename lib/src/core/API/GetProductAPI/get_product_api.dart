@@ -15,7 +15,6 @@ class GetProductAPI {
       );
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
-        print(response);
         return response;
       } else if (code == 400) {
       } else if (code == 500) {}

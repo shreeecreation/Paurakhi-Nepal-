@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class RegisterModel {
   var firstName = "";
   var lastName = "";
@@ -5,5 +7,5 @@ class RegisterModel {
   var phoneNo = "";
   var address = "";
   var email = "";
-  var image;
+  File? image;
 }

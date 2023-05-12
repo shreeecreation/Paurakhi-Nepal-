@@ -1,7 +1,7 @@
 class AllAPIEndPoint {
   static String createCategory = "/product/create-product";
   static String getCategory = "/category/get-category?";
-  static String loginAPI = "";
+  static String loginAPI = "/auth/user/login";
   static String registerAPI = "";
   static String getUserInfoAPI = "";
   static String blogAPI = "";
@@ -9,4 +9,5 @@ class AllAPIEndPoint {
   static String notificationAPI = "";
   static String changePasswordAPI = "";
   static String openTicketAPI = "";
+  static String listingsAndGreetings = "";
 }

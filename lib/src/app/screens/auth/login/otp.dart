@@ -57,7 +57,6 @@ class OTPScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green.shade600, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                         onPressed: () async {
-                          print(verifypin);
                           ConfirmOTP.confirmOtp2FA(verifypin);
                         },
                         child: const Text("Continue")),

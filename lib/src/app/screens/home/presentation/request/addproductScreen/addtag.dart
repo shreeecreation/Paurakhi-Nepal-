@@ -54,7 +54,6 @@ class TagGenerator {
                                     if (tag.isNotEmpty) {
                                       tags.add(tag);
                                       Tag.allTag.add(tag);
-                                      print(Tag.allTag);
                                     }
                                     Navigator.pop(context);
                                   });

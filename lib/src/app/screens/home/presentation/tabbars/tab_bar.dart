@@ -5,7 +5,6 @@ import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScr
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_model.dart';
-import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 import 'all.dart';
 
@@ -47,16 +46,17 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: FutureBuilder<List<String>>(
-                        future: DropdownList.returnCatergory(),
-                        builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+                    child: FutureBuilder<List<DropdownMenuItem>>(
+                        future: DropdownList.returnDropdown(),
+                        builder: (BuildContext context, AsyncSnapshot<List<DropdownMenuItem>> snapshot) {
                           GetProductModel model = GetProductModel();
                           model.page = 0;
                           model.type = "sell";
 
                           GetProductAPI.getProduct(model);
                           if (snapshot.hasData) {
-                            final List<String> tabTextList = snapshot.data!;
+                            final List<DropdownMenuItem> tabTextList = snapshot.data!;
+
                             return Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: TabBar(
@@ -67,7 +67,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                                 splashBorderRadius: BorderRadius.circular(20),
                                 indicator:
                                     ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
-                                tabs: tabTextList.map((tabText) => Tab(child: Text(tabText, style: AppStyles.text14PxMedium))).toList(),
+                                tabs: tabTextList.map((tabText) => Tab(child: tabText.child)).toList(),
                                 controller: _tabController,
                                 indicatorSize: TabBarIndicatorSize.tab,
                               ),

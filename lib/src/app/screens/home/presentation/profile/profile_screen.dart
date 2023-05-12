@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
+import 'bloc/profile_bloc.dart';
 import 'changepassword.dart';
 import 'editprofile.dart';
+import 'model/profile_model.dart';
 import 'quotation/quotationhistory_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -25,7 +28,14 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
-            userProfile(context),
+            BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) {
+                if (state is ProfileInitial) {
+                  return userProfile(context);
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
             const SizedBox(height: 20),
             openTicket(context),
             editProfile(context),
@@ -202,20 +212,20 @@ Widget userProfile(context) {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Birendra Bikram ", style: AppStyles.text20PxSemiBold),
+                Text("  ${Profile.firstName} ${Profile.lastName}", style: AppStyles.text20PxSemiBold),
                 const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     const Icon(Icons.location_on_outlined),
-                    Text("Jukot, Bajura", style: AppStyles.text14Px),
+                    Text("${Profile.address}", style: AppStyles.text14Px),
                   ],
                 ),
                 const SizedBox(height: 5),
                 Row(
                   children: [
                     const Icon(Icons.phone_outlined),
-                    Text("+977 98104200", style: AppStyles.text14Px),
+                    Text("${ProfileModel.phoneNumber}", style: AppStyles.text14Px),
                   ],
                 ),
               ],
