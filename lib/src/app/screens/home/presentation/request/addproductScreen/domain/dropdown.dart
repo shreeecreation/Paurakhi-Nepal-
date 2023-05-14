@@ -7,25 +7,8 @@ class DropdownList {
   static List<DropdownMenuItem> allCategory = [];
   static Future<List<DropdownMenuItem<String>>> returnDropdown() async {
     List<DropdownMenuItem<String>> list = await DropDownAPI.dropdownAPI();
-    
-    return list;
-  }
 
-  static Future<List<DropdownMenuItem>> returnCatergory() async {
-    List<DropdownMenuItem> list = await DropDownAPI.categoryAPI();
     return list;
-  }
-
-  static List<DropdownMenuItem> returnCategoryOnly() {
-    List<DropdownMenuItem> finalList = [];
-    Future<List<DropdownMenuItem>> list = DropDownAPI.categoryAPI().then(
-      (value) {
-        finalList = value;
-        allCategory = finalList;
-        return finalList;
-      },
-    );
-    return finalList;
   }
 
   static Widget dropdownButton(BuildContext context, String? selectedValue, List<DropdownMenuItem<String>> menuItems) {
@@ -60,7 +43,7 @@ class DropdownList {
     );
   }
 
-    static Widget fullDropdownButton(BuildContext context, String? selectedValue, List<DropdownMenuItem<String>> menuItems) {
+  static Widget fullDropdownButton(BuildContext context, String? selectedValue, List<DropdownMenuItem<String>> menuItems) {
     return Center(
       child: SizedBox(
         height: 60,

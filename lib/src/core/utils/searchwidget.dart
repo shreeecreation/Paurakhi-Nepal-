@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
-
 import '../../app/screens/search/bloc/search_bloc.dart';
 import 'focuesnode.dart';
 
@@ -18,7 +17,7 @@ Widget searchWidget(BuildContext context, key) {
           width: MediaQuery.of(context).size.width - 20,
           child: TextFormField(
               onTap: () {
-                unFocusNode(context);
+                // unFocusNode(context);
 
                 BlocProvider.of<SearchBloc>(context).add(SearchStartEvent());
               },
@@ -30,6 +29,7 @@ Widget searchWidget(BuildContext context, key) {
                   contentPadding: const EdgeInsets.all(8.0),
                   suffixIcon: IconButton(
                       onPressed: () {
+                        unFocusNode(context);
                         key.currentState!.openEndDrawer();
                       },
                       icon: const Icon(Icons.menu)),

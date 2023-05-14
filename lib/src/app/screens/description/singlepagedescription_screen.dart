@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/productmodel.dart';
-import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
 
@@ -27,26 +26,26 @@ class SinglePageDescriptionScreen extends StatelessWidget {
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              SizedBox(width: MediaQuery.of(context).size.width - 20, height: 200, child: Image.asset(model.imagePath)),
+              // SizedBox(width: MediaQuery.of(context).size.width - 20, height: 200, child: Image.asset(model.imagePath)),
               const SizedBox(height: 10),
               const Row(
                 children: [Text("Grant"), SizedBox(width: 5), Text("International")],
               ),
               const SizedBox(height: 5),
-              Text(model.productName, style: AppStyles.text22PxBold),
-              const SizedBox(height: 5),
-              Text(model.productPrice, style: AppStyles.text22PxBold.textGreen),
-              const SizedBox(height: 15),
-              Text("Product Description", style: AppStyles.text16PxBold),
-              const SizedBox(height: 10),
-              Text(model.productDesc, style: AppStyles.text14Px),
+              // Text(model.productName, style: AppStyles.text22PxBold),
+              // const SizedBox(height: 5),
+              // Text(model.productPrice, style: AppStyles.text22PxBold.textGreen),
+              // const SizedBox(height: 15),
+              // Text("Product Description", style: AppStyles.text16PxBold),
+              // const SizedBox(height: 10),
+              // Text(model.productDesc, style: AppStyles.text14Px),
 
               //Product Detail
               const SizedBox(height: 15),
 
               Text("Product Detail", style: AppStyles.text16PxBold),
               const SizedBox(height: 10),
-              Text(model.productDetail, style: AppStyles.text14Px),
+              // Text(model.productDetail, style: AppStyles.text14Px),
               const SizedBox(height: 15),
 
               SizedBox(

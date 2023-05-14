@@ -8,7 +8,9 @@ import 'package:paurakhi/src/core/env/envmodels.dart';
 class DropDownAPI {
   static Future<List<DropdownMenuItem<String>>> dropdownAPI() async {
     var cookie = await ManageCookie.getCookie();
-    List<DropdownMenuItem<String>> allCategory = [];
+    List<DropdownMenuItem<String>> allCategory = [
+      const DropdownMenuItem(value: '', child: Text('All')),
+    ];
 
     final url = Uri.parse('${Environment.apiUrl}/category/get-category'); // Replace with your API endpoint URL
     try {
@@ -27,20 +29,18 @@ class DropDownAPI {
               child: Text(category['name']),
             ),
           );
-         
         }
         return allCategory;
-      } else {
-      }
-    } catch (e) {
-      print(e);
-    }
+      } else {}
+    } catch (e) {}
     return allCategory;
   }
 
   static Future<List<DropdownMenuItem>> categoryAPI() async {
     var cookie = await ManageCookie.getCookie();
-    List<DropdownMenuItem> allCategory = [];
+    List<DropdownMenuItem> allCategory = [
+      const DropdownMenuItem(value: '', child: Text('All')),
+    ];
 
     final url = Uri.parse('${Environment.apiUrl}/category/get-category'); // Replace with your API endpoint URL
     try {

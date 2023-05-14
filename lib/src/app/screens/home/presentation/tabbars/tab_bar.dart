@@ -5,6 +5,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScr
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_model.dart';
+import 'package:paurakhi/src/core/themes/appcolors.dart';
 
 import 'all.dart';
 
@@ -18,10 +19,34 @@ class Tabbar extends StatefulWidget {
 class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
   TabController? _tabController;
   int tabBarLength = 0;
+  int categoryIndex = 0;
+  String mainCategoryIndex = "1";
+  Future<List<DropdownMenuItem>> _loadDropdownItems() async {
+    return await DropdownList.returnDropdown();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    var a = DropDownAPI.categoryAPI();
+    a.then((value) {
+      tabBarLength = value.length;
+      _tabController = TabController(length: tabBarLength, vsync: this);
+      _tabController!.animation!.addListener(_handleTabSelection);
+
+      BlocProvider.of<TabBlocBloc>(context).add(GetTabLengthEvent());
+    });
+  }
+
+  void _handleTabSelection() {
+    if (_tabController!.indexIsChanging) {
+      categoryIndex = _tabController!.index;
+    }
+  }
+
   @override
   void dispose() {
-    // TODO: implement dispose
-    _tabController!.dispose();
+    _tabController?.dispose();
     super.dispose();
   }
 
@@ -29,65 +54,75 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return BlocBuilder<TabBlocBloc, TabBlocState>(
       builder: (context, state) {
-        if (state is TabBlocInitial) {
-          DropdownList.returnCategoryOnly();
-          var a = DropDownAPI.categoryAPI();
-          a.then((value) {
-            tabBarLength = value.length;
-            _tabController = TabController(length: tabBarLength, vsync: this);
-            BlocProvider.of<TabBlocBloc>(context).add(GetTabLengthEvent());
-          });
-        }
-
         if (state is GetTabLengthState) {
-          return SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: FutureBuilder<List<DropdownMenuItem>>(
-                        future: DropdownList.returnDropdown(),
-                        builder: (BuildContext context, AsyncSnapshot<List<DropdownMenuItem>> snapshot) {
-                          GetProductModel model = GetProductModel();
-                          model.page = 0;
-                          model.type = "sell";
+          return FutureBuilder<List<DropdownMenuItem>>(
+              future: _loadDropdownItems(),
+              builder: (BuildContext context, AsyncSnapshot<List<DropdownMenuItem>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: LinearProgressIndicator(color: AppColors.primary));
+                } else if (snapshot.hasError) {
+                  return const Center(child: Text('Error loading dropdown items'));
+                } else if (!snapshot.hasData) {
+                  return const Center(child: Text('No data'));
+                }
+                return SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          child: FutureBuilder<List<DropdownMenuItem>>(
+                              future: DropdownList.returnDropdown(),
+                              builder: (BuildContext context, AsyncSnapshot<List<DropdownMenuItem>> snapshot) {
+                                GetProductModel model = GetProductModel();
+                                model.page = 0;
+                                model.type = "sell";
+                                GetProductAPI.getProductSinglePage(model);
+                                if (snapshot.hasData) {
+                                  final List<DropdownMenuItem> tabTextList = snapshot.data!;
 
-                          GetProductAPI.getProduct(model);
-                          if (snapshot.hasData) {
-                            final List<DropdownMenuItem> tabTextList = snapshot.data!;
-
-                            return Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: TabBar(
-                                isScrollable: true,
-                                labelPadding: const EdgeInsets.symmetric(horizontal: 10),
-                                unselectedLabelColor: Colors.black,
-                                labelColor: Colors.white,
-                                splashBorderRadius: BorderRadius.circular(20),
-                                indicator:
-                                    ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
-                                tabs: tabTextList.map((tabText) => Tab(child: tabText.child)).toList(),
-                                controller: _tabController,
-                                indicatorSize: TabBarIndicatorSize.tab,
-                              ),
-                            );
-                          } else {
-                            return const Center(child: CircularProgressIndicator());
-                          }
-                        }),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 2,
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: List.generate(tabBarLength, (index) => const All()),
-                    ),
-                  ),
-                ],
-              ));
+                                  return Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: TabBar(
+                                        controller: _tabController,
+                                        onTap: (value) {
+                                          setState(() {
+                                            mainCategoryIndex = tabTextList[value].value;
+                                          });
+                                        },
+                                        isScrollable: true,
+                                        labelPadding: const EdgeInsets.symmetric(horizontal: 10),
+                                        unselectedLabelColor: Colors.black,
+                                        labelColor: Colors.white,
+                                        splashBorderRadius: BorderRadius.circular(20),
+                                        indicator: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
+                                        tabs: tabTextList.map((tabText) => Tab(child: tabText.child)).toList(),
+                                        indicatorSize: TabBarIndicatorSize.tab),
+                                  );
+                                } else {
+                                  return const Center(child: Center(child: LinearProgressIndicator(color: AppColors.primary)));
+                                }
+                              }),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 2.5,
+                          child: TabBarView(
+                            controller: _tabController,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: List.generate(
+                                tabBarLength,
+                                (index) => All(
+                                      category: mainCategoryIndex,
+                                    )),
+                          ),
+                        ),
+                      ],
+                    ));
+              });
         }
-        return const CircularProgressIndicator();
+
+        return const Center(child: LinearProgressIndicator(color: AppColors.primary));
       },
     );
   }
