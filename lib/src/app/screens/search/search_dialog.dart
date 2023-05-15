@@ -3,6 +3,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScr
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 import 'domain/filter_saver.dart';
+import 'domain/search_value.dart';
 
 class OptionsDialog extends StatefulWidget {
   const OptionsDialog({super.key});
@@ -39,7 +40,11 @@ class _OptionsDialogState extends State<OptionsDialog> {
                     } else {
                       _checkedValues.remove(option.value);
                     }
-                    setState(() {});
+                    setState(() {
+                      if (!SearchValue.category.contains(option.value)) {
+                        SearchValue.category.add(option.value);
+                      }
+                    });
                   },
                 ),
               )
@@ -62,9 +67,9 @@ class _OptionsDialogState extends State<OptionsDialog> {
                   child: const Text('Request'),
                   onPressed: () {
                     FilterSaver.saveFilter(choosed, 0);
-
                     FilterSaver.getFilter();
                     Navigator.pop(context);
+                    SearchValue.type = "request";
                   },
                 ),
                 const SizedBox(width: 20),
@@ -73,6 +78,7 @@ class _OptionsDialogState extends State<OptionsDialog> {
                   child: const Text('Sell'),
                   onPressed: () {
                     FilterSaver.saveFilter(choosed, 1);
+                    SearchValue.type = "save";
 
                     FilterSaver.getFilter();
                     Navigator.pop(context);

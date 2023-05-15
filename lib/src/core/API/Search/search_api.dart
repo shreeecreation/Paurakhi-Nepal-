@@ -1,26 +1,34 @@
+import 'dart:convert';
+
+import 'package:paurakhi/src/app/screens/search/model/search_model.dart';
 import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:http/http.dart' as http;
 
 class SearchAPI {
-  static Future<http.Response?> searchAPI(String name) async {
-    final url = Uri.parse('${Environment.apiUrl}${AllAPIEndPoint.searchAPI}name=$name'); // Replace with your API endpoint URL
+  static Future<List<SearchModel>?> getSearchedProduct(category, name, type) async {
+    final finalName = name == "" ? "" : "name=$name&";
+    final finalType = "type=$type&";
+    final finalCategory = category.isEmpty ? "" : "category=$category&";
 
+    String url = '${Environment.apiUrl}${AllAPIEndPoint.searchAPI}$finalName$finalCategory$finalType';
+    final filteredUrl = url.substring(0, url.length - 1);
+    final finalUrl = Uri.parse(filteredUrl); // Replace with your API endpoint URL
     try {
       final response = await http.get(
-        url,
+        finalUrl,
         headers: {'Content-Type': 'application/json'}, // Replace with your headers if needed
       );
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
-        print(response.body);
-        return response;
+        final List<dynamic> jsonList = jsonDecode(response.body);
+        List<SearchModel> products = [];
+
+        products = jsonList.map((dynamic json) => SearchModel.fromJson(json as Map<String, dynamic>)).toList();
+        return products;
       } else if (code == 400) {
       } else if (code == 500) {}
-      return null;
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
     return null;
   }
 }

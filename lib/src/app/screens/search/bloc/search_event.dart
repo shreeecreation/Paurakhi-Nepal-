@@ -4,4 +4,6 @@ part of 'search_bloc.dart';
 abstract class SearchEvent {}
 class SearchInitialEvent extends SearchEvent{}
 
-class SearchStartEvent extends SearchEvent{}
+class SearchStartEvent extends SearchEvent{
+
+}

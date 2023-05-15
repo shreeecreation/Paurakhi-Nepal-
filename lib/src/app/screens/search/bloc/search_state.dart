@@ -5,4 +5,6 @@ abstract class SearchState {}
 
 class SearchInitialState extends SearchState {}
 
-class SearchStartState extends SearchState {}
+class SearchStartState extends SearchState {
+  
+}
