@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/core/API/LogOutAPI/logout_api.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 void logoutDialog(BuildContext context) {
@@ -30,7 +31,7 @@ void logoutDialog(BuildContext context) {
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: ElevatedButton(
                         onPressed: () {
-                          // addProduct(context);
+                          LogOutAPI.clearSharedPreferences();
                         },
                         style: ElevatedButton.styleFrom(
                             elevation: 0,

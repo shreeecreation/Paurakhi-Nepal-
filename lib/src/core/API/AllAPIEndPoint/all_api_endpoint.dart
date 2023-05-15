@@ -10,6 +10,6 @@ class AllAPIEndPoint {
   static String notificationAPI = "";
   static String changePasswordAPI = "";
   static String openTicketAPI = "";
-  static String listingsAndGreetings = "";
+  static String listingsAndGreetings = "/mobile-info";
   static String searchAPI = "/product/get-product?";
 }

@@ -1,39 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:paurakhi/src/app/screens/auth/login/login_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/homescreen/home_screen.dart';
-import 'package:paurakhi/src/app/screens/home/presentation/notifications/notifications_screeen.dart';
 import 'package:paurakhi/src/core/utils/get_current_location.dart';
+import '../tabbars/bloc/tab_bloc_bloc.dart';
 
-import 'profile/profile_screen.dart';
-import 'request/request_screen.dart';
-import 'tabbars/bloc/tab_bloc_bloc.dart';
-
-class BottomNavigator extends StatefulWidget {
-  const BottomNavigator({super.key});
+class LoginFalseBottomNavigator extends StatefulWidget {
+  const LoginFalseBottomNavigator({super.key});
 
   @override
-  State<BottomNavigator> createState() => _BottomNavigatorState();
+  State<LoginFalseBottomNavigator> createState() => _LoginFalseBottomNavigatorState();
 }
 
-class _BottomNavigatorState extends State<BottomNavigator> {
+class _LoginFalseBottomNavigatorState extends State<LoginFalseBottomNavigator> {
   int _selectedIndex = 1;
   static final List<Widget> _widgetOptions = <Widget>[
-    const NotificationScreen(),
+    const LoginScreen(),
     const HomeScreen(),
-    const HomeScreen(),
-    const ProfileScreen(),
+    const LoginScreen(),
+    const LoginScreen(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
-      BlocProvider.of<TabBlocBloc>(context).add(TabInitialEvent());
-
-      if (index == 2) {
-        _selectedIndex = _selectedIndex;
-        requestBottomSheet(context);
-      } else {
-        _selectedIndex = index;
-      }
+      _selectedIndex = index;
       BlocProvider.of<TabBlocBloc>(context).add(TabInitialEvent());
     });
   }

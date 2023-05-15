@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/auth/login/login_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
-import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:provider/provider.dart';
 import 'src/app/screens/home/presentation/home_page.dart';
 import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
@@ -16,10 +13,7 @@ import 'src/core/API/userIfno/getuserinfo.dart';
 import 'src/core/providers/location_provider.dart';
 import 'src/core/utils/focuesnode.dart';
 
-Future<void> main() async {
-  await dotenv.load(fileName: Environment.fileName);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.white));
-  await dotenv.load();
+void main()  {
   runApp(const MyApp());
 }
 
@@ -64,7 +58,7 @@ class MyApp extends StatelessWidget {
                         return const HomePage();
                       } else {
                         // If the boolean value is false, show a red X
-                        return const LoginScreen();
+                        return const HomePage();
                       }
                     } else {
                       // Default case: show an empty Container widget

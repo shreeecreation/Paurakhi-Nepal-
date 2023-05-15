@@ -14,7 +14,5 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         emit(SearchStartState());
       },
     );
-   
-    
   }
 }
