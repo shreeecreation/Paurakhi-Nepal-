@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
                   if (snapshot.hasData) {
                     Map<String, dynamic> data = snapshot.data!['data'];
-                    Map<String, dynamic> listing = data['listing'];
+                    Map<String, dynamic> listing = data ['listing'];
 
                     String user = listing['user'].toString();
                     String listingValue = listing['listing'].toString();

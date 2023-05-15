@@ -45,6 +45,8 @@ dependencies:
   geolocator: ^8.2.0
   geocoding: ^2.0.4
 
+  connectivity: ^3.0.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
