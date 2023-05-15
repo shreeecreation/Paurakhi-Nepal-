@@ -11,14 +11,14 @@ class OptionsDialog extends StatefulWidget {
   _OptionsDialogState createState() => _OptionsDialogState();
 }
 
-final List<DropdownMenuItem> _options = DropdownList.allCategory;
-
 class _OptionsDialogState extends State<OptionsDialog> {
+  final List<DropdownMenuItem> _options = DropdownList.allCategory;
   final Set<String> _checkedValues = {};
   List<String> choosed = [];
 
   @override
   Widget build(BuildContext context) {
+    print(_options);
     return AlertDialog(
       title: const Text('Select options'),
       content: SingleChildScrollView(
@@ -27,7 +27,7 @@ class _OptionsDialogState extends State<OptionsDialog> {
           children: _options
               .map(
                 (option) => CheckboxListTile(
-                  title: Text(option.value),
+                  title: option.child,
                   value: _checkedValues.contains(option.value),
                   onChanged: (checked) {
                     final index = _options.indexOf(option);

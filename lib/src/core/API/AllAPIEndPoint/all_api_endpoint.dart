@@ -11,4 +11,5 @@ class AllAPIEndPoint {
   static String changePasswordAPI = "";
   static String openTicketAPI = "";
   static String listingsAndGreetings = "";
+  static String searchAPI = "/product/get-product?";
 }

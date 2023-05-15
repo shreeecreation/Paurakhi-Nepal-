@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 
+import 'dropdown.dart';
+
 class DropDownAPI {
   static Future<List<DropdownMenuItem<String>>> dropdownAPI() async {
     var cookie = await ManageCookie.getCookie();
@@ -60,6 +62,7 @@ class DropDownAPI {
             ));
           }
         }
+        DropdownList.allCategory = allCategory;
         return allCategory;
       } else {}
     } catch (e) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown_api.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/request/bloc/getprdouct_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_model.dart';
@@ -33,8 +34,8 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
       tabBarLength = value.length;
       _tabController = TabController(length: tabBarLength, vsync: this);
       _tabController!.animation!.addListener(_handleTabSelection);
-
       BlocProvider.of<TabBlocBloc>(context).add(GetTabLengthEvent());
+      BlocProvider.of<GetprdouctBloc>(context).add(GetProdcutFetchEvent());
     });
   }
 
@@ -80,15 +81,14 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                                 GetProductAPI.getProductSinglePage(model);
                                 if (snapshot.hasData) {
                                   final List<DropdownMenuItem> tabTextList = snapshot.data!;
-
                                   return Padding(
                                     padding: const EdgeInsets.all(15.0),
                                     child: TabBar(
                                         controller: _tabController,
                                         onTap: (value) {
-                                          setState(() {
-                                            mainCategoryIndex = tabTextList[value].value;
-                                          });
+                                          BlocProvider.of<GetprdouctBloc>(context).add(GetProdcutFetchEvent());
+
+                                          mainCategoryIndex = tabTextList[value].value;
                                         },
                                         isScrollable: true,
                                         labelPadding: const EdgeInsets.symmetric(horizontal: 10),
@@ -101,22 +101,28 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                                         indicatorSize: TabBarIndicatorSize.tab),
                                   );
                                 } else {
-                                  return const Center(child: Center(child: LinearProgressIndicator(color: AppColors.primary)));
+                                  return const Text("");
                                 }
                               }),
                         ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 2.5,
-                          child: TabBarView(
-                            controller: _tabController,
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: List.generate(
-                                tabBarLength,
-                                (index) => All(
-                                      category: mainCategoryIndex,
-                                    )),
-                          ),
-                        ),
+                        BlocBuilder<GetprdouctBloc, GetprdouctState>(
+                          builder: (context, state) {
+                            if (state is GetProdcutFetchState) {
+                              return SizedBox(
+                                  height: MediaQuery.of(context).size.height / 2.5,
+                                  child: TabBarView(
+                                    controller: _tabController,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    children: List.generate(tabBarLength, (index) => All(category: mainCategoryIndex)),
+                                  ));
+                            }
+                            return const Center(
+                                child: LinearProgressIndicator(
+                              color: AppColors.textGreen,
+                              backgroundColor: Colors.white,
+                            ));
+                          },
+                        )
                       ],
                     ));
               });

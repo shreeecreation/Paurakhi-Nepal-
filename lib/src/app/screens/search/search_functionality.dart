@@ -27,7 +27,10 @@ class SearchFunctionality extends StatelessWidget {
                   child: const Row(
                     children: [Text("Filter"), Icon(Icons.arrow_drop_down_rounded)],
                   )),
+
               const SizedBox(width: 20),
+
+              
             ],
           ),
         ),

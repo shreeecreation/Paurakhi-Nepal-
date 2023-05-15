@@ -9,6 +9,7 @@ import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:provider/provider.dart';
 import 'src/app/screens/home/presentation/home_page.dart';
 import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
+import 'src/app/screens/home/presentation/request/bloc/getprdouct_bloc.dart';
 import 'src/app/screens/search/bloc/search_bloc.dart';
 import 'src/core/API/CheckLogin/check_login.dart';
 import 'src/core/API/userIfno/getuserinfo.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<TabBlocBloc>(create: (context) => TabBlocBloc()),
           BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
           BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
+          BlocProvider<GetprdouctBloc>(create: (context) => GetprdouctBloc()),
         ],
         child: GestureDetector(
           onTap: () {

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
+import 'package:paurakhi/src/core/API/Search/search_api.dart';
 import '../../app/screens/search/bloc/search_bloc.dart';
 import 'focuesnode.dart';
 
@@ -72,7 +73,7 @@ Widget searchFilterWidget(BuildContext context, key) {
           },
           child: TextFormField(
               onFieldSubmitted: (value) {
-                print(value);
+                SearchAPI.searchAPI(value);
               },
               decoration: InputDecoration(
                   border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(9.0)),

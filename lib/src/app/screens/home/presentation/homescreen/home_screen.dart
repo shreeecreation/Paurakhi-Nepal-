@@ -5,6 +5,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/tabbars/tab_bar.dart'
 import 'package:paurakhi/src/app/screens/search/bloc/search_bloc.dart';
 import 'package:paurakhi/src/app/screens/search/search_functionality.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
+import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
@@ -47,7 +48,7 @@ class HomeScreen extends StatelessWidget {
             if (state is SearchStartState) {
               return const SearchFunctionality();
             }
-            return const CircularProgressIndicator();
+            return const Center(child: LinearProgressIndicator(color: AppColors.primary));;
           },
         ));
   }
