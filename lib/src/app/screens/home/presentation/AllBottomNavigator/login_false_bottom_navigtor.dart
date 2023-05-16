@@ -36,7 +36,11 @@ class _LoginFalseBottomNavigatorState extends State<LoginFalseBottomNavigator> {
   }
 
   getLocation() async {
-    await GetCurrentLocation.getCurrentPosition(context);
+     try {
+      await GetCurrentLocation.getCurrentPosition(context);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override

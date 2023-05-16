@@ -37,7 +37,7 @@ class GetCurrentLocation {
     if (!hasPermission) return;
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position position) {
       currentPosition = position;
-      
+
       getAddressFromLatLng(currentPosition!);
     }).catchError((e) {
       debugPrint(e);

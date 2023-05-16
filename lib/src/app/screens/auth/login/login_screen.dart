@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managelogincookie.dart';
 import 'package:paurakhi/src/core/API/GoogleAuthAPI/googleauthapi.dart';
 import 'package:paurakhi/src/core/API/GoogleAuthAPI/googleauthscreen.dart';
+import 'package:paurakhi/src/core/API/userIfno/getuserinfo.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
+import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 import '../../../../core/API/login/loginapi.dart';
@@ -161,9 +163,15 @@ void loginFunction(formKey, phoneNo, password, context) async {
       var responseBody = jsonDecode(data);
       if (!responseBody["twoFactor"]) {
         ManageLoginCookie.manageLoginCookieTwoFactorFalse(response);
+        IsLoggedIn.isLoggedIn = true;
+        await GetUserInfo.getUserInfo();
+
         phoneNo.text = "";
         password.text = "";
       } else {
+        await GetUserInfo.getUserInfo();
+        IsLoggedIn.isLoggedIn = true;
+
         ManageLoginCookie.manageLoginCookieTwoFactorTrue(response);
         phoneNo.text = "";
         password.text = "";

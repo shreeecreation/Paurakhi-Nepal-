@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/app/screens/internetandSetverError/nointernetconnection.dart';
+import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:provider/provider.dart';
 import 'src/app/screens/home/presentation/home_page.dart';
 import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
@@ -27,27 +28,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => LocationProvider()),
-        ChangeNotifierProvider(create: (_) => InternetConnectionProvider()),
-      ],
-      child: MultiBlocProvider(
         providers: [
-          BlocProvider<TabBlocBloc>(create: (context) => TabBlocBloc()),
-          BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
-          BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
-          BlocProvider<GetprdouctBloc>(create: (context) => GetprdouctBloc()),
+          ChangeNotifierProvider(create: (_) => LocationProvider()),
+          ChangeNotifierProvider(create: (_) => NetworkProvider()),
         ],
-        child: GestureDetector(
-          onTap: () {
-            unFocusNode(context);
-          },
-          child: SafeArea(
-            child: GetMaterialApp(
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<TabBlocBloc>(create: (context) => TabBlocBloc()),
+            BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
+            BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
+            BlocProvider<GetprdouctBloc>(create: (context) => GetprdouctBloc()),
+          ],
+          child: GestureDetector(
+            onTap: () {
+              unFocusNode(context);
+            },
+            child: SafeArea(
+              child: GetMaterialApp(
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light),
-                home: Consumer<InternetConnectionProvider>(builder: (context, provider, child) {
-                  if (provider.isConnected) {
+                home: Consumer<NetworkProvider>(builder: (context, networkProvider, child) {
+                  if (!networkProvider.isConnected) {
                     return FutureBuilder<bool>(
                       future: CheckLogin.checkLogin(),
                       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -60,9 +61,13 @@ class MyApp extends StatelessWidget {
                             return Text('Error: ${snapshot.error}');
                           } else if (snapshot.data == true) {
                             GetUserInfo.getUserInfo();
-
+                            print("hello ldasdjase");
+                            IsLoggedIn.isLoggedIn = true;
                             return const HomePage();
                           } else {
+                            IsLoggedIn.isLoggedIn = false;
+
+                            print("hello qe");
                             // If the boolean value is false, show a red X
                             return const HomePage();
                           }
@@ -72,12 +77,13 @@ class MyApp extends StatelessWidget {
                         }
                       },
                     );
+                  } else {
+                    return const NoInternetConnectionPage();
                   }
-                  return const NoInternetConnectionPage();
-                })),
+                }),
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

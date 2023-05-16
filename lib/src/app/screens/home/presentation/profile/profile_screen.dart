@@ -4,7 +4,6 @@ import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
 import 'package:paurakhi/src/core/providers/location_provider.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
-import 'package:paurakhi/src/core/utils/get_current_location.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc/profile_bloc.dart';
@@ -46,7 +45,8 @@ class ProfileScreen extends StatelessWidget {
             quotationhistory(context),
             financeenrquiry(context),
             notificationHistory(context),
-            logOut(context)
+            logOut(context),
+            isVerified(context),
           ]),
         ));
   }
@@ -80,8 +80,8 @@ class ProfileScreen extends StatelessWidget {
           title: const Text("Edit Profile"),
           trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
           onTap: () async {
-              Provider.of<LocationProvider>(context, listen: false).changeLocation(context);
-              editProfileDialog(context);
+            Provider.of<LocationProvider>(context, listen: false).changeLocation(context);
+            editProfileDialog(context);
           },
         ),
       ),
@@ -155,6 +155,24 @@ Padding notificationHistory(BuildContext context) {
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
           quotationBottomSheet(context);
+        },
+      ),
+    ),
+  );
+}
+
+Padding isVerified(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: SizedBox(
+      width: MediaQuery.of(context).size.width - 30,
+      child: ListTile(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+        tileColor: Colors.white,
+        title: const Text("Verify your account"),
+        trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
+        onTap: () {
+          ProfileRoutes.openticketRoute();
         },
       ),
     ),

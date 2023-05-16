@@ -1,22 +1,19 @@
-import 'dart:async';
-
 import 'package:connectivity/connectivity.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
-class InternetConnectionProvider extends ChangeNotifier {
+class NetworkProvider extends ChangeNotifier {
   bool _isConnected = false;
 
-  InternetConnectionProvider() {
-    Timer.periodic(const Duration(seconds: 1), (_) async {
-      var connectivityResult = await Connectivity().checkConnectivity();
-      if (connectivityResult == ConnectivityResult.none) {
-        _isConnected = false;
-      } else {
-        _isConnected = true;
-      }
-      notifyListeners();
-    });
-  }
-
   bool get isConnected => _isConnected;
+
+  Future<void> checkInternetConnection() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      _isConnected = true;
+    } else {
+      _isConnected = false;
+    }
+    notifyListeners();
+  }
 }
