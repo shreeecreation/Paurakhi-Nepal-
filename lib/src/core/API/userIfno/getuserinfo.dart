@@ -15,6 +15,7 @@ class GetUserInfo {
       );
       Map<String, dynamic> body = jsonDecode(response.body);
       var data = body['data'];
+
       ProfileModel.userId = data['userId'];
       ProfileModel.role = data['role'];
       ProfileModel.twoFactor = data['twoFactor'];

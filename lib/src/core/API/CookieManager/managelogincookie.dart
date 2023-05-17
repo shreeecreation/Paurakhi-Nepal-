@@ -14,6 +14,6 @@ class ManageLoginCookie {
   static void manageLoginCookieTwoFactorTrue(response) {
     var cookieHeader = response!.headers['set-cookie'];
     ManageCookie.setOTPCookie(cookieHeader);
-    AuthRoutes.otpRoute("");
+    AuthRoutes.otpRoute();
   }
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
+import 'package:paurakhi/src/core/API/login/isverify.dart';
 import 'package:paurakhi/src/core/providers/location_provider.dart';
+import 'package:paurakhi/src/core/routes/authroutes.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:provider/provider.dart';
-
 import 'bloc/profile_bloc.dart';
 import 'changepassword.dart';
 import 'editprofile.dart';
@@ -33,6 +34,14 @@ class ProfileScreen extends StatelessWidget {
             BlocBuilder<ProfileBloc, ProfileState>(
               builder: (context, state) {
                 if (state is ProfileInitial) {
+                  IsVerify.checkVerified();
+
+                  return userProfile(context);
+                }
+
+                if (state is ProfileLoadedState) {
+                  IsVerify.checkVerified();
+
                   return userProfile(context);
                 }
                 return const CircularProgressIndicator();
@@ -162,6 +171,7 @@ Padding notificationHistory(BuildContext context) {
 }
 
 Padding isVerified(BuildContext context) {
+  bool a = IsVerify.isVerify;
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: SizedBox(
@@ -169,11 +179,15 @@ Padding isVerified(BuildContext context) {
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         tileColor: Colors.white,
-        title: const Text("Verify your account"),
-        trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
-        onTap: () {
-          ProfileRoutes.openticketRoute();
-        },
+        title: !a ? const Text("Verify your account") : const Text("Verified"),
+        trailing: !a
+            ? const Icon(Icons.check_circle_rounded, size: 30, color: Colors.grey)
+            : const Icon(Icons.check_circle_rounded, size: 30, color: Colors.green),
+        onTap: !a
+            ? () {
+                AuthRoutes.otpRoute();
+              }
+            : null,
       ),
     ),
   );

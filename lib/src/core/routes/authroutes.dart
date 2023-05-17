@@ -17,8 +17,8 @@ class AuthRoutes {
     Get.offAll(const GoogleSignin());
   }
 
-  static void otpRoute(url) {
-    Get.offAll(OTPScreen(url: url));
+  static void otpRoute() {
+    Get.offAll(OTPScreen());
   }
 
   static void googleAuthFieldRoute() {

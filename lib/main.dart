@@ -61,13 +61,11 @@ class MyApp extends StatelessWidget {
                             return Text('Error: ${snapshot.error}');
                           } else if (snapshot.data == true) {
                             GetUserInfo.getUserInfo();
-                            print("hello ldasdjase");
                             IsLoggedIn.isLoggedIn = true;
                             return const HomePage();
                           } else {
                             IsLoggedIn.isLoggedIn = false;
 
-                            print("hello qe");
                             // If the boolean value is false, show a red X
                             return const HomePage();
                           }

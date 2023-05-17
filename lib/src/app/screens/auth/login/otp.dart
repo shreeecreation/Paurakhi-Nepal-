@@ -5,8 +5,7 @@ import 'package:pinput/pinput.dart';
 
 // ignore: must_be_immutable
 class OTPScreen extends StatelessWidget {
-  OTPScreen({super.key, required this.url});
-  String url;
+  OTPScreen({super.key});
   String verifypin = "";
   @override
   Widget build(BuildContext context) {

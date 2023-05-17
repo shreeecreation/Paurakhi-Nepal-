@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:paurakhi/src/core/API/CheckLogin/check_login.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
+import 'package:paurakhi/src/core/API/login/isverify.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
 
@@ -14,6 +15,7 @@ class ConfirmOTP {
       );
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
+        IsVerify.setVerified(true);
         HomeRoutes.homeScreen();
       } else if (code == 400) {
       } else if (code == 500) {}

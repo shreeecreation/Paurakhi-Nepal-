@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
 import 'package:paurakhi/src/core/API/EditProfile/edit_profile_api.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
@@ -6,6 +7,7 @@ import 'package:paurakhi/src/core/providers/location_provider.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:provider/provider.dart';
 
+import 'bloc/profile_bloc.dart';
 import 'model/edit_profile_model.dart';
 import 'model/profile_model.dart';
 
@@ -109,7 +111,7 @@ void editProfileDialog(BuildContext context) {
                       child: SizedBox(
                           height: 50,
                           child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 //TODO editProfile
                                 EditProfileModel model = EditProfileModel();
 
@@ -117,7 +119,12 @@ void editProfileDialog(BuildContext context) {
                                 model.phoneNo = phoneNoController.text;
                                 model.firstName = firstNameController.text;
                                 model.lastName = lastNameController.text;
-                                EditProfile.editProfile(model);
+                                await EditProfile.editProfile(model);
+
+                                WidgetsBinding.instance.addPostFrameCallback((_) {
+                                  BlocProvider.of<ProfileBloc>(context).add(ProfileLoadEvent());
+                                  Navigator.pop(context);
+                                });
                               },
                               style: ElevatedButton.styleFrom(
                                   elevation: 0,
