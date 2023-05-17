@@ -37,7 +37,6 @@ class ProfileScreen extends StatelessWidget {
                   return userProfile(context);
                 }
 
-
                 if (state is ProfileLoadedState) {
                   return userProfile(context);
                 }
@@ -51,8 +50,9 @@ class ProfileScreen extends StatelessWidget {
             quotationhistory(context),
             financeenrquiry(context),
             notificationHistory(context),
-            logOut(context),
+            openTicketHistory(context),
             isVerified(context),
+            logOut(context),
           ]),
         ));
   }
@@ -122,6 +122,24 @@ Padding quotationhistory(BuildContext context) {
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         tileColor: Colors.white,
         title: const Text("Quotation History"),
+        trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
+        onTap: () {
+          quotationBottomSheet(context);
+        },
+      ),
+    ),
+  );
+}
+
+Padding openTicketHistory(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: SizedBox(
+      width: MediaQuery.of(context).size.width - 30,
+      child: ListTile(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+        tileColor: Colors.white,
+        title: const Text("Ticket History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
           quotationBottomSheet(context);

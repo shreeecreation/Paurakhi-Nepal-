@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
+import 'package:paurakhi/src/core/API/ChangePassword/change_password_api.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 void changepassword(BuildContext context) {
   TextEditingController oldPass = TextEditingController();
   TextEditingController newPass = TextEditingController();
+  TextEditingController updatePass = TextEditingController();
   GlobalKey<FormState> updatePassKey = GlobalKey<FormState>();
 
 // modal bottom sheet go up with the keyboard appears
@@ -74,7 +76,7 @@ void changepassword(BuildContext context) {
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 1.2,
                             child: TextFormField(
-                              controller: oldPass,
+                              controller: newPass,
                               validator: (val) {
                                 if (!ExtString.validatePassword(val!)) return "Password length should be greater than 8";
                                 return null;
@@ -96,7 +98,7 @@ void changepassword(BuildContext context) {
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 1.2,
                             child: TextFormField(
-                              controller: oldPass,
+                              controller: updatePass,
                               validator: (value) {
                                 if (value != newPass.text) {
                                   return "Password does'nt match";
@@ -123,8 +125,13 @@ void changepassword(BuildContext context) {
                                 child: SizedBox(
                                     height: 50,
                                     child: ElevatedButton(
-                                        onPressed: () {
-                                          if (updatePassKey.currentState!.validate()) {}
+                                        onPressed: () async {
+                                          if (updatePassKey.currentState!.validate()) {
+                                            await ChangePasswordAPI.changePasword(oldPass.text, newPass.text, context);
+                                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                                              Navigator.pop(context);
+                                            });
+                                          }
                                         },
                                         style: ElevatedButton.styleFrom(
                                             elevation: 0,

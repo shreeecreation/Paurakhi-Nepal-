@@ -8,7 +8,7 @@ class AllAPIEndPoint {
   static String blogAPI = "";
   static String newsAPI = "";
   static String notificationAPI = "";
-  static String changePasswordAPI = "/";
+  static String changePasswordAPI = "/user/change-password";
   static String openTicketAPI = "";
   static String listingsAndGreetings = "/mobile-info";
   static String searchAPI = "/product/get-product?";
