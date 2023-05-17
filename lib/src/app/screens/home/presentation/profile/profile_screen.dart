@@ -34,14 +34,11 @@ class ProfileScreen extends StatelessWidget {
             BlocBuilder<ProfileBloc, ProfileState>(
               builder: (context, state) {
                 if (state is ProfileInitial) {
-                  IsVerify.checkVerified();
-
                   return userProfile(context);
                 }
 
-                if (state is ProfileLoadedState) {
-                  IsVerify.checkVerified();
 
+                if (state is ProfileLoadedState) {
                   return userProfile(context);
                 }
                 return const CircularProgressIndicator();

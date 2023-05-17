@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:paurakhi/src/app/screens/home/presentation/profile/model/profile_model.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
+import 'package:paurakhi/src/core/API/login/isverify.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 
 class GetUserInfo {
@@ -21,6 +22,11 @@ class GetUserInfo {
       ProfileModel.twoFactor = data['twoFactor'];
       ProfileModel.verified = data['verified'];
       ProfileModel.phoneNumber = data['phoneNumber'];
+      if (ProfileModel.verified == true) {
+        await IsVerify.setVerified(true);
+      } else {
+        await IsVerify.setVerified(false);
+      }
 
       Map<String, dynamic> profileData = data['profile'];
 

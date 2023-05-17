@@ -22,7 +22,6 @@ class EditProfile {
       );
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
-        print(response.body);
         await GetUserInfo.getUserInfo();
         return response;
       } else if (code == 500) {}
