@@ -25,32 +25,52 @@ class HomeScreen extends StatelessWidget {
         body: BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
             if (state is SearchInitialState) {
-              return SingleChildScrollView(
-                child: SizedBox(
-                    child: Column(children: [
-                  // ---------------------------------------------------------------------Search Widget
-                  searchWidget(context, scaffoldKey),
-                  const SizedBox(height: 24),
+              return RefreshIndicator(
+                onRefresh: () {
+                  BlocProvider.of<SearchBloc>(context).add(ResetStartEvent());
 
-                  // ----------------------------------------------------------------------User widget
-                  userWidget(context, userName, scaffoldKey),
-
-                  // ----------------------------------------------------------------------GridView Widget
-                  gridViewWidget(context),
-
-                  SizedBox(width: MediaQuery.of(context).size.width / 1.3, child: const Divider(thickness: 2, color: Color(0xFFE0E0E0))),
-
-                  const Tabbar(),
-                ])),
+                  return Future.delayed(const Duration(seconds: 1));
+                },
+                child: mainWidget(context, userName),
               );
             }
+            if (state is ResetStartState) {
+              return RefreshIndicator(
+                  onRefresh: () {
+                    BlocProvider.of<SearchBloc>(context).add(SearchInitialEvent());
 
+                    return Future.delayed(const Duration(seconds: 1));
+                  },
+                  child: mainWidget(context, userName));
+            }
             if (state is SearchStartState) {
               return const SearchFunctionality();
             }
             return const Center(child: LinearProgressIndicator(color: AppColors.primary));
           },
         ));
+  }
+
+  Widget mainWidget(BuildContext context, String userName) {
+    return SingleChildScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      child: SizedBox(
+          child: Column(children: [
+        // ---------------------------------------------------------------------Search Widget
+        searchWidget(context, scaffoldKey),
+        const SizedBox(height: 24),
+
+        // ----------------------------------------------------------------------User widget
+        userWidget(context, userName, scaffoldKey),
+
+        // ----------------------------------------------------------------------GridView Widget
+        gridViewWidget(context),
+
+        SizedBox(width: MediaQuery.of(context).size.width / 1.3, child: const Divider(thickness: 2, color: Color(0xFFE0E0E0))),
+
+        const Tabbar(),
+      ])),
+    );
   }
 
 // TODO GirdView Widget
@@ -73,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                       String listingValue = listing['listing']?.toString() ?? 'N/A';
                       String grantsProcessed = listing['grants_processed']?.toString() ?? 'N/A';
                       String loanPassed = listing['loan_passed']?.toString() ?? 'N/A';
-                      String notificationTitle = notification['notification_title']?.toString() ?? 'N/A';
+                      String notificationTitle = notification['notification_tittle']?.toString() ?? 'N/A';
                       String notificationBody = notification['notification_body']?.toString() ?? 'N/A';
 
                       Map<String, String> listingsMap = {

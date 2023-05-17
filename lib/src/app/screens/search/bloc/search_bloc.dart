@@ -9,9 +9,16 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchInitialEvent>((event, emit) {
       emit(SearchInitialState()); // TODO: implement event handler
     });
+
     on<SearchStartEvent>(
       (event, emit) {
         emit(SearchStartState());
+      },
+    );
+
+      on<ResetStartEvent>(
+      (event, emit) {
+        emit(ResetStartState());
       },
     );
   }

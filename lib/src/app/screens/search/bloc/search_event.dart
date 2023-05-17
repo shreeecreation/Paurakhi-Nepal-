@@ -7,3 +7,7 @@ class SearchInitialEvent extends SearchEvent{}
 class SearchStartEvent extends SearchEvent{
 
 }
+
+class ResetStartEvent extends SearchEvent{
+
+}
