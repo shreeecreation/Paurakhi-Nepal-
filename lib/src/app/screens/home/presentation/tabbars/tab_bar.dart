@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/homescreen/bloc/request_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown_api.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/bloc/getprdouct_bloc.dart';
@@ -66,70 +67,86 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                 } else if (!snapshot.hasData) {
                   return const Center(child: Text('No data'));
                 }
-                return SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                          child: FutureBuilder<List<DropdownMenuItem>>(
-                              future: DropdownList.returnDropdown(),
-                              builder: (BuildContext context, AsyncSnapshot<List<DropdownMenuItem>> snapshot) {
-                                GetProductModel model = GetProductModel();
-                                model.page = 0;
-                                model.type = "sell";
-                                GetProductAPI.getProductSinglePage(model);
-                                if (snapshot.hasData) {
-                                  final List<DropdownMenuItem> tabTextList = snapshot.data!;
-                                  return Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: TabBar(
-                                        controller: _tabController,
-                                        onTap: (value) {
-                                          BlocProvider.of<GetprdouctBloc>(context).add(GetProdcutFetchEvent());
-
-                                          mainCategoryIndex = tabTextList[value].value;
-                                        },
-                                        isScrollable: true,
-                                        labelPadding: const EdgeInsets.symmetric(horizontal: 10),
-                                        unselectedLabelColor: Colors.black,
-                                        labelColor: Colors.white,
-                                        splashBorderRadius: BorderRadius.circular(20),
-                                        indicator: ShapeDecoration(
-                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
-                                        tabs: tabTextList.map((tabText) => Tab(child: tabText.child)).toList(),
-                                        indicatorSize: TabBarIndicatorSize.tab),
-                                  );
-                                } else {
-                                  return const Text("");
-                                }
-                              }),
-                        ),
-                        BlocBuilder<GetprdouctBloc, GetprdouctState>(
-                          builder: (context, state) {
-                            if (state is GetProdcutFetchState) {
-                              return SizedBox(
-                                  height: MediaQuery.of(context).size.height / 2.5,
-                                  child: TabBarView(
-                                    controller: _tabController,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    children: List.generate(tabBarLength, (index) => All(category: mainCategoryIndex)),
-                                  ));
-                            }
-                            return const Center(
-                                child: LinearProgressIndicator(
-                              color: AppColors.textGreen,
-                              backgroundColor: Colors.white,
-                            ));
-                          },
-                        )
-                      ],
-                    ));
+                return BlocBuilder<RequestBloc, RequestState>(
+                  builder: (context, state) {
+                    if (state is RequestStartState) {
+                      return futureBuilder(context, "request");
+                    }
+                    if (state is RequestEndState) {
+                      return futureBuilder(context, "sell");
+                    }
+                    if (state is RequestInitial) {
+                      return futureBuilder(context, "sell");
+                    }
+                    return const CircularProgressIndicator();
+                  },
+                );
               });
         }
 
         return const Center(child: LinearProgressIndicator(color: AppColors.primary));
       },
     );
+  }
+
+  SizedBox futureBuilder(BuildContext context, String type) {
+    return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              child: FutureBuilder<List<DropdownMenuItem>>(
+                  future: DropdownList.returnDropdown(),
+                  builder: (BuildContext context, AsyncSnapshot<List<DropdownMenuItem>> snapshot) {
+                    GetProductModel model = GetProductModel();
+                    model.page = 0;
+                    model.type = type;
+                    GetProductAPI.getProductSinglePage(model);
+                    if (snapshot.hasData) {
+                      final List<DropdownMenuItem> tabTextList = snapshot.data!;
+                      return Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: TabBar(
+                            controller: _tabController,
+                            onTap: (value) {
+                              BlocProvider.of<GetprdouctBloc>(context).add(GetProdcutFetchEvent());
+
+                              mainCategoryIndex = tabTextList[value].value;
+                            },
+                            isScrollable: true,
+                            labelPadding: const EdgeInsets.symmetric(horizontal: 10),
+                            unselectedLabelColor: Colors.black,
+                            labelColor: Colors.white,
+                            splashBorderRadius: BorderRadius.circular(20),
+                            indicator: ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
+                            tabs: tabTextList.map((tabText) => Tab(child: tabText.child)).toList(),
+                            indicatorSize: TabBarIndicatorSize.tab),
+                      );
+                    } else {
+                      return const Text("");
+                    }
+                  }),
+            ),
+            BlocBuilder<GetprdouctBloc, GetprdouctState>(
+              builder: (context, state) {
+                if (state is GetProdcutFetchState) {
+                  return SizedBox(
+                      height: MediaQuery.of(context).size.height / 2.5,
+                      child: TabBarView(
+                        controller: _tabController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: List.generate(tabBarLength, (index) => All(category: mainCategoryIndex)),
+                      ));
+                }
+                return const Center(
+                    child: LinearProgressIndicator(
+                  color: AppColors.textGreen,
+                  backgroundColor: Colors.white,
+                ));
+              },
+            )
+          ],
+        ));
   }
 }

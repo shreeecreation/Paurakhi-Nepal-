@@ -40,7 +40,7 @@ dependencies:
   #state management 
   flutter_bloc: ^8.1.2
 
-  awesome_dropdown: ^0.0.4
+  dropdown_button2: ^2.1.2
 
   geolocator: ^8.2.0
   geocoding: ^2.0.4

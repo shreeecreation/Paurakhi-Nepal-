@@ -12,7 +12,6 @@ import 'bloc/profile_bloc.dart';
 import 'changepassword.dart';
 import 'editprofile.dart';
 import 'model/profile_model.dart';
-import 'quotation/quotationhistory_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -144,7 +143,7 @@ Padding quotationhistory(BuildContext context) {
         title: const Text("Quotation History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
-          quotationScreen(context);
+          quotationHistoryScreen(context);
         },
       ),
     ),
@@ -162,7 +161,7 @@ Padding openTicketHistory(BuildContext context) {
         title: const Text("Ticket History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
-          quotationBottomSheet(context);
+          quotationHistoryScreen(context);
         },
       ),
     ),
@@ -198,7 +197,7 @@ Padding notificationHistory(BuildContext context) {
         title: const Text("Notification History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
-          quotationBottomSheet(context);
+          quotationHistoryScreen(context);
         },
       ),
     ),

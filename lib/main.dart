@@ -6,6 +6,7 @@ import 'package:paurakhi/src/app/screens/internetandSetverError/nointernetconnec
 import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:provider/provider.dart';
 import 'src/app/screens/home/presentation/home_page.dart';
+import 'src/app/screens/home/presentation/homescreen/bloc/request_bloc.dart';
 import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
 import 'src/app/screens/home/presentation/request/bloc/getprdouct_bloc.dart';
 import 'src/app/screens/internetandSetverError/check_internet_connection.dart';
@@ -38,11 +39,13 @@ class MyApp extends StatelessWidget {
             BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
             BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
             BlocProvider<GetprdouctBloc>(create: (context) => GetprdouctBloc()),
+            BlocProvider<RequestBloc>(create: (context) => RequestBloc()),
           ],
           child: GestureDetector(
             onTap: () {
               unFocusNode(context);
             },
+            
             child: SafeArea(
               child: GetMaterialApp(
                 debugShowCheckedModeBanner: false,

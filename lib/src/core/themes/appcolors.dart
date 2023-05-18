@@ -32,6 +32,8 @@ abstract class AppColors {
   static const Color black = Color(0xFF000000);
   static const Color transparent = Colors.transparent;
 
+  static const Color defaultbackground = Color(0xFFF4FBF3);
+
   //homepage color
 
   static const Color goodMorning = Color(0xFF7472E0);

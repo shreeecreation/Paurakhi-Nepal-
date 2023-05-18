@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/main.dart';
@@ -10,6 +11,8 @@ import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
+
+import 'bloc/request_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -46,6 +49,9 @@ class HomeScreen extends StatelessWidget {
             if (state is SearchStartState) {
               return const SearchFunctionality();
             }
+
+
+      
             return const Center(child: LinearProgressIndicator(color: AppColors.primary));
           },
         ));
@@ -95,12 +101,13 @@ class HomeScreen extends StatelessWidget {
                       String loanPassed = listing['loan_passed']?.toString() ?? 'N/A';
                       String notificationTitle = notification['notification_tittle']?.toString() ?? 'N/A';
                       String notificationBody = notification['notification_body']?.toString() ?? 'N/A';
+                      String notificationSubTitle = notification['notification_sub_tittle']?.toString() ?? 'N/A';
 
                       Map<String, String> listingsMap = {
                         "Users": user,
                         "Value": listingValue,
-                        "Grant Proceeded": grantsProcessed,
-                        "loanPassed": loanPassed,
+                        "Grants": grantsProcessed,
+                        "Loan Passed": loanPassed,
                       };
 
                       return Row(
@@ -108,11 +115,20 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(width: 10),
                           Container(
                               height: 180,
-                              width: MediaQuery.of(context).size.width / 1.8,
+                              width: MediaQuery.of(context).size.width / 1.5,
                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: const Color(0xFF34A853)),
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(notificationTitle, style: AppStyles.text16PxBold),
+                                padding: const EdgeInsets.all(18.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(notificationTitle, style: AppStyles.text24PxBold.white),
+                                    const SizedBox(height: 1),
+                                    Text(notificationSubTitle, style: AppStyles.text18PxSemiBold.white),
+                                    const SizedBox(height: 5),
+                                    Text(notificationBody, style: AppStyles.text14Px.white),
+                                  ],
+                                ),
                               )),
                           const SizedBox(width: 16),
                           Container(
@@ -125,38 +141,41 @@ class HomeScreen extends StatelessWidget {
                                   color: const Color.fromARGB(255, 225, 228, 224)),
                               child: Row(
                                 children: [
-                                  GridView.builder(
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: listingsMap.length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return GestureDetector(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 2),
-                                          child: Container(
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xFF34A853)),
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Center(
-                                                  child: Text(listingsMap.entries.elementAt(index).key, style: AppStyles.text14Px.white),
-                                                ),
-                                                Center(
-                                                  child: Text(listingsMap.entries.elementAt(index).value, style: AppStyles.text14PxBold.white),
-                                                ),
-                                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GridView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: listingsMap.length,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        return GestureDetector(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 2),
+                                            child: Container(
+                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xFF34A853)),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Center(
+                                                    child: Text(listingsMap.entries.elementAt(index).key, style: AppStyles.text14Px.white),
+                                                  ),
+                                                  Center(
+                                                    child:
+                                                        Text("${listingsMap.entries.elementAt(index).value} +", style: AppStyles.text14PxBold.white),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2, mainAxisSpacing: 4.0, crossAxisSpacing: 1.0, childAspectRatio: 0.6),
+                                        );
+                                      },
+                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2, mainAxisSpacing: 4.0, crossAxisSpacing: 1.0, childAspectRatio: 0.6),
+                                    ),
                                   ),
-                                  const SizedBox(width: 10),
-                                  const SizedBox(width: 10),
                                 ],
                               )),
+                          const SizedBox(width: 10),
                         ],
                       );
                     }
@@ -169,48 +188,93 @@ class HomeScreen extends StatelessWidget {
 
 //TODO User Widget manage
   Widget userWidget(BuildContext context, String userName, scaffoldkey) {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(value: "Sell", child: Text("Sell", style: AppStyles.text16PxBold)),
-      DropdownMenuItem(value: "Request", child: Text("Request", style: AppStyles.text16PxBold)),
+    final List<String> genderItems = [
+      'Sell',
+      'Request',
     ];
+    final formKey = GlobalKey<FormState>();
+
     String? selectedValue = "Sell";
-    return SizedBox(
-        height: 50,
-        width: MediaQuery.of(context).size.width,
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Row(
-            children: [
-              const SizedBox(width: 11),
-              Text("नमस्कार $userName", style: AppStyles.text24PxBold),
-              Image.asset("assets/images/nepalflag.png", scale: 5)
-            ],
-          ),
-          const SizedBox(width: 5),
-          Center(
-            child: SizedBox(
-              height: 50,
-              width: 115,
-              child: DropdownButtonFormField(
-                  itemHeight: 50,
-                  style: AppStyles.text14PxSemiBold,
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    filled: true,
-                    fillColor: Colors.green,
-                  ),
-                  iconEnabledColor: Colors.white,
-                  validator: (value) => value == null ? "Sell" : null,
-                  dropdownColor: const Color.fromARGB(255, 57, 115, 48),
-                  value: selectedValue,
-                  onChanged: (String? newValue) {
-                    selectedValue = newValue!;
-                  },
-                  items: menuItems),
+    return Form(
+      key: formKey,
+      child: SizedBox(
+          height: 50,
+          width: MediaQuery.of(context).size.width,
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Row(
+              children: [
+                const SizedBox(width: 11),
+                Text("नमस्कार $userName", style: AppStyles.text24PxBold),
+                Image.asset("assets/images/nepalflag.png", scale: 5)
+              ],
             ),
-          ),
-        ]));
+            const SizedBox(width: 5),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.green,
+              ),
+              height: 42,
+              width: 110,
+              child: DropdownButtonFormField2(
+                value: "Sell",
+                decoration: InputDecoration(
+                  isDense: true,
+                  fillColor: Colors.green,
+                  contentPadding: EdgeInsets.zero,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+                ),
+                isExpanded: true,
+                style: AppStyles.text14PxMedium.white,
+                items: genderItems
+                    .map((item) => DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                            item,
+                            style: AppStyles.text12PxBold.white,
+                          ),
+                        ))
+                    .toList(),
+                validator: (value) {
+                  if (value == null) {
+                    return 'Select';
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  if(value == "Sell"){
+
+                  BlocProvider.of<RequestBloc>(context).add(RequestStartEvent());
+                  }
+                  else{
+                  BlocProvider.of<RequestBloc>(context).add(RequestInitialEvent());
+
+                  }
+                },
+                onSaved: (value) {
+                  selectedValue = value.toString();
+                },
+                buttonStyleData: const ButtonStyleData(
+                  height: 60,
+                  width: 40,
+                  padding: EdgeInsets.only(left: 20, right: 10),
+                ),
+                iconStyleData: const IconStyleData(
+                  icon: Icon(
+                    Icons.arrow_drop_down,
+                    color: Colors.white,
+                  ),
+                  iconSize: 30,
+                ),
+                dropdownStyleData: DropdownStyleData(
+                  decoration: BoxDecoration(
+                    color: AppColors.textGreen,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+              ),
+            ),
+          ])),
+    );
   }
 }
