@@ -82,7 +82,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                       width: MediaQuery.of(context).size.width / 1.2,
                       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                        Text("Forgot Password ?", style: AppStyles.text14Px.textBlue),
+                        TextButton(
+                            child: Text("Forgot Password ?", style: AppStyles.text14Px.textBlue),
+                            onPressed: () {
+                              AuthRoutes.forgotScreen();
+                            }),
                         Row(
                           children: [
                             Checkbox(

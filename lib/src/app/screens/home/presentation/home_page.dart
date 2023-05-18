@@ -10,5 +10,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: IsLoggedIn.isLoggedIn ? const LoginTrueBottomNavigator() : const LoginFalseBottomNavigator());
+    // return const Scaffold(body: LoginTrueBottomNavigator());
   }
 }

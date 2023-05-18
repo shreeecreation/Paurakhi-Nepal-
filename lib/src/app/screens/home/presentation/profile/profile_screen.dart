@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/Quotation%20Hisotry/quotation_history_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
 import 'package:paurakhi/src/core/providers/location_provider.dart';
@@ -51,6 +52,7 @@ class ProfileScreen extends StatelessWidget {
             financeenrquiry(context),
             notificationHistory(context),
             openTicketHistory(context),
+            addGrant(context),
             isVerified(context),
             logOut(context),
           ]),
@@ -69,6 +71,24 @@ class ProfileScreen extends StatelessWidget {
           trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
           onTap: () {
             ProfileRoutes.openticketRoute();
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget addGrant(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width - 30,
+        child: ListTile(
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+          tileColor: Colors.white,
+          title: const Text("Add Grant"),
+          trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
+          onTap: () {
+            ProfileRoutes.addGrantRoute();
           },
         ),
       ),
@@ -124,7 +144,7 @@ Padding quotationhistory(BuildContext context) {
         title: const Text("Quotation History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
-          quotationBottomSheet(context);
+          quotationScreen(context);
         },
       ),
     ),

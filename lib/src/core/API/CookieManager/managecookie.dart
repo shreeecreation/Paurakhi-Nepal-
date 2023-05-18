@@ -20,4 +20,14 @@ class ManageCookie {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getString('otpcookie') ?? "";
   }
+
+  
+  static Future<String> getResetCookie() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString('reset') ?? "";
+  }
+  static Future<void> setResetCookie(cookie) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString('reset', "$cookie");
+  }
 }

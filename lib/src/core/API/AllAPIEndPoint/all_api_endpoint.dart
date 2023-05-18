@@ -9,6 +9,9 @@ class AllAPIEndPoint {
   static String newsAPI = "";
   static String notificationAPI = "";
   static String changePasswordAPI = "/user/change-password";
+  static String resetPasswordAPI = "/auth/user/forgot-password";
+  static String resetPasswordOTP = "/verify/forgot-password";
+  static String resetPassword = "/auth/user/reset-password";
   static String openTicketAPI = "";
   static String listingsAndGreetings = "/mobile-info";
   static String searchAPI = "/product/get-product?";

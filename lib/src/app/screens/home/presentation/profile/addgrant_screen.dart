@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
-class OpenTicket extends StatelessWidget {
-  OpenTicket({super.key});
+class AddGrant extends StatelessWidget {
+  AddGrant({super.key});
   final String? selectedValue = "Farming Product";
   final TextEditingController subjectController = TextEditingController();
   final TextEditingController messsage = TextEditingController();
@@ -21,7 +21,7 @@ class OpenTicket extends StatelessWidget {
             color: Colors.black, //change your color here
           ),
           title: Text(
-            "Open Ticket",
+            "Add Grant",
             style: AppStyles.text20PxSemiBold.black,
           ),
           backgroundColor: Colors.white,
