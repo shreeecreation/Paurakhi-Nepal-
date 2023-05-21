@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
 import 'package:paurakhi/src/core/routes/drawerroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
@@ -32,6 +34,8 @@ class EndDrawer extends StatelessWidget {
             onTap: () async {
               //action on press
               DrawerRoutes.blogRoute();
+              BlocProvider.of<BlogBloc>(context).add(FetchBlogEvent());
+
               Scaffold.of(context).closeEndDrawer();
             },
           ),
