@@ -44,7 +44,7 @@ class DropDownAPI {
       const DropdownMenuItem(value: '', child: Text('All')),
     ];
 
-    final url = Uri.parse('${Environment.apiUrl}/category/get-category'); // Replace with your API endpoint URL
+    final url = Uri.parse('${Environment.apiUrl}/category/get-category'); 
     try {
       final response = await http.get(url, headers: {
         'Cookie': cookie,

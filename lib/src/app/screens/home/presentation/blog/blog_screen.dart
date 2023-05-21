@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/core/API/BlogAPI/blog_api.dart';
+import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
+
+import 'model/blog_model.dart';
 
 final GlobalKey<ScaffoldState> _scaffoldKeyBlog = GlobalKey<ScaffoldState>();
 
@@ -24,7 +28,7 @@ class BlogScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 12.0),
             child: Text("Recent Blogs", style: AppStyles.text22PxBold),
           ),
-          gridViewWidget(context),
+
           const SizedBox(height: 10),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.0),
@@ -32,100 +36,32 @@ class BlogScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20),
 
-          allNews(context),
-          allNews(context),
-          allNews(context),
-          allNews(context),
+          FutureBuilder<List<BlogModel>?>(
+              future: BlogAPI.getBlog(),
+              builder: (BuildContext context, AsyncSnapshot<List<BlogModel>?> snapshot) {
+                if (snapshot.hasData) {
+                  // If the future is complete and has data, display the product data
+                  final List<BlogModel> model = snapshot.data!;
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: model.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final BlogModel models = model[index];
+                      return allBlog(context, models);
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  // If the future has an error, display the error message
+                  return Text('${snapshot.error}');
+                } else {
+                  // If the future is not complete yet, display a loading indicator
+                  return const Center(child: LinearProgressIndicator(color: AppColors.primary));
+                }
+              })
         ]))));
   }
 
-  Widget gridViewWidget(
-    BuildContext context,
-  ) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: SizedBox(
-          height: 200,
-          child: Center(
-            child: Row(
-              children: [
-                const SizedBox(width: 16),
-                SizedBox(
-                    height: 170,
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 10),
-                        GridView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 5,
-                            itemBuilder: (BuildContext context, int index) {
-                              return GestureDetector(
-                                child: recentCard(),
-                              );
-                            },
-                            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 200, childAspectRatio: 0.85, crossAxisSpacing: 20, mainAxisSpacing: 20)),
-                        const SizedBox(width: 10),
-                      ],
-                    )),
-              ],
-            ),
-          )),
-    );
-  }
-
-  Column recentCard() {
-    return Column(
-      children: [
-        Stack(children: [
-          Container(
-              height: 120,
-              width: 200,
-              decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(17),
-                  image: const DecorationImage(image: AssetImage("assets/images/nepalflag.png")))),
-          Padding(
-            padding: const EdgeInsets.only(top: 10, left: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(137, 255, 255, 255),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Center(child: Text("Grant")),
-                    )),
-                const SizedBox(width: 5),
-                Container(
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(137, 255, 255, 255),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Center(child: Text("International")),
-                    )),
-              ],
-            ),
-          ),
-        ]),
-        const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: 200, child: Text("Nepal's current Status in Agriculture...", style: AppStyles.text16PxBold)),
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget allNews(context) {
+  Widget allBlog(context, BlogModel model) {
     return Stack(children: [
       Container(
           height: 150,
@@ -152,29 +88,9 @@ class BlogScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        //TODO get tag
-
-                        Container(
-                            decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(6)), color: Color(0xFFD9D9D9)),
-                            height: 40,
-                            width: 70,
-                            child: const Center(child: Text("Product"))),
-                        const SizedBox(width: 10),
-
-                        //TODO get tag
-                        Container(
-                            decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(6)), color: Color(0xFFD9D9D9)),
-                            height: 40,
-                            width: 70,
-                            child: const Center(child: Text("Fertilizer"))),
-                      ],
-                    ),
                     const SizedBox(height: 10),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width / 2,
-                        child: Text("Rs. Urea Fertilizer | High Quality | 100KG Package", style: AppStyles.text18PxBold)),
+                    SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.tittle, style: AppStyles.text18PxBold)),
+                    SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.body, style: AppStyles.text16Px)),
                   ],
                 ),
               ],

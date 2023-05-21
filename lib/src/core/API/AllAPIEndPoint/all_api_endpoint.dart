@@ -5,7 +5,7 @@ class AllAPIEndPoint {
   static String editProfileAPI = "/user/edit-profile";
   static String registerAPI = "";
   static String getUserInfoAPI = "";
-  static String blogAPI = "";
+  static String blogAPI = "blog/get-blog";
   static String newsAPI = "";
   static String notificationAPI = "";
   static String changePasswordAPI = "/user/change-password";

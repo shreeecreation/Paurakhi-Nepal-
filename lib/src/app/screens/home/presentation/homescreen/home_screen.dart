@@ -49,9 +49,6 @@ class HomeScreen extends StatelessWidget {
             if (state is SearchStartState) {
               return const SearchFunctionality();
             }
-
-
-      
             return const Center(child: LinearProgressIndicator(color: AppColors.primary));
           },
         ));
@@ -217,7 +214,7 @@ class HomeScreen extends StatelessWidget {
               height: 42,
               width: 110,
               child: DropdownButtonFormField2(
-                value: "Sell",
+                value: "Request",
                 decoration: InputDecoration(
                   isDense: true,
                   fillColor: Colors.green,
@@ -242,13 +239,10 @@ class HomeScreen extends StatelessWidget {
                   return null;
                 },
                 onChanged: (value) {
-                  if(value == "Sell"){
-
-                  BlocProvider.of<RequestBloc>(context).add(RequestStartEvent());
-                  }
-                  else{
-                  BlocProvider.of<RequestBloc>(context).add(RequestInitialEvent());
-
+                  if (value == "Sell") {
+                    BlocProvider.of<RequestBloc>(context).add(RequestStartEvent());
+                  } else {
+                    BlocProvider.of<RequestBloc>(context).add(RequestInitialEvent());
                   }
                 },
                 onSaved: (value) {

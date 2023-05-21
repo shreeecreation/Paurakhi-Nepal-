@@ -136,7 +136,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                       child: TabBarView(
                         controller: _tabController,
                         physics: const NeverScrollableScrollPhysics(),
-                        children: List.generate(tabBarLength, (index) => All(category: mainCategoryIndex)),
+                        children: List.generate(tabBarLength, (index) => All(category: mainCategoryIndex,type:type)),
                       ));
                 }
                 return const Center(

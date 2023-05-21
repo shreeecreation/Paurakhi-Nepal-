@@ -5,6 +5,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc
 import 'package:paurakhi/src/app/screens/internetandSetverError/nointernetconnection.dart';
 import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:provider/provider.dart';
+import 'src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
 import 'src/app/screens/home/presentation/home_page.dart';
 import 'src/app/screens/home/presentation/homescreen/bloc/request_bloc.dart';
 import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
             BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
             BlocProvider<GetprdouctBloc>(create: (context) => GetprdouctBloc()),
             BlocProvider<RequestBloc>(create: (context) => RequestBloc()),
+            BlocProvider<BlogBloc>(create: (context) => BlogBloc()),
           ],
           child: GestureDetector(
             onTap: () {

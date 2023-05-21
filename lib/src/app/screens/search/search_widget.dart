@@ -11,7 +11,7 @@ class SearchWidget extends StatelessWidget {
   SearchWidget({super.key, required this.name});
   @override
   Widget build(BuildContext context) {
-    var type;
+    String type;
     var category = Filter.filter.join(',');
     Filter.type == 0 ? type = "request" : type = "sell";
     return FutureBuilder<List<SearchModel>?>(
@@ -26,7 +26,7 @@ class SearchWidget extends StatelessWidget {
               itemCount: products.length,
               itemBuilder: (BuildContext context, int index) {
                 final SearchModel product = products[index];
-                return everyProductWidget(context, product.images, product.tags, product.description);
+                return everyProductWidgetSearch(context, product);
               },
             );
           } else if (snapshot.hasError) {

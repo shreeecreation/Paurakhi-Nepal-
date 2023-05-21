@@ -7,11 +7,12 @@ import 'productmodel.dart';
 
 class All extends StatelessWidget {
   String category;
-  All({super.key, required this.category});
+  String type;
+  All({super.key, required this.category, required this.type});
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<ProductModel>?>(
-        future: GetProductAPI.getProductCategory(category),
+        future: GetProductAPI.getProductCategory(category, type),
         builder: (BuildContext context, AsyncSnapshot<List<ProductModel>?> snapshot) {
           if (snapshot.hasData) {
             // If the future is complete and has data, display the product data
@@ -21,7 +22,7 @@ class All extends StatelessWidget {
               itemCount: products.length,
               itemBuilder: (BuildContext context, int index) {
                 final ProductModel product = products[index];
-                return everyProductWidget(context, product.images, product.tags, product.description);
+                return everyProductWidgetProduct(context, product);
               },
             );
           } else if (snapshot.hasError) {

@@ -29,7 +29,7 @@ class EndDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text("Blog", style: textStyle),
-            onTap: () {
+            onTap: () async {
               //action on press
               DrawerRoutes.blogRoute();
               Scaffold.of(context).closeEndDrawer();
