@@ -16,7 +16,6 @@ class ListingsGreetingsAPI {
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
         final dynamic jsonList = jsonDecode(response.body);
-        print(jsonList);
         return jsonList;
       } else if (code == 400) {
       } else if (code == 500) {}

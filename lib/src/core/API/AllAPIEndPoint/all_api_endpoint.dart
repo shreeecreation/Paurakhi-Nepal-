@@ -6,13 +6,14 @@ class AllAPIEndPoint {
   static String registerAPI = "";
   static String getUserInfoAPI = "";
   static String blogAPI = "blog/get-blog";
-  static String newsAPI = "";
+  static String newsAPI = "news/get-news";
   static String notificationAPI = "";
   static String changePasswordAPI = "/user/change-password";
   static String resetPasswordAPI = "/auth/user/forgot-password";
   static String resetPasswordOTP = "/verify/forgot-password";
   static String resetPassword = "/auth/user/reset-password";
-  static String openTicketAPI = "";
+  static String openTicketAPI = "/ticket/create-ticket";
   static String listingsAndGreetings = "/mobile-info";
   static String searchAPI = "/product/get-product?";
+  static String sendQuotationAPI = "/product/get-product?";
 }

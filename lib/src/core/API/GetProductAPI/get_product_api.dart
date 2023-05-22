@@ -32,7 +32,6 @@ class GetProductAPI {
       );
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
-        print(response.body);
         final List<dynamic> jsonList = jsonDecode(response.body);
         List<ProductModel> products = [];
 

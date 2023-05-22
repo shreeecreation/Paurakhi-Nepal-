@@ -33,4 +33,11 @@ extension ExtString on String {
     RegExp regExp = RegExp(pattern);
     return regExp.hasMatch(email);
   }
+
+
+   static bool validateNormalName(String input) {
+    final RegExp regex = RegExp(r'^.{5,}$');
+    return regex.hasMatch(input);
+  }
+
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/productmodel.dart';
 import 'package:paurakhi/src/app/screens/search/model/search_model.dart';
+import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'focuesnode.dart';
@@ -186,7 +187,7 @@ Widget everyProductWidgetProduct(BuildContext context, ProductModel product) {
   ]);
 }
 
-Widget everyProductWidgetBlog(BuildContext context, BlogModel product) {
+Widget everyProductWidgetBlog(BuildContext context, BlogModelandNewsModel product) {
   return Stack(children: [
     Container(
         height: 150,
@@ -203,28 +204,6 @@ Widget everyProductWidgetBlog(BuildContext context, BlogModel product) {
           child: Row(
             children: [
               const SizedBox(width: 15),
-              // product.blogImage.isEmpty
-              //     ? const SizedBox(height: 120, width: 126, child: Icon(Icons.question_mark))
-              //     :
-              //     //  Container(
-              //     //     height: 120,
-              //     //     width: 126,
-              //     //     decoration: BoxDecoration(
-              //     //         borderRadius: BorderRadius.circular(20.0),
-              //     //         image: DecorationImage(image: NetworkImage("${Environment.apiUrl}/public/images/${image[0]}"), fit: BoxFit.cover)),
-              //     //     child: ClipRRect(borderRadius: BorderRadius.circular(10.0), child: Align(alignment: Alignment.bottomRight, child: Container())),
-              //     //   ),
-              //     Container(
-              //         height: 120,
-              //         width: 126,
-              //         decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(20.0),
-              //             image: const DecorationImage(
-              //                 image: NetworkImage(
-              //                     "https://thumbs.dreamstime.com/b/rice-cop-field-green-paddy-dhan-seed-plantation-chawalfield-agriculture-landscape-image-stock-photo-263603788.jpg"),
-              //                 fit: BoxFit.cover)),
-              //         child: ClipRRect(borderRadius: BorderRadius.circular(10.0), child: Align(alignment: Alignment.bottomRight, child: Container())),
-              //       ),
               const SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

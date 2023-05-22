@@ -46,6 +46,7 @@ dependencies:
   geocoding: ^2.0.4
 
   connectivity: ^3.0.6
+  flutter_html: ^3.0.0-beta.1
 
 dev_dependencies:
   flutter_test:

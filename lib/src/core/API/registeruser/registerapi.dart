@@ -38,8 +38,6 @@ class RegisterAPI {
       ));
       http.Response response = await http.Response.fromStream(await request.send());
       var code = response.statusCode;
-      print(response.body);
-      print(code);
       if (response.statusCode == 200) {
         // print('Photo uploaded successfully!');
         return response;

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/main.dart';
-import 'package:paurakhi/src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
-import 'package:paurakhi/src/app/screens/home/presentation/blog/search/search_value.dart';
-import 'package:paurakhi/src/core/utils/search_blog.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/news/bloc/news_bloc.dart';
+import 'package:paurakhi/src/core/utils/search_news.dart';
 
-import 'blog_result.dart';
+import 'news_result.dart';
+import 'search_value.dart';
 
-class SearchFunctionalityBlog extends StatelessWidget {
-  const SearchFunctionalityBlog({super.key});
+class SearchFunctionalityNews extends StatelessWidget {
+  const SearchFunctionalityNews({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,10 @@ class SearchFunctionalityBlog extends StatelessWidget {
         searchFilterWidget(context, scaffoldKey),
         const SizedBox(height: 10),
 
-        BlocBuilder<BlogBloc, BlogState>(
+        BlocBuilder<NewsBloc, NewsState>(
           builder: (context, state) {
-            if (state is SearchedBlogState) {
-              return BlogSearchResult(title: SearchValueBlog.searchValue);
+            if (state is SearchedNewsState) {
+              return NewsSearchResult(title: SearchValueNews.searchValue);
             }
             return const Text("\nNo results found ");
           },

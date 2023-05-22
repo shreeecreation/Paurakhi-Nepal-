@@ -19,7 +19,6 @@ class _OptionsDialogState extends State<OptionsDialog> {
 
   @override
   Widget build(BuildContext context) {
-    print(_options);
     return AlertDialog(
       title: const Text('Select options'),
       content: SingleChildScrollView(

@@ -3,13 +3,13 @@ import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model
 import 'package:paurakhi/src/core/API/Search/search_api.dart';
 import 'package:paurakhi/src/core/utils/evey_product_widget.dart';
 
-class BlogSearchResult extends StatelessWidget {
+class NewsSearchResult extends StatelessWidget {
   final String title;
-  const BlogSearchResult({super.key, required this.title});
+  const NewsSearchResult({super.key, required this.title});
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<BlogModelandNewsModel>?>(
-        future: SearchAPI.getSearchedBlog(title),
+        future: SearchAPI.getSearchedNews(title),
         builder: (BuildContext context, AsyncSnapshot<List<BlogModelandNewsModel>?> snapshot) {
           if (snapshot.hasData) {
             // If the future is complete and has data, display the product data

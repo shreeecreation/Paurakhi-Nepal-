@@ -9,7 +9,6 @@ import 'package:paurakhi/src/core/dialogs/login/logindialogs.dart';
 class ChangePasswordAPI {
   static Future<http.Response?> changePasword(String oldPass, String newPass, BuildContext context) async {
     final url = Uri.parse('${Environment.apiUrl}${AllAPIEndPoint.changePasswordAPI}'); // Replace with your API endpoint URLprint
-    print(url);
     var cookie = await ManageCookie.getCookie();
 
     final data = {'oldPassword': oldPass, 'newPassword': newPass};

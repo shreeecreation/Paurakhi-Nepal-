@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/news/bloc/news_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/app/screens/internetandSetverError/nointernetconnection.dart';
 import 'package:paurakhi/src/core/routes/is_logged_in.dart';
@@ -42,12 +43,12 @@ class MyApp extends StatelessWidget {
             BlocProvider<GetprdouctBloc>(create: (context) => GetprdouctBloc()),
             BlocProvider<RequestBloc>(create: (context) => RequestBloc()),
             BlocProvider<BlogBloc>(create: (context) => BlogBloc()),
+            BlocProvider<NewsBloc>(create: (context) => NewsBloc()),
           ],
           child: GestureDetector(
             onTap: () {
               unFocusNode(context);
             },
-            
             child: SafeArea(
               child: GetMaterialApp(
                 debugShowCheckedModeBanner: false,

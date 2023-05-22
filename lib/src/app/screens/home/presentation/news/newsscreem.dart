@@ -1,43 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
 import 'package:paurakhi/src/core/API/BlogAPI/blog_api.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
-import 'package:paurakhi/src/core/utils/search_blog.dart';
+import 'package:paurakhi/src/core/utils/search_news.dart';
 
-import 'bloc/blog_bloc.dart';
-import 'model/blog_model.dart';
+import 'bloc/news_bloc.dart';
 import 'search/search_functionality.dart';
 
-final GlobalKey<ScaffoldState> _scaffoldKeyBlog = GlobalKey<ScaffoldState>();
+final GlobalKey<ScaffoldState> _scaffoldKeyNews = GlobalKey<ScaffoldState>();
 
-class BlogScreen extends StatelessWidget {
-  const BlogScreen({super.key});
+class NewsScreen extends StatelessWidget {
+  const NewsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         endDrawerEnableOpenDragGesture: true, // This!
-        key: _scaffoldKeyBlog,
+        key: _scaffoldKeyNews,
         endDrawer: const EndDrawer(),
-        body: BlocBuilder<BlogBloc, BlogState>(
+        body: BlocBuilder<NewsBloc, NewsState>(
           builder: (context, state) {
-            if (state is SearchBlogState || state is SearchedBlogState) {
-              return const SearchFunctionalityBlog();
+            if (state is SearchNewsState || state is SearchedNewsState) {
+              return const SearchFunctionalityNews();
             }
-            if (state is FetchBlogState) {
+            if (state is FetchNewsState) {
               // return const LinearProgressIndicator();
               return SingleChildScrollView(
                   child: SizedBox(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 // ---------------------------------------------------------------------Search Widget
-                searchBlog(context, _scaffoldKeyBlog),
+                searchNews(context, _scaffoldKeyNews),
                 const SizedBox(height: 24),
-                Padding(
-                  padding: const EdgeInsets.only(left: 12.0),
-                  child: Text("Blogs", style: AppStyles.text22PxBold),
-                ),
+                Padding(padding: const EdgeInsets.only(left: 12.0), child: Text("News", style: AppStyles.text22PxBold)),
 
                 const SizedBox(height: 10),
                 const Padding(
@@ -47,7 +44,7 @@ class BlogScreen extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 FutureBuilder<List<BlogModelandNewsModel>?>(
-                    future: BlogandNewsAPI.getBlog(),
+                    future: BlogandNewsAPI.getNews(),
                     builder: (BuildContext context, AsyncSnapshot<List<BlogModelandNewsModel>?> snapshot) {
                       if (snapshot.hasData) {
                         // If the future is complete and has data, display the product data

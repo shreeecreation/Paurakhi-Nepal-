@@ -12,7 +12,6 @@ import 'package:paurakhi/src/core/routes/authroutes.dart';
 class ForgotPasswordAPI {
   static Future<http.Response?> verifyNumberForgot(String phoneNo, BuildContext context) async {
     final url = Uri.parse('${Environment.apiUrl}${AllAPIEndPoint.resetPasswordAPI}?phoneNumber=$phoneNo'); // Replace with your API endpoint URL
-    print(url);
 
     try {
       final response = await http.get(

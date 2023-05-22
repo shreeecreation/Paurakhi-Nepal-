@@ -16,9 +16,7 @@ class LoginAPI {
         headers: {'Content-Type': 'application/json'}, // Replace with your headers if needed
       );
       var code = response.statusCode;
-      print(code);
       if (code >= 200 && code < 300) {
-        print(response.body);
         return response;
       } else if (code == 400) {
         WidgetsBinding.instance.addPostFrameCallback((_) {

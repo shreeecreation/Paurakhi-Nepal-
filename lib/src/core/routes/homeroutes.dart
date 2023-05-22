@@ -6,7 +6,12 @@ class HomeRoutes {
   static void homeScreen() {
     Get.offAll(const HomePage());
   }
-   static void singlePageScreen(models) {
-    Get.offAll(SinglePageDescriptionScreen(model: models));
+
+  static void singlePageScreen(models) {
+    Get.to(SinglePageDescriptionScreen(model: models));
+  }
+
+   static void singlePageScreenBlog(models) {
+    Get.to(SinglePageDescriptionScreenBlog(model: models));
   }
 }
