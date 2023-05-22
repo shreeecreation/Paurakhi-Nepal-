@@ -8,6 +8,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   NewsBloc() : super(NewsInitial()) {
     on<NewsEvent>((event, emit) {
       emit(NewsInitial());
+
+      // TODO: implement event handler
     });
     on<FetchNewsEvent>((event, emit) {
       emit(FetchNewsState());

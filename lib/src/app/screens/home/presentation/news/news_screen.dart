@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
 import 'package:paurakhi/src/core/API/BlogAPI/blog_api.dart';
-import 'package:paurakhi/src/core/routes/homeroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/search_news.dart';
@@ -34,7 +33,10 @@ class NewsScreen extends StatelessWidget {
                 // ---------------------------------------------------------------------Search Widget
                 searchNews(context, _scaffoldKeyNews),
                 const SizedBox(height: 24),
-                Padding(padding: const EdgeInsets.only(left: 12.0), child: Text("News", style: AppStyles.text22PxBold)),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0),
+                  child: Text("Newss", style: AppStyles.text22PxBold),
+                ),
 
                 const SizedBox(height: 10),
                 const Padding(
@@ -57,9 +59,9 @@ class NewsScreen extends StatelessWidget {
                             final BlogModelandNewsModel models = model[index];
                             return GestureDetector(
                                 onTap: () {
-                                  HomeRoutes.singlePageScreenBlog(models);
+                                  // HomeRoutes.singlePageScreenNews(models);
                                 },
-                                child: allBlog(context, models));
+                                child: allNews(context, models));
                           },
                         );
                       } else if (snapshot.hasError) {
@@ -67,7 +69,7 @@ class NewsScreen extends StatelessWidget {
                         return Text('${snapshot.error}');
                       } else {
                         // If the future is not complete yet, display a loading indicator
-                        return Center(child: Text("\nThere is no blogs available right now !", style: AppStyles.text16PxBold));
+                        return Center(child: Text("\nThere is no Newss available right now !", style: AppStyles.text16PxBold));
                       }
                     })
               ])));
@@ -77,7 +79,7 @@ class NewsScreen extends StatelessWidget {
         ));
   }
 
-  Widget allBlog(context, BlogModelandNewsModel model) {
+  Widget allNews(context, BlogModelandNewsModel model) {
     return Stack(children: [
       Container(
           height: 150,

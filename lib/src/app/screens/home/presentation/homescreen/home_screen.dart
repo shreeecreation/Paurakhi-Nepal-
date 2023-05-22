@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
         userWidget(context, userName, scaffoldKey),
 
         // ----------------------------------------------------------------------GridView Widget
-        gridViewWidget(context),
+        // gridViewWidget(context),
 
         SizedBox(width: MediaQuery.of(context).size.width / 1.3, child: const Divider(thickness: 2, color: Color(0xFFE0E0E0))),
 

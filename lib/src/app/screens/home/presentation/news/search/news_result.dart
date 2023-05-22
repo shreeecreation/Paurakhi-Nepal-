@@ -22,15 +22,15 @@ class NewsSearchResult extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final BlogModelandNewsModel product = products[index];
                 return everyProductWidgetBlog(context, product);
-                // return Center(child: Text("No Blogs found on title '$title'"));
+                // return Center(child: Text("No Newss found on title '$title'"));
               },
             );
           } else if (snapshot.hasError) {
-            return Center(child: Text("No Blogs found on title '$title'"));
+            return Center(child: Text("No Newss found on title '$title'"));
             // If the future has an error, display the error message
           } else {
             // If the future is not complete yet, display a loading indicator
-            return Center(child: Text("No Blogs found on title '$title'"));
+            return Center(child: Text("No Newss found on title '$title'"));
           }
         });
   }

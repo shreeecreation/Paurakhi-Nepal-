@@ -42,7 +42,7 @@ class EndDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text("News", style: textStyle),
-            onTap: () {
+            onTap: () async {
               //action on press
               DrawerRoutes.newsRoute();
               BlocProvider.of<NewsBloc>(context).add(FetchNewsEvent());
