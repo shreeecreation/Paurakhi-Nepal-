@@ -75,4 +75,26 @@ class SearchAPI {
     } catch (e) {}
     return null;
   }
+
+  
+   static Future<List<BlogModelandNewsModel>?> getSearchedFinance(title) async {
+    String url = '${Environment.apiUrl}/${AllAPIEndPoint.blogAPI}?tittle=$title&type=finance';
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json'}, // Replace with your headers if needed
+      );
+      var code = response.statusCode;
+      print(code);
+      if (code >= 200 && code < 300) {
+        final List<dynamic> jsonList = jsonDecode(response.body);
+        List<BlogModelandNewsModel> products = [];
+
+        products = jsonList.map((dynamic json) => BlogModelandNewsModel.fromJson(json as Map<String, dynamic>)).toList();
+        return products;
+      } else if (code == 400) {
+      } else if (code == 500) {}
+    } catch (e) {}
+    return null;
+  }
 }

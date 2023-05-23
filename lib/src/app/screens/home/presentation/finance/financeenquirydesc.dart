@@ -3,7 +3,8 @@ import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
 
 class FinanceAction extends StatelessWidget {
-  const FinanceAction({super.key});
+  final model;
+  const FinanceAction({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
