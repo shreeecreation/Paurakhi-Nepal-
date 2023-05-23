@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
-import 'package:paurakhi/src/core/themes/appcolors.dart';
+import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/evey_product_widget.dart';
 
 import 'productmodel.dart';
@@ -17,6 +17,9 @@ class All extends StatelessWidget {
           if (snapshot.hasData) {
             // If the future is complete and has data, display the product data
             final List<ProductModel> products = snapshot.data!;
+            if (products.isEmpty) {
+              return Center(child: Text("No product found !", style: AppStyles.text18PxMedium));
+            }
             return ListView.builder(
               shrinkWrap: true,
               itemCount: products.length,
@@ -29,8 +32,7 @@ class All extends StatelessWidget {
             // If the future has an error, display the error message
             return Text('${snapshot.error}');
           } else {
-            // If the future is not complete yet, display a loading indicator
-            return const Center(child: LinearProgressIndicator(color: AppColors.primary));
+            return const Text("");
           }
         });
   }

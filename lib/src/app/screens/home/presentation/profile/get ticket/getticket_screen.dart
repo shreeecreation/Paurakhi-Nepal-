@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:paurakhi/src/core/API/Quotation%20Historu%20API/quotation_history_api.dart';
+import 'package:paurakhi/src/core/API/Get%20Ticket%20API/getticket_api.dart';
 import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
-import 'model/quotationhistory_model.dart';
+import 'getticket_model.dart';
 
-void quotationHistoryScreen(BuildContext context) {
+void ticketHistoryScreen(BuildContext context) {
   showModalBottomSheet(
     backgroundColor: AppColors.defaultbackground,
     context: context,
@@ -21,21 +21,31 @@ void quotationHistoryScreen(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              Text("Quotation History", style: AppStyles.text22PxBold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("  Ticket History", style: AppStyles.text24PxBold),
+                  Flexible(
+                      child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.close))),
+                ],
+              ),
               const SizedBox(height: 20),
-              FutureBuilder<QuotationHistoryModel?>(
-                future: QuotationHistory.quotationHistory(),
-                builder: (BuildContext context, AsyncSnapshot<QuotationHistoryModel?> snapshot) {
+              FutureBuilder<TicketHistoryModel?>(
+                future: GetTicketHistory.ticketHistory(),
+                builder: (BuildContext context, AsyncSnapshot<TicketHistoryModel?> snapshot) {
                   if (snapshot.hasData) {
-                    final QuotationHistoryModel dataList = snapshot.data!;
-                    print(dataList);
+                    final TicketHistoryModel dataList = snapshot.data!;
                     return ListView.builder(
+                      physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: dataList.data.length,
                       itemBuilder: (BuildContext context, int index) {
-                        final Datum datum = dataList.data[index];
-                        return historyWidget(datum.product.name, datum.status, datum.id);
-                        // return const Text("dasdas");
+                        final Datums datum = dataList.data[index];
+                        return historyWidget(datum.tittle, datum.status, datum.createdAt);
                       },
                     );
                   } else if (snapshot.hasError) {
@@ -65,15 +75,15 @@ SizedBox historyWidget(product, status, price) {
           ListTile(
             title: Text("$product", style: AppStyles.text20PxBold),
             trailing: status == "pending"
-                ? const Icon(Icons.check_circle_rounded, size: 30, color: Colors.grey)
-                : status == "cancel"
-                    ? const Icon(Icons.close_rounded, size: 30, color: Colors.red)
-                    : status == "approved"
-                        ? const Icon(Icons.check_circle_rounded, size: 30, color: Colors.green)
-                        : const Icon(Icons.close_rounded, size: 30, color: Colors.red),
+                ? Icon(Icons.format_align_center_rounded, size: 30, color: Colors.green[200])
+                : status == "close"
+                    ? const Icon(Icons.format_align_center_rounded, size: 30, color: Colors.green)
+                    : status == "unsolved"
+                        ? const Icon(Icons.format_align_center_rounded, size: 30, color: Colors.grey)
+                        : const Icon(Icons.format_align_center_rounded, size: 30, color: Colors.red),
             subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const SizedBox(height: 4),
-              Text("Price : $price"),
+              Text("Date: $price"),
             ]),
           ),
         ],

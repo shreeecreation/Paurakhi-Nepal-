@@ -7,7 +7,6 @@ import 'package:paurakhi/src/app/screens/home/presentation/request/bloc/getprdou
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_model.dart';
-import 'package:paurakhi/src/core/themes/appcolors.dart';
 
 import 'all.dart';
 
@@ -61,7 +60,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
               future: _loadDropdownItems(),
               builder: (BuildContext context, AsyncSnapshot<List<DropdownMenuItem>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: LinearProgressIndicator(color: AppColors.primary));
+                  return Center(child: Image.asset("assets/images/paurakhi.gif", height: 100));
                 } else if (snapshot.hasError) {
                   return const Center(child: Text('Error loading dropdown items'));
                 } else if (!snapshot.hasData) {
@@ -78,13 +77,13 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                     if (state is RequestInitial) {
                       return futureBuilder(context, "sell");
                     }
-                    return const CircularProgressIndicator();
+                    return Center(child: Image.asset("assets/images/paurakhi.gif", height: 100));
                   },
                 );
               });
         }
 
-        return const Center(child: LinearProgressIndicator(color: AppColors.primary));
+        return const Center(child: Text(""));
       },
     );
   }
@@ -136,14 +135,11 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                       child: TabBarView(
                         controller: _tabController,
                         physics: const NeverScrollableScrollPhysics(),
-                        children: List.generate(tabBarLength, (index) => All(category: mainCategoryIndex,type:type)),
+                        children: List.generate(tabBarLength, (index) => All(category: mainCategoryIndex, type: type)),
                       ));
                 }
-                return const Center(
-                    child: LinearProgressIndicator(
-                  color: AppColors.textGreen,
-                  backgroundColor: Colors.white,
-                ));
+                                return Center(child: Image.asset("assets/images/paurakhi.gif", height: 40));
+
               },
             )
           ],

@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'bloc/profile_bloc.dart';
 import 'changepassword.dart';
 import 'editprofile.dart';
+import 'get ticket/getticket_screen.dart';
 import 'model/profile_model.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -173,7 +174,7 @@ Padding openTicketHistory(BuildContext context) {
         title: const Text("Ticket History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
-          quotationHistoryScreen(context);
+          ticketHistoryScreen(context);
         },
       ),
     ),

@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/main.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/profile/model/profile_model.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/tab_bar.dart';
 import 'package:paurakhi/src/app/screens/search/bloc/search_bloc.dart';
 import 'package:paurakhi/src/app/screens/search/search_functionality.dart';
@@ -19,7 +20,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String userName = "कुशल काफ्ले";
+    String userName = Profile.firstName ?? "";
 
     return Scaffold(
         endDrawerEnableOpenDragGesture: true, // This!
@@ -177,7 +178,9 @@ class HomeScreen extends StatelessWidget {
                       );
                     }
                   }
-                  return const CircularProgressIndicator();
+                  return const CircularProgressIndicator(
+                    color: Colors.green,
+                  );
                 }),
           )),
     );
@@ -201,7 +204,7 @@ class HomeScreen extends StatelessWidget {
             Row(
               children: [
                 const SizedBox(width: 11),
-                Text("नमस्कार $userName", style: AppStyles.text24PxBold),
+                Text("Greetings $userName", style: AppStyles.text24PxBold),
                 Image.asset("assets/images/nepalflag.png", scale: 5)
               ],
             ),
@@ -254,10 +257,7 @@ class HomeScreen extends StatelessWidget {
                   padding: EdgeInsets.only(left: 20, right: 10),
                 ),
                 iconStyleData: const IconStyleData(
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    color: Colors.white,
-                  ),
+                  icon: Icon(Icons.arrow_drop_down, color: Colors.white),
                   iconSize: 30,
                 ),
                 dropdownStyleData: DropdownStyleData(

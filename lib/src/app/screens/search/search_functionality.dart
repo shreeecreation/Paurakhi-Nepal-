@@ -35,6 +35,8 @@ class SearchFunctionality extends StatelessWidget {
           ),
         ),
 
+        const SizedBox(child: Text("Search your desire product !")),
+
         BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
             if (state is SearchStartState) {

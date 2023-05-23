@@ -5,7 +5,6 @@ import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc
 import 'package:paurakhi/src/app/screens/search/domain/search_value.dart';
 import 'package:paurakhi/src/core/API/Search/search_api.dart';
 import '../../app/screens/search/bloc/search_bloc.dart';
-import 'focuesnode.dart';
 
 Widget searchWidget(BuildContext context, key) {
   return Row(
@@ -18,6 +17,7 @@ Widget searchWidget(BuildContext context, key) {
         child: SizedBox(
           width: MediaQuery.of(context).size.width - 20,
           child: TextFormField(
+              readOnly: true,
               onTap: () {
                 // unFocusNode(context);
 
@@ -31,7 +31,7 @@ Widget searchWidget(BuildContext context, key) {
                   contentPadding: const EdgeInsets.all(8.0),
                   suffixIcon: IconButton(
                       onPressed: () {
-                        unFocusNode(context);
+                        // unFocusNode(context);
                         key.currentState!.openEndDrawer();
                       },
                       icon: const Icon(Icons.menu)),

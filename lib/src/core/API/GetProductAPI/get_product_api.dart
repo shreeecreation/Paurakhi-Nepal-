@@ -25,6 +25,7 @@ class GetProductAPI {
 
   static Future<List<ProductModel>?> getProductCategory(category, type) async {
     final String filterUrl = "${Environment.apiUrl}/product/get-product?type=$type&page=1&category=$category";
+    List<ProductModel> products = [];
     try {
       final response = await http.get(
         Uri.parse(filterUrl),
@@ -33,7 +34,6 @@ class GetProductAPI {
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
         final List<dynamic> jsonList = jsonDecode(response.body);
-        List<ProductModel> products = [];
 
         products = jsonList.map((dynamic json) => ProductModel.fromJson(json as Map<String, dynamic>)).toList();
         return products;
