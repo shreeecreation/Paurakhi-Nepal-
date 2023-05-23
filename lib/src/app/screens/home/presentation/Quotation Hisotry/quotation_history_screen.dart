@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/core/API/Quotation%20Historu%20API/quotation_history_api.dart';
 import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
+import 'model/quotationhistory_model.dart';
+
 void quotationHistoryScreen(BuildContext context) {
-// modal bottom sheet go up with the keyboard appears
   showModalBottomSheet(
     backgroundColor: AppColors.defaultbackground,
     context: context,
@@ -12,39 +14,70 @@ void quotationHistoryScreen(BuildContext context) {
     ),
     builder: (BuildContext context) {
       return ClipRRect(
-          borderRadius: const BorderRadius.only(topLeft: Radius.circular(50.0), topRight: Radius.circular(50.0)),
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                Text("Quotation History", style: AppStyles.text22PxBold),
-                const SizedBox(height: 20),
-                SizedBox(
-                  height: 100,
-                  child: Card(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    elevation: 0.5,
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 10),
-                        ListTile(
-                          trailing: const Icon(Icons.menu, size: 30, color: Colors.green),
-                          title: Text("Title of the Content", style: AppStyles.text20PxBold),
-                          subtitle: const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                            SizedBox(height: 4),
-                            Text("From: Nabil Bank"),
-                            Text("Date: 2023/12/05"),
-                          ]),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ));
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(50.0), topRight: Radius.circular(50.0)),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              Text("Quotation History", style: AppStyles.text22PxBold),
+              const SizedBox(height: 20),
+              FutureBuilder<QuotationHistoryModel?>(
+                future: QuotationHistory.quotationHistory(),
+                builder: (BuildContext context, AsyncSnapshot<QuotationHistoryModel?> snapshot) {
+                  if (snapshot.hasData) {
+                    final QuotationHistoryModel dataList = snapshot.data!;
+                    print(dataList);
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: dataList.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final Datum datum = dataList.data[index];
+                        return historyWidget(datum.product.name, datum.status, datum.price);
+                        // return const Text("dasdas");
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  } else {
+                    return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+      );
     },
+  );
+}
+
+SizedBox historyWidget(product, status, price) {
+  return SizedBox(
+    height: 100,
+    child: Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      elevation: 0.5,
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          ListTile(
+            title: Text("$product", style: AppStyles.text20PxBold),
+            trailing: status == "pending"
+                ? const Icon(Icons.check_circle_rounded, size: 30, color: Colors.grey)
+                : status == "cancel"
+                    ? const Icon(Icons.cancel_rounded, size: 30, color: Colors.red)
+                    : status == "done"
+                        ? const Icon(Icons.check_circle_rounded, size: 30, color: Colors.green)
+                        : const Icon(Icons.error_outline_rounded, size: 30, color: Colors.black),
+            subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const SizedBox(height: 4),
+              Text("Price : $price"),
+            ]),
+          ),
+        ],
+      ),
+    ),
   );
 }

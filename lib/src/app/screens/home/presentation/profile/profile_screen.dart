@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/Quotation%20Hisotry/quotation_history_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
+import 'package:paurakhi/src/core/API/Quotation%20Historu%20API/quotation_history_api.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
 import 'package:paurakhi/src/core/providers/location_provider.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
@@ -22,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, children: [
+          child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
             const SizedBox(height: 20),
             const Row(
               children: [
@@ -44,15 +45,23 @@ class ProfileScreen extends StatelessWidget {
               },
             ),
             const SizedBox(height: 20),
-            openTicket(context),
+            Text("     Profile Settings", style: AppStyles.text18PxBold),
+            const SizedBox(height: 10),
             editProfile(context),
             changePassword(context),
+            isVerified(context),
+            openTicket(context),
+            const SizedBox(height: 10),
+            Text("     History", style: AppStyles.text18PxBold),
+            const SizedBox(height: 10),
             quotationhistory(context),
             financeenrquiry(context),
             notificationHistory(context),
             openTicketHistory(context),
+            const SizedBox(height: 10),
+            Text("     Others", style: AppStyles.text18PxBold),
+            const SizedBox(height: 10),
             addGrant(context),
-            isVerified(context),
             logOut(context),
           ]),
         ));
@@ -142,8 +151,11 @@ Padding quotationhistory(BuildContext context) {
         tileColor: Colors.white,
         title: const Text("Quotation History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
-        onTap: () {
-          quotationHistoryScreen(context);
+        onTap: () async {
+          await QuotationHistory.quotationHistory();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            quotationHistoryScreen(context);
+          });
         },
       ),
     ),

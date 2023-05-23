@@ -25,15 +25,18 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
   ];
 
   void _onItemTapped(int index) {
+    if (index == _selectedIndex) {
+      return;
+    }
     setState(() {
-      BlocProvider.of<TabBlocBloc>(context).add(TabInitialEvent());
       if (index == 2) {
         _selectedIndex = _selectedIndex;
         requestBottomSheet(context);
       } else {
+        BlocProvider.of<TabBlocBloc>(context).add(TabInitialEvent());
+
         _selectedIndex = index;
       }
-      BlocProvider.of<TabBlocBloc>(context).add(TabInitialEvent());
     });
   }
 
