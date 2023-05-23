@@ -92,15 +92,14 @@ void quotationBottomSheet(BuildContext context) {
                           width: MediaQuery.of(context).size.width - 30,
                           child: TextField(
                             decoration: InputDecoration(
-                              prefixIcon: const Icon(Icons.menu),
-                              filled: true,
-                              fillColor: const Color(0xFFFFFFFF),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide.none,
-                              ),
-                              hintText: 'Quantity...',
-                            ),
+                                prefixIcon: const Icon(Icons.menu),
+                                filled: true,
+                                fillColor: const Color(0xFFFFFFFF),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                                hintText: 'Quantity...'),
                           ),
                         ),
                       ),
@@ -111,13 +110,11 @@ void quotationBottomSheet(BuildContext context) {
                             child: SizedBox(
                               height: 50,
                               child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF34A853),
-                                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                                ),
-                                child: Text("Send", style: AppStyles.text16Px),
-                              ),
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xFF34A853),
+                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+                                  child: Text("Send", style: AppStyles.text16Px)),
                             ),
                           ),
                           const SizedBox(width: 10),
@@ -125,22 +122,20 @@ void quotationBottomSheet(BuildContext context) {
                             child: SizedBox(
                               height: 50,
                               child: ElevatedButton(
-                                onPressed: () {},
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: const BorderSide(color: Colors.green, width: 1.5),
-                                    ),
-                                  ),
-                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.green),
-                                ),
-                                child: const Text('Click me'),
-                              ),
+                                  onPressed: () {},
+                                  style: ButtonStyle(
+                                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          side: const BorderSide(color: Colors.green, width: 1.5),
+                                        ),
+                                      ),
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                      foregroundColor: MaterialStateProperty.all<Color>(Colors.green)),
+                                  child: const Text('Click me')),
                             ),
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 10)
                         ],
                       ),
                       const SizedBox(height: 20),

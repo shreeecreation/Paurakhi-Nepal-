@@ -61,7 +61,7 @@ class OpenTicket extends StatelessWidget {
                         child: ElevatedButton(
                             onPressed: () {
                               if (ticketKey.currentState!.validate()) {
-                                OpenTickets.openTicket(messageController.text, subjectController.text);
+                                OpenTickets.openTicket(messageController.text, subjectController.text, context);
                               }
                             },
                             style: ElevatedButton.styleFrom(

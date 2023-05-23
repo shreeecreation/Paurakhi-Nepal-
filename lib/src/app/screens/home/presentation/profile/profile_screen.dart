@@ -178,9 +178,7 @@ Padding financeenrquiry(BuildContext context) {
         tileColor: Colors.white,
         title: const Text("Finance Enquiry History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
-        onTap: () {
-          ProfileRoutes.financeenquiryRoute();
-        },
+        onTap: () {},
       ),
     ),
   );
