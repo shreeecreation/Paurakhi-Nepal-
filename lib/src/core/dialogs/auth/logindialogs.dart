@@ -15,22 +15,21 @@ class LoginDialogs {
             borderRadius: BorderRadius.circular(10.0),
           ),
           content: SizedBox(
-            height: 250.0,
+            height: 200.0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Icon(Icons.info_outline, color: Colors.green, size: 50),
+                const Icon(Icons.info_outline, color: Colors.red, size: 60),
                 const SizedBox(height: 15),
                 SizedBox(
-                    width: 220,
-                    child: Center(
-                        child: Text('Phone number or password is incorrect !', textAlign: TextAlign.center, style: AppStyles.text16PxSemiBold))),
-                const SizedBox(height: 10),
+                    width: 200,
+                    child: Center(child: Text('Incorect number or password !', textAlign: TextAlign.center, style: AppStyles.text18PxSemiBold))),
+                const SizedBox(height: 20),
                 Center(
                   child: SizedBox(
-                      height: 45,
-                      width: MediaQuery.of(context).size.width / 1.5,
+                      height: 40,
+                      width: MediaQuery.of(context).size.width / 2,
                       child: ElevatedButton(
                           onPressed: () {
                             // addProduct(context);
@@ -40,7 +39,7 @@ class LoginDialogs {
                               elevation: 0,
                               backgroundColor: const Color(0xFF34A853),
                               shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-                          child: Text("Ok", style: AppStyles.text16Px))),
+                          child: Text("Retry", style: AppStyles.text16Px))),
                 ),
               ],
             ),
@@ -229,7 +228,7 @@ class UserDialogs {
                   width: MediaQuery.of(context).size.width / 1.5,
                   child: ElevatedButton(
                       onPressed: () {
-                              HomeRoutes.homeScreen();
+                        HomeRoutes.homeScreen();
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 0,

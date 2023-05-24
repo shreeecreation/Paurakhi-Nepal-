@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/homescreen/home_screen.dart';
 import 'package:paurakhi/src/core/API/BlogAPI/blog_api.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
@@ -9,8 +10,8 @@ import 'package:paurakhi/src/core/utils/search_news.dart';
 import 'bloc/news_bloc.dart';
 import 'search/search_functionality.dart';
 
-final GlobalKey<ScaffoldState> _scaffoldKeyNews = GlobalKey<ScaffoldState>();
 
+final GlobalKey<ScaffoldState> _scaffoldKeyNews = GlobalKey<ScaffoldState>();
 class NewsScreen extends StatelessWidget {
   const NewsScreen({super.key});
 

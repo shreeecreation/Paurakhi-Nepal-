@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/blog/blog_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/news/bloc/news_bloc.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/news/news_screen.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/profile/get%20ticket/getticket_screen.dart';
 import 'package:paurakhi/src/core/routes/drawerroutes.dart';
+import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 class EndDrawer extends StatelessWidget {
@@ -10,6 +14,7 @@ class EndDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentRoute = ModalRoute.of(context)?.settings.name;
     final TextStyle textStyle = AppStyles.text16PxBold;
     return Drawer(
         child: SingleChildScrollView(
@@ -34,7 +39,15 @@ class EndDrawer extends StatelessWidget {
             title: Text("Blog", style: textStyle),
             onTap: () async {
               //action on press
-              DrawerRoutes.blogRoute();
+              print(currentRoute);
+              if (currentRoute != "/") {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BlogScreen()),
+                );
+              } else {
+                DrawerRoutes.blogRoute();
+              }
               BlocProvider.of<BlogBloc>(context).add(FetchBlogEvent());
 
               Scaffold.of(context).closeEndDrawer();
@@ -43,8 +56,14 @@ class EndDrawer extends StatelessWidget {
           ListTile(
             title: Text("News", style: textStyle),
             onTap: () async {
-              //action on press
-              DrawerRoutes.newsRoute();
+              if (currentRoute != "/") {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NewsScreen()),
+                );
+              } else {
+                DrawerRoutes.newsRoute();
+              }
               BlocProvider.of<NewsBloc>(context).add(FetchNewsEvent());
 
               Scaffold.of(context).closeEndDrawer();
@@ -72,11 +91,15 @@ class EndDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text("Open Ticket", style: textStyle),
-            onTap: () {},
+            onTap: () {
+              ProfileRoutes.openticketRoute();
+            },
           ),
           ListTile(
             title: Text("Ticket History", style: textStyle),
-            onTap: () {},
+            onTap: () {
+              ticketHistoryScreen(context);
+            },
           ),
         ]),
       ),

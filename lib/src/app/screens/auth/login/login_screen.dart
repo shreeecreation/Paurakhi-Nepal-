@@ -70,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (!ExtString.validatePassword(val!)) return "Password length should be greater than 8";
                           return null;
                         },
+                        obscureText: true,
                         decoration: InputDecoration(
                             hintText: 'Password',
                             hintStyle: AppStyles.text16Px.textGrey,
