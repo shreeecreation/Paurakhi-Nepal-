@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/API/otp/otpconfirm.dart';
 import 'package:paurakhi/src/core/countdowntimer/countdowntimer.dart';
+import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
 import 'package:pinput/pinput.dart';
 
 // ignore: must_be_immutable
@@ -56,7 +57,10 @@ class OTPScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green.shade600, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                         onPressed: () async {
-                          ConfirmOTP.confirmOtp2FA(verifypin);
+                         await ConfirmOTP.confirmOtp2FA(verifypin);
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            UserDialogs.verifyAccount(context);
+                          });
                         },
                         child: const Text("Continue")),
                   ),

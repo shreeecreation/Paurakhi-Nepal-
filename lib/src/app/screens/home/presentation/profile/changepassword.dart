@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
 import 'package:paurakhi/src/core/API/ChangePassword/change_password_api.dart';
+import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
@@ -129,7 +130,7 @@ void changepassword(BuildContext context) {
                                           if (updatePassKey.currentState!.validate()) {
                                             await ChangePasswordAPI.changePasword(oldPass.text, newPass.text, context);
                                             WidgetsBinding.instance.addPostFrameCallback((_) {
-                                              Navigator.pop(context);
+                                              UserDialogs.updatePassword(context);
                                             });
                                           }
                                         },
@@ -143,7 +144,9 @@ void changepassword(BuildContext context) {
                                 child: SizedBox(
                               height: 45,
                               child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
                                   style: ButtonStyle(
                                       shape: MaterialStateProperty.all<OutlinedBorder>(
                                         RoundedRectangleBorder(
@@ -151,7 +154,7 @@ void changepassword(BuildContext context) {
                                       ),
                                       backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                                       foregroundColor: MaterialStateProperty.all<Color>(Colors.green)),
-                                  child: const Text('Click me')),
+                                  child: const Text('Cancel')),
                             )),
                             const SizedBox(width: 10)
                           ])

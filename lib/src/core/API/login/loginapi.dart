@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:http/http.dart' as http;
-import 'package:paurakhi/src/core/dialogs/login/logindialogs.dart';
+import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
 
 class LoginAPI {
   static Future<http.Response?> loginPoint(String phoneNo, String password, BuildContext context) async {

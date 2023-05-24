@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+import 'package:paurakhi/src/core/utils/focuesnode.dart';
 
-class LoginDialogs {
-  void showIncorrectPassword(BuildContext context) {
-    showDialog(
+class ProductDialogs {
+  void sucessCreateProduct(BuildContext context) {
+      showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -21,37 +21,35 @@ class LoginDialogs {
                 const SizedBox(height: 15),
                 SizedBox(
                     width: 220,
-                    child: Center(
-                        child:
-                            Text('Are you sure want to Logout from this account !', textAlign: TextAlign.center, style: AppStyles.text16PxSemiBold))),
+                    child: Center(child: Text('Product Added Successfully !', textAlign: TextAlign.center, style: AppStyles.text16PxSemiBold))),
                 const SizedBox(height: 10),
-                Center(
-                  child: SizedBox(
-                      height: 45,
-                      width: MediaQuery.of(context).size.width / 1.5,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            // addProduct(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              backgroundColor: const Color(0xFF34A853),
-                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-                          child: Text("Logout", style: AppStyles.text16Px))),
-                ),
+                SizedBox(
+                    width: 220,
+                    child: Center(
+                        child: Text("It's need to approved by the admin  ", textAlign: TextAlign.center, style: AppStyles.text14PxSemiBold))),
+                SizedBox(
+                    width: 220,
+                    child: Center(
+                        child: Text("Status : Pending  ", textAlign: TextAlign.center, style: AppStyles.text14PxSemiBold))),
+               
+                
                 const SizedBox(height: 10),
                 SizedBox(
                   height: 40,
                   width: MediaQuery.of(context).size.width / 1.5,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        unFocusNode(context);
+                      },
                       style: ElevatedButton.styleFrom(
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10), side: const BorderSide(color: Colors.green, width: 1.5)),
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.green),
-                      child: const Text('Cancel')),
+                      child: const Text('Ok')),
                 )
               ],
             ),
@@ -60,4 +58,5 @@ class LoginDialogs {
       },
     );
   }
+
 }

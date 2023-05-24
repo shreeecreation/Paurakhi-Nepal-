@@ -4,7 +4,7 @@ import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:http/http.dart' as http;
-import 'package:paurakhi/src/core/dialogs/login/logindialogs.dart';
+import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
 
 class ChangePasswordAPI {
   static Future<http.Response?> changePasword(String oldPass, String newPass, BuildContext context) async {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
 import 'package:paurakhi/src/core/API/EditProfile/edit_profile_api.dart';
+import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/providers/location_provider.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
@@ -131,7 +132,7 @@ void editProfileDialog(BuildContext context) {
 
                                     WidgetsBinding.instance.addPostFrameCallback((_) {
                                       BlocProvider.of<ProfileBloc>(context).add(ProfileLoadEvent());
-                                      Navigator.pop(context);
+                                      UserDialogs.updateProfile(context);
                                     });
                                   }
                                 },

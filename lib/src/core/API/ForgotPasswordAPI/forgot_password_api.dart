@@ -6,7 +6,7 @@ import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/countdowntimer/countdowntimer.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:http/http.dart' as http;
-import 'package:paurakhi/src/core/dialogs/login/logindialogs.dart';
+import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
 
 class ForgotPasswordAPI {
