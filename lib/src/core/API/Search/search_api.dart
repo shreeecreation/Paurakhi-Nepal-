@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/tabbars/productmodel.dart';
 import 'package:paurakhi/src/app/screens/search/model/search_model.dart';
 import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:http/http.dart' as http;
 
 class SearchAPI {
-  static Future<List<SearchModel>?> getSearchedProduct(category, name, type) async {
+  static Future<ServerResponseProduct?> getSearchedProduct(category, name, type) async {
     final finalName = name == "" ? "" : "name=$name&";
     final finalType = "type=$type&";
     final finalCategory = category.isEmpty ? "" : "category=$category&";
@@ -22,14 +23,15 @@ class SearchAPI {
       );
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
-        final List<dynamic> jsonList = jsonDecode(response.body);
-        List<SearchModel> products = [];
-
-        products = jsonList.map((dynamic json) => SearchModel.fromJson(json as Map<String, dynamic>)).toList();
-        return products;
+          final Map<String, dynamic> jsonList = jsonDecode(response.body);
+        final List<dynamic> dataList = jsonList['data'] as List<dynamic>;
+        final List<ProductModel> items = dataList.map((item) => ProductModel.fromJson(item as Map<String, dynamic>)).toList();
+        return ServerResponseProduct(data: items);
       } else if (code == 400) {
       } else if (code == 500) {}
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     return null;
   }
 
@@ -54,8 +56,7 @@ class SearchAPI {
     return null;
   }
 
-
-   static Future<List<BlogModelandNewsModel>?> getSearchedNews(title) async {
+  static Future<List<BlogModelandNewsModel>?> getSearchedNews(title) async {
     String url = '${Environment.apiUrl}/${AllAPIEndPoint.blogAPI}?tittle=$title&type=news';
     try {
       final response = await http.get(
@@ -76,8 +77,7 @@ class SearchAPI {
     return null;
   }
 
-  
-   static Future<List<BlogModelandNewsModel>?> getSearchedFinance(title) async {
+  static Future<List<BlogModelandNewsModel>?> getSearchedFinance(title) async {
     String url = '${Environment.apiUrl}/${AllAPIEndPoint.blogAPI}?tittle=$title&type=finance';
     try {
       final response = await http.get(

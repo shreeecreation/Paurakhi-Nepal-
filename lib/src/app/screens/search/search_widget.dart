@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/tabbars/productmodel.dart';
+import 'package:paurakhi/src/app/screens/search/search_dialog.dart';
 import 'package:paurakhi/src/core/API/Search/search_api.dart';
-import 'package:paurakhi/src/core/themes/appcolors.dart';
+import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/evey_product_widget.dart';
+import 'package:paurakhi/src/core/utils/loading_indicator.dart';
 
 import 'domain/filter_saver.dart';
-import 'model/search_model.dart';
+import 'domain/search_value.dart';
 
 class SearchWidget extends StatelessWidget {
   String name;
@@ -14,28 +17,58 @@ class SearchWidget extends StatelessWidget {
     String type;
     var category = Filter.filter.join(',');
     Filter.type == 0 ? type = "request" : type = "sell";
-    return FutureBuilder<List<SearchModel>?>(
-        future: SearchAPI.getSearchedProduct(category, name, type),
-        builder: (BuildContext context, AsyncSnapshot<List<SearchModel>?> snapshot) {
-          if (snapshot.hasData) {
-            // If the future is complete and has data, display the product data
-            final List<SearchModel> products = snapshot.data!;
-            return ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: products.length,
-              itemBuilder: (BuildContext context, int index) {
-                final SearchModel product = products[index];
-                return everyProductWidgetSearch(context, product);
-              },
-            );
-          } else if (snapshot.hasError) {
-            // If the future has an error, display the error message
-            return Text('${snapshot.error}');
-          } else {
-            // If the future is not complete yet, display a loading indicator
-            return const Center(child: LinearProgressIndicator(color: AppColors.primary));
-          }
-        });
+    return WillPopScope(
+      onWillPop: () async {
+        SearchValue.searchValue = "";
+        return false;
+      },
+      child: FutureBuilder<ServerResponseProduct?>(
+          future: SearchAPI.getSearchedProduct(category, name, type),
+          builder: (BuildContext context, AsyncSnapshot<ServerResponseProduct?> snapshot) {
+            if (snapshot.hasData) {
+              // If the future is complete and has data, display the product data
+              final ServerResponseProduct products = snapshot.data!;
+              if (products.data.isEmpty) {
+                return Center(child: Text("No product found !", style: AppStyles.text18PxMedium));
+              }
+              return Column(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Search results for "${SearchValue.searchValue == "" ? "ALL" : SearchValue.searchValue}"',
+                            style: AppStyles.text16PxMedium),
+                        const SizedBox(width: 50),
+                        ElevatedButton(
+                            onPressed: () {
+                              showOptionsDialog(context);
+                            },
+                            style: ElevatedButton.styleFrom(elevation: 0, backgroundColor: Colors.green),
+                            child: const Row(children: [Text("Filter"), Icon(Icons.arrow_drop_down_rounded)])),
+                        const SizedBox(width: 20),
+                      ],
+                    ),
+                  ),
+                  ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: products.data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final ProductModel datum = products.data[index];
+                      return everyProductWidgetProduct(context, datum);
+                    },
+                  ),
+                ],
+              );
+            } else if (snapshot.hasError) {
+              // If the future has an error, display the error message
+              return Text('${snapshot.error}');
+            } else {
+              return loadingIndicator(context);
+            }
+          }),
+    );
   }
 }

@@ -175,8 +175,11 @@ Widget everyProductWidgetProduct(BuildContext context, ProductModel product) {
                   const SizedBox(height: 25),
                   SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.name, style: AppStyles.text18PxBold)),
                   const SizedBox(height: 5),
-                  SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.description, style: AppStyles.text12Px)),
-                  const SizedBox(height: 10),
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width / 2,
+                      child: Text(product.description.length > 50 ? '${product.description.substring(0, 50)}...' : product.description,
+                          style: AppStyles.text12Px)),
+                  const SizedBox(height: 15),
                 ],
               ),
             ],

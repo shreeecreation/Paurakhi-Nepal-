@@ -74,7 +74,6 @@ Widget searchFilterWidget(BuildContext context, key) {
               onFieldSubmitted: (value) async {
                 SearchValue.searchValue = value;
                 await SearchAPI.getSearchedProduct(SearchValue.category, value, SearchValue.type);
-
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   BlocProvider.of<SearchBloc>(context).add(SearchStartEvent());
                 });
@@ -88,6 +87,8 @@ Widget searchFilterWidget(BuildContext context, key) {
                   prefixIcon: IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () {
+                        SearchValue.searchValue = "";
+
                         BlocProvider.of<TabBlocBloc>(context).add(TabInitialEvent());
                         BlocProvider.of<SearchBloc>(context).add(SearchInitialEvent());
                       }))),
