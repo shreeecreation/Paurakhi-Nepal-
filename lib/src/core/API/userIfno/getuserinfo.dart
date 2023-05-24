@@ -38,6 +38,7 @@ class GetUserInfo {
       Profile.picture = profileData['picture'];
     } catch (e) {
       print(e);
+      print("Asdasdasda");
     }
   }
 }

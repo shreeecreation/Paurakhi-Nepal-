@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/main.dart';
 import 'package:paurakhi/src/app/screens/search/search_dialog.dart';
+import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
 
 import 'bloc/search_bloc.dart';
@@ -35,7 +36,22 @@ class SearchFunctionality extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(child: Text("Search your desire product !")),
+        SizedBox(
+            height: MediaQuery.of(context).size.height / 2,
+            child: Center(
+                child: SizedBox(
+                    child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/images/search.png",
+                  height: 200,
+                  width: MediaQuery.of(context).size.width / 2,
+                  fit: BoxFit.fill,
+                ),
+                Text("Search your desire product !", style: AppStyles.text18PxBold),
+              ],
+            )))),
 
         BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {

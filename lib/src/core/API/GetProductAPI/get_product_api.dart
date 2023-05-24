@@ -23,9 +23,14 @@ class GetProductAPI {
     return null;
   }
 
-  static Future<List<ProductModel>?> getProductCategory(category, type) async {
-    final String filterUrl = "${Environment.apiUrl}/product/get-product?type=$type&page=1&category=$category";
-    List<ProductModel> products = [];
+  static Future<ServerResponseProduct?> getProductCategory(category, type) async {
+    String filterUrl = "";
+    if (category != "") {
+      filterUrl = "${Environment.apiUrl}/product/get-product?type=$type&page=1&category=$category";
+    } else {
+      filterUrl = "${Environment.apiUrl}/product/get-product?type=$type&page=1";
+    }
+    print(filterUrl);
     try {
       final response = await http.get(
         Uri.parse(filterUrl),
@@ -33,10 +38,10 @@ class GetProductAPI {
       );
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
-        final List<dynamic> jsonList = jsonDecode(response.body);
-
-        products = jsonList.map((dynamic json) => ProductModel.fromJson(json as Map<String, dynamic>)).toList();
-        return products;
+        final Map<String, dynamic> jsonList = jsonDecode(response.body);
+        final List<dynamic> dataList = jsonList['data'] as List<dynamic>;
+        final List<ProductModel> items = dataList.map((item) => ProductModel.fromJson(item as Map<String, dynamic>)).toList();
+        return ServerResponseProduct(data: items);
       } else if (code == 400) {
       } else if (code == 500) {}
     } catch (e) {}

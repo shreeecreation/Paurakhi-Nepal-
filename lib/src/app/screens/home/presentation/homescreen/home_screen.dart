@@ -194,7 +194,6 @@ class HomeScreen extends StatelessWidget {
     ];
     final formKey = GlobalKey<FormState>();
 
-    String? selectedValue = "Sell";
     return Form(
       key: formKey,
       child: SizedBox(
@@ -217,7 +216,7 @@ class HomeScreen extends StatelessWidget {
               height: 42,
               width: 110,
               child: DropdownButtonFormField2(
-                value: "Request",
+                value: "Sell",
                 decoration: InputDecoration(
                   isDense: true,
                   fillColor: Colors.green,
@@ -248,9 +247,7 @@ class HomeScreen extends StatelessWidget {
                     BlocProvider.of<RequestBloc>(context).add(RequestInitialEvent());
                   }
                 },
-                onSaved: (value) {
-                  selectedValue = value.toString();
-                },
+                onSaved: (value) {},
                 buttonStyleData: const ButtonStyleData(
                   height: 60,
                   width: 40,

@@ -152,11 +152,8 @@ Padding quotationhistory(BuildContext context) {
         tileColor: Colors.white,
         title: const Text("Quotation History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
-        onTap: () async {
-          await QuotationHistory.quotationHistory();
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+        onTap: () {
             quotationHistoryScreen(context);
-          });
         },
       ),
     ),

@@ -1,3 +1,18 @@
+class ServerResponseProduct {
+  final List<ProductModel> data;
+
+  ServerResponseProduct({
+    required this.data,
+  });
+
+  factory ServerResponseProduct.fromJson(Map<String, dynamic> json) {
+    final List<dynamic> dataList = json['data'] as List<dynamic>;
+    final List<ProductModel> items = dataList.map((item) => ProductModel.fromJson(item as Map<String, dynamic>)).toList();
+
+    return ServerResponseProduct(data: items);
+  }
+}
+
 class ProductModel {
   final List<dynamic> images;
   final List<String> tags;
@@ -6,6 +21,7 @@ class ProductModel {
   final String name;
   final String description;
   final int quantity;
+  final String type;
   final CategoryModel category;
 
   ProductModel({
@@ -16,6 +32,7 @@ class ProductModel {
     required this.name,
     required this.description,
     required this.quantity,
+    required this.type,
     required this.category,
   });
 
@@ -27,6 +44,7 @@ class ProductModel {
     final String name = json['name'] as String;
     final String description = json['description'] as String;
     final int quantity = json['quantity'] as int;
+    final String type = json['type'] as String;
     final CategoryModel category = CategoryModel.fromJson(json['category'] as Map<String, dynamic>);
     return ProductModel(
       images: images,
@@ -36,6 +54,7 @@ class ProductModel {
       name: name,
       description: description,
       quantity: quantity,
+      type: type,
       category: category,
     );
   }

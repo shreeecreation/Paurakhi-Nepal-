@@ -13,4 +13,8 @@ class Environment {
   static String get apiUrl {
     return dotenv.env['API_URL'] ?? "URL not found";
   }
+   static String get imageUrl {
+    return dotenv.env['Image_Route'] ?? "URL not found";
+  }
+
 }

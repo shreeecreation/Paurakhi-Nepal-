@@ -39,6 +39,18 @@ void ticketHistoryScreen(BuildContext context) {
                 builder: (BuildContext context, AsyncSnapshot<TicketHistoryModel?> snapshot) {
                   if (snapshot.hasData) {
                     final TicketHistoryModel dataList = snapshot.data!;
+                    if (dataList.data.isEmpty) {
+                      return Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 30),
+                          const Icon(Icons.info_rounded, size: 60, color: Colors.grey),
+                          const SizedBox(height: 30),
+                          Text("No history found !", style: AppStyles.text18PxMedium),
+                        ],
+                      ));
+                    }
                     return ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,

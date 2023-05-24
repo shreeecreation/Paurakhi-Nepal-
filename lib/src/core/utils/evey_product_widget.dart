@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/productmodel.dart';
 import 'package:paurakhi/src/app/screens/search/model/search_model.dart';
-import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'focuesnode.dart';
@@ -117,6 +116,7 @@ Widget everyProductWidgetProduct(BuildContext context, ProductModel product) {
                 tags: product.tags,
                 category: product.category,
                 quantity: product.quantity,
+                type: product.type,
                 id: product.id,
                 createdAt: product.createdAt);
 
@@ -222,8 +222,6 @@ Widget everyProductWidgetBlog(BuildContext context, BlogModelandNewsModel produc
     ),
   ]);
 }
-
-
 
 Widget everyProductWidgetFinance(BuildContext context, BlogModelandNewsModel product) {
   return Stack(children: [

@@ -7,6 +7,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/request/bloc/getprdou
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_model.dart';
+import 'package:paurakhi/src/core/utils/loading_indicator.dart';
 
 import 'all.dart';
 
@@ -21,7 +22,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
   TabController? _tabController;
   int tabBarLength = 0;
   int categoryIndex = 0;
-  String mainCategoryIndex = "1";
+  String mainCategoryIndex = "";
   Future<List<DropdownMenuItem>> _loadDropdownItems() async {
     return await DropdownList.returnDropdown();
   }
@@ -60,7 +61,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
               future: _loadDropdownItems(),
               builder: (BuildContext context, AsyncSnapshot<List<DropdownMenuItem>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: Image.asset("assets/images/paurakhi.gif", height: 100));
+                  // return loadingIndicator(context);
                 } else if (snapshot.hasError) {
                   return const Center(child: Text('Error loading dropdown items'));
                 } else if (!snapshot.hasData) {
@@ -77,18 +78,20 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                     if (state is RequestInitial) {
                       return futureBuilder(context, "sell");
                     }
-                    return Center(child: Image.asset("assets/images/paurakhi.gif", height: 100));
+                    // return Center(child: Image.asset("assets/images/paurakhi.png", height: 100, fit: BoxFit.fill));
+                    return const Text("");
                   },
                 );
               });
         }
 
-        return const Center(child: Text(""));
+        return const Text("");
       },
     );
   }
 
   SizedBox futureBuilder(BuildContext context, String type) {
+
     return SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -102,6 +105,9 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                     model.page = 0;
                     model.type = type;
                     GetProductAPI.getProductSinglePage(model);
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      // return loadingIndicator(context);
+                    }
                     if (snapshot.hasData) {
                       final List<DropdownMenuItem> tabTextList = snapshot.data!;
                       return Padding(
@@ -138,8 +144,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                         children: List.generate(tabBarLength, (index) => All(category: mainCategoryIndex, type: type)),
                       ));
                 }
-                                return Center(child: Image.asset("assets/images/paurakhi.gif", height: 40));
-
+                return const Text("");
               },
             )
           ],

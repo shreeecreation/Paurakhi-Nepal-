@@ -28,7 +28,20 @@ void quotationHistoryScreen(BuildContext context) {
                 builder: (BuildContext context, AsyncSnapshot<QuotationHistoryModel?> snapshot) {
                   if (snapshot.hasData) {
                     final QuotationHistoryModel dataList = snapshot.data!;
-                    print(dataList);
+                    print(dataList.data.length);
+
+                    if (dataList.data.isEmpty) {
+                      return Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 30),
+                          const Icon(Icons.info_rounded, size: 60, color: Colors.grey),
+                          const SizedBox(height: 30),
+                          Text("No history found !", style: AppStyles.text18PxMedium),
+                        ],
+                      ));
+                    }
                     return ListView.builder(
                       shrinkWrap: true,
                       itemCount: dataList.data.length,
