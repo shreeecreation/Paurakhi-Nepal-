@@ -27,7 +27,6 @@ void quotationHistoryScreen(BuildContext context) {
                 builder: (BuildContext context, AsyncSnapshot<QuotationHistoryModel?> snapshot) {
                   if (snapshot.hasData) {
                     final QuotationHistoryModel dataList = snapshot.data!;
-                    print(dataList.data.length);
 
                     if (dataList.data.isEmpty) {
                       return Center(

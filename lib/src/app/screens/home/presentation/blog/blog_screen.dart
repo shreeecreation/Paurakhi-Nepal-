@@ -81,18 +81,21 @@ class BlogScreen extends StatelessWidget {
   }
 
   Widget allBlog(context, BlogModelandNewsModel model) {
-    return Stack(children: [
-      Container(
-          height: 150,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0)),
-          child: const Card(elevation: 0.2, color: Color(0xFFF4FBF3))),
-      Column(
-        children: [
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: () {},
-            child: Row(
+    print(model.title);
+    return GestureDetector(
+      onTap: () {
+        HomeRoutes.singlePageScreenBlog(model);
+      },
+      child: Stack(children: [
+        Container(
+            height: 150,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0)),
+            child: const Card(elevation: 0.2, color: Color(0xFFF4FBF3))),
+        Column(
+          children: [
+            const SizedBox(height: 20),
+            Row(
               children: [
                 const SizedBox(width: 15),
                 Container(
@@ -100,7 +103,11 @@ class BlogScreen extends StatelessWidget {
                   width: 126,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
-                      image: const DecorationImage(image: AssetImage("assets/images/nepalflag.png"), fit: BoxFit.cover)),
+                      image: DecorationImage(
+                          image: model.blogImage == null
+                              ? const AssetImage("assets/images/logo2.png") as ImageProvider<Object>
+                              : NetworkImage(model.blogImage),
+                          fit: BoxFit.fill)),
                   child: ClipRRect(borderRadius: BorderRadius.circular(10.0), child: Align(alignment: Alignment.bottomRight, child: Container())),
                 ),
                 const SizedBox(width: 5),
@@ -109,16 +116,25 @@ class BlogScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(height: 10),
-                    SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.tittle, style: AppStyles.text20PxBold)),
+                    SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.title, style: AppStyles.text20PxBold)),
                     const SizedBox(height: 10),
-                    SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.createdAt, style: AppStyles.text14Px)),
+                    SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.createdAt, style: AppStyles.text13Px)),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(textAlign: TextAlign.end, "- ${model.author}", style: AppStyles.text14Px)),
+                      ],
+                    ),
                   ],
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    ]);
+          ],
+        ),
+      ]),
+    );
   }
 }

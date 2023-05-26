@@ -146,7 +146,9 @@ void editProfileDialog(BuildContext context) {
                         child: SizedBox(
                       height: 45,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10), side: const BorderSide(color: Colors.green, width: 1.5)),

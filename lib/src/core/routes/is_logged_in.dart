@@ -1,3 +1,4 @@
-class IsLoggedIn{
-  static bool isLoggedIn  = false;
+class IsLoggedIn {
+  static bool isLoggedIn = false;
+  static bool keepLogin = false;
 }

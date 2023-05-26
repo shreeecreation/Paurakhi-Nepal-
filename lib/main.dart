@@ -13,13 +13,13 @@ import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
 import 'src/app/screens/home/presentation/request/bloc/getprdouct_bloc.dart';
 import 'src/app/screens/internetandSetverError/check_internet_connection.dart';
 import 'src/app/screens/search/bloc/search_bloc.dart';
-import 'src/core/API/CheckLogin/check_login.dart';
 import 'src/core/API/userIfno/getuserinfo.dart';
 import 'src/core/InitiallMethod/intial_method.dart';
 import 'src/core/providers/location_provider.dart';
 import 'src/core/utils/focuesnode.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   IntialMethod.initialMethod();
   runApp(const MyApp());
 }
@@ -30,38 +30,44 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    // final networkProvider = Provider.of<NetworkProvider>(context); // Retrieve the provided instance
+    Future<bool> _checkInternetConnection(BuildContext context) async {
+      final networkProvider = Provider.of<NetworkProvider>(context, listen: false);
+      return networkProvider.checkInternetConnection();
+    }
+
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocationProvider()),
           ChangeNotifierProvider(create: (_) => NetworkProvider()),
         ],
         child: MultiBlocProvider(
-          providers: [
-            BlocProvider<TabBlocBloc>(create: (context) => TabBlocBloc()),
-            BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
-            BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
-            BlocProvider<GetprdouctBloc>(create: (context) => GetprdouctBloc()),
-            BlocProvider<RequestBloc>(create: (context) => RequestBloc()),
-            BlocProvider<NewsBloc>(create: (context) => NewsBloc()),
-            BlocProvider<BlogBloc>(create: (context) => BlogBloc()),
-          ],
-          child: GestureDetector(
-            onTap: () {
-              unFocusNode(context);
-            },
-            child: SafeArea(
-              child: GetMaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light),
-                home: Consumer<NetworkProvider>(builder: (context, networkProvider, child) {
-                  if (!networkProvider.isConnected) {
+            providers: [
+              BlocProvider<TabBlocBloc>(create: (context) => TabBlocBloc()),
+              BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
+              BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
+              BlocProvider<GetprdouctBloc>(create: (context) => GetprdouctBloc()),
+              BlocProvider<RequestBloc>(create: (context) => RequestBloc()),
+              BlocProvider<NewsBloc>(create: (context) => NewsBloc()),
+              BlocProvider<BlogBloc>(create: (context) => BlogBloc()),
+            ],
+            child: GestureDetector(
+              onTap: () {
+                unFocusNode(context);
+              },
+              child: SafeArea(
+                child: GetMaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light),
+                  home: Consumer<NetworkProvider>(builder: (context, networkProvider, child) {
                     return FutureBuilder<bool>(
-                      future: CheckLogin.checkLogin(),
+                      future: networkProvider.checkInternetConnection(),
                       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          // While data is being fetched, show a loading indicator
-                          return const CircularProgressIndicator();
-                        } else if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.connectionState == ConnectionState.none) {
+                          // Default case: show an empty Container widget
+                          return Container();
+                        }
+                        if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.hasError) {
                             // If an error occurred while fetching data, show an error message
                             return Text('Error: ${snapshot.error}');
@@ -71,23 +77,16 @@ class MyApp extends StatelessWidget {
                             return const SplashScreen();
                           } else {
                             IsLoggedIn.isLoggedIn = false;
-
-                            // If the boolean value is false, show a red X
-                            return const SplashScreen();
+                            return const NoInternetConnectionPage();
                           }
                         } else {
-                          // Default case: show an empty Container widget
-                          return Container();
+                          return const NoInternetConnectionPage();
                         }
                       },
                     );
-                  } else {
-                    return const NoInternetConnectionPage();
-                  }
-                }),
+                  }),
+                ),
               ),
-            ),
-          ),
-        ));
+            )));
   }
 }

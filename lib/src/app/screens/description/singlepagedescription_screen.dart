@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:get/get.dart';
+import 'package:paurakhi/src/app/screens/auth/login/login_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/productmodel.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
+import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
 import 'quotation/quotation_screen.dart';
@@ -34,7 +37,7 @@ class SinglePageDescriptionScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width - 20,
                   height: 200,
                   child: model.images.isEmpty
-                      ? Image.asset("assets/images/defaultImage.jpg")
+                      ? Image.asset("assets/images/logo2.png")
                       : Image.network("${Environment.imageUrl}/${model.images[0]}", fit: BoxFit.fill)),
               const SizedBox(height: 15),
               Row(
@@ -110,7 +113,11 @@ class SinglePageDescriptionScreen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         // TODO: Get quotation
-                        quotationBottomSheet(context);
+                        if (IsLoggedIn.isLoggedIn) {
+                          quotationBottomSheet(context,model.id);
+                        } else {
+                          Get.offAll(LoginScreen);
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF34A853),
@@ -143,7 +150,7 @@ class SinglePageDescriptionScreenBlog extends StatelessWidget {
         elevation: 0,
         // flexibleSpace: SizedBox(
         //     width: MediaQuery.of(context).size.width - 50, child: Align(alignment: Alignment.topLeft, child: searchWidgetSinglePage(context))),
-        title: Text(model.tittle, style: AppStyles.text20PxSemiBold.black),
+        title: Text(model.title, style: AppStyles.text20PxSemiBold.black),
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -155,13 +162,13 @@ class SinglePageDescriptionScreenBlog extends StatelessWidget {
               SizedBox(
                   width: MediaQuery.of(context).size.width - 20,
                   height: 200,
-                  child: model.blogImage == null ? Image.asset("assets/images/defaultImage.jpg") : Image.network(model.blogImage)),
+                  child: model.blogImage == null ? Image.asset("assets/images/logo2.png") : Image.network(model.blogImage)),
               const SizedBox(height: 10),
               const Row(
                 children: [],
               ),
               const SizedBox(height: 5),
-              Text(model.tittle, style: AppStyles.text22PxBold),
+              Text(model.title, style: AppStyles.text22PxBold),
 
               //Product Detail
               const SizedBox(height: 15),

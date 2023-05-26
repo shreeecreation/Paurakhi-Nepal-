@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
-import 'package:paurakhi/src/app/screens/home/presentation/homescreen/home_screen.dart';
 import 'package:paurakhi/src/core/API/BlogAPI/blog_api.dart';
+import 'package:paurakhi/src/core/routes/homeroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/search_news.dart';
@@ -10,8 +10,8 @@ import 'package:paurakhi/src/core/utils/search_news.dart';
 import 'bloc/news_bloc.dart';
 import 'search/search_functionality.dart';
 
-
 final GlobalKey<ScaffoldState> _scaffoldKeyNews = GlobalKey<ScaffoldState>();
+
 class NewsScreen extends StatelessWidget {
   const NewsScreen({super.key});
 
@@ -58,11 +58,7 @@ class NewsScreen extends StatelessWidget {
                           itemCount: model.length,
                           itemBuilder: (BuildContext context, int index) {
                             final BlogModelandNewsModel models = model[index];
-                            return GestureDetector(
-                                onTap: () {
-                                  // HomeRoutes.singlePageScreenNews(models);
-                                },
-                                child: allNews(context, models));
+                            return allNews(context, models);
                           },
                         );
                       } else if (snapshot.hasError) {
@@ -81,18 +77,20 @@ class NewsScreen extends StatelessWidget {
   }
 
   Widget allNews(context, BlogModelandNewsModel model) {
-    return Stack(children: [
-      Container(
-          height: 150,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0)),
-          child: const Card(elevation: 0.2, color: Color(0xFFF4FBF3))),
-      Column(
-        children: [
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: () {},
-            child: Row(
+    return GestureDetector(
+      onTap: () {
+        HomeRoutes.singlePageScreenNews(model);
+      },
+      child: Stack(children: [
+        Container(
+            height: 150,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0)),
+            child: const Card(elevation: 0.2, color: Color(0xFFF4FBF3))),
+        Column(
+          children: [
+            const SizedBox(height: 20),
+            Row(
               children: [
                 const SizedBox(width: 15),
                 Container(
@@ -100,7 +98,11 @@ class NewsScreen extends StatelessWidget {
                   width: 126,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
-                      image: const DecorationImage(image: AssetImage("assets/images/nepalflag.png"), fit: BoxFit.cover)),
+                      image: DecorationImage(
+                          image: model.blogImage == null
+                              ? const AssetImage("assets/images/logo2.png") as ImageProvider<Object>
+                              : NetworkImage(model.blogImage),
+                          fit: BoxFit.fill)),
                   child: ClipRRect(borderRadius: BorderRadius.circular(10.0), child: Align(alignment: Alignment.bottomRight, child: Container())),
                 ),
                 const SizedBox(width: 5),
@@ -109,16 +111,25 @@ class NewsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(height: 10),
-                    SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.tittle, style: AppStyles.text20PxBold)),
+                    SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.title, style: AppStyles.text20PxBold)),
                     const SizedBox(height: 10),
                     SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.createdAt, style: AppStyles.text14Px)),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(textAlign: TextAlign.end, "- ${model.author}", style: AppStyles.text14Px)),
+                      ],
+                    ),
                   ],
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    ]);
+          ],
+        ),
+      ]),
+    );
   }
 }

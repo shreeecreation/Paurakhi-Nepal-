@@ -44,7 +44,9 @@ void logoutDialog(BuildContext context) {
                 height: 40,
                 width: MediaQuery.of(context).size.width / 1.5,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     style: ElevatedButton.styleFrom(
                         elevation: 0,
                         shape:

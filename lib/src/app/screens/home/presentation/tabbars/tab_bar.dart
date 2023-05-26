@@ -70,10 +70,10 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                 return BlocBuilder<RequestBloc, RequestState>(
                   builder: (context, state) {
                     if (state is RequestStartState) {
-                      return futureBuilder(context, "request");
+                      return futureBuilder(context, "sell");
                     }
                     if (state is RequestEndState) {
-                      return futureBuilder(context, "sell");
+                      return futureBuilder(context, "request");
                     }
                     // if (state is RequestInitial) {
                     //   return futureBuilder(context, "request");

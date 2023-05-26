@@ -96,6 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               onChanged: (newValue) {
                                 setState(() {
                                   isChecked = newValue!;
+                                  IsLoggedIn.keepLogin = newValue;
                                 });
                               },
                             ),
@@ -110,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: ElevatedButton(
                           onPressed: () async {
                             //TODO login functionality
-                            loginFunction(formKey, phoneNo, password, context);
+                            loginFunction(formKey, phoneNo, password, context, isChecked);
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF34A853),
@@ -160,15 +161,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-void loginFunction(formKey, phoneNo, password, context) async {
+void loginFunction(formKey, phoneNo, password, context, checkLogin) async {
   if (formKey.currentState!.validate()) {
     var response = await LoginAPI.loginPoint(phoneNo.text, password.text, context);
     var data = response?.body;
     if (data != null) {
       var responseBody = jsonDecode(data);
       if (!responseBody["twoFactor"]) {
-        ManageLoginCookie.manageLoginCookieTwoFactorFalse(response);
+        ManageLoginCookie.manageLoginCookieTwoFactorFalse(response, checkLogin);
         IsLoggedIn.isLoggedIn = true;
+
         await GetUserInfo.getUserInfo();
 
         phoneNo.text = "";
@@ -177,7 +179,7 @@ void loginFunction(formKey, phoneNo, password, context) async {
         await GetUserInfo.getUserInfo();
         IsLoggedIn.isLoggedIn = true;
 
-        ManageLoginCookie.manageLoginCookieTwoFactorTrue(response);
+        ManageLoginCookie.manageLoginCookieTwoFactorTrue(response, checkLogin);
         phoneNo.text = "";
         password.text = "";
       }

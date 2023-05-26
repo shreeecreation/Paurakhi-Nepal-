@@ -212,7 +212,7 @@ Widget everyProductWidgetBlog(BuildContext context, BlogModelandNewsModel produc
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 25),
-                  SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.tittle, style: AppStyles.text18PxBold)),
+                  SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.title, style: AppStyles.text18PxBold)),
                   const SizedBox(height: 5),
                   SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.createdAt, style: AppStyles.text12Px)),
                   const SizedBox(height: 10),
@@ -248,7 +248,7 @@ Widget everyProductWidgetFinance(BuildContext context, BlogModelandNewsModel pro
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 25),
-                  SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.tittle, style: AppStyles.text18PxBold)),
+                  SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.title, style: AppStyles.text18PxBold)),
                   const SizedBox(height: 5),
                   SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.createdAt, style: AppStyles.text12Px)),
                   const SizedBox(height: 10),
