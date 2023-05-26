@@ -115,7 +115,7 @@ class UserDialogs {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Icon(Icons.close_rounded, color: Colors.red, size: 50),
+                const Icon(Icons.done, color: Colors.green, size: 70),
                 const SizedBox(height: 15),
                 SizedBox(
                     width: 220,

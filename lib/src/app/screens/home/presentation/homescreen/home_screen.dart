@@ -31,6 +31,7 @@ class HomeScreen extends StatelessWidget {
             if (state is SearchInitialState) {
               return RefreshIndicator(
                 onRefresh: () {
+                  print("dasda");
                   BlocProvider.of<SearchBloc>(context).add(ResetStartEvent());
 
                   return Future.delayed(const Duration(seconds: 1));

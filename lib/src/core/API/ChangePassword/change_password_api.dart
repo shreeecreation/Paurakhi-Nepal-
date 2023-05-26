@@ -16,10 +16,14 @@ class ChangePasswordAPI {
       final response = await http.post(
         url,
         body: jsonEncode(data),
-        headers: {'Content-Type': 'application/json','Cookie':cookie}, // Replace with your headers if needed
+        headers: {'Content-Type': 'application/json', 'Cookie': cookie}, // Replace with your headers if needed
       );
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          UserDialogs.updatePassword(context);
+        });
+
         print(response.body);
         return response;
       } else if (code == 400) {

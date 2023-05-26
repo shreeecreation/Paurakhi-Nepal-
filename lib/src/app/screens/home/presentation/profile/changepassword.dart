@@ -130,7 +130,6 @@ void changepassword(BuildContext context) {
                                           if (updatePassKey.currentState!.validate()) {
                                             await ChangePasswordAPI.changePasword(oldPass.text, newPass.text, context);
                                             WidgetsBinding.instance.addPostFrameCallback((_) {
-                                              UserDialogs.updatePassword(context);
                                             });
                                           }
                                         },

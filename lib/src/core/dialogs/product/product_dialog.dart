@@ -4,7 +4,7 @@ import 'package:paurakhi/src/core/utils/focuesnode.dart';
 
 class ProductDialogs {
   void sucessCreateProduct(BuildContext context) {
-      showDialog(
+    showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -25,14 +25,10 @@ class ProductDialogs {
                 const SizedBox(height: 10),
                 SizedBox(
                     width: 220,
-                    child: Center(
-                        child: Text("It's need to approved by the admin  ", textAlign: TextAlign.center, style: AppStyles.text14PxSemiBold))),
+                    child:
+                        Center(child: Text("It's need to approved by the admin  ", textAlign: TextAlign.center, style: AppStyles.text14PxSemiBold))),
                 SizedBox(
-                    width: 220,
-                    child: Center(
-                        child: Text("Status : Pending  ", textAlign: TextAlign.center, style: AppStyles.text14PxSemiBold))),
-               
-                
+                    width: 220, child: Center(child: Text("Status : Pending  ", textAlign: TextAlign.center, style: AppStyles.text14PxSemiBold))),
                 const SizedBox(height: 10),
                 SizedBox(
                   height: 40,
@@ -59,8 +55,8 @@ class ProductDialogs {
     );
   }
 
-   static void sucessSenduotation(BuildContext context) {
-      showDialog(
+  static void sucessSenduotation(BuildContext context) {
+    showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -77,18 +73,14 @@ class ProductDialogs {
                 const SizedBox(height: 15),
                 SizedBox(
                     width: 220,
-                    child: Center(child: Text('Product Added Successfully !', textAlign: TextAlign.center, style: AppStyles.text16PxSemiBold))),
+                    child: Center(child: Text('Quotation Added Succesffuly !', textAlign: TextAlign.center, style: AppStyles.text16PxSemiBold))),
                 const SizedBox(height: 10),
                 SizedBox(
-                    width: 220,
-                    child: Center(
-                        child: Text("It's need to approved by the admin  ", textAlign: TextAlign.center, style: AppStyles.text14PxSemiBold))),
+                    width: 240,
+                    child:
+                        Center(child: Text("It's need to approved by the admin  ", textAlign: TextAlign.center, style: AppStyles.text14PxSemiBold))),
                 SizedBox(
-                    width: 220,
-                    child: Center(
-                        child: Text("Status : Pending  ", textAlign: TextAlign.center, style: AppStyles.text14PxSemiBold))),
-               
-                
+                    width: 240, child: Center(child: Text("Status : Pending  ", textAlign: TextAlign.center, style: AppStyles.text14PxSemiBold))),
                 const SizedBox(height: 10),
                 SizedBox(
                   height: 40,
@@ -114,5 +106,4 @@ class ProductDialogs {
       },
     );
   }
-
 }
