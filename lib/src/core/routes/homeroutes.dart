@@ -21,6 +21,6 @@ class HomeRoutes {
   }
   
   static void singlePageScreenFinance(models) {
-    Get.to(FinanceAction(model: models));
+    Get.to(SinglePageDescriptionScreenFinance(model: models));
   }
 }

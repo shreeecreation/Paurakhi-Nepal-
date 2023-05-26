@@ -46,18 +46,19 @@ class BlogScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                FutureBuilder<List<BlogModelandNewsModel>?>(
-                    future: BlogandNewsAPI.getBlog(),
-                    builder: (BuildContext context, AsyncSnapshot<List<BlogModelandNewsModel>?> snapshot) {
+                FutureBuilder<List<BlogModelNewsFinanceModel>?>(
+                                     future: BlogNewsFinanceAPI.getAPI("blog"),
+
+                    builder: (BuildContext context, AsyncSnapshot<List<BlogModelNewsFinanceModel>?> snapshot) {
                       if (snapshot.hasData) {
                         // If the future is complete and has data, display the product data
-                        final List<BlogModelandNewsModel> model = snapshot.data!;
+                        final List<BlogModelNewsFinanceModel> model = snapshot.data!;
                         return ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: model.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final BlogModelandNewsModel models = model[index];
+                            final BlogModelNewsFinanceModel models = model[index];
                             return GestureDetector(
                                 onTap: () {
                                   HomeRoutes.singlePageScreenBlog(models);
@@ -80,7 +81,7 @@ class BlogScreen extends StatelessWidget {
         ));
   }
 
-  Widget allBlog(context, BlogModelandNewsModel model) {
+  Widget allBlog(context, BlogModelNewsFinanceModel model) {
     print(model.title);
     return GestureDetector(
       onTap: () {

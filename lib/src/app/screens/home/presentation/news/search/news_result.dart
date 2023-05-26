@@ -8,19 +8,19 @@ class NewsSearchResult extends StatelessWidget {
   const NewsSearchResult({super.key, required this.title});
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<BlogModelandNewsModel>?>(
+    return FutureBuilder<List<BlogModelNewsFinanceModel>?>(
         future: SearchAPI.getSearchedNews(title),
-        builder: (BuildContext context, AsyncSnapshot<List<BlogModelandNewsModel>?> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<BlogModelNewsFinanceModel>?> snapshot) {
           if (snapshot.hasData) {
             // If the future is complete and has data, display the product data
-            final List<BlogModelandNewsModel> products = snapshot.data!;
+            final List<BlogModelNewsFinanceModel> products = snapshot.data!;
 
             return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: products.length,
               itemBuilder: (BuildContext context, int index) {
-                final BlogModelandNewsModel product = products[index];
+                final BlogModelNewsFinanceModel product = products[index];
                 return everyProductWidgetBlog(context, product);
                 // return Center(child: Text("No Newss found on title '$title'"));
               },

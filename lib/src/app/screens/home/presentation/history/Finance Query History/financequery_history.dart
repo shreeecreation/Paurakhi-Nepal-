@@ -13,52 +13,56 @@ void financeHistoryScreen(BuildContext context) {
       borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
     ),
     builder: (BuildContext context) {
-      return ClipRRect(
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(50.0), topRight: Radius.circular(50.0)),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              Text("Finance Query History", style: AppStyles.text22PxBold),
-              const SizedBox(height: 20),
-              FutureBuilder<FinanceHistoryModel?>(
-                future: FinanceEnquiryHistory.financeHistory(),
-                builder: (BuildContext context, AsyncSnapshot<FinanceHistoryModel?> snapshot) {
-                  if (snapshot.hasData) {
-                    final FinanceHistoryModel dataList = snapshot.data!;
-                    print(dataList.data.length);
+      return SizedBox(
+        height: MediaQuery.of(context).size.height / 2,
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(topLeft: Radius.circular(50.0), topRight: Radius.circular(50.0)),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                Text("Finance Query History", style: AppStyles.text22PxBold),
+                const SizedBox(height: 20),
+                FutureBuilder<FinanceHistoryModel?>(
+                  future: FinanceEnquiryHistory.financeHistory(),
+                  builder: (BuildContext context, AsyncSnapshot<FinanceHistoryModel?> snapshot) {
+                    if (snapshot.hasData) {
+                      final FinanceHistoryModel dataList = snapshot.data!;
+                      print(dataList.data.length);
 
-                    if (dataList.data.isEmpty) {
-                      return Center(
-                          child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 30),
-                          const Icon(Icons.info_rounded, size: 60, color: Colors.grey),
-                          const SizedBox(height: 30),
-                          Text("No history found !", style: AppStyles.text18PxMedium),
-                        ],
-                      ));
+                      if (dataList.data.isEmpty) {
+                        return Center(
+                            child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 30),
+                            const Icon(Icons.info_rounded, size: 60, color: Colors.grey),
+                            const SizedBox(height: 30),
+                            Text("No history found !", style: AppStyles.text18PxMedium),
+                          ],
+                        ));
+                      }
+                      return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: dataList.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final Datum datum = dataList.data[index];
+                          return historyWidget(datum.purpose, datum.status, datum.value);
+                          // return const Text("dasdas");
+                        },
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    } else {
+                      return const Center(child: CircularProgressIndicator(color: AppColors.primary));
                     }
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: dataList.data.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final Datum datum = dataList.data[index];
-                        return historyWidget(datum.product.name, datum.status, datum.id);
-                        // return const Text("dasdas");
-                      },
-                    );
-                  } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
-                  } else {
-                    return const Center(child: CircularProgressIndicator(color: AppColors.primary));
-                  }
-                },
-              ),
-            ],
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -86,7 +90,7 @@ SizedBox historyWidget(product, status, price) {
                         : const Icon(Icons.close_rounded, size: 30, color: Colors.red),
             subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const SizedBox(height: 4),
-              Text("Price : $price"),
+              Text("Value : $price"),
             ]),
           ),
         ],

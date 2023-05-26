@@ -6,6 +6,7 @@ import 'package:paurakhi/src/app/screens/internetandSetverError/nointernetconnec
 import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:paurakhi/src/core/utils/splash_screen.dart';
 import 'package:provider/provider.dart';
+import 'src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
 import 'src/app/screens/home/presentation/news/bloc/news_bloc.dart';
 import 'src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
 import 'src/app/screens/home/presentation/homescreen/bloc/request_bloc.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
               BlocProvider<RequestBloc>(create: (context) => RequestBloc()),
               BlocProvider<NewsBloc>(create: (context) => NewsBloc()),
               BlocProvider<BlogBloc>(create: (context) => BlogBloc()),
+              BlocProvider<FinanceBloc>(create: (context) => FinanceBloc()),
             ],
             child: GestureDetector(
               onTap: () {

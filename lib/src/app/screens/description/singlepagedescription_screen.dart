@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -34,11 +35,33 @@ class SinglePageDescriptionScreen extends StatelessWidget {
             height: MediaQuery.of(context).size.height / 1.2,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               SizedBox(
-                  width: MediaQuery.of(context).size.width - 20,
-                  height: 200,
-                  child: model.images.isEmpty
-                      ? Image.asset("assets/images/logo2.png")
-                      : Image.network("${Environment.imageUrl}/${model.images[0]}", fit: BoxFit.fill)),
+                width: MediaQuery.of(context).size.width - 20,
+                height: 200,
+                child: model.images.isEmpty
+                    ? Image.asset("assets/images/logo2.png")
+                    : Container(
+                        height: 120,
+                        width: 126,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: CachedNetworkImage(
+                            imageUrl: "${Environment.apiUrl}/public/images/${model.images[0]}",
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => const SizedBox(
+                                height: 10,
+                                width: 10,
+                                child: LinearProgressIndicator(
+                                  color: Color.fromARGB(57, 222, 255, 223),
+                                  backgroundColor: Colors.white,
+                                )),
+                            errorWidget: (context, url, error) => const Icon(Icons.error),
+                          ),
+                        ),
+                      ),
+              ),
               const SizedBox(height: 15),
               Row(
                 children: [
@@ -114,7 +137,7 @@ class SinglePageDescriptionScreen extends StatelessWidget {
                       onPressed: () {
                         // TODO: Get quotation
                         if (IsLoggedIn.isLoggedIn) {
-                          quotationBottomSheet(context,model.id);
+                          quotationBottomSheet(context, model.id);
                         } else {
                           Get.offAll(LoginScreen);
                         }
@@ -138,7 +161,7 @@ class SinglePageDescriptionScreen extends StatelessWidget {
 
 class SinglePageDescriptionScreenBlog extends StatelessWidget {
   SinglePageDescriptionScreenBlog({super.key, required this.model});
-  BlogModelandNewsModel model;
+  BlogModelNewsFinanceModel model;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,6 +197,63 @@ class SinglePageDescriptionScreenBlog extends StatelessWidget {
               const SizedBox(height: 15),
 
               Text("Product Detail", style: AppStyles.text16PxBold),
+              const SizedBox(height: 5),
+              Html(
+                data: model.body,
+                style: {
+                  'body': Style(
+                    fontSize: FontSize.medium,
+                    fontWeight: FontWeight.normal,
+                  ),
+                },
+              ),
+              const SizedBox(height: 10),
+            ]),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SinglePageDescriptionScreenFinance extends StatelessWidget {
+  SinglePageDescriptionScreenFinance({super.key, required this.model});
+  BlogModelNewsFinanceModel model;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        // flexibleSpace: SizedBox(
+        //     width: MediaQuery.of(context).size.width - 50, child: Align(alignment: Alignment.topLeft, child: searchWidgetSinglePage(context))),
+        title: Text(model.title, style: AppStyles.text20PxSemiBold.black),
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SizedBox(
+                  width: MediaQuery.of(context).size.width - 20,
+                  height: 200,
+                  child: model.blogImage == null ? Image.asset("assets/images/logo2.png") : Image.network(model.blogImage)),
+              const SizedBox(height: 10),
+              const Row(
+                children: [],
+              ),
+              const SizedBox(height: 5),
+              Text(model.title, style: AppStyles.text22PxBold),
+
+              //Product Detail
+              const SizedBox(height: 15),
+
+              Text("Finance Detail", style: AppStyles.text16PxBold),
               const SizedBox(height: 5),
               Html(
                 data: model.body,

@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class ServerResponseBlogandNews {
-  final List<BlogModelandNewsModel> data;
+  final List<BlogModelNewsFinanceModel> data;
 
   ServerResponseBlogandNews({
     required this.data,
@@ -9,13 +9,13 @@ class ServerResponseBlogandNews {
 
   factory ServerResponseBlogandNews.fromJson(Map<String, dynamic> json) {
     final List<dynamic> dataList = json['data'] as List<dynamic>;
-    final List<BlogModelandNewsModel> items = dataList.map((item) => BlogModelandNewsModel.fromJson(item as Map<String, dynamic>)).toList();
+    final List<BlogModelNewsFinanceModel> items = dataList.map((item) => BlogModelNewsFinanceModel.fromJson(item as Map<String, dynamic>)).toList();
 
     return ServerResponseBlogandNews(data: items);
   }
 }
 
-class BlogModelandNewsModel {
+class BlogModelNewsFinanceModel {
   int id;
   String createdAt;
   String title;
@@ -26,7 +26,7 @@ class BlogModelandNewsModel {
   String updatedDate;
   String author;
 
-  BlogModelandNewsModel({
+  BlogModelNewsFinanceModel({
     required this.id,
     required this.createdAt,
     required this.title,
@@ -38,7 +38,7 @@ class BlogModelandNewsModel {
     required this.author,
   });
 
-  factory BlogModelandNewsModel.fromJson(Map<String, dynamic> json) {
+  factory BlogModelNewsFinanceModel.fromJson(Map<String, dynamic> json) {
     DateTime dateTime = DateTime.parse(json['createdAt'] as String);
 
     // Create a DateFormat object to format the DateTime
@@ -56,7 +56,7 @@ class BlogModelandNewsModel {
     final bool trash = json['trash'] as bool;
     final updatedDate = json['updatedDate'] as String;
     final author = json['author'] as String;
-    return BlogModelandNewsModel(
+    return BlogModelNewsFinanceModel(
         id: id,
         createdAt: createdAt,
         title: title,

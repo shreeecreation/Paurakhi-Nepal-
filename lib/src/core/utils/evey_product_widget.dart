@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/productmodel.dart';
 import 'package:paurakhi/src/app/screens/search/model/search_model.dart';
+import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'focuesnode.dart';
@@ -127,25 +129,27 @@ Widget everyProductWidgetProduct(BuildContext context, ProductModel product) {
               const SizedBox(width: 15),
               product.images.isEmpty
                   ? const SizedBox(height: 120, width: 126, child: Icon(Icons.question_mark))
-                  :
-                  //  Container(
-                  //     height: 120,
-                  //     width: 126,
-                  //     decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(20.0),
-                  //         image: DecorationImage(image: NetworkImage("${Environment.apiUrl}/public/images/${image[0]}"), fit: BoxFit.cover)),
-                  //     child: ClipRRect(borderRadius: BorderRadius.circular(10.0), child: Align(alignment: Alignment.bottomRight, child: Container())),
-                  //   ),
-                  Container(
+                  : Container(
                       height: 120,
                       width: 126,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          image: const DecorationImage(
-                              image: NetworkImage(
-                                  "https://thumbs.dreamstime.com/b/rice-cop-field-green-paddy-dhan-seed-plantation-chawalfield-agriculture-landscape-image-stock-photo-263603788.jpg"),
-                              fit: BoxFit.cover)),
-                      child: ClipRRect(borderRadius: BorderRadius.circular(10.0), child: Align(alignment: Alignment.bottomRight, child: Container())),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: CachedNetworkImage(
+                          imageUrl: "${Environment.apiUrl}/public/images/${product.images[0]}",
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => const SizedBox(
+                              height: 10,
+                              width: 10,
+                              child: LinearProgressIndicator(
+                                color: Color.fromARGB(57, 222, 255, 223),
+                                backgroundColor: Colors.white,
+                              )),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                        ),
+                      ),
                     ),
               const SizedBox(width: 20),
               Column(
@@ -190,7 +194,7 @@ Widget everyProductWidgetProduct(BuildContext context, ProductModel product) {
   ]);
 }
 
-Widget everyProductWidgetBlog(BuildContext context, BlogModelandNewsModel product) {
+Widget everyProductWidgetBlog(BuildContext context, BlogModelNewsFinanceModel product) {
   return Stack(children: [
     Container(
         height: 150,
@@ -206,7 +210,30 @@ Widget everyProductWidgetBlog(BuildContext context, BlogModelandNewsModel produc
           },
           child: Row(
             children: [
-              const SizedBox(width: 15),
+              product.blogImage == null
+                  ? const SizedBox(height: 120, width: 126, child: Icon(Icons.question_mark))
+                  : Container(
+                      height: 120,
+                      width: 126,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: CachedNetworkImage(
+                          imageUrl: "${Environment.apiUrl}/public/images/${product.blogImage[0]}",
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => const SizedBox(
+                              height: 10,
+                              width: 10,
+                              child: LinearProgressIndicator(
+                                color: Color.fromARGB(57, 222, 255, 223),
+                                backgroundColor: Colors.white,
+                              )),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                        ),
+                      ),
+                    ),
               const SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,7 +253,7 @@ Widget everyProductWidgetBlog(BuildContext context, BlogModelandNewsModel produc
   ]);
 }
 
-Widget everyProductWidgetFinance(BuildContext context, BlogModelandNewsModel product) {
+Widget everyProductWidgetFinance(BuildContext context, BlogModelNewsFinanceModel product) {
   return Stack(children: [
     Container(
         height: 150,

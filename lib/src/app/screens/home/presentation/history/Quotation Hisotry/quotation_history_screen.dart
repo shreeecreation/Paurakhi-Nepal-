@@ -12,51 +12,68 @@ void quotationHistoryScreen(BuildContext context) {
       borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
     ),
     builder: (BuildContext context) {
-      return ClipRRect(
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(50.0), topRight: Radius.circular(50.0)),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              Text("Quotation History", style: AppStyles.text22PxBold),
-              const SizedBox(height: 20),
-              FutureBuilder<QuotationHistoryModel?>(
-                future: QuotationHistory.quotationHistory(),
-                builder: (BuildContext context, AsyncSnapshot<QuotationHistoryModel?> snapshot) {
-                  if (snapshot.hasData) {
-                    final QuotationHistoryModel dataList = snapshot.data!;
+      return SizedBox(
+        height: MediaQuery.of(context).size.height / 2,
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(50.0), topRight: Radius.circular(50.0)),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("  Quotation History", style: AppStyles.text24PxBold),
+                      Flexible(
+                          child: IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(Icons.close))),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  FutureBuilder<QuotationHistoryModel?>(
+                    future: QuotationHistory.quotationHistory(),
+                    builder: (BuildContext context, AsyncSnapshot<QuotationHistoryModel?> snapshot) {
+                      if (snapshot.hasData) {
+                        final QuotationHistoryModel dataList = snapshot.data!;
 
-                    if (dataList.data.isEmpty) {
-                      return Center(
-                          child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 30),
-                          const Icon(Icons.info_rounded, size: 60, color: Colors.grey),
-                          const SizedBox(height: 30),
-                          Text("No history found !", style: AppStyles.text18PxMedium),
-                        ],
-                      ));
-                    }
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: dataList.data.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final Datum datum = dataList.data[index];
-                        return historyWidget(datum.product.name, datum.status, datum.id);
-                        // return const Text("dasdas");
-                      },
-                    );
-                  } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
-                  } else {
-                    return const Center(child: CircularProgressIndicator(color: AppColors.primary));
-                  }
-                },
+                        if (dataList.data.isEmpty) {
+                          return Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: 30),
+                              const Icon(Icons.info_rounded, size: 60, color: Colors.grey),
+                              const SizedBox(height: 30),
+                              Text("No history found !", style: AppStyles.text18PxMedium),
+                            ],
+                          ));
+                        }
+                        return ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: dataList.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final Datum datum = dataList.data[index];
+                            return historyWidget(datum.product.name, datum.status, datum.id);
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('${snapshot.error}');
+                      } else {
+                        return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+                      }
+                    },
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       );

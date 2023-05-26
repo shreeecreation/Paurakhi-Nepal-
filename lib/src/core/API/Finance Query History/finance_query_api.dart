@@ -9,7 +9,7 @@ import 'package:paurakhi/src/core/env/envmodels.dart';
 class FinanceEnquiryHistory {
   static Future<FinanceHistoryModel?> financeHistory() async {
     var cookie = await ManageCookie.getCookie();
-    final String url = '${Environment.apiUrl}${AllAPIEndPoint.getQuotationHistoryAPI}';
+    final String url = '${Environment.apiUrl}${AllAPIEndPoint.getFinanceHistoryAPI}';
     print(url);
     try {
       final response = await http.get(

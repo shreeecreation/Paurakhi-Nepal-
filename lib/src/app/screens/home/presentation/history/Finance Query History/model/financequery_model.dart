@@ -16,28 +16,19 @@ class FinanceHistoryModel {
 class Datum {
   final int id;
   final String createdAt;
-  final String queryId;
-  final int price;
+  final String purpose;
+  final int value;
   final String status;
-  final Product product;
 
-  Datum({
-    required this.id,
-    required this.createdAt,
-    required this.queryId,
-    required this.price,
-    required this.status,
-    required this.product,
-  });
+  Datum({required this.id, required this.createdAt, required this.status, required this.purpose, required this.value});
 
   factory Datum.fromJson(Map<String, dynamic> json) {
     return Datum(
       id: json['id'] as int,
       createdAt: json['createdAt'],
-      queryId: json['queryId'] as String,
-      price: json['price'] as int,
+      purpose: json['purpose'] as String,
+      value: json['value'] as int,
       status: json['status'] as String,
-      product: Product.fromJson(json['product'] as Map<String, dynamic>),
     );
   }
 }

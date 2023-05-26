@@ -1,42 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
 import 'package:paurakhi/src/core/API/BlogAPI/blog_api.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
-import 'package:paurakhi/src/core/utils/search_news.dart';
+import 'package:paurakhi/src/core/utils/search_finance.dart';
 
-import 'bloc/news_bloc.dart';
 import 'search/search_functionality.dart';
 
-final GlobalKey<ScaffoldState> _scaffoldKeyNews = GlobalKey<ScaffoldState>();
+final GlobalKey<ScaffoldState> _scaffoldKeyFinance = GlobalKey<ScaffoldState>();
 
-class NewsScreen extends StatelessWidget {
-  const NewsScreen({super.key});
+class FinanceScreen extends StatelessWidget {
+  const FinanceScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         endDrawerEnableOpenDragGesture: true, // This!
-        key: _scaffoldKeyNews,
+        key: _scaffoldKeyFinance,
         endDrawer: const EndDrawer(),
-        body: BlocBuilder<NewsBloc, NewsState>(
+        body: BlocBuilder<FinanceBloc, FinanceState>(
           builder: (context, state) {
-            if (state is SearchNewsState || state is SearchedNewsState) {
-              return const SearchFunctionalityNews();
+            if (state is SearchFinanceState || state is SearchedFinanceState) {
+              return const SearchFunctionalityFinance();
             }
-            if (state is FetchNewsState) {
+            if (state is FetchFinanceState) {
               // return const LinearProgressIndicator();
               return SingleChildScrollView(
                   child: SizedBox(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 // ---------------------------------------------------------------------Search Widget
-                searchNews(context, _scaffoldKeyNews),
+                searchFinance(context, _scaffoldKeyFinance),
                 const SizedBox(height: 24),
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0),
-                  child: Text("Newss", style: AppStyles.text22PxBold),
+                  child: Text("Finances", style: AppStyles.text22PxBold),
                 ),
 
                 const SizedBox(height: 10),
@@ -47,8 +47,7 @@ class NewsScreen extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 FutureBuilder<List<BlogModelNewsFinanceModel>?>(
-                                       future: BlogNewsFinanceAPI.getAPI("news"),
-
+                    future: BlogNewsFinanceAPI.getAPI("finance"),
                     builder: (BuildContext context, AsyncSnapshot<List<BlogModelNewsFinanceModel>?> snapshot) {
                       if (snapshot.hasData) {
                         // If the future is complete and has data, display the product data
@@ -59,7 +58,11 @@ class NewsScreen extends StatelessWidget {
                           itemCount: model.length,
                           itemBuilder: (BuildContext context, int index) {
                             final BlogModelNewsFinanceModel models = model[index];
-                            return allNews(context, models);
+                            return GestureDetector(
+                                onTap: () {
+                                  HomeRoutes.singlePageScreenFinance(models);
+                                },
+                                child: allFinance(context, models));
                           },
                         );
                       } else if (snapshot.hasError) {
@@ -67,7 +70,7 @@ class NewsScreen extends StatelessWidget {
                         return Text('${snapshot.error}');
                       } else {
                         // If the future is not complete yet, display a loading indicator
-                        return Center(child: Text("\nThere is no Newss available right now !", style: AppStyles.text16PxBold));
+                        return Center(child: Text("\nThere is no Finances available right now !", style: AppStyles.text16PxBold));
                       }
                     })
               ])));
@@ -77,10 +80,11 @@ class NewsScreen extends StatelessWidget {
         ));
   }
 
-  Widget allNews(context, BlogModelNewsFinanceModel model) {
+  Widget allFinance(context, BlogModelNewsFinanceModel model) {
+    print(model.title);
     return GestureDetector(
       onTap: () {
-        HomeRoutes.singlePageScreenNews(model);
+        HomeRoutes.singlePageScreenFinance(model);
       },
       child: Stack(children: [
         Container(
@@ -114,7 +118,7 @@ class NewsScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.title, style: AppStyles.text20PxBold)),
                     const SizedBox(height: 10),
-                    SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.createdAt, style: AppStyles.text14Px)),
+                    SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.createdAt, style: AppStyles.text13Px)),
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
