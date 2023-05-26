@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:paurakhi/src/app/screens/home/presentation/history/Quotation%20Hisotry/model/quotationhistory_model.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/history/Finance%20Query%20History/model/financequery_model.dart';
 import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 
-class QuotationHistory {
-  static Future<QuotationHistoryModel?> quotationHistory() async {
+class FinanceEnquiryHistory {
+  static Future<FinanceHistoryModel?> financeHistory() async {
     var cookie = await ManageCookie.getCookie();
     final String url = '${Environment.apiUrl}${AllAPIEndPoint.getQuotationHistoryAPI}';
     print(url);
@@ -23,7 +23,7 @@ class QuotationHistory {
         final List<dynamic> dataList = jsonList['data'] as List<dynamic>;
         final List<Datum> items = dataList.map((item) => Datum.fromJson(item as Map<String, dynamic>)).toList();
 
-        return QuotationHistoryModel(data: items);
+        return FinanceHistoryModel(data: items);
       } else if (code == 400) {
         // Handle 400 error
       } else if (code == 500) {

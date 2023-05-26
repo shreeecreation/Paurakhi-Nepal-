@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/blog_screen.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/history/get%20ticket/getticket_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/news/bloc/news_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/news/news_screen.dart';
-import 'package:paurakhi/src/app/screens/home/presentation/profile/get%20ticket/getticket_screen.dart';
+import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/drawerroutes.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
@@ -14,7 +15,6 @@ class EndDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentRoute = ModalRoute.of(context)?.settings.name;
     final TextStyle textStyle = AppStyles.text16PxBold;
     return Drawer(
         child: SingleChildScrollView(
@@ -39,8 +39,10 @@ class EndDrawer extends StatelessWidget {
             title: Text("Blog", style: textStyle),
             onTap: () async {
               //action on press
+              final currentRoute = ModalRoute.of(context)?.settings.name;
+
               print(currentRoute);
-              if (currentRoute != "/") {
+              if (currentRoute != "/HomePage") {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const BlogScreen()),
@@ -56,7 +58,9 @@ class EndDrawer extends StatelessWidget {
           ListTile(
             title: Text("News", style: textStyle),
             onTap: () async {
-              if (currentRoute != "/") {
+              final currentRoute = ModalRoute.of(context)?.settings.name;
+
+              if (currentRoute != "/HomePage") {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const NewsScreen()),
@@ -77,10 +81,7 @@ class EndDrawer extends StatelessWidget {
             title: Text("Grants", style: textStyle),
             onTap: () {},
           ),
-          ListTile(
-            title: Text("Products", style: textStyle),
-            onTap: () {},
-          ),
+  
           ListTile(
             title: Text("Tools", style: textStyle),
             onTap: () {},
@@ -90,7 +91,7 @@ class EndDrawer extends StatelessWidget {
             onTap: () {},
           ),
           ListTile(
-            title: Text("Open Ticket", style: textStyle),
+            title: Text("Open Ticket", style: AppStyles.text16PxBold.textGreen),
             onTap: () {
               ProfileRoutes.openticketRoute();
             },

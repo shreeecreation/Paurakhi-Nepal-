@@ -8,7 +8,6 @@ import 'package:paurakhi/src/core/utils/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'src/app/screens/home/presentation/news/bloc/news_bloc.dart';
 import 'src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
-import 'src/app/screens/home/presentation/home_page.dart';
 import 'src/app/screens/home/presentation/homescreen/bloc/request_bloc.dart';
 import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
 import 'src/app/screens/home/presentation/request/bloc/getprdouct_bloc.dart';

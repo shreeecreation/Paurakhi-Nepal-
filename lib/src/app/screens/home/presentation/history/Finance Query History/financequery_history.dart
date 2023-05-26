@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:paurakhi/src/core/API/Quotation%20Historu%20API/quotation_history_api.dart';
+import 'package:paurakhi/src/core/API/Finance%20Query%20History/finance_query_api.dart';
 import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
-import 'model/quotationhistory_model.dart';
+import 'model/financequery_model.dart';
 
-void quotationHistoryScreen(BuildContext context) {
+void financeHistoryScreen(BuildContext context) {
   showModalBottomSheet(
     backgroundColor: AppColors.defaultbackground,
     context: context,
@@ -21,13 +21,13 @@ void quotationHistoryScreen(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              Text("Quotation History", style: AppStyles.text22PxBold),
+              Text("Finance Query History", style: AppStyles.text22PxBold),
               const SizedBox(height: 20),
-              FutureBuilder<QuotationHistoryModel?>(
-                future: QuotationHistory.quotationHistory(),
-                builder: (BuildContext context, AsyncSnapshot<QuotationHistoryModel?> snapshot) {
+              FutureBuilder<FinanceHistoryModel?>(
+                future: FinanceEnquiryHistory.financeHistory(),
+                builder: (BuildContext context, AsyncSnapshot<FinanceHistoryModel?> snapshot) {
                   if (snapshot.hasData) {
-                    final QuotationHistoryModel dataList = snapshot.data!;
+                    final FinanceHistoryModel dataList = snapshot.data!;
                     print(dataList.data.length);
 
                     if (dataList.data.isEmpty) {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:paurakhi/src/app/screens/home/presentation/profile/get%20ticket/getticket_model.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/history/get%20ticket/getticket_model.dart';
 import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';

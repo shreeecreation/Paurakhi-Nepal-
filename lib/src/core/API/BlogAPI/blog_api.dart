@@ -35,6 +35,7 @@ class BlogandNewsAPI {
       );
       final List<dynamic> jsonList = jsonDecode(response.body);
       List<BlogModelandNewsModel> blogs = [];
+      print(response.body);
       blogs = jsonList.map((dynamic json) => BlogModelandNewsModel.fromJson(json as Map<String, dynamic>)).toList();
       return blogs;
     } catch (e) {

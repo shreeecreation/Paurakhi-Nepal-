@@ -7,7 +7,6 @@ import 'package:paurakhi/src/app/screens/home/presentation/request/bloc/getprdou
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_model.dart';
-import 'package:paurakhi/src/core/utils/loading_indicator.dart';
 
 import 'all.dart';
 
@@ -37,6 +36,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
       _tabController!.animation!.addListener(_handleTabSelection);
       BlocProvider.of<TabBlocBloc>(context).add(GetTabLengthEvent());
       BlocProvider.of<GetprdouctBloc>(context).add(GetProdcutFetchEvent());
+      BlocProvider.of<RequestBloc>(context).add(RequestStartEvent());
     });
   }
 
@@ -75,9 +75,9 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                     if (state is RequestEndState) {
                       return futureBuilder(context, "sell");
                     }
-                    if (state is RequestInitial) {
-                      return futureBuilder(context, "sell");
-                    }
+                    // if (state is RequestInitial) {
+                    //   return futureBuilder(context, "request");
+                    // }
                     // return Center(child: Image.asset("assets/images/paurakhi.png", height: 100, fit: BoxFit.fill));
                     return const Text("");
                   },
@@ -91,7 +91,6 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
   }
 
   SizedBox futureBuilder(BuildContext context, String type) {
-
     return SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(

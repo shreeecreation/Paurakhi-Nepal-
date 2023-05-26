@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:paurakhi/src/app/screens/home/presentation/Quotation%20Hisotry/quotation_history_screen.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/history/Finance%20Query%20History/financequery_history.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/history/Quotation%20Hisotry/quotation_history_screen.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/history/get%20ticket/getticket_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
-import 'package:paurakhi/src/core/API/Quotation%20Historu%20API/quotation_history_api.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
 import 'package:paurakhi/src/core/providers/location_provider.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
@@ -12,7 +13,6 @@ import 'package:provider/provider.dart';
 import 'bloc/profile_bloc.dart';
 import 'changepassword.dart';
 import 'editprofile.dart';
-import 'get ticket/getticket_screen.dart';
 import 'model/profile_model.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -59,6 +59,7 @@ class ProfileScreen extends StatelessWidget {
             financeenrquiry(context),
             notificationHistory(context),
             openTicketHistory(context),
+            grantHistory(context),
             const SizedBox(height: 10),
             Text("     Others", style: AppStyles.text18PxBold),
             const SizedBox(height: 10),
@@ -153,7 +154,7 @@ Padding quotationhistory(BuildContext context) {
         title: const Text("Quotation History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
-            quotationHistoryScreen(context);
+          quotationHistoryScreen(context);
         },
       ),
     ),
@@ -188,7 +189,27 @@ Padding financeenrquiry(BuildContext context) {
         tileColor: Colors.white,
         title: const Text("Finance Enquiry History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
-        onTap: () {},
+        onTap: () {
+          financeHistoryScreen(context);
+        },
+      ),
+    ),
+  );
+}
+
+Padding grantHistory(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: SizedBox(
+      width: MediaQuery.of(context).size.width - 30,
+      child: ListTile(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+        tileColor: Colors.white,
+        title: const Text("Grant History"),
+        trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
+        onTap: () {
+          financeHistoryScreen(context);
+        },
       ),
     ),
   );
