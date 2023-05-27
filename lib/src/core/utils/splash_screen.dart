@@ -22,7 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void navigateToNextScreen() async {
     await Future.delayed(const Duration(seconds: 3));
-    print("dasdas");
 
     bool isLoggedIn = await CheckLogin.checkLogin();
 
@@ -43,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Center(child: Image.asset("assets/images/logo2.png")),
           Positioned(
-            bottom: 0,
+            bottom: 1,
             right: 0,
             child: Align(
               alignment: Alignment.bottomRight,

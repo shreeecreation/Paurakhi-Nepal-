@@ -139,7 +139,7 @@ class SinglePageDescriptionScreen extends StatelessWidget {
                         if (IsLoggedIn.isLoggedIn) {
                           quotationBottomSheet(context, model.id);
                         } else {
-                          Get.offAll(LoginScreen);
+                          Get.offAll(const LoginScreen());
                         }
                       },
                       style: ElevatedButton.styleFrom(

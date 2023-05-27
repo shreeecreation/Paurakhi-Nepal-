@@ -5,6 +5,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/history/Quotation%20H
 import 'package:paurakhi/src/app/screens/home/presentation/history/get%20ticket/getticket_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
+import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/providers/location_provider.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
@@ -287,7 +288,23 @@ Widget userProfile(context) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 90, width: 90, child: CircleAvatar(child: Image.asset("assets/images/nepalflag.png"))),
+            SizedBox(
+              height: 90,
+              width: 90,
+              child: Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: ClipOval(
+                  child: Profile.picture != null || Profile.picture != ""
+                      ? Image.network(
+                          "${Environment.apiUrl}/public/images/${Profile.picture}",
+                          fit: BoxFit.fill,
+                        )
+                      : Image.asset("assets/images/logo2.png"),
+                ),
+              ),
+            ),
             const SizedBox(width: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/description/singlepagedescription_screen.dart';
-import 'package:paurakhi/src/app/screens/home/presentation/finance/financeenquirydesc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/home_page.dart';
 
 class HomeRoutes {
@@ -12,14 +11,14 @@ class HomeRoutes {
     Get.to(SinglePageDescriptionScreen(model: models));
   }
 
-   static void singlePageScreenBlog(models) {
+  static void singlePageScreenBlog(models) {
     Get.to(SinglePageDescriptionScreenBlog(model: models));
   }
 
   static void singlePageScreenNews(models) {
-    Get.to(SinglePageDescriptionScreen(model: models));
+    Get.to(SinglePageDescriptionScreenBlog(model: models));
   }
-  
+
   static void singlePageScreenFinance(models) {
     Get.to(SinglePageDescriptionScreenFinance(model: models));
   }

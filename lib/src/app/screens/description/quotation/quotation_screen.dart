@@ -67,7 +67,7 @@ void quotationBottomSheet(BuildContext context, productId) {
                                           children: [
                                             const Icon(Icons.person),
                                             const SizedBox(width: 5),
-                                            Text(Profile.finalName ?? "", style: AppStyles.text20PxSemiBold),
+                                            Text(Profile.finalName, style: AppStyles.text20PxSemiBold),
                                           ],
                                         ),
                                         const SizedBox(height: 5),
@@ -155,7 +155,7 @@ void quotationBottomSheet(BuildContext context, productId) {
                                         ),
                                         backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                                         foregroundColor: MaterialStateProperty.all<Color>(Colors.green)),
-                                    child: const Text('Click me')),
+                                    child: const Text('Cancel')),
                               ),
                             ),
                             const SizedBox(height: 10)

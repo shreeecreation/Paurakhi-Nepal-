@@ -12,5 +12,5 @@ class Profile {
   static String finalName = "${firstName!}  ${lastName!}";
   static String? email;
   static String? address;
-  static String? picture;
+  static String picture = "";
 }

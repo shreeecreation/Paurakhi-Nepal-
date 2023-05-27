@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown.dart';
 import 'package:paurakhi/src/core/API/RequestProductAPI/request_product_api.dart';
+import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
+import 'package:paurakhi/src/core/dialogs/product/product_dialog.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 import 'model/requestproduct_model.dart';
@@ -80,12 +82,16 @@ void requestProduct(BuildContext context) {
                             height: 50,
                             width: MediaQuery.of(context).size.width - 50,
                             child: ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   //TODO request screen
                                   if (formKeyRequestProduct.currentState!.validate()) {
                                     RequestProductModel model = RequestProductModel(
                                         titleController.text, "request", descriptionController.text, DropdownList.dropDownIndex, 10, 10);
-                                    RequestProductAPI.sellProduct(model);
+                                    await RequestProductAPI.sellProduct(model);
+
+                                       WidgetsBinding.instance.addPostFrameCallback((_) {
+          ProductDialogs().requestProduct(context);
+        });
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
