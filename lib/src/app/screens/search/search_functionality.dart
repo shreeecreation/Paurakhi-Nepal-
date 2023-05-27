@@ -24,25 +24,10 @@ class SearchFunctionality extends StatelessWidget {
             if (state is SearchStartState) {
               return SearchWidget(name: SearchValue.searchValue);
             }
+         
             return const Text("dasdasdasd");
           },
         ),
-        // SizedBox(
-        //     height: 70,
-        //     child: Center(
-        //         child: SizedBox(
-        //             child: Column(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: [
-        //         Image.asset(
-        //           "assets/images/search.png",
-        //           height: 50,
-        //           // width: MediaQuery.of(context).size.width / 2,
-        //           fit: BoxFit.fill,
-        //         ),
-        //         Text("Search your desire product !", style: AppStyles.text14PxBold),
-        //       ],
-        //     )))),
 
         const SizedBox(height: 20)
       ])),

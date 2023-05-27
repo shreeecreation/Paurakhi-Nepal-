@@ -76,6 +76,7 @@ Widget searchFilterWidget(BuildContext context, key) {
                 await SearchAPI.getSearchedProduct(SearchValue.category, value, SearchValue.type);
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   BlocProvider.of<SearchBloc>(context).add(SearchStartEvent());
+                  BlocProvider.of<SearchBloc>(context).add(SearchStartEvent());
                 });
               },
               decoration: InputDecoration(

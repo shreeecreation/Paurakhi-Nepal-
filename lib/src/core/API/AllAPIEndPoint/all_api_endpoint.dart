@@ -16,6 +16,7 @@ class AllAPIEndPoint {
   static String listingsAndGreetings = "/mobile-info";
   static String searchAPI = "/product/get-product?";
   static String sendQuotationAPI = "/query/create-query";
+  static String sendFinanceAPI = "/finance";
   static String getQuotationHistoryAPI = "/query/get-query";
   static String getFinanceHistoryAPI = "/finance";
   static String getTicketHistoryAPI = "/ticket/get-ticket";

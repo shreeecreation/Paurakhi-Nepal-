@@ -29,7 +29,7 @@ class SearchWidget extends StatelessWidget {
               // If the future is complete and has data, display the product data
               final ServerResponseProduct products = snapshot.data!;
               if (products.data.isEmpty) {
-                return Center(child: Text("No product found !", style: AppStyles.text18PxMedium));
+                return SizedBox(height: 200, child: Center(child: Text("No product found !", style: AppStyles.text18PxMedium)));
               }
               return Column(
                 children: [

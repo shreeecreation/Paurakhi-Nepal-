@@ -14,6 +14,9 @@ class BlogSearchResult extends StatelessWidget {
           if (snapshot.hasData) {
             // If the future is complete and has data, display the product data
             final List<BlogModelNewsFinanceModel> products = snapshot.data!;
+            if (products.isEmpty) {
+              return const Center(child: Text("No Blogs found on title "));
+            }
 
             return ListView.builder(
               shrinkWrap: true,

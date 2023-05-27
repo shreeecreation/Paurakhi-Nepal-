@@ -21,7 +21,8 @@ class SearchFunctionalityBlog extends StatelessWidget {
 
         BlocBuilder<BlogBloc, BlogState>(
           builder: (context, state) {
-            if (state is SearchedBlogState) {
+            if (state is SearchBlogState) {
+              print("${SearchValueBlog.searchValue}Dasdasd");
               return BlogSearchResult(title: SearchValueBlog.searchValue);
             }
             return const Text("\nNo results found ");

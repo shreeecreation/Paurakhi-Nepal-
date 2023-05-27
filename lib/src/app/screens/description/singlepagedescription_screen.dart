@@ -4,6 +4,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/auth/login/login_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/finance/financeaction.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/productmodel.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
@@ -217,42 +218,39 @@ class SinglePageDescriptionScreenBlog extends StatelessWidget {
 }
 
 class SinglePageDescriptionScreenFinance extends StatelessWidget {
-  SinglePageDescriptionScreenFinance({super.key, required this.model});
-  BlogModelNewsFinanceModel model;
+  const SinglePageDescriptionScreenFinance({super.key, required this.model});
+  final BlogModelNewsFinanceModel model;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
+          color: Colors.black,
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        // flexibleSpace: SizedBox(
-        //     width: MediaQuery.of(context).size.width - 50, child: Align(alignment: Alignment.topLeft, child: searchWidgetSinglePage(context))),
         title: Text(model.title, style: AppStyles.text20PxSemiBold.black),
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               SizedBox(
-                  width: MediaQuery.of(context).size.width - 20,
-                  height: 200,
-                  child: model.blogImage == null ? Image.asset("assets/images/logo2.png") : Image.network(model.blogImage)),
+                width: MediaQuery.of(context).size.width - 20,
+                height: 200,
+                child: model.blogImage == null ? Image.asset("assets/images/logo2.png") : Image.network(model.blogImage),
+              ),
               const SizedBox(height: 10),
               const Row(
                 children: [],
               ),
               const SizedBox(height: 5),
               Text(model.title, style: AppStyles.text22PxBold),
-
-              //Product Detail
               const SizedBox(height: 15),
-
               Text("Finance Detail", style: AppStyles.text16PxBold),
               const SizedBox(height: 5),
               Html(
@@ -265,7 +263,29 @@ class SinglePageDescriptionScreenFinance extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 10),
-            ]),
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // TODO: Get quotation
+                      if (IsLoggedIn.isLoggedIn) {
+                        financeEnquiryBottomSheet(context,model.id);
+                      } else {
+                        Get.offAll(const LoginScreen());
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF34A853),
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                    ),
+                    child: Text("Enquire Now", style: AppStyles.text16Px),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -11,3 +11,4 @@ class SearchStartEvent extends SearchEvent{
 class ResetStartEvent extends SearchEvent{
 
 }
+class SearchedEvent extends SearchEvent{}

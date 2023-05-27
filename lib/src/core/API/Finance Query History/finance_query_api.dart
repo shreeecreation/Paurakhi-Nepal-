@@ -17,6 +17,7 @@ class FinanceEnquiryHistory {
         headers: {'Cookie': cookie},
       );
       var code = response.statusCode;
+      print(code);
       print(response.body);
       if (code >= 200 && code < 300) {
         final Map<String, dynamic> jsonList = jsonDecode(response.body);

@@ -21,11 +21,11 @@ class FilterSaver {
         Filter.filter = numbers;
       }
     }
-    Filter.type = typeJson ?? 0;
+    Filter.type = typeJson ?? 1;
   }
 }
 
 class Filter {
-  static int type = 0;
+  static int type = 1;
   static List<int> filter = [];
 }

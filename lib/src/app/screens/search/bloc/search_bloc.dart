@@ -21,5 +21,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         emit(ResetStartState());
       },
     );
+    on<SearchedEvent>((event,emit){
+      emit(SearchedState());
+    });
   }
 }
