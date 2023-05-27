@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CheckLogin {
   static Future<bool> checkLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getBool('loggedIn') ?? false);
     return prefs.getBool('loggedIn') ?? false;
   }
 
@@ -11,4 +12,3 @@ class CheckLogin {
     await prefs.setBool('loggedIn', value);
   }
 }
- 

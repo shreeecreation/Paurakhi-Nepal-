@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/app/screens/internetandSetverError/nointernetconnection.dart';
-import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:paurakhi/src/core/utils/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
@@ -75,10 +74,8 @@ class MyApp extends StatelessWidget {
                             return Text('Error: ${snapshot.error}');
                           } else if (snapshot.data == true) {
                             GetUserInfo.getUserInfo();
-                            IsLoggedIn.isLoggedIn = true;
                             return const SplashScreen();
                           } else {
-                            IsLoggedIn.isLoggedIn = false;
                             return const NoInternetConnectionPage();
                           }
                         } else {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/home_page.dart';
-import 'package:paurakhi/src/app/screens/internetandSetverError/check_internet_connection.dart';
-import 'package:paurakhi/src/app/screens/internetandSetverError/nointernetconnection.dart';
+import 'package:paurakhi/src/core/API/CheckLogin/check_login.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
+import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,10 +20,20 @@ class _SplashScreenState extends State<SplashScreen> {
     navigateToNextScreen();
   }
 
-  void navigateToNextScreen() {
-        Future.delayed(const Duration(seconds: 3), () {
-          Get.offAll(const HomePage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
-        });
+  void navigateToNextScreen() async {
+    await Future.delayed(const Duration(seconds: 3));
+    print("dasdas");
+
+    bool isLoggedIn = await CheckLogin.checkLogin();
+
+    if (isLoggedIn) {
+      IsLoggedIn.isLoggedIn = true;
+      Get.offAll(const HomePage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
+    } else {
+      IsLoggedIn.isLoggedIn = false;
+      Get.offAll(const HomePage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
+//
+    }
   }
 
   @override
