@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class AppColors {
 //theme primary color
-  static const Color primary = Color(0xFFfb5607);
+  static const Color primary = Color(0xFFD9D9D9);
 
   //text colors
   static const Color textDark = Color(0xFF222222);
@@ -10,6 +10,7 @@ abstract class AppColors {
   static const Color textGrey = Color(0xFF999999);
   static const Color shadow = Color(0xFFF4F6F9);
   static const Color textBlue = Color(0xFF3E64D2);
+  static const Color textGreen = Color(0xFF34A853);
 
   //status color
   static const Color statusRed = Color(0xFFD23E3E);
@@ -30,6 +31,8 @@ abstract class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
   static const Color transparent = Colors.transparent;
+
+  static const Color defaultbackground = Color(0xFFF4FBF3);
 
   //homepage color
 

@@ -14,19 +14,21 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-    physics: const BouncingScrollPhysics(),
-
-      child: Column(
-        children: [
-          const SizedBox(height: 20),
-          const Row(
-            children: [SizedBox(width: 25), Text("Notification", style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500))],
-          ),
-          const SizedBox(height: 20),
-          notificationTile(context, myMapList),
-        ],
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            const Row(
+              children: [SizedBox(width: 20), Text("Notification", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w500))],
+            ),
+            const SizedBox(height: 20),
+            notificationTile(context, myMapList),
+          ],
+        ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }
@@ -49,15 +51,26 @@ Widget notificationTile(context, myMap) {
             width: MediaQuery.of(context).size.width - 30,
             child: Center(
               child: ListTile(
-                title: Text("Notification Title",
-                    style: TextStyle(
-                      fontSize: 22.7,
-                      fontWeight: FontWeight.w400,
-                      color: myMap[index]["isseen"] ? const Color(0xFF2C2C2C) : const Color(0xFF646464),
-                    )),
+                minVerticalPadding: 10,
+
+                title: SizedBox(
+                  height: 30,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Notification Title",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: myMap[index]["isseen"] ? const Color(0xFF2C2C2C) : const Color(0xFF646464),
+                          )),
+                      // const SizedBox(height: 1),
+                    ],
+                  ),
+                ),
                 subtitle: Text(myMap[index]["notification"].toString(),
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: myMap[index]["isseen"] ? const Color(0xFF2C2C2C) : const Color(0xFF646464),
                     )),
                 // tileColor:
