@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/finance/search/search_value.dart';
-import 'package:paurakhi/src/core/API/Search/search_api.dart';
 import 'focuesnode.dart';
 
 Widget searchFinance(BuildContext context, key) {
@@ -72,11 +71,8 @@ Widget searchFilterWidgetFinance(BuildContext context, key) {
           child: TextFormField(
               onFieldSubmitted: (value) async {
                 SearchValueFinance.searchValue = value;
-                await SearchAPI.getSearchedFinance(value);
 
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  BlocProvider.of<FinanceBloc>(context).add(SearchedFinanceEvent());
-                });
+                BlocProvider.of<FinanceBloc>(context).add(SearchedFinanceEvent());
               },
               decoration: InputDecoration(
                   border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(9.0)),

@@ -1,17 +1,17 @@
 //TODO search functionality
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:paurakhi/src/app/screens/home/presentation/news/bloc/news_bloc.dart';
-import 'package:paurakhi/src/app/screens/home/presentation/news/search/search_value.dart';
-import 'focuesnode.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/grants/bloc/grants_bloc.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/grants/search/search_value.dart';
+import 'package:paurakhi/src/core/utils/focuesnode.dart';
 
-Widget searchNews(BuildContext context, key) {
+Widget searchGrants(BuildContext context, key) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       GestureDetector(
         onTap: () {
-          BlocProvider.of<NewsBloc>(context).add(SearchNewsEvent());
+          // BlocProvider.of<GrantsBloc>(context).add(SearchGrantsEvent());
         },
         child: SizedBox(
           width: MediaQuery.of(context).size.width - 20,
@@ -19,7 +19,7 @@ Widget searchNews(BuildContext context, key) {
               onTap: () async {
                 // unFocusNode(context);
                 // try {
-                BlocProvider.of<NewsBloc>(context).add(SearchNewsEvent());
+                BlocProvider.of<GrantsBloc>(context).add(SearchGrantsEvent());
                 // } catch (e) {
                 //   print("Dasdasd");
                 //   print(e);
@@ -74,9 +74,9 @@ Widget searchFilterWidget(BuildContext context, key) {
           onTap: () {},
           child: TextFormField(
               onFieldSubmitted: (value) async {
-                SearchValueNews.searchValue = value;
+                SearchValueGrants.searchValue = value;
 
-                BlocProvider.of<NewsBloc>(context).add(SearchedNewsEvent());
+                BlocProvider.of<GrantsBloc>(context).add(SearchedGrantsEvent());
               },
               decoration: InputDecoration(
                   border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(9.0)),
@@ -87,7 +87,7 @@ Widget searchFilterWidget(BuildContext context, key) {
                   prefixIcon: IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () {
-                        BlocProvider.of<NewsBloc>(context).add(FetchNewsEvent());
+                        BlocProvider.of<GrantsBloc>(context).add(FetchGrantsEvent());
                       }))),
         ),
       ),

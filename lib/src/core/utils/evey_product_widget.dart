@@ -288,3 +288,41 @@ Widget everyProductWidgetFinance(BuildContext context, BlogModelNewsFinanceModel
     ),
   ]);
 }
+
+
+
+Widget everyProductWidgetGrants(BuildContext context, BlogModelNewsFinanceModel product) {
+  return Stack(children: [
+    Container(
+        height: 150,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0)),
+        child: const Card(elevation: 0.2, color: Color(0xFFF4FBF3))),
+    Column(
+      children: [
+        const SizedBox(height: 20),
+        GestureDetector(
+          onTap: () {
+            unFocusNode(context);
+          },
+          child: Row(
+            children: [
+              const SizedBox(width: 15),
+              const SizedBox(width: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 25),
+                  SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.title, style: AppStyles.text18PxBold)),
+                  const SizedBox(height: 5),
+                  SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.createdAt, style: AppStyles.text12Px)),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  ]);
+}

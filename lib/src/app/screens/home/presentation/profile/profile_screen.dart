@@ -64,7 +64,6 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 10),
             Text("     Others", style: AppStyles.text18PxBold),
             const SizedBox(height: 10),
-            addGrant(context),
             logOut(context),
           ]),
         ));

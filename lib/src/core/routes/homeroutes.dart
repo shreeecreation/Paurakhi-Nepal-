@@ -22,4 +22,7 @@ class HomeRoutes {
   static void singlePageScreenFinance(models) {
     Get.to(SinglePageDescriptionScreenFinance(model: models));
   }
+    static void singlePageScreenGrants(models) {
+    Get.to(SinglePageDescriptionScreenGrants(model: models));
+  }
 }

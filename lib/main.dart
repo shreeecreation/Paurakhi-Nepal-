@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/grants/bloc/grants_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/app/screens/internetandSetverError/nointernetconnection.dart';
-import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:paurakhi/src/core/utils/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
@@ -52,6 +52,7 @@ class MyApp extends StatelessWidget {
               BlocProvider<NewsBloc>(create: (context) => NewsBloc()),
               BlocProvider<BlogBloc>(create: (context) => BlogBloc()),
               BlocProvider<FinanceBloc>(create: (context) => FinanceBloc()),
+              BlocProvider<GrantsBloc>(create: (context) => GrantsBloc()),
             ],
             child: GestureDetector(
               onTap: () {

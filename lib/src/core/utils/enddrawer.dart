@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/blog_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/finance/financeenquiry_screen.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/grants/bloc/grants_bloc.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/grants/grants_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/history/get%20ticket/getticket_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/news/bloc/news_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/news/news_screen.dart';
@@ -57,12 +60,8 @@ class EndDrawer extends StatelessWidget {
               onTap: () async {
                 //action on press
                 final currentRoute = ModalRoute.of(context)?.settings.name;
-
                 if (currentRoute != "/HomePage" && currentRoute != "/BlogScreen") {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const BlogScreen()),
-                  );
+                  Get.off(() => const BlogScreen());
                 } else if (currentRoute == "/BlogScreen") {
                   return;
                 } else {
@@ -77,11 +76,8 @@ class EndDrawer extends StatelessWidget {
             onTap: () async {
               final currentRoute = ModalRoute.of(context)?.settings.name;
 
-              if (currentRoute != "/HomePage") {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const NewsScreen()),
-                );
+              if (currentRoute != "/HomePage" && currentRoute != "/NewsScreen") {
+                Get.off(() => const NewsScreen());
               } else if (currentRoute == "/NewsScreen") {
                 return;
               } else {
@@ -98,11 +94,8 @@ class EndDrawer extends StatelessWidget {
               //action on press
               final currentRoute = ModalRoute.of(context)?.settings.name;
 
-              if (currentRoute != "/HomePage" && currentRoute != "/FinanceScreen") {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FinanceScreen()),
-                );
+              if (currentRoute != "/HomePage") {
+                Get.off(() => const FinanceScreen());
               } else if (currentRoute == "/FinanceScreen") {
                 return;
               } else {
@@ -115,7 +108,21 @@ class EndDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text("Grants", style: textStyle),
-            onTap: () {},
+            onTap: () {
+              //action on press
+              final currentRoute = ModalRoute.of(context)?.settings.name;
+
+              if (currentRoute != "/HomePage") {
+                Get.off(() => const GrantsScreen());
+              } else if (currentRoute == "/GrantsScreen") {
+                return;
+              } else {
+                DrawerRoutes.grantsRoute();
+              }
+              BlocProvider.of<GrantsBloc>(context).add(FetchGrantsEvent());
+
+              Scaffold.of(context).closeEndDrawer();
+            },
           ),
           ListTile(
             title: Text("Open Ticket", style: AppStyles.text16PxBold.textGreen),

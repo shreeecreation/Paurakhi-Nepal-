@@ -1,9 +1,7 @@
-//TODO search functionality
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
 import 'package:paurakhi/src/app/screens/search/domain/search_value.dart';
-import 'package:paurakhi/src/core/API/Search/search_api.dart';
 import '../../app/screens/search/bloc/search_bloc.dart';
 
 Widget searchWidget(BuildContext context, key) {
@@ -73,11 +71,7 @@ Widget searchFilterWidget(BuildContext context, key) {
           child: TextFormField(
               onFieldSubmitted: (value) async {
                 SearchValue.searchValue = value;
-                await SearchAPI.getSearchedProduct(SearchValue.category, value, SearchValue.type);
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  BlocProvider.of<SearchBloc>(context).add(SearchStartEvent());
-                  BlocProvider.of<SearchBloc>(context).add(SearchStartEvent());
-                });
+                BlocProvider.of<SearchBloc>(context).add(SearchStartEvent());
               },
               decoration: InputDecoration(
                   border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(9.0)),
