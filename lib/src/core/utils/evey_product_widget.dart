@@ -138,6 +138,7 @@ Widget everyProductWidgetProduct(BuildContext context, ProductModel product) {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: CachedNetworkImage(
+                          fadeInDuration: const Duration(milliseconds: 10),
                           imageUrl: "${Environment.apiUrl}/public/images/${product.images[0]}",
                           fit: BoxFit.cover,
                           placeholder: (context, url) => const SizedBox(
@@ -206,7 +207,7 @@ Widget everyProductWidgetBlog(BuildContext context, BlogModelNewsFinanceModel pr
         const SizedBox(height: 20),
         GestureDetector(
           onTap: () {
-            unFocusNode(context);
+            HomeRoutes.singlePageScreenBlog(product);
           },
           child: Row(
             children: [
@@ -265,7 +266,7 @@ Widget everyProductWidgetFinance(BuildContext context, BlogModelNewsFinanceModel
         const SizedBox(height: 20),
         GestureDetector(
           onTap: () {
-            unFocusNode(context);
+            HomeRoutes.singlePageScreenFinance(product);
           },
           child: Row(
             children: [
@@ -289,8 +290,6 @@ Widget everyProductWidgetFinance(BuildContext context, BlogModelNewsFinanceModel
   ]);
 }
 
-
-
 Widget everyProductWidgetGrants(BuildContext context, BlogModelNewsFinanceModel product) {
   return Stack(children: [
     Container(
@@ -303,7 +302,7 @@ Widget everyProductWidgetGrants(BuildContext context, BlogModelNewsFinanceModel 
         const SizedBox(height: 20),
         GestureDetector(
           onTap: () {
-            unFocusNode(context);
+            HomeRoutes.singlePageScreenGrants(product);
           },
           child: Row(
             children: [

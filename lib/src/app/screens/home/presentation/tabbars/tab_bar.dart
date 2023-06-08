@@ -9,10 +9,10 @@ import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_model.dart';
 
 import 'all.dart';
+import 'loadmore_controller.dart';
 
 class Tabbar extends StatefulWidget {
   const Tabbar({super.key});
-
   @override
   State<Tabbar> createState() => _TabbarState();
 }
@@ -22,6 +22,8 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
   int tabBarLength = 0;
   int categoryIndex = 0;
   String mainCategoryIndex = "";
+  int currentTabIndex1 = 0;
+  int currentTabIndex2 = 0;
   Future<List<DropdownMenuItem>> _loadDropdownItems() async {
     return await DropdownList.returnDropdown();
   }
@@ -70,16 +72,17 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                 return BlocBuilder<RequestBloc, RequestState>(
                   builder: (context, state) {
                     if (state is RequestStartState) {
-                      return futureBuilder(context, "sell");
+                      LoadMoreController.currentPage = 1;
+
+                      return futureBuilderSell();
                     }
                     if (state is RequestEndState) {
-                      return futureBuilder(context, "request");
+                      LoadMoreController.currentPage = 1;
+                      return futureBuilderRequest();
                     }
-                    // if (state is RequestInitial) {
-                    //   return futureBuilder(context, "request");
-                    // }
-                    // return Center(child: Image.asset("assets/images/paurakhi.png", height: 100, fit: BoxFit.fill));
-                    return const Text("");
+
+                    return Center(child: Image.asset("assets/images/paurakhi.png", height: 100, fit: BoxFit.fill));
+                    // return const Text("");
                   },
                 );
               });
@@ -90,7 +93,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
     );
   }
 
-  SizedBox futureBuilder(BuildContext context, String type) {
+  SizedBox futureBuilderSell() {
     return SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -102,11 +105,11 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                   builder: (BuildContext context, AsyncSnapshot<List<DropdownMenuItem>> snapshot) {
                     GetProductModel model = GetProductModel();
                     model.page = 0;
-                    model.type = type;
+                    model.type = "sell";
                     GetProductAPI.getProductSinglePage(model);
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      // return loadingIndicator(context);
-                    }
+                    BlocProvider.of<GetprdouctBloc>(context).add(GetProdcutFetchEvent());
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {}
                     if (snapshot.hasData) {
                       final List<DropdownMenuItem> tabTextList = snapshot.data!;
                       return Padding(
@@ -114,8 +117,9 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                         child: TabBar(
                             controller: _tabController,
                             onTap: (value) {
+                              currentTabIndex1 = value;
                               BlocProvider.of<GetprdouctBloc>(context).add(GetProdcutFetchEvent());
-
+                              LoadMoreController.currentPage = 1;
                               mainCategoryIndex = tabTextList[value].value;
                             },
                             isScrollable: true,
@@ -135,12 +139,91 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
             BlocBuilder<GetprdouctBloc, GetprdouctState>(
               builder: (context, state) {
                 if (state is GetProdcutFetchState) {
+                  // All.items = [];
                   return SizedBox(
                       height: MediaQuery.of(context).size.height / 2.5,
                       child: TabBarView(
                         controller: _tabController,
                         physics: const NeverScrollableScrollPhysics(),
-                        children: List.generate(tabBarLength, (index) => All(category: mainCategoryIndex, type: type)),
+                        children: List.generate(
+                            tabBarLength,
+                            (index) => GestureDetector(
+                                onTap: () {},
+                                child: All(
+                                  category: mainCategoryIndex,
+                                  type: "sell",
+                                ))),
+                      ));
+                }
+                return const Text("");
+              },
+            )
+          ],
+        ));
+  }
+
+  SizedBox futureBuilderRequest() {
+    return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              child: FutureBuilder<List<DropdownMenuItem>>(
+                  future: DropdownList.returnDropdown(),
+                  builder: (BuildContext context, AsyncSnapshot<List<DropdownMenuItem>> snapshot) {
+                    GetProductModel model = GetProductModel();
+                    model.page = 0;
+                    model.type = "request";
+                    GetProductAPI.getProductSinglePage(model);
+                    BlocProvider.of<GetprdouctBloc>(context).add(GetProdcutFetchEvent());
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {}
+                    if (snapshot.hasData) {
+                      final List<DropdownMenuItem> tabTextList = snapshot.data!;
+                      return Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: TabBar(
+                          controller: _tabController,
+                          onTap: (value) {
+                            currentTabIndex2 = value;
+
+                            BlocProvider.of<GetprdouctBloc>(context).add(GetProdcutFetchEvent());
+                            LoadMoreController.currentPage = 1;
+                            mainCategoryIndex = tabTextList[value].value;
+                            _tabController!.index = currentTabIndex1;
+                          },
+                          isScrollable: true,
+                          labelPadding: const EdgeInsets.symmetric(horizontal: 10),
+                          unselectedLabelColor: Colors.black,
+                          labelColor: Colors.white,
+                          splashBorderRadius: BorderRadius.circular(20),
+                          indicator: ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
+                          tabs: tabTextList.map((tabText) => Tab(child: tabText.child)).toList(),
+                          indicatorSize: TabBarIndicatorSize.tab,
+                        ),
+                      );
+                    } else {
+                      return const Text("");
+                    }
+                  }),
+            ),
+            BlocBuilder<GetprdouctBloc, GetprdouctState>(
+              builder: (context, state) {
+                if (state is GetProdcutFetchState) {
+                  return SizedBox(
+                      height: MediaQuery.of(context).size.height / 2.5,
+                      child: TabBarView(
+                        controller: _tabController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: List.generate(
+                            tabBarLength,
+                            (index) => GestureDetector(
+                                onTap: () {},
+                                child: All1(
+                                  category: mainCategoryIndex,
+                                  type: "request",
+                                ))),
                       ));
                 }
                 return const Text("");

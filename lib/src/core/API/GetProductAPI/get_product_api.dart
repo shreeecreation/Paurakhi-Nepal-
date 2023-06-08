@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:paurakhi/src/app/screens/home/presentation/tabbars/load_more.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/productmodel.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:http/http.dart' as http;
@@ -23,12 +24,12 @@ class GetProductAPI {
     return null;
   }
 
-  static Future<ServerResponseProduct?> getProductCategory(category, type) async {
+  static Future<ServerResponseProduct?> getProductCategory(category, type, page) async {
     String filterUrl = "";
     if (category != "") {
-      filterUrl = "${Environment.apiUrl}/product/get-product?type=$type&page=1&category=$category";
+      filterUrl = "${Environment.apiUrl}/product/get-product?type=$type&page=$page&category=$category";
     } else {
-      filterUrl = "${Environment.apiUrl}/product/get-product?type=$type&page=1";
+      filterUrl = "${Environment.apiUrl}/product/get-product?type=$type&page=$page";
     }
     print(filterUrl);
     try {
@@ -41,6 +42,9 @@ class GetProductAPI {
         final Map<String, dynamic> jsonList = jsonDecode(response.body);
         final List<dynamic> dataList = jsonList['data'] as List<dynamic>;
         final List<ProductModel> items = dataList.map((item) => ProductModel.fromJson(item as Map<String, dynamic>)).toList();
+        print(items);
+        LoadMore.model = [];
+        LoadMore.model = items;
         return ServerResponseProduct(data: items);
       } else if (code == 400) {
       } else if (code == 500) {}

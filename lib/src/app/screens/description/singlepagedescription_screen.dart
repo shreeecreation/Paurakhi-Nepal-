@@ -57,7 +57,7 @@ class SinglePageDescriptionScreen extends StatelessWidget {
                                 width: 10,
                                 child: LinearProgressIndicator(
                                   color: Color.fromARGB(57, 222, 255, 223),
-                                  backgroundColor: Colors.white,
+                                  backgroundColor: Colors.white,  
                                 )),
                             errorWidget: (context, url, error) => const Icon(Icons.error),
                           ),
