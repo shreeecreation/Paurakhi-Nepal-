@@ -12,22 +12,20 @@ class SearchFunctionalityBlog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SizedBox(
-          child: Column(children: [
-        // --------------------------------------------------------------------- Search Widget
-        searchFilterWidget(context, scaffoldKey),
-        const SizedBox(height: 10),
+    return SizedBox(
+        child: Column(children: [
+      // --------------------------------------------------------------------- Search Widget
+      searchFilterWidget(context, scaffoldKey),
+      const SizedBox(height: 10),
 
-        BlocBuilder<BlogBloc, BlogState>(
-          builder: (context, state) {
-            if (state is SearchBlogState) {
-              return BlogSearchResult(title: SearchValueBlog.searchValue);
-            }
-            return const Text("\nNo results found ");
-          },
-        )
-      ])),
-    );
+      BlocBuilder<BlogBloc, BlogState>(
+        builder: (context, state) {
+          if (state is SearchBlogState) {
+            return BlogSearchResult(title: SearchValueBlog.searchValue);
+          }
+          return const Text("\nNo results found ");
+        },
+      )
+    ]));
   }
 }

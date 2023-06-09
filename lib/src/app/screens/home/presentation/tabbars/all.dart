@@ -207,17 +207,17 @@ class _All1State extends State<All1> {
             },
           ),
           const SizedBox(height: 10),
-          SizedBox(
-            height: 40,
-            width: 120,
-            child: ElevatedButton(
-              onPressed: isLoading ? null : _loadMore,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: isLoading ? Colors.grey : AppColors.textGreen,
+            SizedBox(
+              height: 40,
+              width: 120,
+              child: ElevatedButton(
+                onPressed: isLoading ? null : _loadMore,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isLoading ? Colors.grey : AppColors.textGreen,
+                ),
+                child: Text(isLoading ? "Loading..." : "Load More"),
               ),
-              child: Text(isLoading ? "Loading..." : "Load More"),
             ),
-          ),
           const SizedBox(height: 50),
         ],
       ),

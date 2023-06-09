@@ -7,9 +7,9 @@ import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 
 class BlogNewsFinanceAPI {
-  static Future<List<BlogModelNewsFinanceModel>?> getAPI(type) async {
+  static Future<List<BlogModelNewsFinanceModel>?> getAPI(type, page) async {
     var cookie = await ManageCookie.getCookie();
-    final String url = '${Environment.apiUrl}/${AllAPIEndPoint.blogAPI}?type=$type';
+    final String url = '${Environment.apiUrl}/${AllAPIEndPoint.blogAPI}?type=$type&page=$page';
     try {
       final response = await http.get(
         Uri.parse(url),

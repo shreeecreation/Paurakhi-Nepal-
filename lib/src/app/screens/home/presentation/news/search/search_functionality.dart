@@ -12,20 +12,22 @@ class SearchFunctionalityNews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        child: Column(children: [
-      // --------------------------------------------------------------------- Search Widget
-      searchFilterWidget(context, scaffoldKey),
-      const SizedBox(height: 10),
-
-      BlocBuilder<NewsBloc, NewsState>(
-        builder: (context, state) {
-          if (state is SearchedNewsState) {
-            return NewsSearchResult(title: SearchValueNews.searchValue);
-          }
-          return const Text("\nNo results found ");
-        },
-      )
-    ]));
+    return SingleChildScrollView(
+      child: SizedBox(
+          child: Column(children: [
+        // --------------------------------------------------------------------- Search Widget
+        searchFilterWidget(context, scaffoldKey),
+        const SizedBox(height: 10),
+    
+        BlocBuilder<NewsBloc, NewsState>(
+          builder: (context, state) {
+            if (state is SearchedNewsState) {
+              return NewsSearchResult(title: SearchValueNews.searchValue);
+            }
+            return const Text("\nNo results found ");
+          },
+        )
+      ])),
+    );
   }
 }

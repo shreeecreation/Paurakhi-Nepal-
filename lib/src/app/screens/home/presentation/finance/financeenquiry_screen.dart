@@ -4,6 +4,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model
 import 'package:paurakhi/src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
 import 'package:paurakhi/src/core/API/BlogAPI/blog_api.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
+import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/search_finance.dart';
@@ -12,8 +13,61 @@ import 'search/search_functionality.dart';
 
 final GlobalKey<ScaffoldState> _scaffoldKeyFinance = GlobalKey<ScaffoldState>();
 
-class FinanceScreen extends StatelessWidget {
+class FinanceScreen extends StatefulWidget {
   const FinanceScreen({super.key});
+
+  @override
+  State<FinanceScreen> createState() => _FinanceScreenState();
+}
+
+class _FinanceScreenState extends State<FinanceScreen> {
+  bool isLoading = false;
+  int currentPage = 1;
+  bool isDisposed = false;
+  List<BlogModelNewsFinanceModel> items = [];
+
+  @override
+  void dispose() {
+    isDisposed = true;
+    super.dispose();
+  }
+
+  Future<void> _getProducts({required bool clearItems}) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final List<BlogModelNewsFinanceModel>? response = await BlogNewsFinanceAPI.getAPI(
+      "finance",
+      currentPage,
+    );
+
+    if (!isDisposed) {
+      setState(() {
+        isLoading = false;
+        if (response != null) {
+          if (clearItems) {
+            items = response;
+          } else {
+            items.addAll(response);
+          }
+        }
+      });
+    }
+  }
+
+  void _loadMore() {
+    setState(() {
+      currentPage++;
+    });
+    _getProducts(clearItems: false);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getProducts(clearItems: true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,33 +100,31 @@ class FinanceScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                FutureBuilder<List<BlogModelNewsFinanceModel>?>(
-                    future: BlogNewsFinanceAPI.getAPI("finance"),
-                    builder: (BuildContext context, AsyncSnapshot<List<BlogModelNewsFinanceModel>?> snapshot) {
-                      if (snapshot.hasData) {
-                        // If the future is complete and has data, display the product data
-                        final List<BlogModelNewsFinanceModel> model = snapshot.data!;
-                        return ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: model.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final BlogModelNewsFinanceModel models = model[index];
-                            return GestureDetector(
-                                onTap: () {
-                                  HomeRoutes.singlePageScreenFinance(models);
-                                },
-                                child: allFinance(context, models));
-                          },
-                        );
-                      } else if (snapshot.hasError) {
-                        // If the future has an error, display the error message
-                        return Text('${snapshot.error}');
-                      } else {
-                        // If the future is not complete yet, display a loading indicator
-                        return Center(child: Text("\nThere is no Finances available right now !", style: AppStyles.text16PxBold));
-                      }
-                    })
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: items.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final BlogModelNewsFinanceModel model = items[index];
+                    return allFinance(context, model);
+                  },
+                ),
+                const SizedBox(height: 20),
+
+                Center(
+                  child: SizedBox(
+                    height: 40,
+                    width: 120,
+                    child: ElevatedButton(
+                      onPressed: isLoading ? null : _loadMore,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: isLoading ? Colors.grey : AppColors.textGreen,
+                      ),
+                      child: Text(isLoading ? "Loading..." : "Load More"),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
               ])));
             }
             return const CircularProgressIndicator();
