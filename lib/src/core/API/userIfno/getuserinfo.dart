@@ -16,7 +16,6 @@ class GetUserInfo {
       );
       Map<String, dynamic> body = jsonDecode(response.body);
       var data = body['data'];
-      print(data);
 
       ProfileModel.userId = data['userId'];
       ProfileModel.role = data['role'];
@@ -38,7 +37,6 @@ class GetUserInfo {
       Profile.picture = profileData['picture'];
     } catch (e) {
       print(e);
-      print("Asdasdasda");
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:paurakhi/src/app/screens/auth/login/login_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/blog_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/news/bloc/news_bloc.d
 import 'package:paurakhi/src/app/screens/home/presentation/news/news_screen.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/drawerroutes.dart';
+import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
@@ -127,7 +129,11 @@ class EndDrawer extends StatelessWidget {
           ListTile(
             title: Text("Open Ticket", style: AppStyles.text16PxBold.textGreen),
             onTap: () {
-              ProfileRoutes.openticketRoute();
+              if (IsLoggedIn.isLoggedIn) {
+                ProfileRoutes.openticketRoute();
+              } else {
+                Get.offAll(const LoginScreen());
+              }
             },
           ),
           ListTile(

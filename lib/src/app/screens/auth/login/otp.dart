@@ -6,8 +6,9 @@ import 'package:pinput/pinput.dart';
 
 // ignore: must_be_immutable
 class OTPScreen extends StatelessWidget {
-  OTPScreen({super.key});
+  OTPScreen({super.key, required this.verifyOrwhat});
   String verifypin = "";
+  bool verifyOrwhat;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,10 +58,16 @@ class OTPScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green.shade600, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                         onPressed: () async {
-                         await ConfirmOTP.confirmOtp2FA(verifypin);
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            UserDialogs.verifyAccount(context);
-                          });
+                          print(verifyOrwhat);
+
+                          if (!verifyOrwhat) {
+                            await ConfirmOTP.confirmOtp2FA(verifypin);
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              UserDialogs.verifyAccount(context);
+                            });
+                          } else {
+                            await ConfirmOTP.verifyAccountConfirm(verifypin, context);
+                          }
                         },
                         child: const Text("Continue")),
                   ),

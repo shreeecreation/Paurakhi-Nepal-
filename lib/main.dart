@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       final networkProvider = Provider.of<NetworkProvider>(context, listen: false);
       return networkProvider.checkInternetConnection();
     }
-
+  
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocationProvider()),

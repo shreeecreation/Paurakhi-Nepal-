@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/core/API/userIfno/getuserinfo.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
 
@@ -207,12 +208,12 @@ class UserDialogs {
             borderRadius: BorderRadius.circular(10.0),
           ),
           content: SizedBox(
-            height: 250.0,
+            height: 280.0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Icon(Icons.close_rounded, color: Colors.red, size: 50),
+                const Icon(Icons.done, color: Colors.green, size: 50),
                 const SizedBox(height: 15),
                 SizedBox(
                     width: 220,
@@ -227,7 +228,8 @@ class UserDialogs {
                   height: 40,
                   width: MediaQuery.of(context).size.width / 1.5,
                   child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        await GetUserInfo.getUserInfo();
                         HomeRoutes.homeScreen();
                       },
                       style: ElevatedButton.styleFrom(
@@ -238,12 +240,15 @@ class UserDialogs {
                           foregroundColor: Colors.green),
                       child: const Text('Later on ')),
                 ),
+                const SizedBox(height: 20),
                 SizedBox(
                   height: 40,
                   width: MediaQuery.of(context).size.width / 1.5,
                   child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
+                      onPressed: () async {
+                        await GetUserInfo.getUserInfo();
+
+                        HomeRoutes.homeScreen();
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 0,

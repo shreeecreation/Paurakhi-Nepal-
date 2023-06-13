@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/home_page.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managelogincookie.dart';
 import 'package:paurakhi/src/core/API/GoogleAuthAPI/googleauthapi.dart';
 import 'package:paurakhi/src/core/API/GoogleAuthAPI/googleauthscreen.dart';
@@ -119,6 +120,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text("Login", style: AppStyles.text18PxSemiBold))),
                   const SizedBox(height: 20),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    const Icon(Icons.person, color: Colors.green),
+                    TextButton(
+                        onPressed: () async {
+                          //TODO login as question auth
+                          IsLoggedIn.isLoggedIn = false;
+                          Get.offAll(const HomePage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
+//
+                        },
+                        child: const Text("Login as Guest"))
+                  ]),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Image.network(
                       "http://pngimg.com/uploads/google/google_PNG19635.png",
                       height: 30,
@@ -136,7 +148,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: const Text("Login with Google "))
                   ]),
-                  const SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

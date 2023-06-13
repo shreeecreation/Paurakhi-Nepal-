@@ -7,10 +7,10 @@ import 'package:paurakhi/src/core/dialogs/ticket/ticket_dialogs.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 
 class OpenTickets {
-  static Future<http.Response?> openTicket(String body, String title,context) async {
+  static Future<http.Response?> openTicket(String body, String title, context) async {
     final url = Uri.parse('${Environment.apiUrl}${AllAPIEndPoint.openTicketAPI}'); // Replace with your API endpoint URL
     print(url);
-    final data = {'body': body, 'tittle': title};
+    final data = {'body': body, 'title': title};
     var cookie = await ManageCookie.getCookie();
 
     try {
@@ -21,7 +21,7 @@ class OpenTickets {
         headers: {'Content-Type': 'application/json', 'Cookie': cookie}, // Replace with your headers if needed
       );
       var code = response.statusCode;
-      print(code);
+      print(response.body);
       if (code >= 200 && code < 300) {
         OpenTicketDialogs.successCreateTicket(context);
         return response;

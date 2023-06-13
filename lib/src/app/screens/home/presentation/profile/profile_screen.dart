@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/history/Finance%20Query%20History/financequery_history.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/history/Grant%20History/getgrant_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/history/Quotation%20Hisotry/quotation_history_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/history/get%20ticket/getticket_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
+import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
+import 'package:paurakhi/src/core/API/otp/otpconfirm.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/providers/location_provider.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
@@ -208,7 +211,7 @@ Padding grantHistory(BuildContext context) {
         title: const Text("Grant History"),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
-          financeHistoryScreen(context);
+          getGrantScreen(context);
         },
       ),
     ),
@@ -247,8 +250,9 @@ Padding isVerified(BuildContext context) {
             ? const Icon(Icons.check_circle_rounded, size: 30, color: Colors.grey)
             : const Icon(Icons.check_circle_rounded, size: 30, color: Colors.green),
         onTap: !a
-            ? () {
-                AuthRoutes.otpRoute();
+            ? () async {
+                await ConfirmOTP.verifyAccount();
+                AuthRoutes.otpRoute(true);
               }
             : null,
       ),
@@ -275,6 +279,7 @@ Padding logOut(BuildContext context) {
 }
 
 Widget userProfile(context) {
+  print("${Environment.apiUrl}/public/images/${Profile.picture}");
   return SizedBox(
       height: 150,
       width: MediaQuery.of(context).size.width - 40,
@@ -288,22 +293,17 @@ Widget userProfile(context) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 90,
-              width: 90,
-              child: Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: ClipOval(
-                  child: Profile.picture != null || Profile.picture != ""
+                height: 90,
+                width: 90,
+                child: CircleAvatar(
+                  radius: 80,
+                  backgroundImage: Profile.picture != null || Profile.picture != ""
                       ? Image.network(
                           "${Environment.apiUrl}/public/images/${Profile.picture}",
                           fit: BoxFit.fill,
-                        )
-                      : Image.asset("assets/images/logo2.png"),
-                ),
-              ),
-            ),
+                        ).image
+                      : Image.asset("assets/images/logo2.png").image,
+                )),
             const SizedBox(width: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,

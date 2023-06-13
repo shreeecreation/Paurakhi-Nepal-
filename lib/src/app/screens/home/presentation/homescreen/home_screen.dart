@@ -98,9 +98,9 @@ class HomeScreen extends StatelessWidget {
                       String listingValue = listing['listing']?.toString() ?? 'N/A';
                       String grantsProcessed = listing['grants_processed']?.toString() ?? 'N/A';
                       String loanPassed = listing['loan_passed']?.toString() ?? 'N/A';
-                      String notificationTitle = notification['notification_tittle']?.toString() ?? 'N/A';
+                      String notificationTitle = notification['notification_title']?.toString() ?? 'N/A';
                       String notificationBody = notification['notification_body']?.toString() ?? 'N/A';
-                      String notificationSubTitle = notification['notification_sub_tittle']?.toString() ?? 'N/A';
+                      String notificationSubTitle = notification['notification_sub_title']?.toString() ?? 'N/A';
 
                       Map<String, String> listingsMap = {
                         "Users": user,

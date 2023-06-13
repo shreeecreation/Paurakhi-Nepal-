@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:paurakhi/src/core/API/Get%20Ticket%20API/getticket_api.dart';
+import 'package:paurakhi/src/core/API/Grant%20History/grant_history.dart';
 import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
-import 'getticket_model.dart';
+import 'getgrant_model.dart';
 
-void ticketHistoryScreen(BuildContext context) {
+void getGrantScreen(BuildContext context) {
   showModalBottomSheet(
     backgroundColor: AppColors.defaultbackground,
     context: context,
@@ -28,7 +28,7 @@ void ticketHistoryScreen(BuildContext context) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("  Ticket History", style: AppStyles.text24PxBold),
+                      Text("  Grant History", style: AppStyles.text24PxBold),
                       Flexible(
                           child: IconButton(
                               onPressed: () {
@@ -38,11 +38,11 @@ void ticketHistoryScreen(BuildContext context) {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  FutureBuilder<TicketHistoryModel?>(
-                    future: GetTicketHistory.ticketHistory(),
-                    builder: (BuildContext context, AsyncSnapshot<TicketHistoryModel?> snapshot) {
+                  FutureBuilder<GrantHistoryModel?>(
+                    future: GetGrantHistory.grantHistory(),
+                    builder: (BuildContext context, AsyncSnapshot<GrantHistoryModel?> snapshot) {
                       if (snapshot.hasData) {
-                        final TicketHistoryModel dataList = snapshot.data!;
+                        final GrantHistoryModel dataList = snapshot.data!;
                         if (dataList.data.isEmpty) {
                           return Center(
                               child: Column(

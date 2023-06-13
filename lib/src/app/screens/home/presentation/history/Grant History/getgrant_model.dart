@@ -1,15 +1,15 @@
-class TicketHistoryModel {
+class GrantHistoryModel {
   final List<Datums> data;
 
-  TicketHistoryModel({
+  GrantHistoryModel({
     required this.data,
   });
 
-  factory TicketHistoryModel.fromJson(Map<String, dynamic> json) {
+  factory GrantHistoryModel.fromJson(Map<String, dynamic> json) {
     final List<dynamic> dataList = json['data'] as List<dynamic>;
     final List<Datums> items = dataList.map((item) => Datums.fromJson(item as Map<String, dynamic>)).toList();
 
-    return TicketHistoryModel(data: items);
+    return GrantHistoryModel(data: items);
   }
 }
 
@@ -18,24 +18,24 @@ class Datums {
   final String createdAt;
   final String title;
   final String status;
-  final String reply;
-  final String body;
+  final String description;
+  final int price;
 
   Datums({
     required this.id,
     required this.createdAt,
     required this.title,
     required this.status,
-    required this.reply,
-    required this.body,
+    required this.description,
+    required this.price,
   });
 
   factory Datums.fromJson(Map<String, dynamic> json) {
     return Datums(
         id: json['id'] as int,
         createdAt: json['createdAt'],
-        reply: json['reply'] as String,
-        body: json['body'] as String,
+        price: json['price'] as int,
+        description: json['description'] as String,
         title: json['title'] as String,
         status: json['status'] as String);
   }
