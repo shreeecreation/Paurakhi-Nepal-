@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/grants/bloc/grants_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
@@ -19,6 +20,7 @@ import 'src/core/API/userIfno/getuserinfo.dart';
 import 'src/core/InitiallMethod/intial_method.dart';
 import 'src/core/providers/location_provider.dart';
 import 'src/core/utils/focuesnode.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +33,7 @@ final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
-  Widget build(BuildContext context) {  
+  Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocationProvider()),
@@ -56,6 +58,13 @@ class MyApp extends StatelessWidget {
               child: SafeArea(
                 child: GetMaterialApp(
                   supportedLocales: L10n.all,
+                  locale: const Locale('ne'), // Set the locale to Nepali ('ne')
+
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
                   debugShowCheckedModeBanner: false,
                   theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light),
                   home: Consumer<NetworkProvider>(builder: (context, networkProvider, child) {

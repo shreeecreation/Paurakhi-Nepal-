@@ -13,6 +13,7 @@ import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'bloc/request_bloc.dart';
 
@@ -78,7 +79,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-// TODO GirdView Widget
   Widget gridViewWidget(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -187,11 +187,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-//TODO User Widget manage
   Widget userWidget(BuildContext context, String userName, scaffoldkey) {
     final List<String> genderItems = [
-      'Sell',
-      'Request',
+      AppLocalizations.of(context)!.sell,
+           AppLocalizations.of(context)!.request,
+
     ];
     final formKey = GlobalKey<FormState>();
 
@@ -204,7 +204,7 @@ class HomeScreen extends StatelessWidget {
             Row(
               children: [
                 const SizedBox(width: 11),
-                Text("Greetings $userName", style: AppStyles.text24PxBold),
+                Text("${AppLocalizations.of(context)!.hello} $userName", style: AppStyles.text24PxBold),
                 Image.asset("assets/images/nepalflag.png", scale: 5)
               ],
             ),
@@ -217,7 +217,7 @@ class HomeScreen extends StatelessWidget {
               height: 42,
               width: 110,
               child: DropdownButtonFormField2(
-                value: "Sell",
+                value:      AppLocalizations.of(context)!.sell,
                 decoration: InputDecoration(
                   isDense: true,
                   fillColor: Colors.green,
@@ -242,13 +242,10 @@ class HomeScreen extends StatelessWidget {
                   return null;
                 },
                 onChanged: (value) async {
-                  if (value == "Sell") {
+                  if (value ==       AppLocalizations.of(context)!.sell) {
                     BlocProvider.of<RequestBloc>(context).add(RequestStartEvent());
-                    print("dasdas");
                     LoadMoreController.currentPage = 1;
                   } else {
-                    print("dadsdasdasddasdas");
-
                     BlocProvider.of<RequestBloc>(context).add(RequestInitialEvent());
                   }
                 },
