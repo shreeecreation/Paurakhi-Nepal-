@@ -6,6 +6,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc
 import 'package:paurakhi/src/app/screens/internetandSetverError/nointernetconnection.dart';
 import 'package:paurakhi/src/core/utils/splash_screen.dart';
 import 'package:provider/provider.dart';
+import 'l10n/l10n.dart';
 import 'src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
 import 'src/app/screens/home/presentation/news/bloc/news_bloc.dart';
 import 'src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
@@ -30,13 +31,7 @@ final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
-  Widget build(BuildContext context) {
-    // final networkProvider = Provider.of<NetworkProvider>(context); // Retrieve the provided instance
-    Future<bool> _checkInternetConnection(BuildContext context) async {
-      final networkProvider = Provider.of<NetworkProvider>(context, listen: false);
-      return networkProvider.checkInternetConnection();
-    }
-  
+  Widget build(BuildContext context) {  
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocationProvider()),
@@ -60,6 +55,7 @@ class MyApp extends StatelessWidget {
               },
               child: SafeArea(
                 child: GetMaterialApp(
+                  supportedLocales: L10n.all,
                   debugShowCheckedModeBanner: false,
                   theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light),
                   home: Consumer<NetworkProvider>(builder: (context, networkProvider, child) {

@@ -156,6 +156,7 @@ class _NewsScreenState extends State<NewsScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
                       image: DecorationImage(
+                        // ignore: unnecessary_null_comparison
                         image: model.blogImage == null
                             ? const AssetImage("assets/images/logo2.png") as ImageProvider<Object>
                             : NetworkImage(model.blogImage),

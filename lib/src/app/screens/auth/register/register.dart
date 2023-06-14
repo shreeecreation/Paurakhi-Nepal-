@@ -1,6 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,7 +22,6 @@ class CreateScreen extends StatefulWidget {
 class _CreateScreenState extends State<CreateScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getLocation();
   }
@@ -42,9 +40,10 @@ class _CreateScreenState extends State<CreateScreen> {
   getLocation() async {
     try {
       await GetCurrentLocation.getCurrentPosition(context).then((value) => addressController.text = GetCurrentLocation.currentAddress ?? "");
-      print(GetCurrentLocation.currentAddress);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -210,7 +209,6 @@ class _CreateScreenState extends State<CreateScreen> {
                 var response = await RegisterAPI.registerAPI(model);
                 var data = response?.body;
                 if (data != null) {
-                  var responseBody = jsonDecode(data);
                   AuthRoutes.loginRoute();
                 }
               }

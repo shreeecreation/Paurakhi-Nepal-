@@ -9,9 +9,15 @@ import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 
 class EditProfile {
-  static Future<http.Response?> editProfile(EditProfileModel editModel,context) async {
+  static Future<http.Response?> editProfile(EditProfileModel editModel, context) async {
     final url = Uri.parse('${Environment.apiUrl}${AllAPIEndPoint.editProfileAPI}'); // Replace with your API endpoint URL
-    final data = {'firstName': editModel.firstName, 'lastName': editModel.lastName, "address": editModel.address, "phoneNumber": editModel.phoneNo};
+    final data = {
+      'firstName': editModel.firstName,
+      'lastName': editModel.lastName,
+      "address": editModel.address,
+      "phoneNumber": editModel.phoneNo,
+      "twoFactor": editModel.twoFactor
+    };
     var cookie = await ManageCookie.getCookie();
 
     try {
@@ -23,7 +29,7 @@ class EditProfile {
       );
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
-                                      UserDialogs.updateProfile(context);
+        UserDialogs.updateProfile(context);
 
         await GetUserInfo.getUserInfo();
         return response;

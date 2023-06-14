@@ -132,7 +132,6 @@ class _BlogScreenState extends State<BlogScreen> {
   }
 
   Widget allBlog(context, BlogModelNewsFinanceModel model) {
-    print(model.title);
     return GestureDetector(
       onTap: () {
         HomeRoutes.singlePageScreenBlog(model);
@@ -155,6 +154,7 @@ class _BlogScreenState extends State<BlogScreen> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
                       image: DecorationImage(
+                          // ignore: unnecessary_null_comparison
                           image: model.blogImage == null
                               ? const AssetImage("assets/images/logo2.png") as ImageProvider<Object>
                               : NetworkImage(model.blogImage),

@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown.dart';
 import 'package:paurakhi/src/core/API/RequestProductAPI/request_product_api.dart';
-import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
 import 'package:paurakhi/src/core/dialogs/product/product_dialog.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+import 'package:paurakhi/src/core/utils/addmultipleimage.dart';
 
 import 'model/requestproduct_model.dart';
 
@@ -14,6 +16,7 @@ void requestProduct(BuildContext context) {
   TextEditingController priceController = TextEditingController();
   TextEditingController minQtyController = TextEditingController();
   GlobalKey<FormState> formKeyRequestProduct = GlobalKey<FormState>();
+  List<File> images;
 
 // modal bottom sheet go up with the keyboard appears
   showModalBottomSheet(
@@ -54,16 +57,38 @@ void requestProduct(BuildContext context) {
                                   icon: const Icon(Icons.close))),
                         ],
                       ),
-                      FutureBuilder<List<DropdownMenuItem<String>>>(
-                        future: DropdownList.returnDropdown(),
-                        builder: (context, snapshot) {
-                          List<DropdownMenuItem<String>>? menuItems = snapshot.data;
-                          if (menuItems != null) {
-                            return DropdownList.fullDropdownButton(context, "1", menuItems);
-                          } else {
-                            return const CircularProgressIndicator();
-                          }
-                        },
+                      Row(
+                        children: [
+                          const SizedBox(width: 5),
+                          FutureBuilder<List<DropdownMenuItem<String>>>(
+                            future: DropdownList.returnDropdown(),
+                            builder: (context, snapshot) {
+                              List<DropdownMenuItem<String>>? menuItems = snapshot.data;
+                              if (menuItems != null) {
+                                return DropdownList.dropdownButton(context, "1", menuItems);
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            },
+                          ),
+                          const SizedBox(width: 5),
+                          Container(
+                              height: 55,
+                              width: 50,
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFFFFFFF),
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                              ),
+                              child: IconButton(
+                                  icon: const Icon(Icons.image_rounded),
+                                  onPressed: () async {
+                                    try {
+                                      int length = 0;
+                                      images = (await MultipleImageChooser.pickImages(length));
+                                    } catch (e) {}
+                                  },
+                                  color: const Color(0xFF34A853)))
+                        ],
                       ),
                       const SizedBox(height: 5),
                       addRequestTitle(context, titleController),
@@ -86,12 +111,12 @@ void requestProduct(BuildContext context) {
                                   //TODO request screen
                                   if (formKeyRequestProduct.currentState!.validate()) {
                                     RequestProductModel model = RequestProductModel(
-                                        titleController.text, "request", descriptionController.text, DropdownList.dropDownIndex, 10, 10);
+                                        titleController.text, "request", descriptionController.text, DropdownList.dropDownIndex, 10, 10,MultipleImageChooser.images,);
                                     await RequestProductAPI.sellProduct(model);
 
-                                       WidgetsBinding.instance.addPostFrameCallback((_) {
-          ProductDialogs().requestProduct(context);
-        });
+                                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                                      ProductDialogs().requestProduct(context);
+                                    });
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

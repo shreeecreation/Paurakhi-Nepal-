@@ -3,4 +3,5 @@ class EditProfileModel {
   String? lastName;
   String? address;
   String? phoneNo;
+  bool? twoFactor;
 }

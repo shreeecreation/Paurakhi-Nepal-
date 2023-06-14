@@ -10,7 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    
+  flutter_localizations:
+    sdk: flutter  
+  #localization adding to the application
+  intl: ^0.18.1
+
   adaptive_sizer: ^0.0.4
   #using the google fonts
   google_fonts: ^4.0.1
@@ -46,9 +50,11 @@ dependencies:
   geocoding: ^2.0.4
 
   connectivity: ^3.0.6
+
   flutter_html: ^3.0.0-beta.1
+
   flutter_launcher_icons: ^0.13.1
-  intl: ^0.18.1
+
   cached_network_image: ^3.2.3
 
 
@@ -62,6 +68,7 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0  
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/images/  

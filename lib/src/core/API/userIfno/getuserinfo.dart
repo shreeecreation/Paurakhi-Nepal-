@@ -35,6 +35,7 @@ class GetUserInfo {
       Profile.email = profileData['email'];
       Profile.address = profileData['address'];
       Profile.picture = profileData['picture'];
+      print(response.body);
     } catch (e) {
       print(e);
     }

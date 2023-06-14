@@ -137,7 +137,6 @@ class SinglePageDescriptionScreen extends StatelessWidget {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        // TODO: Get quotation
                         if (IsLoggedIn.isLoggedIn) {
                           quotationBottomSheet(context, model.id);
                         } else {
@@ -162,8 +161,8 @@ class SinglePageDescriptionScreen extends StatelessWidget {
 }
 
 class SinglePageDescriptionScreenBlog extends StatelessWidget {
-  SinglePageDescriptionScreenBlog({super.key, required this.model});
-  BlogModelNewsFinanceModel model;
+  const SinglePageDescriptionScreenBlog({super.key, required this.model});
+  final BlogModelNewsFinanceModel model;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -187,6 +186,7 @@ class SinglePageDescriptionScreenBlog extends StatelessWidget {
               SizedBox(
                   width: MediaQuery.of(context).size.width - 20,
                   height: 200,
+                  // ignore: unnecessary_null_comparison
                   child: model.blogImage == null ? Image.asset("assets/images/logo2.png") : Image.network(model.blogImage)),
               const SizedBox(height: 10),
               const Row(
@@ -243,6 +243,7 @@ class SinglePageDescriptionScreenFinance extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width - 20,
                 height: 200,
+                // ignore: unnecessary_null_comparison
                 child: model.blogImage == null ? Image.asset("assets/images/logo2.png") : Image.network(model.blogImage),
               ),
               const SizedBox(height: 10),
@@ -271,7 +272,6 @@ class SinglePageDescriptionScreenFinance extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      // TODO: Get quotation
                       if (IsLoggedIn.isLoggedIn) {
                         financeEnquiryBottomSheet(context,model.id);
                       } else {
@@ -320,6 +320,7 @@ class SinglePageDescriptionScreenGrants extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width - 20,
                 height: 200,
+                // ignore: unnecessary_null_comparison
                 child: model.blogImage == null ? Image.asset("assets/images/logo2.png") : Image.network(model.blogImage),
               ),
               const SizedBox(height: 10),
@@ -348,7 +349,6 @@ class SinglePageDescriptionScreenGrants extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      // TODO: Get quotation
                       if (IsLoggedIn.isLoggedIn) {
                         applyGrantBottomSheet(context,model.id);
                       } else {

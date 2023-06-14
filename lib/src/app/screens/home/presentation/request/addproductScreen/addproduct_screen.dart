@@ -18,7 +18,6 @@ void addProduct(BuildContext context) {
   TextEditingController productPriceController = TextEditingController();
   TextEditingController productMinQtyController = TextEditingController();
   TextEditingController productDescriptionController = TextEditingController();
-  String selectedValIndex = "";
   List<File> images;
 // modal bottom sheet go up with the keyboard appears
   showModalBottomSheet(
