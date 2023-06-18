@@ -9,6 +9,7 @@ import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/get_current_location.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'domain/model.dart';
 
@@ -59,8 +60,8 @@ class _CreateScreenState extends State<CreateScreen> {
             child: SingleChildScrollView(
               child: Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.end, children: [
                 const SizedBox(height: 50),
-                Text("Set Your Farm Now", style: AppStyles.text24PxBold),
-                Text("sign in to start your journey", style: AppStyles.text16Px),
+                Text(AppLocalizations.of(context)!.create_account, style: AppStyles.text24PxBold),
+                Text(AppLocalizations.of(context)!.start_journey, style: AppStyles.text16Px),
                 const SizedBox(height: 20),
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 1.4,
@@ -104,11 +105,11 @@ class _CreateScreenState extends State<CreateScreen> {
                       child: TextFormField(
                         controller: firstNameController,
                         validator: (value) {
-                          if (!ExtString.validateFirstName(value!)) return "Name can't be less than 4";
+                          if (!ExtString.validateFirstName(value!)) return AppLocalizations.of(context)!.name_cant_be_less_than;
                           return null;
                         },
                         decoration: InputDecoration(
-                          hintText: 'First Name',
+                          hintText: AppLocalizations.of(context)!.first_name,
                           hintStyle: AppStyles.text16Px.textGrey,
                           filled: true,
                           fillColor: Colors.white,
@@ -125,11 +126,11 @@ class _CreateScreenState extends State<CreateScreen> {
                       child: TextFormField(
                         controller: secondNameController,
                         validator: (value) {
-                          if (!ExtString.validateSecondName(value!)) return "Name can't be less than 4";
+                          if (!ExtString.validateSecondName(value!)) return AppLocalizations.of(context)!.name_cant_be_less_than;
                           return null;
                         },
                         decoration: InputDecoration(
-                          hintText: 'Last Name',
+                          hintText: AppLocalizations.of(context)!.second_name,
                           hintStyle: AppStyles.text16Px.textGrey,
                           filled: true,
                           fillColor: Colors.white,
@@ -166,19 +167,19 @@ class _CreateScreenState extends State<CreateScreen> {
                       onTap: () {
                         AuthRoutes.googelSigninRoute();
                       },
-                      child: Text("Login with Google", style: AppStyles.text18PxBold))
+                      child: Text(AppLocalizations.of(context)!.login_with_google, style: AppStyles.text18PxBold))
                 ]),
                 const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(width: 40),
-                    Text("Already have an account ?", style: AppStyles.text14PxMedium),
+                    Text("${AppLocalizations.of(context)!.already_have_account} ?", style: AppStyles.text14PxMedium),
                     TextButton(
                         onPressed: () {
                           AuthRoutes.loginRoute();
                         },
-                        child: const Text("Log In"))
+                        child: Text(AppLocalizations.of(context)!.login))
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -215,7 +216,7 @@ class _CreateScreenState extends State<CreateScreen> {
             },
             style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF34A853), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
-            child: Text("Sign Up", style: AppStyles.text18PxSemiBold)));
+            child: Text(AppLocalizations.of(context)!.sign_up, style: AppStyles.text18PxSemiBold)));
   }
 
   SizedBox confirmPassword(BuildContext context) {
@@ -224,11 +225,11 @@ class _CreateScreenState extends State<CreateScreen> {
       child: TextFormField(
         controller: confirmpasswordController,
         validator: (value) {
-          if (passwordController.text != confirmpasswordController.text) return "Enter a valid name";
+          if (passwordController.text != confirmpasswordController.text) return AppLocalizations.of(context)!.enter_valid_name;
           return null;
         },
         decoration: InputDecoration(
-          hintText: 'Confirm Password',
+          hintText: AppLocalizations.of(context)!.confirm_pass,
           filled: true,
           hintStyle: AppStyles.text16Px.textGrey,
           fillColor: Colors.white,
@@ -246,11 +247,11 @@ class _CreateScreenState extends State<CreateScreen> {
         child: TextFormField(
           controller: addressController,
           validator: (value) {
-            if (!ExtString.validateFirstName(value!)) return "Enter a valid address";
+            if (!ExtString.validateFirstName(value!)) return AppLocalizations.of(context)!.enter_a_valid_address;
             return null;
           },
           decoration: InputDecoration(
-            hintText: 'Address',
+            // hintText:  AppLocalizations.of(context)!.address,
             filled: true,
             hintStyle: AppStyles.text16Px.textGrey,
             fillColor: Colors.white,
@@ -266,12 +267,12 @@ class _CreateScreenState extends State<CreateScreen> {
       width: MediaQuery.of(context).size.width / 1.2,
       child: TextFormField(
         validator: (value) {
-          if (!ExtString.isEmailValid(value!)) return "Enter a valid email";
+          if (!ExtString.isEmailValid(value!)) return AppLocalizations.of(context)!.enter_a_valid_email;
           return null;
         },
         controller: emailController,
         decoration: InputDecoration(
-          hintText: 'email',
+          hintText: AppLocalizations.of(context)!.email,
           filled: true,
           hintStyle: AppStyles.text16Px.textGrey,
           fillColor: Colors.white,
@@ -286,12 +287,12 @@ class _CreateScreenState extends State<CreateScreen> {
       width: MediaQuery.of(context).size.width / 1.2,
       child: TextFormField(
         validator: (value) {
-          if (!ExtString.validatePassword(value!)) return "Enter a valid password";
+          if (!ExtString.validatePassword(value!)) return AppLocalizations.of(context)!.enter_a_valid_password;
           return null;
         },
         controller: passwordController,
         decoration: InputDecoration(
-          hintText: 'Password',
+          hintText: AppLocalizations.of(context)!.password,
           filled: true,
           hintStyle: AppStyles.text16Px.textGrey,
           fillColor: Colors.white,
@@ -307,11 +308,11 @@ class _CreateScreenState extends State<CreateScreen> {
       child: TextFormField(
           controller: phoneNumberController,
           validator: (value) {
-            if (!ExtString.validatePhoneNumber(value!)) return "Enter a valid number";
+            if (!ExtString.validatePhoneNumber(value!)) return AppLocalizations.of(context)!.enter_a_valid_number;
             return null;
           },
           decoration: InputDecoration(
-              hintText: 'Phone Number',
+              hintText: AppLocalizations.of(context)!.phoneNo,
               hintStyle: AppStyles.text16Px.textGrey,
               filled: true,
               fillColor: Colors.white,

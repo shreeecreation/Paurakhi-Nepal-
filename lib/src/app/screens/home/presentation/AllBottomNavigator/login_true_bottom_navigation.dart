@@ -58,27 +58,60 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      backgroundColor: Colors.transparent,
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 400),
         child: _widgetOptions.elementAt(_selectedIndex),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(opacity: animation, child: child);
+        },
       ),
-      bottomNavigationBar: SizedBox(
-        height: 70,
+      bottomNavigationBar: Theme(
+  data: ThemeData(
+    canvasColor: Colors.transparent,
+  ),
+  child: Container(
+    height: 80,
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           unselectedItemColor: const Color(0xFF828282),
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.notifications, size: 28), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.home_filled, size: 28), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.add, size: 28), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.person, size: 28), label: ""),
+          items: <BottomNavigationBarItem>[
+            _buildRoundedIconBottomNavigationBarItem(Icons.notifications),
+            _buildRoundedIconBottomNavigationBarItem(Icons.home_filled),
+            _buildRoundedIconBottomNavigationBarItem(Icons.add),
+            _buildRoundedIconBottomNavigationBarItem(Icons.person),
           ],
           currentIndex: _selectedIndex,
           unselectedLabelStyle: const TextStyle(fontSize: 0.5),
           selectedLabelStyle: const TextStyle(fontSize: 0.5),
           selectedItemColor: const Color(0xFF34A853),
           onTap: _onItemTapped,
+          elevation: 0,
         ),
       ),
+    ),
+  ))
+
     );
   }
+}
+
+BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItem(IconData icon) {
+  return BottomNavigationBarItem(
+    icon: Container(
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(icon, size: 25),
+      ),
+    ),
+    label: "",
+  );
 }

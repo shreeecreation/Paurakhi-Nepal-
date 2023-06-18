@@ -11,6 +11,7 @@ import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
 import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../core/API/login/loginapi.dart';
 import 'validators/validators.dart';
@@ -39,19 +40,19 @@ class _LoginScreenState extends State<LoginScreen> {
               height: MediaQuery.of(context).size.height - 35,
               child: Stack(children: [
                 Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.end, children: [
-                  Text("Welcome back", style: AppStyles.text24PxBold),
-                  Text("login to continue", style: AppStyles.text16Px),
+                  Text(AppLocalizations.of(context)!.welcome_back, style: AppStyles.text24PxBold),
+                  Text(AppLocalizations.of(context)!.login_to_continue, style: AppStyles.text16Px),
                   const SizedBox(height: 20),
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 1.2,
                     child: TextFormField(
                       controller: phoneNo,
                       validator: (val) {
-                        if (!ExtString.validatePhoneNumber(val!)) return " Enter a valid phone number";
+                        if (!ExtString.validatePhoneNumber(val!)) return AppLocalizations.of(context)!.enter_a_valid_phone;
                         return null;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Phone Number',
+                        hintText: AppLocalizations.of(context)!.phoneNo,
                         filled: true,
                         hintStyle: AppStyles.text16Px.textGrey,
                         fillColor: Colors.white,
@@ -68,12 +69,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextFormField(
                         controller: password,
                         validator: (val) {
-                          if (!ExtString.validatePassword(val!)) return "Password length should be greater than 8";
+                          if (!ExtString.validatePassword(val!)) return AppLocalizations.of(context)!.password_length_error;
                           return null;
                         },
                         obscureText: true,
                         decoration: InputDecoration(
-                            hintText: 'Password',
+                            hintText: AppLocalizations.of(context)!.password,
                             hintStyle: AppStyles.text16Px.textGrey,
                             filled: true,
                             fillColor: Colors.white,
@@ -85,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: MediaQuery.of(context).size.width / 1.2,
                       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                         TextButton(
-                            child: Text("Forgot Password ?", style: AppStyles.text14Px.textBlue),
+                            child: Text("${AppLocalizations.of(context)!.forgot_pasword}?", style: AppStyles.text14Px.textBlue),
                             onPressed: () {
                               AuthRoutes.forgotScreen();
                             }),
@@ -101,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 });
                               },
                             ),
-                            Text("Remember me", style: AppStyles.text16Px)
+                            Text(AppLocalizations.of(context)!.remember_me, style: AppStyles.text16Px)
                           ],
                         ),
                       ])),
@@ -117,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF34A853),
                               shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
-                          child: Text("Login", style: AppStyles.text18PxSemiBold))),
+                          child: Text(AppLocalizations.of(context)!.login, style: AppStyles.text18PxSemiBold))),
                   const SizedBox(height: 20),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     const Icon(Icons.person, color: Colors.green),
@@ -128,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Get.offAll(const HomePage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
 //
                         },
-                        child: const Text("Login as Guest"))
+                        child: Text(AppLocalizations.of(context)!.login_as_guest))
                   ]),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Image.network(
@@ -146,17 +147,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             Get.to(ChooseGooleAccountScreen(authUrl: responseBody["redirect_url"]));
                           }
                         },
-                        child: const Text("Login with Google "))
+                        child: Text(AppLocalizations.of(context)!.login_with_google))
                   ]),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Don't have an account ? ", style: AppStyles.text14PxMedium),
+                      Text("${AppLocalizations.of(context)!.dont_have_an_account} ?", style: AppStyles.text14PxMedium),
                       TextButton(
                           onPressed: () {
                             AuthRoutes.createUserRoute();
                           },
-                          child: const Text("Create an account"))
+                          child: Text(AppLocalizations.of(context)!.create_account))
                     ],
                   ),
                   const SizedBox(height: 70),

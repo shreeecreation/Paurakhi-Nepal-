@@ -61,7 +61,7 @@ void quotationHistoryScreen(BuildContext context) {
                           itemCount: dataList.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             final Datum datum = dataList.data[index];
-                            return historyWidget(datum.product.name, datum.status, datum.id);
+                            return historyWidget(datum.product.name, datum.status, datum.price, datum.queryId);
                           },
                         );
                       } else if (snapshot.hasError) {
@@ -81,9 +81,9 @@ void quotationHistoryScreen(BuildContext context) {
   );
 }
 
-SizedBox historyWidget(product, status, price) {
+SizedBox historyWidget(product, status, price, queryId) {
   return SizedBox(
-    height: 100,
+    height: 150,
     child: Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 0.5,
@@ -100,7 +100,9 @@ SizedBox historyWidget(product, status, price) {
                         ? const Icon(Icons.check_circle_rounded, size: 30, color: Colors.green)
                         : const Icon(Icons.close_rounded, size: 30, color: Colors.red),
             subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const SizedBox(height: 4),
+              const SizedBox(height: 8),
+              Text("Query Id : $queryId"),
+              const SizedBox(height: 8),
               Text("Price : $price"),
             ]),
           ),

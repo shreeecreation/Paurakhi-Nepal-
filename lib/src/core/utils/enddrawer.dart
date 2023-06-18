@@ -16,6 +16,7 @@ import 'package:paurakhi/src/core/routes/drawerroutes.dart';
 import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EndDrawer extends StatelessWidget {
   const EndDrawer({super.key});
@@ -38,12 +39,12 @@ class EndDrawer extends StatelessWidget {
                       Scaffold.of(context).closeEndDrawer();
                     }),
                 const SizedBox(width: 100),
-                Text("Menu ", style: AppStyles.text18PxBold)
+                Text(AppLocalizations.of(context)!.menu, style: AppStyles.text18PxBold)
               ],
             ),
           ),
           ListTile(
-            title: Text("Home", style: textStyle),
+            title: Text(AppLocalizations.of(context)!.home, style: textStyle),
             onTap: () async {
               //action on press
               final currentRoute = ModalRoute.of(context)?.settings.name;
@@ -58,7 +59,7 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-              title: Text("Blog", style: textStyle),
+              title: Text(AppLocalizations.of(context)!.blog, style: textStyle),
               onTap: () async {
                 //action on press
                 final currentRoute = ModalRoute.of(context)?.settings.name;
@@ -74,7 +75,7 @@ class EndDrawer extends StatelessWidget {
                 Scaffold.of(context).closeEndDrawer();
               }),
           ListTile(
-            title: Text("News", style: textStyle),
+            title: Text(AppLocalizations.of(context)!.news, style: textStyle),
             onTap: () async {
               final currentRoute = ModalRoute.of(context)?.settings.name;
 
@@ -91,7 +92,7 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("Finance", style: textStyle),
+            title: Text(AppLocalizations.of(context)!.finance, style: textStyle),
             onTap: () {
               //action on press
               final currentRoute = ModalRoute.of(context)?.settings.name;
@@ -109,7 +110,7 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("Grants", style: textStyle),
+            title: Text(AppLocalizations.of(context)!.grants, style: textStyle),
             onTap: () {
               //action on press
               final currentRoute = ModalRoute.of(context)?.settings.name;
@@ -127,7 +128,7 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("Open Ticket", style: AppStyles.text16PxBold.textGreen),
+            title: Text(AppLocalizations.of(context)!.openticket, style: AppStyles.text16PxBold.textGreen),
             onTap: () {
               if (IsLoggedIn.isLoggedIn) {
                 ProfileRoutes.openticketRoute();
@@ -137,7 +138,7 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("Ticket History", style: textStyle),
+            title: Text(AppLocalizations.of(context)!.ticket_history, style: textStyle),
             onTap: () {
               ticketHistoryScreen(context);
             },

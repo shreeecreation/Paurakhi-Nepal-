@@ -5,7 +5,7 @@ import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
 import 'package:paurakhi/src/core/API/SellScreenAPI/sell_product_api.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/addmultipleimage.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'addtag.dart';
 import 'domain/dropdown.dart';
 import 'domain/tag.dart';
@@ -50,7 +50,7 @@ void addProduct(BuildContext context) {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("  Sell Product", style: AppStyles.text20PxBold),
+                              Text(AppLocalizations.of(context)!.sell_product, style: AppStyles.text20PxBold),
                               Flexible(
                                   child: IconButton(
                                       onPressed: () {
@@ -113,9 +113,9 @@ void addProduct(BuildContext context) {
                                   color: Color(0xFFD9D9D9),
                                   borderRadius: BorderRadius.all(Radius.circular(15)),
                                 ),
-                                child: Center(child: Text("Product", style: AppStyles.text12PxMedium))),
+                                child: Center(child: Text(AppLocalizations.of(context)!.product, style: AppStyles.text12PxMedium))),
                             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-                            title: Text("Type to add more tags ...", style: AppStyles.text14PxBold),
+                            title: Text(AppLocalizations.of(context)!.type_to_add_more_tags, style: AppStyles.text14PxBold),
                             trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
                             onTap: () async {
                               final tags = await TagGenerator.showTagDialog(context);
@@ -145,7 +145,7 @@ void addProduct(BuildContext context) {
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: const Color(0xFF34A853),
                                         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                    child: Text("Sell Product", style: AppStyles.text16Px))),
+                                    child: Text(AppLocalizations.of(context)!.sell_product, style: AppStyles.text16Px))),
                           ),
                           const SizedBox(height: 30),
                         ]),
@@ -168,7 +168,7 @@ Padding projectTitle(BuildContext context, controller) {
       child: TextFormField(
         controller: controller,
         validator: (val) {
-          if (!ExtString.validateFirstName(val!)) return " Enter a valid Product Title";
+          if (!ExtString.validateFirstName(val!)) return AppLocalizations.of(context)!.enter_a_valid_product_title;
           return null;
         },
         decoration: InputDecoration(
@@ -178,7 +178,7 @@ Padding projectTitle(BuildContext context, controller) {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
-          hintText: 'Product Title',
+          hintText: AppLocalizations.of(context)!.product_title,
         ),
       ),
     ),
@@ -193,7 +193,7 @@ Padding addProductDescripttion(BuildContext context, controller) {
       child: TextFormField(
         controller: controller,
         validator: (val) {
-          if (!ExtString.validateFirstName(val!)) return "Add some product description";
+          if (!ExtString.validateFirstName(val!)) return AppLocalizations.of(context)!.add_some_product_description;
           return null;
         },
         maxLines: 5,
@@ -204,7 +204,7 @@ Padding addProductDescripttion(BuildContext context, controller) {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
-          hintText: 'Add product Description',
+          hintText: AppLocalizations.of(context)!.add_product_description,
         ),
       ),
     ),
@@ -220,18 +220,17 @@ Padding productPrice(BuildContext context, controller) {
         keyboardType: TextInputType.number,
         controller: controller,
         validator: (val) {
-          if (!ExtString.validateProductPrice(val!)) return " Enter a valid price";
+          if (!ExtString.validateProductPrice(val!)) return AppLocalizations.of(context)!.enter_a_valid_price;
           return null;
         },
         decoration: InputDecoration(
-          filled: true,
-          fillColor: const Color(0xFFFFFFFF),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
-          ),
-          hintText: 'Product Price ',
-        ),
+            filled: true,
+            fillColor: const Color(0xFFFFFFFF),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide.none,
+            ),
+            hintText: AppLocalizations.of(context)!.product_price),
       ),
     ),
   );
@@ -245,7 +244,7 @@ Padding minQty(BuildContext context, controller) {
       child: TextFormField(
         controller: controller,
         validator: (val) {
-          if (!ExtString.validateMinQty(val!)) return " Enter a valid quantity";
+          if (!ExtString.validateMinQty(val!)) return AppLocalizations.of(context)!.enter_a_vaid_quantity;
           return null;
         },
         decoration: InputDecoration(
@@ -255,7 +254,7 @@ Padding minQty(BuildContext context, controller) {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
-          hintText: 'Min QTY',
+          hintText: AppLocalizations.of(context)!.min_qty,
         ),
       ),
     ),

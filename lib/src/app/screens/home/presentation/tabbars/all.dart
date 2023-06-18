@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
 import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/utils/evey_product_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'loadmore_controller.dart';
 import 'productmodel.dart';
@@ -102,7 +103,7 @@ class _AllState extends State<All> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: isLoading ? Colors.grey : AppColors.textGreen,
               ),
-              child: Text(isLoading ? "Loading..." : "Load More"),
+              child: Text(isLoading ? AppLocalizations.of(context)!.loading : AppLocalizations.of(context)!.load_more),
             ),
           ),
           const SizedBox(height: 50),
@@ -111,13 +112,6 @@ class _AllState extends State<All> {
     );
   }
 }
-
-
-
-
-
-
-
 
 // final GlobalKey<_AllState> key = GlobalKey<_AllState>();
 
@@ -207,17 +201,17 @@ class _All1State extends State<All1> {
             },
           ),
           const SizedBox(height: 10),
-            SizedBox(
-              height: 40,
-              width: 120,
-              child: ElevatedButton(
-                onPressed: isLoading ? null : _loadMore,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: isLoading ? Colors.grey : AppColors.textGreen,
-                ),
-                child: Text(isLoading ? "Loading..." : "Load More"),
+          SizedBox(
+            height: 40,
+            width: 120,
+            child: ElevatedButton(
+              onPressed: isLoading ? null : _loadMore,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: isLoading ? Colors.grey : AppColors.textGreen,
               ),
+              child: Text(isLoading ? AppLocalizations.of(context)!.loading : AppLocalizations.of(context)!.load_more),
             ),
+          ),
           const SizedBox(height: 50),
         ],
       ),

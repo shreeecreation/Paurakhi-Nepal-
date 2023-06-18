@@ -8,6 +8,7 @@ import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/search_finance.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'search/search_functionality.dart';
 
@@ -90,7 +91,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 const SizedBox(height: 24),
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0),
-                  child: Text("Finances", style: AppStyles.text22PxBold),
+                  child: Text(AppLocalizations.of(context)!.finance, style: AppStyles.text22PxBold),
                 ),
 
                 const SizedBox(height: 10),
@@ -120,7 +121,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: isLoading ? Colors.grey : AppColors.textGreen,
                       ),
-                      child: Text(isLoading ? "Loading..." : "Load More"),
+                                                       child: Text(isLoading ? AppLocalizations.of(context)!.loading : AppLocalizations.of(context)!.load_more),
+
                     ),
                   ),
                 ),

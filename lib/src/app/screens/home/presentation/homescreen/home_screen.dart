@@ -14,7 +14,6 @@ import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/enddrawer.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'bloc/request_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -190,8 +189,7 @@ class HomeScreen extends StatelessWidget {
   Widget userWidget(BuildContext context, String userName, scaffoldkey) {
     final List<String> genderItems = [
       AppLocalizations.of(context)!.sell,
-           AppLocalizations.of(context)!.request,
-
+      AppLocalizations.of(context)!.request,
     ];
     final formKey = GlobalKey<FormState>();
 
@@ -217,7 +215,7 @@ class HomeScreen extends StatelessWidget {
               height: 42,
               width: 110,
               child: DropdownButtonFormField2(
-                value:      AppLocalizations.of(context)!.sell,
+                value: AppLocalizations.of(context)!.sell,
                 decoration: InputDecoration(
                   isDense: true,
                   fillColor: Colors.green,
@@ -242,7 +240,7 @@ class HomeScreen extends StatelessWidget {
                   return null;
                 },
                 onChanged: (value) async {
-                  if (value ==       AppLocalizations.of(context)!.sell) {
+                  if (value == AppLocalizations.of(context)!.sell) {
                     BlocProvider.of<RequestBloc>(context).add(RequestStartEvent());
                     LoadMoreController.currentPage = 1;
                   } else {

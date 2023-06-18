@@ -66,7 +66,8 @@ class MyApp extends StatelessWidget {
                     GlobalCupertinoLocalizations.delegate,
                   ],
                   debugShowCheckedModeBanner: false,
-                  theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light),
+                  theme: ThemeData(
+                      primarySwatch: Colors.blue, brightness: Brightness.light, bottomAppBarTheme: const BottomAppBarTheme(color: Colors.black)),
                   home: Consumer<NetworkProvider>(builder: (context, networkProvider, child) {
                     return FutureBuilder<bool>(
                       future: networkProvider.checkInternetConnection(),

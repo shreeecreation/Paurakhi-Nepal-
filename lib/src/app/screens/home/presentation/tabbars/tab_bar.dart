@@ -113,23 +113,24 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                     if (snapshot.hasData) {
                       final List<DropdownMenuItem> tabTextList = snapshot.data!;
                       return Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(5.0),
                         child: TabBar(
-                            controller: _tabController,
-                            onTap: (value) {
-                              currentTabIndex1 = value;
-                              BlocProvider.of<GetprdouctBloc>(context).add(GetProdcutFetchEvent());
-                              LoadMoreController.currentPage = 1;
-                              mainCategoryIndex = tabTextList[value].value;
-                            },
-                            isScrollable: true,
-                            labelPadding: const EdgeInsets.symmetric(horizontal: 10),
-                            unselectedLabelColor: Colors.black,
-                            labelColor: Colors.white,
-                            splashBorderRadius: BorderRadius.circular(20),
-                            indicator: ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
-                            tabs: tabTextList.map((tabText) => Tab(child: tabText.child)).toList(),
-                            indicatorSize: TabBarIndicatorSize.tab),
+                          
+                          controller: _tabController,
+                          onTap: (value) {
+                            currentTabIndex1 = value;
+                            BlocProvider.of<GetprdouctBloc>(context).add(GetProdcutFetchEvent());
+                            LoadMoreController.currentPage = 1;
+                            mainCategoryIndex = tabTextList[value].value;
+                          },
+                          isScrollable: true,
+                          labelPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                          unselectedLabelColor: Colors.black,
+                          labelColor: Colors.white,
+                          splashBorderRadius: BorderRadius.circular(20),
+                          indicator: ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
+                          tabs: tabTextList.map((tabText) => SizedBox(height: 30, child: Tab(child: tabText.child))).toList(),
+                        ),
                       );
                     } else {
                       return const Text("");
@@ -182,7 +183,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                     if (snapshot.hasData) {
                       final List<DropdownMenuItem> tabTextList = snapshot.data!;
                       return Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(2.0),
                         child: TabBar(
                           controller: _tabController,
                           onTap: (value) {
