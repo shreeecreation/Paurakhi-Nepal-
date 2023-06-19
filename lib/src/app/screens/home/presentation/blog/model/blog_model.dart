@@ -51,7 +51,7 @@ class BlogModelNewsFinanceModel {
     final createdAt = formattedTime;
     final String title = json['title'] as String;
     final String body = json['body'] as String;
-    final String blogImage = json['blogImage '] as String;
+    final String blogImage = json['blogImage'] as String;
     final String type = json['type'] as String;
     final bool trash = json['trash'] as bool;
     final updatedDate = json['updatedDate'] as String;

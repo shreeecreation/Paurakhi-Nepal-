@@ -16,6 +16,7 @@ import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
 import 'src/app/screens/home/presentation/request/bloc/getprdouct_bloc.dart';
 import 'src/app/screens/internetandSetverError/check_internet_connection.dart';
 import 'src/app/screens/search/bloc/search_bloc.dart';
+import 'src/core/API/Notification API/notification_api.dart';
 import 'src/core/API/userIfno/getuserinfo.dart';
 import 'src/core/InitiallMethod/intial_method.dart';
 import 'src/core/providers/location_provider.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocationProvider()),
@@ -67,7 +69,9 @@ class MyApp extends StatelessWidget {
                   ],
                   debugShowCheckedModeBanner: false,
                   theme: ThemeData(
-                      primarySwatch: Colors.blue, brightness: Brightness.light, bottomAppBarTheme: const BottomAppBarTheme(color: Colors.black)),
+                    primarySwatch: Colors.blue,
+                    brightness: Brightness.light,
+                  ),
                   home: Consumer<NetworkProvider>(builder: (context, networkProvider, child) {
                     return FutureBuilder<bool>(
                       future: networkProvider.checkInternetConnection(),

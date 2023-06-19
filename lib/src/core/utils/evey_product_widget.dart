@@ -83,7 +83,7 @@ Widget everyProductWidgetSearch(BuildContext context, SearchModel product) {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 10),
                   SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.name, style: AppStyles.text18PxBold)),
                   const SizedBox(height: 5),
                   SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.description, style: AppStyles.text12Px)),
@@ -107,7 +107,7 @@ Widget everyProductWidgetProduct(BuildContext context, ProductModel product) {
         child: const Card(elevation: 0.2, color: Color(0xFFF4FBF3))),
     Column(
       children: [
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
         GestureDetector(
           onTap: () {
             unFocusNode(context);
@@ -177,7 +177,7 @@ Widget everyProductWidgetProduct(BuildContext context, ProductModel product) {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 15),
                   SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.name, style: AppStyles.text18PxBold)),
                   const SizedBox(height: 5),
                   SizedBox(
@@ -239,7 +239,7 @@ Widget everyProductWidgetBlog(BuildContext context, BlogModelNewsFinanceModel pr
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 10),
                   SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.title, style: AppStyles.text18PxBold)),
                   const SizedBox(height: 5),
                   SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(product.createdAt, style: AppStyles.text12Px)),

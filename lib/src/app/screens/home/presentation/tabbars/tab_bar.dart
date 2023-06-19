@@ -115,7 +115,6 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                       return Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: TabBar(
-                          
                           controller: _tabController,
                           onTap: (value) {
                             currentTabIndex1 = value;
@@ -142,7 +141,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                 if (state is GetProdcutFetchState) {
                   // All.items = [];
                   return SizedBox(
-                      height: MediaQuery.of(context).size.height / 2.5,
+                      height: MediaQuery.of(context).size.height / 2.2,
                       child: TabBarView(
                         controller: _tabController,
                         physics: const NeverScrollableScrollPhysics(),
@@ -158,7 +157,8 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                 }
                 return const Text("");
               },
-            )
+            ),
+            const SizedBox(height: 60),
           ],
         ));
   }

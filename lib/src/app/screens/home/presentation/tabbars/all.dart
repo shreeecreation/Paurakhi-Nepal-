@@ -187,7 +187,7 @@ class _All1State extends State<All1> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: const ClampingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
           ListView.builder(
@@ -212,7 +212,6 @@ class _All1State extends State<All1> {
               child: Text(isLoading ? AppLocalizations.of(context)!.loading : AppLocalizations.of(context)!.load_more),
             ),
           ),
-          const SizedBox(height: 50),
         ],
       ),
     );

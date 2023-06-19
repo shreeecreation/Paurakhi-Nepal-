@@ -20,8 +20,10 @@
 	"grant_history":"अनुदान इतिहास",
 	"quotation_history":"उद्धरण इतिहास",
 "change_password":"पासवर्ड परिवर्तन गर्नुहोस्",
-"verify_you_account":"",
+"verify_your_account":"आफ्नो खाता प्रमाणित गर्नुहोस्",
+"verified":"प्रमाणित",
 "history":"इतिहास",
+"logout":"बाहिर निस्कनु",
 
 
 	"welcome_back":"स्वागत छ",
@@ -51,6 +53,7 @@
 	"enter_a_valid_email":"वैध इमेल प्रविष्ट गर्नुहोस्",
 	"enter_a_valid_number":"मान्य नम्बर प्रविष्ट गर्नुहोस्",
 	"already_have_account":"पहिले नै खाता छ",
+	
 	
 "incorrect_num_pass":"गलत नम्बर र पासवर्ड",
 "try_again":"पुन: प्रयास गर्नुहोस्",

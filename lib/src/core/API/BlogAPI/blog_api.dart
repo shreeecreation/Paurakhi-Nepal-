@@ -15,7 +15,7 @@ class BlogNewsFinanceAPI {
         Uri.parse(url),
         headers: {'Cookie': cookie}, // Replace with your headers if needed
       );
-      print(response.body);
+
       final List<dynamic> jsonList = jsonDecode(response.body);
       List<BlogModelNewsFinanceModel> blogs = [];
       blogs = jsonList.map((dynamic json) => BlogModelNewsFinanceModel.fromJson(json as Map<String, dynamic>)).toList();

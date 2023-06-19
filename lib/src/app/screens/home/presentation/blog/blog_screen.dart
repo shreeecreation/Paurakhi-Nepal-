@@ -119,7 +119,7 @@ class _BlogScreenState extends State<BlogScreen> {
                       onPressed: isLoading ? null : _loadMore,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: isLoading ? Colors.grey : AppColors.textGreen,
-                    ),
+                      ),
                       child: Text(isLoading ? AppLocalizations.of(context)!.loading : AppLocalizations.of(context)!.load_more),
                     ),
                   ),

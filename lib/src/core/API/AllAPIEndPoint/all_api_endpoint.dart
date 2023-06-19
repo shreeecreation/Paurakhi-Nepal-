@@ -9,7 +9,6 @@ class AllAPIEndPoint {
   static String getUserInfoAPI = "";
   static String blogAPI = "blog/get-blog";
   static String newsAPI = "news/get-news";
-  static String notificationAPI = "";
   static String changePasswordAPI = "/user/change-password";
   static String resetPasswordAPI = "/auth/user/forgot-password";
   static String resetPasswordOTP = "/verify/forgot-password";
@@ -26,5 +25,7 @@ class AllAPIEndPoint {
 
   static String createGrant = "/grant/create-grant";
 
+
+static String notificationAPI = "notification/subscribe-user";
   // static String getGrantAPI = "/";
 }

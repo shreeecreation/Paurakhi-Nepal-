@@ -18,6 +18,7 @@ import 'bloc/profile_bloc.dart';
 import 'changepassword.dart';
 import 'editprofile.dart';
 import 'model/profile_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -30,10 +31,10 @@ class ProfileScreen extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
             const SizedBox(height: 20),
-            const Row(
+            Row(
               children: [
-                SizedBox(width: 20),
-                Text("My Profile", style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
+                const SizedBox(width: 20),
+                Text(AppLocalizations.of(context)!.profile, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
               ],
             ),
             const SizedBox(height: 15),
@@ -50,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
               },
             ),
             const SizedBox(height: 20),
-            Text("     Profile Settings", style: AppStyles.text18PxBold),
+            Text("       ${AppLocalizations.of(context)!.profile_settings}", style: AppStyles.text18PxBold),
             const SizedBox(height: 10),
             editProfile(context),
             changePassword(context),
@@ -68,6 +69,7 @@ class ProfileScreen extends StatelessWidget {
             Text("     Others", style: AppStyles.text18PxBold),
             const SizedBox(height: 10),
             logOut(context),
+            const SizedBox(height: 60),
           ]),
         ));
   }
@@ -80,7 +82,7 @@ class ProfileScreen extends StatelessWidget {
         child: ListTile(
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
           tileColor: Colors.white,
-          title: const Text("Open Ticket"),
+          title: Text(AppLocalizations.of(context)!.openticket),
           trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
           onTap: () {
             ProfileRoutes.openticketRoute();
@@ -116,7 +118,7 @@ class ProfileScreen extends StatelessWidget {
         child: ListTile(
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
           tileColor: Colors.white,
-          title: const Text("Edit Profile"),
+          title: Text(AppLocalizations.of(context)!.edit_profile),
           trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
           onTap: () async {
             Provider.of<LocationProvider>(context, listen: false).changeLocation(context);
@@ -136,7 +138,7 @@ Padding changePassword(BuildContext context) {
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         tileColor: Colors.white,
-        title: const Text("Change Password"),
+        title: Text(AppLocalizations.of(context)!.change_password),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
           changepassword(context);
@@ -154,7 +156,7 @@ Padding quotationhistory(BuildContext context) {
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         tileColor: Colors.white,
-        title: const Text("Quotation History"),
+        title: Text(AppLocalizations.of(context)!.quotation_history),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
           quotationHistoryScreen(context);
@@ -172,7 +174,7 @@ Padding openTicketHistory(BuildContext context) {
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         tileColor: Colors.white,
-        title: const Text("Ticket History"),
+        title: Text(AppLocalizations.of(context)!.ticket_history),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
           ticketHistoryScreen(context);
@@ -190,7 +192,7 @@ Padding financeenrquiry(BuildContext context) {
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         tileColor: Colors.white,
-        title: const Text("Finance Enquiry History"),
+        title: Text(AppLocalizations.of(context)!.finance_history),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
           financeHistoryScreen(context);
@@ -208,7 +210,7 @@ Padding grantHistory(BuildContext context) {
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         tileColor: Colors.white,
-        title: const Text("Grant History"),
+        title: Text(AppLocalizations.of(context)!.grant_history),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
           getGrantScreen(context);
@@ -226,7 +228,7 @@ Padding notificationHistory(BuildContext context) {
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         tileColor: Colors.white,
-        title: const Text("Notification History"),
+        title: Text(AppLocalizations.of(context)!.notification),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
           quotationHistoryScreen(context);
@@ -245,7 +247,7 @@ Padding isVerified(BuildContext context) {
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         tileColor: Colors.white,
-        title: !a ? const Text("Verify your account") : const Text("Verified"),
+        title: !a ? Text(AppLocalizations.of(context)!.verify_your_account) : Text(AppLocalizations.of(context)!.verified),
         trailing: !a
             ? const Icon(Icons.check_circle_rounded, size: 30, color: Colors.grey)
             : const Icon(Icons.check_circle_rounded, size: 30, color: Colors.green),
@@ -268,7 +270,7 @@ Padding logOut(BuildContext context) {
       child: ListTile(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
         tileColor: Colors.white,
-        title: const Text("Log Out"),
+        title: Text(AppLocalizations.of(context)!.logout),
         trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
         onTap: () {
           logoutDialog(context);
