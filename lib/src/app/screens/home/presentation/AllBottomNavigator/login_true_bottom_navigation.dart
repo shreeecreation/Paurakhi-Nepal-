@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/homescreen/home_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/notifications/notifications_screeen.dart';
-import 'package:paurakhi/src/core/themes/appcolors.dart';
+import 'package:paurakhi/src/core/API/Notification%20API/notification_api.dart';
 import 'package:paurakhi/src/core/utils/get_current_location.dart';
 
 import '../profile/profile_screen.dart';
@@ -28,6 +28,9 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
   void _onItemTapped(int index) {
     if (index == _selectedIndex) {
       return;
+    }
+    if (index == 0) {
+      GetNotificationAPI.getNotification();
     }
     setState(() {
       if (index == 2) {

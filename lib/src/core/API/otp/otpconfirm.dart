@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
+import 'package:paurakhi/src/core/API/CookieManager/managelogincookie.dart';
 import 'package:paurakhi/src/core/API/ForgotPasswordAPI/reset_pass_screen.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
 import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
@@ -52,7 +53,7 @@ class ConfirmOTP {
     try {
       final response = await http.get(
         Uri.parse('${Environment.apiUrl}/verify/account?otp=$otp'),
-        headers: {'Cookie': cookie}, // Replace with your headers if needed
+        headers: {'Cookie': ManageRegisterCookie.register_token }, // Replace with your headers if needed
       );
       var code = response.statusCode;
       print(response.body);

@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class LocalizationProvider extends ChangeNotifier {
-  Locale _currentLocale = const Locale('en'); // Initial locale is English ('en')
+class LocalizationManager {
+  static const String _kLocaleKey = 'currentLocale';
+  static String storedLocale = 'en';
 
-  Locale get currentLocale => _currentLocale;
+  static Future<void> setCurrentLocale(Locale locale) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_kLocaleKey, locale.languageCode);
+  }
 
-  void changeLocale(Locale locale) {
-    _currentLocale = locale;
-    notifyListeners();
+  static Future<String> getCurrentLocale() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? storedLocales = prefs.getString(_kLocaleKey);
+
+    if (storedLocales != null) {
+      storedLocale = storedLocales;
+      return storedLocales;
+    } else {
+      return 'en';
+    }
   }
 }

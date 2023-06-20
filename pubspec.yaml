@@ -61,6 +61,7 @@ dependencies:
   toggle_switch: ^2.1.0
 
   sliding_switch: ^1.1.0
+  restart_app: ^1.2.1
 
 flutter_icons:
   android: true

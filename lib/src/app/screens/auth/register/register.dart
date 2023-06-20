@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
+import 'package:paurakhi/src/core/API/CookieManager/managelogincookie.dart';
 import 'package:paurakhi/src/core/API/registeruser/registerapi.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
@@ -209,8 +210,10 @@ class _CreateScreenState extends State<CreateScreen> {
                 model.image = image!;
                 var response = await RegisterAPI.registerAPI(model);
                 var data = response?.body;
+                var cookieHeader = response!.headers['set-cookie'];
+                ManageRegisterCookie.register_token = cookieHeader ?? "";
                 if (data != null) {
-                  AuthRoutes.loginRoute();
+                  AuthRoutes.otpRoute(true);
                 }
               }
             },

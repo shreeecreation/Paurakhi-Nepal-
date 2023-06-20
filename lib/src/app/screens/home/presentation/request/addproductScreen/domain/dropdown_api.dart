@@ -23,6 +23,7 @@ class DropDownAPI {
       List<dynamic> categories = responseMap['data'];
 
       var code = response.statusCode;
+      print(response.body);
       if (code == 200) {
         for (var category in categories) {
           allCategory.add(
@@ -44,7 +45,7 @@ class DropDownAPI {
       const DropdownMenuItem(value: '', child: Text('All')),
     ];
 
-    final url = Uri.parse('${Environment.apiUrl}/category/get-category'); 
+    final url = Uri.parse('${Environment.apiUrl}/category/get-category');
     try {
       final response = await http.get(url, headers: {
         'Cookie': cookie,

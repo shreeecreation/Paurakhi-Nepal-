@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocationProvider()),
-          ChangeNotifierProvider(create: (_) => LocalizationProvider()),
           ChangeNotifierProvider(create: (_) => NetworkProvider()),
         ],
         child: MultiBlocProvider(
@@ -61,8 +60,7 @@ class MyApp extends StatelessWidget {
               child: SafeArea(
                 child: GetMaterialApp(
                   supportedLocales: L10n.all,
-                  locale: const Locale("en"), // Set the locale to Nepali ('ne')
-
+                  locale: Locale(LocalizationManager.storedLocale),
                   localizationsDelegates: const [
                     AppLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,

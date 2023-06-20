@@ -52,10 +52,11 @@ class GetNotificationAPI {
     var cookie = await ManageCookie.getCookie();
     try {
       final response = await http.get(
-        Uri.parse('${Environment.apiUrl}/$AllAPIEndPoint'),
+        Uri.parse('${Environment.apiUrl}/${AllAPIEndPoint.getnotificationAPI}'),
         headers: {'Cookie': cookie}, // Replace with your headers if needed
       );
       Map<String, dynamic> body = jsonDecode(response.body);
+      print(body);
     } catch (e) {}
   }
 }

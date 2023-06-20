@@ -22,3 +22,7 @@ class ManageLoginCookie {
     AuthRoutes.otpRoute(false);
   }
 }
+
+class ManageRegisterCookie {
+  static String register_token = "";
+}

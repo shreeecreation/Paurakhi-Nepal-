@@ -7,6 +7,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/history/get%20ticket/
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
 import 'package:paurakhi/src/core/API/otp/otpconfirm.dart';
+import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/providers/language_provider.dart';
 import 'package:paurakhi/src/core/providers/location_provider.dart';
@@ -47,14 +48,17 @@ class ProfileScreen extends StatelessWidget {
                       SlidingSwitch(
                         value: false,
                         width: 80,
-                        onChanged: (bool value) {
+                        onChanged: (bool value) async {
+                          Locale en = const Locale("en");
+                          Locale ne = const Locale("ne");
                           if (value) {
-                            Provider.of<LocalizationProvider>(context, listen: false).changeLocale(const Locale('ne'));
-                            print(value);
+                            await LocalizationManager.setCurrentLocale(ne);
+                            LoginDialogs().showIncorrectPassword1(context);
                           } else {
-                            Provider.of<LocalizationProvider>(context, listen: false).changeLocale(const Locale('en'));
-                            print(value);
+                            await LocalizationManager.setCurrentLocale(en);
+                            LoginDialogs().showIncorrectPassword1(context);
                           }
+                          print(value);
                         },
                         height: 40,
                         animationDuration: const Duration(milliseconds: 200),

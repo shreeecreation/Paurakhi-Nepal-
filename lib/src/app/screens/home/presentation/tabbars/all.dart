@@ -113,7 +113,6 @@ class _AllState extends State<All> {
   }
 }
 
-// final GlobalKey<_AllState> key = GlobalKey<_AllState>();
 
 class All1 extends StatefulWidget {
   final String category;
