@@ -13,6 +13,9 @@ class AllAPIEndPoint {
   static String resetPasswordAPI = "/auth/user/forgot-password";
   static String resetPasswordOTP = "/verify/forgot-password";
   static String resetPassword = "/auth/user/reset-password";
+
+static String resendOTP = "auth/";
+
   static String openTicketAPI = "/ticket/create-ticket";
   static String listingsAndGreetings = "/mobile-info";
   static String searchAPI = "/product/get-product?";
@@ -27,5 +30,6 @@ class AllAPIEndPoint {
 
 
 static String notificationAPI = "notification/subscribe-user";
+static String getnotificationAPI = "notification/get-notification";
   // static String getGrantAPI = "/";
 }

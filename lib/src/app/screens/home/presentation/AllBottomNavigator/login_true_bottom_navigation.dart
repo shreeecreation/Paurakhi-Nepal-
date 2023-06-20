@@ -85,7 +85,7 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                 child: Material(
                   // Wrap with Material widget
-                  elevation: 8.0, // Set the desired elevation value
+                  elevation: 16.0, // Set the desired elevation value
                   borderRadius: const BorderRadius.all(Radius.circular(25)),
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(25)),
@@ -93,10 +93,16 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
                       type: BottomNavigationBarType.fixed,
                       unselectedItemColor: const Color(0xFF828282),
                       items: <BottomNavigationBarItem>[
-                        _buildRoundedIconBottomNavigationBarItem(Icons.notifications_active_outlined),
-                        _buildRoundedIconBottomNavigationBarItem(Icons.home_outlined),
+                        _selectedIndex == 0
+                            ? _buildRoundedIconBottomNavigationBarItem(Icons.notifications_active)
+                            : _buildRoundedIconBottomNavigationBarItem(Icons.notifications_active_outlined),
+                        _selectedIndex == 1
+                            ? _buildRoundedIconBottomNavigationBarItem(Icons.home)
+                            : _buildRoundedIconBottomNavigationBarItem(Icons.home_outlined),
                         _buildRoundedIconBottomNavigationBarItem(Icons.add),
-                        _buildRoundedIconBottomNavigationBarItem(Icons.person),
+                        _selectedIndex == 3
+                            ? _buildRoundedIconBottomNavigationBarItem(Icons.person)
+                            : _buildRoundedIconBottomNavigationBarItem(Icons.person_outline),
                       ],
                       currentIndex: _selectedIndex,
                       unselectedLabelStyle: const TextStyle(fontSize: 0.5),

@@ -19,6 +19,7 @@ import 'src/app/screens/search/bloc/search_bloc.dart';
 import 'src/core/API/Notification API/notification_api.dart';
 import 'src/core/API/userIfno/getuserinfo.dart';
 import 'src/core/InitiallMethod/intial_method.dart';
+import 'src/core/providers/language_provider.dart';
 import 'src/core/providers/location_provider.dart';
 import 'src/core/utils/focuesnode.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -35,10 +36,10 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocationProvider()),
+          ChangeNotifierProvider(create: (_) => LocalizationProvider()),
           ChangeNotifierProvider(create: (_) => NetworkProvider()),
         ],
         child: MultiBlocProvider(
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
               child: SafeArea(
                 child: GetMaterialApp(
                   supportedLocales: L10n.all,
-                  locale: const Locale('ne'), // Set the locale to Nepali ('ne')
+                  locale: const Locale("en"), // Set the locale to Nepali ('ne')
 
                   localizationsDelegates: const [
                     AppLocalizations.delegate,

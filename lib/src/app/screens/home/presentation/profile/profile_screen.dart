@@ -5,15 +5,16 @@ import 'package:paurakhi/src/app/screens/home/presentation/history/Grant%20Histo
 import 'package:paurakhi/src/app/screens/home/presentation/history/Quotation%20Hisotry/quotation_history_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/history/get%20ticket/getticket_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
-import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
 import 'package:paurakhi/src/core/API/otp/otpconfirm.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
+import 'package:paurakhi/src/core/providers/language_provider.dart';
 import 'package:paurakhi/src/core/providers/location_provider.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:provider/provider.dart';
+import 'package:sliding_switch/sliding_switch.dart';
 import 'bloc/profile_bloc.dart';
 import 'changepassword.dart';
 import 'editprofile.dart';
@@ -22,7 +23,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -31,11 +31,50 @@ class ProfileScreen extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
             const SizedBox(height: 20),
-            Row(
-              children: [
-                const SizedBox(width: 20),
-                Text(AppLocalizations.of(context)!.profile, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
-              ],
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const SizedBox(width: 20),
+                      Text(AppLocalizations.of(context)!.profile, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SlidingSwitch(
+                        value: false,
+                        width: 80,
+                        onChanged: (bool value) {
+                          if (value) {
+                            Provider.of<LocalizationProvider>(context, listen: false).changeLocale(const Locale('ne'));
+                            print(value);
+                          } else {
+                            Provider.of<LocalizationProvider>(context, listen: false).changeLocale(const Locale('en'));
+                            print(value);
+                          }
+                        },
+                        height: 40,
+                        animationDuration: const Duration(milliseconds: 200),
+                        onTap: () {},
+                        onDoubleTap: () {},
+                        onSwipe: () {},
+                        textOff: "EN",
+                        textOn: "NE",
+                        contentSize: 15,
+                        colorOn: const Color(0xffdc6c73),
+                        colorOff: const Color(0xff6682c0),
+                        background: const Color(0xffe4e5eb),
+                        buttonColor: const Color(0xfff7f5f7),
+                        inactiveColor: const Color(0xff636f7b),
+                      ),
+                      const SizedBox(width: 30),
+                    ],
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 15),
             BlocBuilder<ProfileBloc, ProfileState>(

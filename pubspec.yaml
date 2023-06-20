@@ -56,8 +56,11 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
 
   cached_network_image: ^3.2.3
+  
   eventsource: ^0.4.0
-  sse_channel: ^0.0.3
+  toggle_switch: ^2.1.0
+
+  sliding_switch: ^1.1.0
 
 flutter_icons:
   android: true

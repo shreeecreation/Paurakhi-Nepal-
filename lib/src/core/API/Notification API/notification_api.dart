@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:eventsource/eventsource.dart';
 import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
@@ -26,7 +28,7 @@ class SSEManager {
           final notification = event.data;
 
           // Add the notification to the list
-          
+
           notificationList.add(notification ?? "abcd");
 
           print('New notification: $notification');
@@ -42,34 +44,18 @@ class SSEManager {
         await Future.delayed(const Duration(seconds: 5)); // Delay before reconnecting
       }
     }
-    // }
-// static http.Client client = http.Client();
-//   static void startListening()async {
-//      print("Subscribing..");
-//      var cookie = await ManageCookie.getCookie();
-//     final headers = {'Cookie': cookie};
+  }
+}
 
-//   try {
-
-//   var request = new http.Request("GET",
-//           Uri.parse("${Environment.apiUrl}/${AllAPIEndPoint.notificationAPI}"),
-
-//   );
-//   request.headers["Cache-Control"] = "no-cache";
-//   request.headers["Accept"] = "text/event-stream";
-
-//   Future<http.StreamedResponse> response = client.send(request);
-
-//   response.asStream().listen((streamedResponse) {
-//     print("Received streamedResponse.statusCode:${streamedResponse.statusCode}");
-//     streamedResponse.stream.listen((data) {
-//       print("Received data:$data");
-//     });
-
-//   });
-// } catch(e) {
-//   print("Caught $e");
-//   }
-//   }
+class GetNotificationAPI {
+  static Future<void> getNotification() async {
+    var cookie = await ManageCookie.getCookie();
+    try {
+      final response = await http.get(
+        Uri.parse('${Environment.apiUrl}/$AllAPIEndPoint'),
+        headers: {'Cookie': cookie}, // Replace with your headers if needed
+      );
+      Map<String, dynamic> body = jsonDecode(response.body);
+    } catch (e) {}
   }
 }

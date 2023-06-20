@@ -15,7 +15,6 @@ class EditProfile {
       'firstName': editModel.firstName,
       'lastName': editModel.lastName,
       "address": editModel.address,
-      "phoneNumber": editModel.phoneNo,
       "twoFactor": editModel.twoFactor
     };
     var cookie = await ManageCookie.getCookie();
