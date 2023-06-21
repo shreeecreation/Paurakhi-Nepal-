@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/API/otp/otpconfirm.dart';
 import 'package:paurakhi/src/core/countdowntimer/countdowntimer.dart';
-import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
+import 'package:paurakhi/src/core/dialogs/auth/alldialogs.dart';
 import 'package:pinput/pinput.dart';
 
 // ignore: must_be_immutable

@@ -4,7 +4,7 @@ import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:http/http.dart' as http;
-import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
+import 'package:paurakhi/src/core/dialogs/auth/alldialogs.dart';
 
 class ChangePasswordAPI {
   static Future<http.Response?> changePasword(String oldPass, String newPass, BuildContext context) async {
@@ -28,7 +28,7 @@ class ChangePasswordAPI {
         return response;
       } else if (code == 400) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          LoginDialogs().showIncorrectPassword(context);
+          LoginDialogs.showIncorrectPassword(context);
         });
       } else if (code == 500) {}
       return null;

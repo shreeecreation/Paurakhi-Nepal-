@@ -207,7 +207,7 @@ class _CreateScreenState extends State<CreateScreen> {
                 model.password = passwordController.text;
                 model.email = emailController.text;
                 // print(image!.path);
-                model.image = image!;
+                model.image = image ?? "";
                 var response = await RegisterAPI.registerAPI(model);
                 var data = response?.body;
                 var cookieHeader = response!.headers['set-cookie'];

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http_parser/http_parser.dart' as parser;
 
 import 'package:path/path.dart';
@@ -7,13 +8,15 @@ import 'package:path/path.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/model/product_model.dart';
 import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
+import 'package:paurakhi/src/core/dialogs/auth/alldialogs.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:http/http.dart' as http;
 
 class SellProductAPI {
-  static Future<http.Response?> sellProduct(SellProductModel model) async {
+  static Future<http.Response?> sellProduct(SellProductModel model, context) async {
     final requestModel = model;
     var cookie = await ManageCookie.getCookie();
+    model.category++;
 // add files
     try {
       final request = http.MultipartRequest(
@@ -44,11 +47,14 @@ class SellProductAPI {
 
       request.headers['cookie'] = cookie;
       var response = await request.send();
-
+      print(response.statusCode);
+      // print(response.body);
       if (response.statusCode == 200) {
         var responseBody = await response.stream.bytesToString(); // read the response body as a string
         var decodedResponse = jsonDecode(responseBody); // decode the response body from JSON if necessary
-        print('Success! Response body: $decodedResponse');
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          LoginDialogs.productCreated(context);
+        });
       }
     } catch (e) {
       print(e);

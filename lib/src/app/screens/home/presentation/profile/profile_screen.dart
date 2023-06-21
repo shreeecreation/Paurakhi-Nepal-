@@ -7,7 +7,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/history/get%20ticket/
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
 import 'package:paurakhi/src/core/API/otp/otpconfirm.dart';
-import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
+import 'package:paurakhi/src/core/dialogs/auth/alldialogs.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/providers/language_provider.dart';
 import 'package:paurakhi/src/core/providers/location_provider.dart';
@@ -45,34 +45,49 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      SlidingSwitch(
-                        value: false,
-                        width: 80,
-                        onChanged: (bool value) async {
-                          Locale en = const Locale("en");
-                          Locale ne = const Locale("ne");
-                          if (value) {
-                            await LocalizationManager.setCurrentLocale(ne);
-                            LoginDialogs().showIncorrectPassword1(context);
+                      FutureBuilder<String>(
+                        future: LocalizationManager.getCurrentLocale(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final String currentLocale = snapshot.data!;
+                            final bool isNepali = currentLocale == 'ne';
+
+                            return SlidingSwitch(
+                                value: isNepali,
+                                width: 80,
+                                onChanged: (bool value) async {
+                                  Locale en = const Locale("en");
+                                  Locale ne = const Locale("ne");
+                                  if (value) {
+                                    await LocalizationManager.setCurrentLocale(ne);
+                                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                                      LoginDialogs.changeLangauge(context);
+                                    });
+                                  } else {
+                                    await LocalizationManager.setCurrentLocale(en);
+                                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                                      LoginDialogs.changeLangauge(context);
+                                    });
+                                  }
+                                },
+                                height: 40,
+                                animationDuration: const Duration(milliseconds: 200),
+                                onTap: () {},
+                                onDoubleTap: () {},
+                                onSwipe: () {},
+                                textOff: "EN",
+                                textOn: "NE",
+                                contentSize: 15,
+                                colorOn: const Color(0xffdc6c73),
+                                colorOff: const Color(0xff6682c0),
+                                background: const Color(0xffe4e5eb),
+                                buttonColor: const Color(0xfff7f5f7),
+                                inactiveColor: const Color(0xff636f7b));
                           } else {
-                            await LocalizationManager.setCurrentLocale(en);
-                            LoginDialogs().showIncorrectPassword1(context);
+                            // Handle loading state
+                            return const CircularProgressIndicator();
                           }
-                          print(value);
                         },
-                        height: 40,
-                        animationDuration: const Duration(milliseconds: 200),
-                        onTap: () {},
-                        onDoubleTap: () {},
-                        onSwipe: () {},
-                        textOff: "EN",
-                        textOn: "NE",
-                        contentSize: 15,
-                        colorOn: const Color(0xffdc6c73),
-                        colorOff: const Color(0xff6682c0),
-                        background: const Color(0xffe4e5eb),
-                        buttonColor: const Color(0xfff7f5f7),
-                        inactiveColor: const Color(0xff636f7b),
                       ),
                       const SizedBox(width: 30),
                     ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
 import 'package:paurakhi/src/core/API/ChangePassword/change_password_api.dart';
-import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
+import 'package:paurakhi/src/core/dialogs/auth/alldialogs.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 

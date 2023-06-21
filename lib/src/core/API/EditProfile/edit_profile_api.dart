@@ -5,7 +5,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/profile/model/edit_pr
 import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/API/userIfno/getuserinfo.dart';
-import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
+import 'package:paurakhi/src/core/dialogs/auth/alldialogs.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 
 class EditProfile {

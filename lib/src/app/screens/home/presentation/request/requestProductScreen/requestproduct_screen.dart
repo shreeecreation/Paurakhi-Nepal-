@@ -62,7 +62,7 @@ void requestProduct(BuildContext context) {
                         children: [
                           const SizedBox(width: 5),
                           FutureBuilder<List<DropdownMenuItem<String>>>(
-                            future: DropdownList.returnDropdown(),
+                            future: DropdownList.returnDropdownforAdding(),
                             builder: (context, snapshot) {
                               List<DropdownMenuItem<String>>? menuItems = snapshot.data;
                               if (menuItems != null) {
@@ -112,7 +112,14 @@ void requestProduct(BuildContext context) {
                                   //TODO request screen
                                   if (formKeyRequestProduct.currentState!.validate()) {
                                     RequestProductModel model = RequestProductModel(
-                                        titleController.text, "request", descriptionController.text, DropdownList.dropDownIndex, 10, 10,MultipleImageChooser.images,);
+                                      titleController.text,
+                                      "request",
+                                      descriptionController.text,
+                                      DropdownList.dropDownIndex,
+                                      10,
+                                      10,
+                                      MultipleImageChooser.images,
+                                    );
                                     await RequestProductAPI.sellProduct(model);
 
                                     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -208,7 +215,7 @@ Padding productPrice(BuildContext context, controller) {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
-          hintText:AppLocalizations.of(context)!.product_price,
+          hintText: AppLocalizations.of(context)!.product_price,
         ),
       ),
     ),

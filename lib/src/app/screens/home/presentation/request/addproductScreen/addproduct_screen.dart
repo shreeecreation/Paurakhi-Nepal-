@@ -63,7 +63,7 @@ void addProduct(BuildContext context) {
                             children: [
                               const SizedBox(width: 5),
                               FutureBuilder<List<DropdownMenuItem<String>>>(
-                                future: DropdownList.returnDropdown(),
+                                future: DropdownList.returnDropdownforAdding(),
                                 builder: (context, snapshot) {
                                   List<DropdownMenuItem<String>>? menuItems = snapshot.data;
                                   if (menuItems != null) {
@@ -127,7 +127,7 @@ void addProduct(BuildContext context) {
                                 height: 50,
                                 width: MediaQuery.of(context).size.width - 50,
                                 child: ElevatedButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       //TODO add product function
                                       if (formKeyAddProduct.currentState!.validate()) {
                                         SellProductModel model = SellProductModel(
@@ -139,7 +139,7 @@ void addProduct(BuildContext context) {
                                             MultipleImageChooser.images,
                                             int.parse(productMinQtyController.text),
                                             int.parse(productPriceController.text));
-                                        SellProductAPI.sellProduct(model);
+                                        SellProductAPI.sellProduct(model, context);
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
@@ -242,6 +242,7 @@ Padding minQty(BuildContext context, controller) {
     child: SizedBox(
       width: MediaQuery.of(context).size.width / 3,
       child: TextFormField(
+        keyboardType: TextInputType.number,
         controller: controller,
         validator: (val) {
           if (!ExtString.validateMinQty(val!)) return AppLocalizations.of(context)!.enter_a_vaid_quantity;

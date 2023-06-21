@@ -33,6 +33,8 @@ class HomeScreen extends StatelessWidget {
               return RefreshIndicator(
                 onRefresh: () {
                   BlocProvider.of<SearchBloc>(context).add(ResetStartEvent());
+                  BlocProvider.of<SearchBloc>(context).add(SearchInitialEvent());
+
                   return Future.delayed(const Duration(seconds: 1));
                 },
                 child: mainWidget(context, userName),
@@ -57,6 +59,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget mainWidget(BuildContext context, String userName) {
+    print("Dasdasd");
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       child: SizedBox(

@@ -11,6 +11,16 @@ class DropdownList {
     return list;
   }
 
+  static Future<List<DropdownMenuItem<String>>> returnDropdownforAdding() async {
+    List<DropdownMenuItem<String>> list = await DropDownAPI.dropdownAPI();
+
+    if (list.isNotEmpty) {
+      list.removeAt(0);
+    }
+
+    return list;
+  }
+
   static Widget dropdownButton(BuildContext context, String? selectedValue, List<DropdownMenuItem<String>> menuItems) {
     return Center(
       child: SizedBox(

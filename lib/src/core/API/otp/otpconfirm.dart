@@ -5,7 +5,7 @@ import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managelogincookie.dart';
 import 'package:paurakhi/src/core/API/ForgotPasswordAPI/reset_pass_screen.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
-import 'package:paurakhi/src/core/dialogs/auth/logindialogs.dart';
+import 'package:paurakhi/src/core/dialogs/auth/alldialogs.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
 

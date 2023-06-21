@@ -7,5 +7,5 @@ class RegisterModel {
   var phoneNo = "";
   var address = "";
   var email = "";
-  File? image;
+  var image;
 }

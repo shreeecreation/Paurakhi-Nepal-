@@ -50,6 +50,8 @@ class SSEManager {
 class GetNotificationAPI {
   static Future<void> getNotification() async {
     var cookie = await ManageCookie.getCookie();
+
+
     try {
       final response = await http.get(
         Uri.parse('${Environment.apiUrl}/${AllAPIEndPoint.getnotificationAPI}'),

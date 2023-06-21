@@ -16,7 +16,6 @@ import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
 import 'src/app/screens/home/presentation/request/bloc/getprdouct_bloc.dart';
 import 'src/app/screens/internetandSetverError/check_internet_connection.dart';
 import 'src/app/screens/search/bloc/search_bloc.dart';
-import 'src/core/API/Notification API/notification_api.dart';
 import 'src/core/API/userIfno/getuserinfo.dart';
 import 'src/core/InitiallMethod/intial_method.dart';
 import 'src/core/providers/language_provider.dart';

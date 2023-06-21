@@ -23,7 +23,6 @@ class DropDownAPI {
       List<dynamic> categories = responseMap['data'];
 
       var code = response.statusCode;
-      print(response.body);
       if (code == 200) {
         for (var category in categories) {
           allCategory.add(
@@ -42,7 +41,7 @@ class DropDownAPI {
   static Future<List<DropdownMenuItem>> categoryAPI() async {
     var cookie = await ManageCookie.getCookie();
     List<DropdownMenuItem> allCategory = [
-      const DropdownMenuItem(value: '', child: Text('All')),
+      const DropdownMenuItem(value: 'all', child: Text('All')),
     ];
 
     final url = Uri.parse('${Environment.apiUrl}/category/get-category');
