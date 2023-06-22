@@ -14,7 +14,7 @@ class DropDownAPI {
       const DropdownMenuItem(value: '', child: Text('All')),
     ];
 
-    final url = Uri.parse('${Environment.apiUrl}/category/get-category'); // Replace with your API endpoint URL
+    final url = Uri.parse('${Environment.apiUrl}/category/get-category');
     try {
       final response = await http.get(url, headers: {
         'Cookie': cookie,
@@ -24,17 +24,30 @@ class DropDownAPI {
 
       var code = response.statusCode;
       if (code == 200) {
+        var categoryValues = <String>{};
         for (var category in categories) {
-          allCategory.add(
-            DropdownMenuItem(
-              value: category['id'].toString(),
-              child: Text(category['name']),
-            ),
-          );
+          var categoryId = category['id'].toString();
+          // Skip categories with duplicate values
+          if (!categoryValues.contains(categoryId)) {
+            allCategory.add(
+              DropdownMenuItem(
+                value: categoryId,
+                child: Text(category['name']),
+              ),
+            );
+            categoryValues.add(categoryId);
+          }
+        }
+        for (var item in allCategory) {
+          print('Key: ${item.value}, Value: ${item.child}');
         }
         return allCategory;
-      } else {}
-    } catch (e) {}
+      } else {
+        // Handle the case when the response code is not 200
+      }
+    } catch (e) {
+      // Handle any exceptions that occur during the API call
+    }
     return allCategory;
   }
 

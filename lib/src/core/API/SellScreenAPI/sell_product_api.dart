@@ -50,8 +50,6 @@ class SellProductAPI {
       print(response.statusCode);
       // print(response.body);
       if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString(); // read the response body as a string
-        var decodedResponse = jsonDecode(responseBody); // decode the response body from JSON if necessary
         WidgetsBinding.instance.addPostFrameCallback((_) {
           LoginDialogs.productCreated(context);
         });

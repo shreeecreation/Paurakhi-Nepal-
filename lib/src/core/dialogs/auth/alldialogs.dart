@@ -53,25 +53,23 @@ class LoginDialogs {
   // }
 
   static Future<Object?> showIncorrectPassword(BuildContext context) {
-    return AwesomeDialog(
+    late final dialog = AwesomeDialog(
       context: context,
       animType: AnimType.scale,
+      dismissOnTouchOutside: false,
+      headerAnimationLoop: false,
       dialogType: DialogType.error,
-      closeIcon: IconButton(onPressed: () {}, icon: const Icon(Icons.close, color: AppColors.statusRed)),
-      body: Center(
-          child: Column(
-        children: [
-          const Text("Incorrect number and password !"),
-          ElevatedButton(
-              onPressed: () {
-                // Restart.restartApp();
-                Navigator.pop(context);
-              },
-              child: const Text("Try Again"))
-        ],
-      )),
+      bodyHeaderDistance: 30,
+      desc: 'Incorrect number and password!',
+      titleTextStyle: AppStyles.text20PxSemiBold,
+      descTextStyle: AppStyles.text16Px,
+      btnOkOnPress: () {
+        Navigator.of(context).pop();
+      },
       title: 'Retry',
-    ).show();
+    );
+
+    return dialog.show();
   }
 
   static Future<Object?> changeLangauge(BuildContext context) {

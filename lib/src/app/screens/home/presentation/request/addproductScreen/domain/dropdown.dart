@@ -7,21 +7,21 @@ class DropdownList {
   static List<DropdownMenuItem> allCategory = [];
   static Future<List<DropdownMenuItem<String>>> returnDropdown() async {
     List<DropdownMenuItem<String>> list = await DropDownAPI.dropdownAPI();
-
     return list;
   }
 
   static Future<List<DropdownMenuItem<String>>> returnDropdownforAdding() async {
     List<DropdownMenuItem<String>> list = await DropDownAPI.dropdownAPI();
-
-    if (list.isNotEmpty) {
-      list.removeAt(0);
-    }
-
+    list.removeAt(0);
     return list;
   }
 
-  static Widget dropdownButton(BuildContext context, String? selectedValue, List<DropdownMenuItem<String>> menuItems) {
+  static Widget dropdownButton(BuildContext context, List<DropdownMenuItem<String>> menuItems) {
+
+  String? selectedValue;
+    if (menuItems.isNotEmpty) {
+      selectedValue = menuItems.first.value;
+    }
     return Center(
       child: SizedBox(
         height: 60,
@@ -39,7 +39,7 @@ class DropdownList {
               filled: true,
               fillColor: const Color(0xFFFFFFFF),
             ),
-            validator: (value) => value == null ? "Farming Product" : null,
+            validator: (value) => value == null ? "All" : null,
             dropdownColor: const Color(0xFFFFFFFF),
             value: selectedValue,
             onChanged: (String? newValue) {

@@ -66,7 +66,7 @@ void requestProduct(BuildContext context) {
                             builder: (context, snapshot) {
                               List<DropdownMenuItem<String>>? menuItems = snapshot.data;
                               if (menuItems != null) {
-                                return DropdownList.dropdownButton(context, "1", menuItems);
+                                return DropdownList.dropdownButton(context, menuItems);
                               } else {
                                 return const CircularProgressIndicator();
                               }

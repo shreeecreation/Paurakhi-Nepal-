@@ -30,7 +30,7 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
       return;
     }
     if (index == 0) {
-      GetNotificationAPI.getNotification();
+      GetNotificationAPI.getNotification(1);
     }
     setState(() {
       if (index == 2) {

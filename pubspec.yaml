@@ -64,6 +64,7 @@ dependencies:
   restart_app: ^1.2.1
   awesome_dialog: ^3.1.0
   cupertino_icons: ^1.0.2
+  flutter_local_notifications: ^14.1.1
 
 flutter_icons:
   android: true

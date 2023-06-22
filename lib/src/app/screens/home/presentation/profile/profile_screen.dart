@@ -339,6 +339,7 @@ Padding logOut(BuildContext context) {
 }
 
 Widget userProfile(context) {
+  print(Profile.picture);
   print("${Environment.apiUrl}/public/images/${Profile.picture}");
   return SizedBox(
       height: 150,
@@ -357,12 +358,12 @@ Widget userProfile(context) {
                 width: 90,
                 child: CircleAvatar(
                   radius: 80,
-                  backgroundImage: Profile.picture != null || Profile.picture != ""
-                      ? Image.network(
+                  backgroundImage: Profile.picture == null || Profile.picture == ""
+                      ? Image.asset("assets/images/logo2.png").image : Image.network(
                           "${Environment.apiUrl}/public/images/${Profile.picture}",
                           fit: BoxFit.fill,
-                        ).image
-                      : Image.asset("assets/images/logo2.png").image,
+                        ).image,
+                      
                 )),
             const SizedBox(width: 30),
             Column(

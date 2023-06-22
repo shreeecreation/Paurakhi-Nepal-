@@ -1,10 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:eventsource/eventsource.dart';
 import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
+
+import 'in_app_notification.dart';
+import 'model/notification_model.dart';
 
 class SSEManager {
   static List<String> notificationList = [];
@@ -30,7 +34,7 @@ class SSEManager {
           // Add the notification to the list
 
           notificationList.add(notification ?? "abcd");
-
+          InAppNotification.showInAppNotification('New Notification', "dasdjasjdk");
           print('New notification: $notification');
         });
 
@@ -48,17 +52,23 @@ class SSEManager {
 }
 
 class GetNotificationAPI {
-  static Future<void> getNotification() async {
+  static Future<List<NotificationModel>> getNotification(int page) async {
     var cookie = await ManageCookie.getCookie();
-
 
     try {
       final response = await http.get(
-        Uri.parse('${Environment.apiUrl}/${AllAPIEndPoint.getnotificationAPI}'),
-        headers: {'Cookie': cookie}, // Replace with your headers if needed
+        Uri.parse('${Environment.apiUrl}/${AllAPIEndPoint.getnotificationAPI}?page=$page'),
+        headers: {'Cookie': cookie},
       );
-      Map<String, dynamic> body = jsonDecode(response.body);
-      print(body);
-    } catch (e) {}
+      if (response.statusCode == 200) {
+        List<dynamic> jsonList = jsonDecode(response.body)['data'];
+        List<NotificationModel> notifications = jsonList.map((json) => NotificationModel.fromJson(json)).toList();
+        return notifications;
+      } else {
+        throw Exception('Failed to fetch notifications. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch notifications: $e');
+    }
   }
 }
