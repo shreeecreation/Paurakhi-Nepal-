@@ -24,6 +24,9 @@
 "change_password":"Change Password",
 "history":"History",
 "logout":"Log Out",
+"choose_profile":"Choose Profile",
+"view_profile":"View Profile",
+
 
 		"welcome_back":"Welcome back",
 	"login_to_continue":"Login to continue",

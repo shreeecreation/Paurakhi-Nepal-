@@ -5,6 +5,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/history/Grant%20Histo
 import 'package:paurakhi/src/app/screens/home/presentation/history/Quotation%20Hisotry/quotation_history_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/history/get%20ticket/getticket_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/logout/logout.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/request/request_screen.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
 import 'package:paurakhi/src/core/API/otp/otpconfirm.dart';
 import 'package:paurakhi/src/core/dialogs/auth/alldialogs.dart';
@@ -51,7 +52,6 @@ class ProfileScreen extends StatelessWidget {
                           if (snapshot.hasData) {
                             final String currentLocale = snapshot.data!;
                             final bool isNepali = currentLocale == 'ne';
-
                             return SlidingSwitch(
                                 value: isNepali,
                                 width: 80,
@@ -120,7 +120,6 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 10),
             quotationhistory(context),
             financeenrquiry(context),
-            notificationHistory(context),
             openTicketHistory(context),
             grantHistory(context),
             const SizedBox(height: 10),
@@ -278,24 +277,6 @@ Padding grantHistory(BuildContext context) {
   );
 }
 
-Padding notificationHistory(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: SizedBox(
-      width: MediaQuery.of(context).size.width - 30,
-      child: ListTile(
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-        tileColor: Colors.white,
-        title: Text(AppLocalizations.of(context)!.notification),
-        trailing: const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
-        onTap: () {
-          quotationHistoryScreen(context);
-        },
-      ),
-    ),
-  );
-}
-
 Padding isVerified(BuildContext context) {
   bool a = IsVerify.isVerify;
   return Padding(
@@ -339,8 +320,12 @@ Padding logOut(BuildContext context) {
 }
 
 Widget userProfile(context) {
-  print(Profile.picture);
-  print("${Environment.apiUrl}/public/images/${Profile.picture}");
+  var profileImage = Profile.picture == "" 
+      ? Image.asset("assets/images/logo2.png").image
+      : Image.network(
+          "${Environment.apiUrl}/public/images/${Profile.picture}",
+          fit: BoxFit.fill,
+        ).image;
   return SizedBox(
       height: 150,
       width: MediaQuery.of(context).size.width - 40,
@@ -353,18 +338,19 @@ Widget userProfile(context) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-                height: 90,
-                width: 90,
-                child: CircleAvatar(
-                  radius: 80,
-                  backgroundImage: Profile.picture == null || Profile.picture == ""
-                      ? Image.asset("assets/images/logo2.png").image : Image.network(
-                          "${Environment.apiUrl}/public/images/${Profile.picture}",
-                          fit: BoxFit.fill,
-                        ).image,
-                      
-                )),
+            GestureDetector(
+              onTap: () {
+              if(Profile.picture == "" ){
+                requestBottomSheetEditProfile(context, "assets/images/logo2.png",false);
+              
+              }
+              else{
+              
+                requestBottomSheetEditProfile(context,  "${Environment.apiUrl}/public/images/${Profile.picture}",true);
+              }
+              },
+              child: SizedBox(height: 90, width: 90, child: CircleAvatar(radius: 80, backgroundImage: profileImage)),
+            ),
             const SizedBox(width: 30),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -3,7 +3,7 @@ class AllAPIEndPoint {
   static String getCategory = "/category/get-category?";
 
   static String loginAPI = "/auth/user/login";
-  
+
   static String editProfileAPI = "/user/edit-profile";
   static String registerAPI = "";
   static String getUserInfoAPI = "";
@@ -14,7 +14,7 @@ class AllAPIEndPoint {
   static String resetPasswordOTP = "/verify/forgot-password";
   static String resetPassword = "/auth/user/reset-password";
 
-static String resendOTP = "auth/";
+  static String resendOTP = "auth/";
 
   static String openTicketAPI = "/ticket/create-ticket";
   static String listingsAndGreetings = "/mobile-info";
@@ -28,8 +28,9 @@ static String resendOTP = "auth/";
 
   static String createGrant = "/grant/create-grant";
 
+  static String uploadProfile = "user/profile-picture";
 
-static String notificationAPI = "notification/subscribe-user";
-static String getnotificationAPI = "notification/get-notification";
+  static String notificationAPI = "notification/subscribe-user";
+  static String getnotificationAPI = "notification/get-notification";
   // static String getGrantAPI = "/";
 }
