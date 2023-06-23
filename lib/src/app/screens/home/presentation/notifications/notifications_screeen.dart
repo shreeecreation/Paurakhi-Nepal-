@@ -8,10 +8,10 @@ class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
 
   @override
-  _NotificationScreenState createState() => _NotificationScreenState();
+  NotificationScreenState createState() => NotificationScreenState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
+class NotificationScreenState extends State<NotificationScreen> {
   final List<NotificationModel> _notifications = [];
   int _currentPage = 1;
   bool _isLoading = false;
@@ -34,7 +34,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         _currentPage++;
       });
     } catch (e) {
-      print('Error fetching notifications: $e');
+      debugPrint('Error fetching notifications: $e');
     } finally {
       setState(() {
         _isLoading = false;
@@ -68,14 +68,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           onTap: _loadNotifications,
                           child: const Padding(
                             padding: EdgeInsets.all(16.0),
-                            child: Text(
-                              'Load More',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue,
-                              ),
-                            ),
+                            child: Text('Load More', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.blue))
                           ),
                         );
                       }

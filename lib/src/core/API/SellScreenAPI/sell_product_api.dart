@@ -14,7 +14,6 @@ import 'package:http/http.dart' as http;
 
 class SellProductAPI {
   static Future<http.Response?> sellProduct(SellProductModel model, context) async {
-    final requestModel = model;
     var cookie = await ManageCookie.getCookie();
     model.category++;
 // add files
@@ -28,13 +27,8 @@ class SellProductAPI {
         var file = model.image[i];
         var stream = file.openRead().cast<List<int>>(); // cast the stream to a Stream<List<int>>
         var length = await file.length();
-        var multipartFile = http.MultipartFile(
-          'images',
-          stream,
-          length,
-          filename: basename(file.path),
-          contentType: parser.MediaType('image', 'jpeg'),
-        );
+        var multipartFile =
+            http.MultipartFile('images', stream, length, filename: basename(file.path), contentType: parser.MediaType('image', 'jpeg'));
         request.files.add(multipartFile);
       }
       request.fields['name'] = model.name;

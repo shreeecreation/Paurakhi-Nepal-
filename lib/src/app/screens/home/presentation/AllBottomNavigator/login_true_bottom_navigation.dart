@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/homescreen/home_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/notifications/notifications_screeen.dart';
 import 'package:paurakhi/src/core/API/Notification%20API/notification_api.dart';
@@ -30,6 +31,8 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
       return;
     }
     if (index == 0) {
+      NotificationCountController notificationController = Get.find<NotificationCountController>();
+      notificationController.resetNotificationCount();
       GetNotificationAPI.getNotification(1);
     }
     setState(() {
@@ -97,20 +100,20 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
                       unselectedItemColor: const Color(0xFF828282),
                       items: <BottomNavigationBarItem>[
                         _selectedIndex == 0
-                            ? _buildRoundedIconBottomNavigationBarItem(Icons.notifications_active)
-                            : _buildRoundedIconBottomNavigationBarItem(Icons.notifications_active_outlined),
+                            ? _buildRoundedIconBottomNavigationBarItemActive(Icons.notifications_active)
+                            : _buildRoundedIconBottomNavigationBarItemNotification(Icons.notifications_active_outlined),
                         _selectedIndex == 1
-                            ? _buildRoundedIconBottomNavigationBarItem(Icons.home)
+                            ? _buildRoundedIconBottomNavigationBarItemActive(Icons.home)
                             : _buildRoundedIconBottomNavigationBarItem(Icons.home_outlined),
                         _buildRoundedIconBottomNavigationBarItem(Icons.add),
                         _selectedIndex == 3
-                            ? _buildRoundedIconBottomNavigationBarItem(Icons.person)
+                            ? _buildRoundedIconBottomNavigationBarItemActive(Icons.person)
                             : _buildRoundedIconBottomNavigationBarItem(Icons.person_outline),
                       ],
                       currentIndex: _selectedIndex,
                       unselectedLabelStyle: const TextStyle(fontSize: 0.5),
                       selectedLabelStyle: const TextStyle(fontSize: 0.5),
-                      selectedItemColor: Colors.green,
+                      selectedItemColor: Colors.white,
                       onTap: _onItemTapped,
                       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                     ),
@@ -130,4 +133,66 @@ BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItem(IconData icon) 
     icon: Padding(padding: const EdgeInsets.all(8.0), child: Icon(icon, size: 30)),
     label: "",
   );
+}
+
+BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItemActive(IconData icon) {
+  return BottomNavigationBarItem(
+    icon: Container(
+      height: 35,
+      width: 35,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.green,
+      ),
+      child: Center(child: Icon(icon, size: 20)),
+    ),
+    label: "",
+  );
+}
+
+BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItemNotification(IconData icon) {
+  return BottomNavigationBarItem(
+    icon: GetX<NotificationCountController>(
+      init: Get.find<NotificationCountController>(),
+      builder: (controller) {
+        int notificationCount = controller.notificationCount.value;
+        return Stack(
+          children: [
+            Icon(icon),
+            if (notificationCount > 0)
+              Positioned(
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+                  child: Text(
+                    notificationCount.toString(),
+                    style: const TextStyle(color: Colors.white, fontSize: 10),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
+    ),
+    label: '',
+  );
+}
+
+class NotificationCountController extends GetxController {
+  RxInt notificationCount = 0.obs;
+
+  void incrementNotificationCount()async {
+    notificationCount.value++; // Increment the value by 1
+  
+  }
+
+  void resetNotificationCount() {
+    notificationCount.value = 0;
+  }
 }

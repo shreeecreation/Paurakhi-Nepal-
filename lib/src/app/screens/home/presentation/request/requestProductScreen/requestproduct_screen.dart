@@ -61,17 +61,20 @@ void requestProduct(BuildContext context) {
                       Row(
                         children: [
                           const SizedBox(width: 5),
-                          FutureBuilder<List<DropdownMenuItem<String>>>(
-                            future: DropdownList.returnDropdownforAdding(),
-                            builder: (context, snapshot) {
-                              List<DropdownMenuItem<String>>? menuItems = snapshot.data;
-                              if (menuItems != null) {
-                                return DropdownList.dropdownButton(context, menuItems);
-                              } else {
-                                return const CircularProgressIndicator();
-                              }
-                            },
-                          ),
+                      FutureBuilder<List<DropdownMenuItem<String>>>(
+                                future: DropdownList.returnDropdownforAdding(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    List<DropdownMenuItem<String>>? menuItems = snapshot.data;
+                                    print(menuItems);
+                                    return DropdownList.dropdownButton(context, menuItems ?? []);
+                                  } else if (snapshot.hasError) {
+                                    return Text('Error: ${snapshot.error}');
+                                  } else {
+                                    return const CircularProgressIndicator();
+                                  }
+                                },
+                              ),
                           const SizedBox(width: 5),
                           Container(
                               height: 55,
