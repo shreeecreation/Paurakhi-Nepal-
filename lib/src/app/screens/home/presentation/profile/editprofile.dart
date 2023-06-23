@@ -15,7 +15,6 @@ void editProfileDialog(BuildContext context) {
 
   TextEditingController firstNameController = TextEditingController(text: Profile.firstName);
   TextEditingController lastNameController = TextEditingController(text: Profile.lastName);
-  TextEditingController phoneNoController = TextEditingController(text: ProfileModel.phoneNumber);
   TextEditingController addressController = TextEditingController(text: Profile.address);
   GlobalKey<FormState> editProfileKey = GlobalKey<FormState>();
 

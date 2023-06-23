@@ -7,7 +7,7 @@ import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 class OpenTicket extends StatelessWidget {
   OpenTicket({super.key});
-  GlobalKey<FormState> ticketKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> ticketKey = GlobalKey<FormState>();
 
   final TextEditingController subjectController = TextEditingController();
   final TextEditingController messageController = TextEditingController();

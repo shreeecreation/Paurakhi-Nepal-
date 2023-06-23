@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/core/API/BlogAPI/blog_api.dart';
+import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
 import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'bloc/blog_bloc.dart';
 import 'model/blog_model.dart';
 import 'search/search_functionality.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final GlobalKey<ScaffoldState> _scaffoldKeyBlog = GlobalKey<ScaffoldState>();
 
@@ -158,7 +158,8 @@ class _BlogScreenState extends State<BlogScreen> {
                           // ignore: unnecessary_null_comparison
                           image: model.blogImage == null
                               ? const AssetImage("assets/images/logo2.png") as ImageProvider<Object>
-                              : NetworkImage(model.blogImage),
+                                                           : NetworkImage("${Environment.apiUrl}/public/images/${model.blogImage}"),
+
                           fit: BoxFit.fill)),
                   child: ClipRRect(borderRadius: BorderRadius.circular(10.0), child: Align(alignment: Alignment.bottomRight, child: Container())),
                 ),

@@ -30,12 +30,15 @@ class SSEManager {
         eventSource.onMessage.listen((Event event) {
           print("Start listening");
           final notification = event.data;
+          print(notification);
+          Map<String, dynamic> notificationData = json.decode(notification!);
 
+// Extract the value of the "message" key
+          String message = notificationData['message'];
           // Add the notification to the list
 
           notificationList.add(notification ?? "abcd");
-          InAppNotification.showInAppNotification('New Notification', "dasdjasjdk");
-          print('New notification: $notification');
+          InAppNotification.showInAppNotification('Paurakhi', message ?? "");
         });
 
         eventSource.onError.listen((Event event) {

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
 import 'package:paurakhi/src/core/API/BlogAPI/blog_api.dart';
+import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
 import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
@@ -121,8 +122,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: isLoading ? Colors.grey : AppColors.textGreen,
                       ),
-                                                       child: Text(isLoading ? AppLocalizations.of(context)!.loading : AppLocalizations.of(context)!.load_more),
-
+                      child: Text(isLoading ? AppLocalizations.of(context)!.loading : AppLocalizations.of(context)!.load_more),
                     ),
                   ),
                 ),
@@ -158,9 +158,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                       borderRadius: BorderRadius.circular(20.0),
                       image: DecorationImage(
                           // ignore: unnecessary_null_comparison
-                          image: model.blogImage == null
+                          image: model.blogImage == null || model.blogImage == ""
                               ? const AssetImage("assets/images/logo2.png") as ImageProvider<Object>
-                              : NetworkImage(model.blogImage),
+                              : NetworkImage("${Environment.apiUrl}/public/images/${model.blogImage}"),
                           fit: BoxFit.fill)),
                   child: ClipRRect(borderRadius: BorderRadius.circular(10.0), child: Align(alignment: Alignment.bottomRight, child: Container())),
                 ),

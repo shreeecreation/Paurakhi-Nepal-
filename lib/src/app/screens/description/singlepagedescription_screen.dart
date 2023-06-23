@@ -57,7 +57,7 @@ class SinglePageDescriptionScreen extends StatelessWidget {
                                 width: 10,
                                 child: LinearProgressIndicator(
                                   color: Color.fromARGB(57, 222, 255, 223),
-                                  backgroundColor: Colors.white,  
+                                  backgroundColor: Colors.white,
                                 )),
                             errorWidget: (context, url, error) => const Icon(Icons.error),
                           ),
@@ -184,10 +184,13 @@ class SinglePageDescriptionScreenBlog extends StatelessWidget {
             height: MediaQuery.of(context).size.height,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               SizedBox(
-                  width: MediaQuery.of(context).size.width - 20,
-                  height: 200,
-                  // ignore: unnecessary_null_comparison
-                  child: model.blogImage == null ? Image.asset("assets/images/logo2.png") : Image.network(model.blogImage)),
+                width: MediaQuery.of(context).size.width - 20,
+                height: 200,
+                // ignore: unnecessary_null_comparison
+                child: model.blogImage == null
+                    ? Image.asset("assets/images/logo2.png")
+                    : Image.network("${Environment.apiUrl}/public/images/${model.blogImage}"),
+              ),
               const SizedBox(height: 10),
               const Row(
                 children: [],
@@ -244,7 +247,9 @@ class SinglePageDescriptionScreenFinance extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 20,
                 height: 200,
                 // ignore: unnecessary_null_comparison
-                child: model.blogImage == null ? Image.asset("assets/images/logo2.png") : Image.network(model.blogImage),
+                child: model.blogImage == null || model.blogImage== ""
+                    ? Image.asset("assets/images/logo2.png")
+                    : Image.network("${Environment.apiUrl}/public/images/${model.blogImage}"),
               ),
               const SizedBox(height: 10),
               const Row(
@@ -273,7 +278,7 @@ class SinglePageDescriptionScreenFinance extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       if (IsLoggedIn.isLoggedIn) {
-                        financeEnquiryBottomSheet(context,model.id);
+                        financeEnquiryBottomSheet(context, model.id);
                       } else {
                         Get.offAll(const LoginScreen());
                       }
@@ -293,7 +298,6 @@ class SinglePageDescriptionScreenFinance extends StatelessWidget {
     );
   }
 }
-
 
 class SinglePageDescriptionScreenGrants extends StatelessWidget {
   const SinglePageDescriptionScreenGrants({super.key, required this.model});
@@ -321,7 +325,11 @@ class SinglePageDescriptionScreenGrants extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 20,
                 height: 200,
                 // ignore: unnecessary_null_comparison
-                child: model.blogImage == null ? Image.asset("assets/images/logo2.png") : Image.network(model.blogImage),
+                child: model.blogImage == null || model.blogImage == ""
+                    ? Image.asset("assets/images/logo2.png")
+                    : Image.network(
+                        "${Environment.apiUrl}/public/images/${model.blogImage}",
+                      ),
               ),
               const SizedBox(height: 10),
               const Row(
@@ -350,7 +358,7 @@ class SinglePageDescriptionScreenGrants extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       if (IsLoggedIn.isLoggedIn) {
-                        applyGrantBottomSheet(context,model.id);
+                        applyGrantBottomSheet(context, model.id);
                       } else {
                         Get.offAll(const LoginScreen());
                       }

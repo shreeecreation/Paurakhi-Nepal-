@@ -194,6 +194,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                             mainCategoryIndex = tabTextList[value].value;
                             _tabController!.index = currentTabIndex1;
                           },
+                          
                           isScrollable: true,
                           labelPadding: const EdgeInsets.symmetric(horizontal: 10),
                           unselectedLabelColor: Colors.black,
