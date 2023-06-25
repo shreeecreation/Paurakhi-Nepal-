@@ -8,8 +8,6 @@ import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/focuesnode.dart';
 
 class LoginDialogs {
-
-
   static Future<Object?> showIncorrectPassword(BuildContext context) {
     return AwesomeDialog(
       context: context,
@@ -57,9 +55,11 @@ class LoginDialogs {
   static Future<Object?> productCreated(BuildContext context) {
     return AwesomeDialog(
       context: context,
+
       animType: AnimType.scale,
       dismissOnTouchOutside: false,
       headerAnimationLoop: false,
+
       dialogType: DialogType.success,
       bodyHeaderDistance: 30,
       // customHeader: const Icon(Icons.done),
@@ -158,14 +158,13 @@ class UserDialogs {
   static Future<Object?> updateProfile(BuildContext context) {
     return AwesomeDialog(
       context: context,
-      animType: AnimType.scale,
       dismissOnTouchOutside: false,
       headerAnimationLoop: false,
       dialogType: DialogType.success,
-      bodyHeaderDistance: 30,
-      // customHeader: const Icon(Icons.done),
+      bodyHeaderDistance: 10,
       showCloseIcon: false,
-      title: 'Succes',
+      // customHeader: Icon,
+      title: 'Success',
       titleTextStyle: AppStyles.text20PxSemiBold,
       descTextStyle: AppStyles.text16Px,
       desc: 'Profile Updated Successfully !',

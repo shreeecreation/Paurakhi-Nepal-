@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/load_more.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/tabbars/productmodel.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
@@ -31,7 +32,6 @@ class GetProductAPI {
     } else {
       filterUrl = "${Environment.apiUrl}/product/get-product?type=$type&page=$page";
     }
-    print(filterUrl);
     try {
       final response = await http.get(
         Uri.parse(filterUrl),
@@ -42,13 +42,14 @@ class GetProductAPI {
         final Map<String, dynamic> jsonList = jsonDecode(response.body);
         final List<dynamic> dataList = jsonList['data'] as List<dynamic>;
         final List<ProductModel> items = dataList.map((item) => ProductModel.fromJson(item as Map<String, dynamic>)).toList();
-        print(items);
         LoadMore.model = [];
         LoadMore.model = items;
         return ServerResponseProduct(data: items);
       } else if (code == 400) {
       } else if (code == 500) {}
-    } catch (e) {}
+    } catch (e) {
+      debugPrint("$e");
+    }
     return null;
   }
 }

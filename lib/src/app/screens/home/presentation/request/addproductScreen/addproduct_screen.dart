@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/AllBottomNavigator/login_true_bottom_navigation.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/choosedunit.dart';
 import 'package:paurakhi/src/core/API/SellScreenAPI/sell_product_api.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/addmultipleimage.dart';
@@ -56,7 +59,7 @@ void addProduct(BuildContext context) {
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      icon: const Icon(Icons.close))),
+                                      icon: const Icon(Icons.close)))
                             ],
                           ),
                           Row(
@@ -67,7 +70,6 @@ void addProduct(BuildContext context) {
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
                                     List<DropdownMenuItem<String>>? menuItems = snapshot.data;
-                                    print(menuItems);
                                     return DropdownList.dropdownButton(context, menuItems ?? []);
                                   } else if (snapshot.hasError) {
                                     return Text('Error: ${snapshot.error}');
@@ -90,7 +92,9 @@ void addProduct(BuildContext context) {
                                         try {
                                           int length = 0;
                                           images = (await MultipleImageChooser.pickImages(length));
-                                        } catch (e) {}
+                                        } catch (e) {
+                                          debugPrint("$e");
+                                        }
                                       },
                                       color: const Color(0xFF34A853)))
                             ],
@@ -239,28 +243,31 @@ Padding productPrice(BuildContext context, controller) {
   );
 }
 
-Padding minQty(BuildContext context, controller) {
+Padding minQty(BuildContext context, controllers) {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: SizedBox(
-      width: MediaQuery.of(context).size.width / 3,
-      child: TextFormField(
-        keyboardType: TextInputType.number,
-        controller: controller,
-        validator: (val) {
-          if (!ExtString.validateMinQty(val!)) return AppLocalizations.of(context)!.enter_a_vaid_quantity;
-          return null;
-        },
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: const Color(0xFFFFFFFF),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
-          ),
-          hintText: AppLocalizations.of(context)!.min_qty,
-        ),
-      ),
-    ),
-  );
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+          width: MediaQuery.of(context).size.width / 3,
+          child: GetX<ChoosedUnitController>(
+              init: Get.find<ChoosedUnitController>(),
+              builder: (controller) {
+                String notificationCount = controller.dropdownIndex.value;
+                return TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: controllers,
+                  validator: (val) {
+                    if (!ExtString.validateMinQty(val!)) return AppLocalizations.of(context)!.enter_a_vaid_quantity;
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xFFFFFFFF),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: notificationCount.toString(),
+                  ),
+                );
+              })));
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/choosedunit.dart';
 
 import 'dropdown_api.dart';
 
 class DropdownList {
   static int dropDownIndex = 0;
   static List<DropdownMenuItem> allCategory = [];
+  static ChoosedUnitController chooseUnitController = Get.find<ChoosedUnitController>();
   static Future<List<DropdownMenuItem<String>>> returnDropdown() async {
     List<DropdownMenuItem<String>> list = await DropDownAPI.dropdownAPI();
     return list;
@@ -17,10 +20,10 @@ class DropdownList {
   }
 
   static Widget dropdownButton(BuildContext context, List<DropdownMenuItem<String>> menuItems) {
-
-  String? selectedValue;
+    String? selectedValue;
     if (menuItems.isNotEmpty) {
       selectedValue = menuItems.first.value;
+      dropDownIndex = int.parse(menuItems.first.value!);
     }
     return Center(
       child: SizedBox(
@@ -47,6 +50,7 @@ class DropdownList {
               dropDownIndex = int.parse(menuItems[dropDownIndexs].value!); // get the ID of the selected item
               selectedValue = newValue!;
               selectedValue = newValue;
+              chooseUnitController.changeunit();
             },
             items: menuItems),
       ),

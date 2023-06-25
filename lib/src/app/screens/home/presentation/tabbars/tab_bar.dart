@@ -194,7 +194,6 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                             mainCategoryIndex = tabTextList[value].value;
                             _tabController!.index = currentTabIndex1;
                           },
-                          
                           isScrollable: true,
                           labelPadding: const EdgeInsets.symmetric(horizontal: 10),
                           unselectedLabelColor: Colors.black,
@@ -202,7 +201,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                           splashBorderRadius: BorderRadius.circular(20),
                           indicator: ShapeDecoration(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), color: Colors.green),
                           tabs: tabTextList.map((tabText) => Tab(child: tabText.child)).toList(),
-                          indicatorSize: TabBarIndicatorSize.tab,
+                          indicatorSize: TabBarIndicatorSize.tab
                         ),
                       );
                     } else {
@@ -219,13 +218,7 @@ class _TabbarState extends State<Tabbar> with TickerProviderStateMixin {
                         controller: _tabController,
                         physics: const NeverScrollableScrollPhysics(),
                         children: List.generate(
-                            tabBarLength,
-                            (index) => GestureDetector(
-                                onTap: () {},
-                                child: All1(
-                                  category: mainCategoryIndex,
-                                  type: "request",
-                                ))),
+                            tabBarLength, (index) => GestureDetector(onTap: () {}, child: All1(category: mainCategoryIndex, type: "request"))),
                       ));
                 }
                 return const Text("");

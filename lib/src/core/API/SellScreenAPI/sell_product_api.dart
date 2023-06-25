@@ -42,7 +42,7 @@ class SellProductAPI {
       request.headers['cookie'] = cookie;
       var response = await request.send();
       print(response.statusCode);
-      // print(response.body);
+      
       if (response.statusCode == 200) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           LoginDialogs.productCreated(context);

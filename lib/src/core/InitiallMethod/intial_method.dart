@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/AllBottomNavigator/login_true_bottom_navigation.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/choosedunit.dart';
 import 'package:paurakhi/src/core/API/Notification%20API/in_app_notification.dart';
 import 'package:paurakhi/src/core/API/Notification%20API/notification_api.dart';
 import 'package:paurakhi/src/core/API/login/isverify.dart';
@@ -15,6 +16,7 @@ class IntialMethod {
     await LocalizationManager.getCurrentLocale();
     // Initialize the GetX controller
   Get.put(NotificationCountController());
+  Get.put(ChoosedUnitController());
     InAppNotification.initNotifications();
     await dotenv.load(fileName: Environment.fileName);
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.white));
