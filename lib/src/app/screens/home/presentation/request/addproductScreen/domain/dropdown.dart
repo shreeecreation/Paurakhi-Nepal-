@@ -48,6 +48,7 @@ class DropdownList {
             onChanged: (String? newValue) {
               var dropDownIndexs = menuItems.indexWhere((item) => item.value == newValue);
               dropDownIndex = int.parse(menuItems[dropDownIndexs].value!); // get the ID of the selected item
+              print(dropDownIndex);
               selectedValue = newValue!;
               selectedValue = newValue;
               chooseUnitController.changeunit();
