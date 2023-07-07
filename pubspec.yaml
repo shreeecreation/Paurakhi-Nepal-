@@ -10,7 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
     
+  #localization adding to the application
+  intl: ^0.18.0
+
   adaptive_sizer: ^0.0.4
   #using the google fonts
   google_fonts: ^4.0.1
@@ -30,27 +35,37 @@ dependencies:
 
   #state management
   provider: ^6.0.5
+  flutter_bloc: ^8.1.2
+  shared_preferences: ^2.1.0
 
-  cupertino_icons: ^1.0.2
   http: ^0.13.6
 
-  shared_preferences: ^2.1.0
   webview_flutter: ^4.2.0
 
   #state management 
-  flutter_bloc: ^8.1.2
 
-  dropdown_button2: ^2.1.2
-
+  #getting location pacgake
   geolocator: ^8.2.0
   geocoding: ^2.0.4
 
   connectivity: ^3.0.6
-  flutter_html: ^3.0.0-beta.1
-  flutter_launcher_icons: ^0.13.1
-  intl: ^0.18.1
-  cached_network_image: ^3.2.3
 
+  flutter_html: ^3.0.0-beta.1
+
+  flutter_launcher_icons: ^0.13.1
+
+  
+  eventsource: ^0.4.0
+
+  #UI packages
+  cached_network_image: ^3.2.3
+  dropdown_button2: ^2.1.2
+  sliding_switch: ^1.1.0
+  restart_app: ^1.2.1
+  awesome_dialog: ^3.1.0
+  cupertino_icons: ^1.0.2
+  flutter_local_notifications: ^14.1.1
+  carousel_slider: ^4.2.1
 
 flutter_icons:
   android: true
@@ -62,6 +77,7 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0  
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/images/  

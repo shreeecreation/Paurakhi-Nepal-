@@ -11,5 +11,6 @@ class IsVerify {
   static setVerified(value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('verified', value);
+    await checkVerified();
   }
 }

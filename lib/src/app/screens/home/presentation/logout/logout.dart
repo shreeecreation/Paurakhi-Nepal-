@@ -22,8 +22,10 @@ void logoutDialog(BuildContext context) {
               SizedBox(
                   width: 220,
                   child: Center(
-                      child:
-                          Text('Are you sure want to Logout from this account !', textAlign: TextAlign.center, style: AppStyles.text16PxSemiBold))),
+                      child: Text(
+                          'Are you sure want to Logout from this account !',
+                          textAlign: TextAlign.center,
+                          style: AppStyles.text16PxSemiBold))),
               const SizedBox(height: 10),
               Center(
                 child: SizedBox(
@@ -36,7 +38,9 @@ void logoutDialog(BuildContext context) {
                         style: ElevatedButton.styleFrom(
                             elevation: 0,
                             backgroundColor: const Color(0xFF34A853),
-                            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15)))),
                         child: Text("Logout", style: AppStyles.text16Px))),
               ),
               const SizedBox(height: 10),
@@ -49,8 +53,10 @@ void logoutDialog(BuildContext context) {
                     },
                     style: ElevatedButton.styleFrom(
                         elevation: 0,
-                        shape:
-                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: const BorderSide(color: Colors.green, width: 1.5)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: const BorderSide(
+                                color: Colors.green, width: 1.5)),
                         backgroundColor: Colors.white,
                         foregroundColor: Colors.green),
                     child: const Text('Cancel')),

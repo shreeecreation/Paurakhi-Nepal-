@@ -4,7 +4,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/home_page.dart';
 
 class HomeRoutes {
   static void homeScreen() {
-    Get.offAll(const HomePage());
+    Get.offAll(() => const HomePage());
   }
 
   static void singlePageScreen(models) {
@@ -21,5 +21,9 @@ class HomeRoutes {
 
   static void singlePageScreenFinance(models) {
     Get.to(SinglePageDescriptionScreenFinance(model: models));
+  }
+
+  static void singlePageScreenGrants(models) {
+    Get.to(SinglePageDescriptionScreenGrants(model: models));
   }
 }

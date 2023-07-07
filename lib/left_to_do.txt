@@ -1,0 +1,42 @@
+1. Confirm Password obscure text - done 
+2. En to Ne confirmation - done 
+3. Change Password barrier dissmissible - done 
+4. Do you sure want to exit -  done  
+
+
+
+
+
+// FInance enquiry Error  - solved api error
+
+
+
+// Grant History Error - solved 
+
+
+// Tag Edit - done 
+
+
+// Check where product going on - done 
+
+
+
+
+1. Scrollable on search of blog -- done 
+
+2. News image not working  -- done
+
+Change defaultImage
+
+Making No result found more better -- done 
+
+Send otp second 5 bha -- done
+
+Profile name down -- done 
+
+Load more notification appears without length is more than 10 -- done 
+
+Grant not sending -- done 
+
+
+SearchValue.searchvalue empty 

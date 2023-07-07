@@ -10,5 +10,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ProfileLoadEvent>((event, emit) {
       emit(ProfileLoadedState());
     });
+
+    on<ProfileLoading>((event, emit) {
+      emit(ProfileInitial());
+    });
   }
 }

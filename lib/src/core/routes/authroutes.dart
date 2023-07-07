@@ -19,11 +19,17 @@ class AuthRoutes {
     Get.offAll(const GoogleSignin());
   }
 
-  static void otpRoute() {
-    Get.offAll(OTPScreen());
+  static void otpRoute(verify) {
+    Get.offAll(OTPScreen(
+      verifyOrwhat: verify,
+    ));
   }
 
-   static void otpRouteForForgotPassword() {
+  static void otpRouteVerify() {
+    Get.offAll(OTPScreenVerify());
+  }
+
+  static void otpRouteForForgotPassword() {
     Get.to(OTPForgotScreen());
   }
 

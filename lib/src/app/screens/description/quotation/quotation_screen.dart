@@ -13,7 +13,8 @@ void quotationBottomSheet(BuildContext context, productId) {
     isScrollControlled: true,
     useSafeArea: true,
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
     ),
     builder: (BuildContext context) {
       return ClipRRect(
@@ -26,7 +27,8 @@ void quotationBottomSheet(BuildContext context, productId) {
           child: Form(
             key: quantityState,
             child: Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
               child: Container(
                 color: Colors.white,
                 child: Padding(
@@ -43,7 +45,8 @@ void quotationBottomSheet(BuildContext context, productId) {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             const SizedBox(width: 10),
-                            Text("Personal Information", style: AppStyles.text16PxBold),
+                            Text("Personal Information",
+                                style: AppStyles.text16PxBold),
                           ],
                         ),
                         const SizedBox(height: 10),
@@ -60,23 +63,30 @@ void quotationBottomSheet(BuildContext context, productId) {
                                   children: [
                                     const SizedBox(width: 20),
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           children: [
                                             const Icon(Icons.person),
                                             const SizedBox(width: 5),
-                                            Text(Profile.finalName, style: AppStyles.text20PxSemiBold),
+                                            Text(Profile.finalName,
+                                                style:
+                                                    AppStyles.text20PxSemiBold),
                                           ],
                                         ),
                                         const SizedBox(height: 5),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
-                                            const Icon(Icons.location_on_outlined),
+                                            const Icon(
+                                                Icons.location_on_outlined),
                                             const SizedBox(width: 5),
-                                            Text(Profile.address ?? "", style: AppStyles.text14Px),
+                                            Text(Profile.address ?? "",
+                                                style: AppStyles.text14Px),
                                           ],
                                         ),
                                         const SizedBox(height: 5),
@@ -84,7 +94,8 @@ void quotationBottomSheet(BuildContext context, productId) {
                                           children: [
                                             const Icon(Icons.phone_outlined),
                                             const SizedBox(width: 5),
-                                            Text(ProfileModel.phoneNumber ?? "", style: AppStyles.text14Px),
+                                            Text(ProfileModel.phoneNumber ?? "",
+                                                style: AppStyles.text14Px),
                                           ],
                                         ),
                                       ],
@@ -107,7 +118,8 @@ void quotationBottomSheet(BuildContext context, productId) {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                  prefixIcon: const Icon(Icons.menu),
+                                  prefixIcon: const Icon(
+                                      Icons.production_quantity_limits),
                                   filled: true,
                                   fillColor: const Color(0xFFFFFFFF),
                                   border: OutlineInputBorder(
@@ -128,14 +140,22 @@ void quotationBottomSheet(BuildContext context, productId) {
                                 height: 50,
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      if (quantityState.currentState!.validate()) {
-                                        SendQuotationAPI.sendQuotation(quantityController.text, context, productId);
+                                      if (quantityState.currentState!
+                                          .validate()) {
+                                        SendQuotationAPI.sendQuotation(
+                                            quantityController.text,
+                                            context,
+                                            productId);
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(0xFF34A853),
-                                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                    child: Text("Send", style: AppStyles.text16Px)),
+                                        backgroundColor:
+                                            const Color(0xFF34A853),
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15)))),
+                                    child: Text("Send",
+                                        style: AppStyles.text16Px)),
                               ),
                             ),
                             const SizedBox(width: 10),
@@ -147,14 +167,22 @@ void quotationBottomSheet(BuildContext context, productId) {
                                       Navigator.pop(context);
                                     },
                                     style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<OutlinedBorder>(
+                                        shape: MaterialStateProperty.all<
+                                            OutlinedBorder>(
                                           RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10),
-                                            side: const BorderSide(color: Colors.green, width: 1.5),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            side: const BorderSide(
+                                                color: Colors.green,
+                                                width: 1.5),
                                           ),
                                         ),
-                                        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                                        foregroundColor: MaterialStateProperty.all<Color>(Colors.green)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.white),
+                                        foregroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.green)),
                                     child: const Text('Cancel')),
                               ),
                             ),

@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:paurakhi/src/app/screens/auth/login/login_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/blog_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/finance/financeenquiry_screen.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/grants/bloc/grants_bloc.dart';
+import 'package:paurakhi/src/app/screens/home/presentation/grants/grants_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/history/get%20ticket/getticket_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/news/bloc/news_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/news/news_screen.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/drawerroutes.dart';
+import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:paurakhi/src/core/routes/profileroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EndDrawer extends StatelessWidget {
   const EndDrawer({super.key});
@@ -33,12 +39,13 @@ class EndDrawer extends StatelessWidget {
                       Scaffold.of(context).closeEndDrawer();
                     }),
                 const SizedBox(width: 100),
-                Text("Menu ", style: AppStyles.text18PxBold)
+                Text(AppLocalizations.of(context)!.menu,
+                    style: AppStyles.text18PxBold)
               ],
             ),
           ),
           ListTile(
-            title: Text("Home", style: textStyle),
+            title: Text(AppLocalizations.of(context)!.home, style: textStyle),
             onTap: () async {
               //action on press
               final currentRoute = ModalRoute.of(context)?.settings.name;
@@ -53,16 +60,13 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-              title: Text("Blog", style: textStyle),
+              title: Text(AppLocalizations.of(context)!.blog, style: textStyle),
               onTap: () async {
                 //action on press
                 final currentRoute = ModalRoute.of(context)?.settings.name;
-
-                if (currentRoute != "/HomePage" && currentRoute != "/BlogScreen") {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const BlogScreen()),
-                  );
+                if (currentRoute != "/HomePage" &&
+                    currentRoute != "/BlogScreen") {
+                  Get.off(() => const BlogScreen());
                 } else if (currentRoute == "/BlogScreen") {
                   return;
                 } else {
@@ -73,15 +77,13 @@ class EndDrawer extends StatelessWidget {
                 Scaffold.of(context).closeEndDrawer();
               }),
           ListTile(
-            title: Text("News", style: textStyle),
+            title: Text(AppLocalizations.of(context)!.news, style: textStyle),
             onTap: () async {
               final currentRoute = ModalRoute.of(context)?.settings.name;
 
-              if (currentRoute != "/HomePage") {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const NewsScreen()),
-                );
+              if (currentRoute != "/HomePage" &&
+                  currentRoute != "/NewsScreen") {
+                Get.off(() => const NewsScreen());
               } else if (currentRoute == "/NewsScreen") {
                 return;
               } else {
@@ -93,16 +95,14 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("Finance", style: textStyle),
+            title:
+                Text(AppLocalizations.of(context)!.finance, style: textStyle),
             onTap: () {
               //action on press
               final currentRoute = ModalRoute.of(context)?.settings.name;
 
-              if (currentRoute != "/HomePage" && currentRoute != "/FinanceScreen") {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FinanceScreen()),
-                );
+              if (currentRoute != "/HomePage") {
+                Get.off(() => const FinanceScreen());
               } else if (currentRoute == "/FinanceScreen") {
                 return;
               } else {
@@ -114,19 +114,75 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("Grants", style: textStyle),
-            onTap: () {},
-          ),
-          ListTile(
-            title: Text("Open Ticket", style: AppStyles.text16PxBold.textGreen),
+            title: Text(AppLocalizations.of(context)!.grants, style: textStyle),
             onTap: () {
-              ProfileRoutes.openticketRoute();
+              //action on press
+              final currentRoute = ModalRoute.of(context)?.settings.name;
+
+              if (currentRoute != "/HomePage") {
+                Get.off(() => const GrantsScreen());
+              } else if (currentRoute == "/GrantsScreen") {
+                return;
+              } else {
+                DrawerRoutes.grantsRoute();
+              }
+              BlocProvider.of<GrantsBloc>(context).add(FetchGrantsEvent());
+
+              Scaffold.of(context).closeEndDrawer();
             },
           ),
           ListTile(
-            title: Text("Ticket History", style: textStyle),
+            title: Text(AppLocalizations.of(context)!.openticket,
+                style: AppStyles.text16PxBold.textGreen),
+            onTap: () {
+              if (IsLoggedIn.isLoggedIn) {
+                ProfileRoutes.openticketRoute();
+              } else {
+                Get.offAll(const LoginScreen());
+              }
+            },
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context)!.ticket_history,
+                style: textStyle),
             onTap: () {
               ticketHistoryScreen(context);
+            },
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context)!.privacy_policy,
+                style: textStyle),
+            onTap: () {
+              //action on press
+              final currentRoute = ModalRoute.of(context)?.settings.name;
+
+              if (currentRoute != "/HomePage") {
+                Get.off(() => const GrantsScreen());
+              } else if (currentRoute == "/PrivacyPolicyTermsAndConditions") {
+                return;
+              } else {
+                DrawerRoutes.termsAndConditions(context);
+                // Get.to(() => );
+              }
+              Scaffold.of(context).closeEndDrawer();
+            },
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context)!.terms_and_conditions,
+                style: textStyle),
+            onTap: () {
+              //action on press
+              final currentRoute = ModalRoute.of(context)?.settings.name;
+
+              if (currentRoute != "/HomePage") {
+                Get.off(() => const GrantsScreen());
+              } else if (currentRoute == "/PrivacyPolicyTermsAndConditions") {
+                return;
+              } else {
+                DrawerRoutes.privacyPolicy(context);
+                // Get.to(() => );
+              }
+              Scaffold.of(context).closeEndDrawer();
             },
           ),
         ]),

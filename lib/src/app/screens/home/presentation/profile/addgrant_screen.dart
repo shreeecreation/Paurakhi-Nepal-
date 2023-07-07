@@ -7,13 +7,14 @@ import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 class AddGrant extends StatelessWidget {
   AddGrant({super.key});
-  GlobalKey<FormState> ticketKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> ticketKey = GlobalKey<FormState>();
 
   final TextEditingController subjectController = TextEditingController();
   final TextEditingController messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(

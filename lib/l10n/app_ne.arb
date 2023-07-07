@@ -1,0 +1,97 @@
+{
+"language" : "नेपाली",
+"hello" : "नमस्कार",
+"sell" :"बेच्न",
+"request" :"अनुरोध",
+
+"menu":"मेनु",
+"home" : "घर",
+"blog":"ब्लग",
+"finance": "वित्त",
+"grants":"अनुदान", 
+"openticket":"टिकट खोल्नुहोस्",
+"ticket_history":"टिकट इतिहास",
+"news":"समाचार",
+
+"profile":"मेरो प्रोफाइल",
+"profile_settings":"प्रोफाइल सेटिङहरू",
+"edit_profile" : "प्रोफाइल सम्पादन",
+"finance_history" :"वित्त इतिहास",
+"grant_history":"अनुदान इतिहास",
+"quotation_history":"उद्धरण इतिहास",
+"product_history":"उत्पादन इतिहास",
+"change_password":"पासवर्ड परिवर्तन गर्नुहोस्",
+"verify_your_account":"आफ्नो खाता प्रमाणित गर्नुहोस्",
+"verified":"प्रमाणित",
+"history":"इतिहास",
+"logout":"बाहिर निस्कनु",
+"choose_profile":"प्रोफाइल चयन गर्नुहोस्",
+"view_profile":"प्रोफाइल हेर्न",
+
+"welcome_back":"स्वागत छ",
+"login_to_continue":"लगइन गर्नुहोस्",
+"remember_me":"मलाई सम्झनुहोस्",
+"login":"लगइन",
+"login_as_guest":"अतिथिको रूपमा लगइन गर्नुहोस्",
+"create_account":"नयाँ खाता खोल्नुहोस्",
+"dont_have_an_account":"खाता छैन",
+"start_journey":"आफ्नो यात्रा सुरु गर्न साइन इन गर्नुहोस्",
+
+
+"first_name":"पहिलो नाम",
+"second_name":"दोस्रो नाम",
+"set_your_farm_now":"आफ्नो खेत सेट गर्नुहोस्",
+"phoneNo":"फोन नम्बर",
+"password":"पासवर्ड",
+"confirm_pass":"पासवर्ड सुनिश्चित गर्नुहोस",
+"sign_up":"साइन अप",
+
+"addres":"ठेगाना",
+"email":"इमेल",
+"name_cant_be_less_than":"नाम 4 भन्दा कम हुन सक्दैन",
+"enter_valid_name":"वैध नाम प्रविष्ट गर्नुहोस्",
+"enter_a_valid_address":"वैध ठेगाना प्रविष्ट गर्नुहोस्",
+"enter_a_valid_password":"वैध पासवर्ड प्रविष्ट गर्नुहोस्",
+"enter_a_valid_email":"वैध इमेल प्रविष्ट गर्नुहोस्",
+"enter_a_valid_number":"मान्य नम्बर प्रविष्ट गर्नुहोस्",
+"already_have_account":"पहिले नै खाता छ",
+
+
+"incorrect_num_pass":"गलत नम्बर र पासवर्ड",
+"try_again":"पुन: प्रयास गर्नुहोस्",
+
+"choose":"छान्नुहोस्",
+"add":"थप्नुहोस्",
+"request":"अनुरोध",
+
+"sell_product":"उत्पादन बेच्नुहोस्",
+"product_title":"उत्पादन शीर्षक",
+"product_price":"उत्पादन मूल्य",
+"min_qty":"न्यूनतम मात्रा",
+"product_desc":"उत्पादन विवरण थप्नुहोस्",
+"product":"उत्पादन",
+"type_to_add_more_tags":"थप ट्यागहरू थप्न टाइप गर्नुहोस्",
+
+
+"request_product":"उत्पादन अनुरोध गर्नुहोस्",
+"add_request_title":"अनुरोध शीर्षक थप्नुहोस्",
+"add_product_description":"उत्पादन विवरण थप्नुहोस्",
+"notification":"सूचना",
+
+"load_more":"थप लोड",
+
+"loading":"लोड गर्दै",
+
+"forgot_pasword":"पासवर्ड भुल्नु भयो",
+"enter_a_valid_phone":"मान्य नम्बर प्रविष्ट गर्नुहोस्",
+"password_length_error":"पासवर्डको लम्बाइ ८ भन्दा बढी हुनुपर्छ",
+"login_with_google":"गुगलसँग लगइन गर्नुहोस्",
+"privacy_policy":"गोपनीयता नीति",
+"terms_and_conditions":"नियम र सर्तहरू",
+
+"enter_a_valid_product_title":"वैध उत्पादन शीर्षक प्रविष्ट गर्नुहोस्",
+"add_some_product_description":"केहि उत्पादन विवरण थप्नुहोस्",
+"enter_a_valid_price":"मान्य मूल्य प्रविष्ट गर्नुहोस्",
+"enter_a_vaid_quantity":"वैध मात्रा प्रविष्ट गर्नुहोस्"
+
+}

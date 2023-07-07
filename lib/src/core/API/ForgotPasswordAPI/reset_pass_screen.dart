@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
-import 'package:paurakhi/src/core/API/ChangePassword/change_password_api.dart';
 import 'package:paurakhi/src/core/API/ForgotPasswordAPI/forgot_password_api.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 void resetPassword(BuildContext context) {
-  TextEditingController oldPass = TextEditingController();
   TextEditingController newPass = TextEditingController();
   TextEditingController updatePass = TextEditingController();
   GlobalKey<FormState> updatePassKey = GlobalKey<FormState>();
