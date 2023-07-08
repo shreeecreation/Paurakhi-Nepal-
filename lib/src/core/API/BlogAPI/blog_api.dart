@@ -20,9 +20,10 @@ class BlogNewsFinanceAPI {
       List<BlogModelNewsFinanceModel> blogs = [];
       blogs = jsonList.map((dynamic json) => BlogModelNewsFinanceModel.fromJson(json as Map<String, dynamic>)).toList();
       return blogs;
-    } catch (e) {
-      print('asdasdas');
-      print(e);
+    } 
+    
+    catch (e) {
+  
     }
     return null;
   }

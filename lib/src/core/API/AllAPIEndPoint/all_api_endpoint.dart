@@ -20,11 +20,14 @@ class AllAPIEndPoint {
   static String listingsAndGreetings = "/mobile-info";
   static String searchAPI = "/product/get-product?";
   static String sendQuotationAPI = "/query/create-query";
-  static String sendFinanceAPI = "/finance";
+  static String sendFinanceAPI = "finance";
   static String getQuotationHistoryAPI = "/query/get-query";
   static String getFinanceHistoryAPI = "/finance";
   static String getTicketHistoryAPI = "/ticket/get-ticket";
   static String getGrantHistoryAPI = "/grant/get-grant";
+  static String getProductHistoryAPI = "/product/get-user-product";
+
+  static String deleteProductAPI = "/product/delete-product";
 
   static String createGrant = "/grant/create-grant";
 
@@ -32,5 +35,8 @@ class AllAPIEndPoint {
 
   static String notificationAPI = "notification/subscribe-user";
   static String getnotificationAPI = "notification/get-notification";
+
+  static String policy = "/policy/privacy-policy";
+  static String termsAndCondition = "/policy/terms-and-conditions";
   // static String getGrantAPI = "/";
 }

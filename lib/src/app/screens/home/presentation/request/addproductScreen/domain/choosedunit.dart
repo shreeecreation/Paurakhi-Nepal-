@@ -11,10 +11,10 @@ class ChoosedUnitController extends GetxController {
     DropdownModel dropdownModel = await DropDownAPI.unitAPI();
 
     List<CategoryModel> selectedCategory = dropdownModel.data;
-    await Future.delayed(const Duration(milliseconds: 500), () {
+    await Future.delayed(const Duration(milliseconds: 100), () {
       for (int i = 0; i < selectedCategory.length; i++) {
         if (selectedCategory[i].id == index) {
-          dropdownIndex = RxString(selectedCategory[i].unit ?? "MinQty");
+          dropdownIndex = RxString(selectedCategory[i].unit);
           update();
         }
       }

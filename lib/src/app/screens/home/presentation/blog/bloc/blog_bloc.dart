@@ -8,8 +8,6 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
   BlogBloc() : super(BlogInitial()) {
     on<BlogEvent>((event, emit) {
       emit(BlogInitial());
-
-      // TODO: implement event handler
     });
     on<FetchBlogEvent>((event, emit) {
       emit(FetchBlogState());

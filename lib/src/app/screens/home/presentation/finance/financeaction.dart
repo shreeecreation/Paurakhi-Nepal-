@@ -30,7 +30,8 @@ void financeEnquiryBottomSheet(BuildContext context, financeId) {
             child: Container(
                 color: Colors.white,
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: Column(
@@ -42,7 +43,8 @@ void financeEnquiryBottomSheet(BuildContext context, financeId) {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("  Personal Information ", style: AppStyles.text16PxBold),
+                            Text("  Personal Information ",
+                                style: AppStyles.text16PxBold),
                           ],
                         ),
                         SizedBox(
@@ -58,23 +60,29 @@ void financeEnquiryBottomSheet(BuildContext context, financeId) {
                                   children: [
                                     const SizedBox(width: 20),
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           children: [
                                             const Icon(Icons.person),
                                             const SizedBox(width: 5),
-                                            Text(Profile.finalName, style: AppStyles.text14Px),
+                                            Text(Profile.finalName,
+                                                style: AppStyles.text14Px),
                                           ],
                                         ),
                                         const SizedBox(height: 5),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
-                                            const Icon(Icons.location_on_outlined),
+                                            const Icon(
+                                                Icons.location_on_outlined),
                                             const SizedBox(width: 5),
-                                            Text(Profile.address ?? "", style: AppStyles.text14Px),
+                                            Text(Profile.address ?? "",
+                                                style: AppStyles.text14Px),
                                           ],
                                         ),
                                         const SizedBox(height: 5),
@@ -82,7 +90,8 @@ void financeEnquiryBottomSheet(BuildContext context, financeId) {
                                           children: [
                                             const Icon(Icons.phone_outlined),
                                             const SizedBox(width: 5),
-                                            Text(ProfileModel.phoneNumber ?? "", style: AppStyles.text14Px),
+                                            Text(ProfileModel.phoneNumber ?? "",
+                                                style: AppStyles.text14Px),
                                           ],
                                         ),
                                       ],
@@ -102,12 +111,20 @@ void financeEnquiryBottomSheet(BuildContext context, financeId) {
                                   height: 40,
                                   child: ElevatedButton(
                                       onPressed: () async {
-                                        await SendFinanceAPI.sendFinance(purposeController.text, context, financeId, valueController.text);
+                                        await SendFinanceAPI.sendFinance(
+                                            purposeController.text,
+                                            context,
+                                            financeId,
+                                            valueController.text);
                                       },
                                       style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color(0xFF34A853),
-                                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                      child: Text("Send", style: AppStyles.text16Px)))),
+                                          backgroundColor:
+                                              const Color(0xFF34A853),
+                                          shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15)))),
+                                      child: Text("Send",
+                                          style: AppStyles.text16Px)))),
                           const SizedBox(width: 10),
                           Expanded(
                               child: SizedBox(
@@ -117,12 +134,20 @@ void financeEnquiryBottomSheet(BuildContext context, financeId) {
                                   Navigator.pop(context);
                                 },
                                 style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                                    shape: MaterialStateProperty.all<
+                                        OutlinedBorder>(
                                       RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10), side: const BorderSide(color: Colors.green, width: 1.5)),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          side: const BorderSide(
+                                              color: Colors.green, width: 1.5)),
                                     ),
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                                    foregroundColor: MaterialStateProperty.all<Color>(Colors.green)),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.white),
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.green)),
                                 child: const Text('Cancel')),
                           )),
                           const SizedBox(width: 10)
@@ -146,8 +171,8 @@ Padding purpose(BuildContext context, purposeController) {
       width: MediaQuery.of(context).size.width - 30,
       child: TextFormField(
         controller: purposeController,
+        maxLines: 3,
         decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.menu),
           filled: true,
           fillColor: const Color(0xFFFFFFFF),
           border: OutlineInputBorder(
@@ -168,8 +193,9 @@ Padding value(BuildContext context, valueController) {
       width: MediaQuery.of(context).size.width - 30,
       child: TextFormField(
         controller: valueController,
+        keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.menu),
+          prefixIcon: const Icon(Icons.monetization_on),
           filled: true,
           fillColor: const Color(0xFFFFFFFF),
           border: OutlineInputBorder(

@@ -39,7 +39,8 @@ class EndDrawer extends StatelessWidget {
                       Scaffold.of(context).closeEndDrawer();
                     }),
                 const SizedBox(width: 100),
-                Text(AppLocalizations.of(context)!.menu, style: AppStyles.text18PxBold)
+                Text(AppLocalizations.of(context)!.menu,
+                    style: AppStyles.text18PxBold)
               ],
             ),
           ),
@@ -63,7 +64,8 @@ class EndDrawer extends StatelessWidget {
               onTap: () async {
                 //action on press
                 final currentRoute = ModalRoute.of(context)?.settings.name;
-                if (currentRoute != "/HomePage" && currentRoute != "/BlogScreen") {
+                if (currentRoute != "/HomePage" &&
+                    currentRoute != "/BlogScreen") {
                   Get.off(() => const BlogScreen());
                 } else if (currentRoute == "/BlogScreen") {
                   return;
@@ -79,7 +81,8 @@ class EndDrawer extends StatelessWidget {
             onTap: () async {
               final currentRoute = ModalRoute.of(context)?.settings.name;
 
-              if (currentRoute != "/HomePage" && currentRoute != "/NewsScreen") {
+              if (currentRoute != "/HomePage" &&
+                  currentRoute != "/NewsScreen") {
                 Get.off(() => const NewsScreen());
               } else if (currentRoute == "/NewsScreen") {
                 return;
@@ -92,7 +95,8 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(AppLocalizations.of(context)!.finance, style: textStyle),
+            title:
+                Text(AppLocalizations.of(context)!.finance, style: textStyle),
             onTap: () {
               //action on press
               final currentRoute = ModalRoute.of(context)?.settings.name;
@@ -128,7 +132,8 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(AppLocalizations.of(context)!.openticket, style: AppStyles.text16PxBold.textGreen),
+            title: Text(AppLocalizations.of(context)!.openticket,
+                style: AppStyles.text16PxBold.textGreen),
             onTap: () {
               if (IsLoggedIn.isLoggedIn) {
                 ProfileRoutes.openticketRoute();
@@ -138,9 +143,46 @@ class EndDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(AppLocalizations.of(context)!.ticket_history, style: textStyle),
+            title: Text(AppLocalizations.of(context)!.ticket_history,
+                style: textStyle),
             onTap: () {
               ticketHistoryScreen(context);
+            },
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context)!.privacy_policy,
+                style: textStyle),
+            onTap: () {
+              //action on press
+              final currentRoute = ModalRoute.of(context)?.settings.name;
+
+              if (currentRoute != "/HomePage") {
+                Get.off(() => const GrantsScreen());
+              } else if (currentRoute == "/PrivacyPolicyTermsAndConditions") {
+                return;
+              } else {
+                DrawerRoutes.termsAndConditions(context);
+                // Get.to(() => );
+              }
+              Scaffold.of(context).closeEndDrawer();
+            },
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context)!.terms_and_conditions,
+                style: textStyle),
+            onTap: () {
+              //action on press
+              final currentRoute = ModalRoute.of(context)?.settings.name;
+
+              if (currentRoute != "/HomePage") {
+                Get.off(() => const GrantsScreen());
+              } else if (currentRoute == "/PrivacyPolicyTermsAndConditions") {
+                return;
+              } else {
+                DrawerRoutes.privacyPolicy(context);
+                // Get.to(() => );
+              }
+              Scaffold.of(context).closeEndDrawer();
             },
           ),
         ]),

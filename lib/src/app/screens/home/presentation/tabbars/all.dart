@@ -5,12 +5,13 @@ import 'package:paurakhi/src/core/API/GetProductAPI/get_product_api.dart';
 import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/evey_product_widget.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'loadmore_controller.dart';
 import 'productmodel.dart';
 
-final GlobalKey<_AllState> key = GlobalKey<_AllState>();
+final GlobalKey<AllState> key = GlobalKey<AllState>();
 
 class All extends StatefulWidget {
   final String category;
@@ -19,18 +20,19 @@ class All extends StatefulWidget {
   const All({Key? key, required this.category, required this.type}) : super(key: key);
 
   @override
-  _AllState createState() => _AllState();
+  AllState createState() => AllState();
 
   static List<ProductModel> items = [];
 }
 
-class _AllState extends State<All> {
+class AllState extends State<All> {
   bool isLoading = false;
   bool isDisposed = false;
   bool showImage = true; // Flag to control the visibility of the image
-
+  Timer? _timer;
   @override
   void dispose() {
+    _timer?.cancel();
     isDisposed = true;
     super.dispose();
   }
@@ -52,6 +54,8 @@ class _AllState extends State<All> {
   }
 
   Future<void> _getProducts({required bool clearItems}) async {
+    if (isDisposed) return;
+
     setState(() {
       isLoading = true;
     });
@@ -61,8 +65,7 @@ class _AllState extends State<All> {
       widget.type,
       LoadMoreController.currentPage,
     );
-
-    if (!isDisposed) {
+    if (mounted) {
       setState(() {
         isLoading = false;
         if (response != null) {
@@ -84,10 +87,12 @@ class _AllState extends State<All> {
   }
 
   void _startTimer() {
-    Timer(const Duration(milliseconds: 1500), () {
-      setState(() {
-        showImage = false; // Hide the image after 500 milliseconds
-      });
+    _timer = Timer(const Duration(milliseconds: 1500), () {
+      if (!isDisposed) {
+        setState(() {
+          showImage = false; // Hide the image after 500 milliseconds
+        });
+      }
     });
   }
 
@@ -103,7 +108,7 @@ class _AllState extends State<All> {
                 const SizedBox(height: 40),
                 SizedBox(height: 80, width: 80, child: Image.asset('assets/images/paurakhi.gif')),
               ],
-            ), // Replace 'assets/loading_image.png' with your actual image path
+            ),
           if (!showImage)
             ListView.builder(
               cacheExtent: 999999,
@@ -125,7 +130,7 @@ class _AllState extends State<All> {
                 ],
               ),
             ),
-          if (All.items.length > 9)
+          if (All.items.length > 9 && !showImage)
             SizedBox(
               height: 40,
               width: 120,
@@ -192,7 +197,7 @@ class _All1State extends State<All1> {
       LoadMoreController.currentPage,
     );
 
-    if (!isDisposed) {
+    if (mounted) {
       setState(() {
         isLoading = false;
         if (response != null) {
@@ -255,6 +260,3 @@ class _All1State extends State<All1> {
     );
   }
 }
-
-
-

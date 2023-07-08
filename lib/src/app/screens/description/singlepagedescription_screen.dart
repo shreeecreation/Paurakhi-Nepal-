@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,6 @@ import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
-import 'package:paurakhi/src/core/utils/searchwidget.dart';
 import 'quotation/quotation_screen.dart';
 
 class SinglePageDescriptionScreen extends StatelessWidget {
@@ -21,13 +21,13 @@ class SinglePageDescriptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
-        ),
+        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         elevation: 0,
-        flexibleSpace: SizedBox(
-            width: MediaQuery.of(context).size.width - 50, child: Align(alignment: Alignment.topLeft, child: searchWidgetSinglePage(context))),
+        title: Text(
+          model.name,
+          style: AppStyles.text20PxSemiBold.textDark,
+        ),
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -35,7 +35,8 @@ class SinglePageDescriptionScreen extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: SizedBox(
             height: MediaQuery.of(context).size.height / 1.2,
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width - 20,
                 height: 200,
@@ -48,20 +49,41 @@ class SinglePageDescriptionScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: CachedNetworkImage(
-                            imageUrl: "${Environment.apiUrl}/public/images/${model.images[0]}",
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => const SizedBox(
-                                height: 10,
-                                width: 10,
-                                child: LinearProgressIndicator(
-                                  color: Color.fromARGB(57, 222, 255, 223),
-                                  backgroundColor: Colors.white,
-                                )),
-                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                          ),
-                        ),
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: CarouselSlider(
+                              options: CarouselOptions(
+                                aspectRatio: 16 / 9,
+                                autoPlay: true,
+                                disableCenter: false,
+                                enableInfiniteScroll: false,
+                                enlargeCenterPage: true,
+                                pageSnapping: true, // Set pageSnapping to true
+                                viewportFraction: 1,
+                              ), // Set viewportFraction to 1 for single image),
+                              items: model.images.map((image) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return CachedNetworkImage(
+                                      imageUrl:
+                                          "${Environment.apiUrl}/public/images/$image",
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) =>
+                                          const SizedBox(
+                                        height: 10,
+                                        width: 10,
+                                        child: LinearProgressIndicator(
+                                          color:
+                                              Color.fromARGB(57, 222, 255, 223),
+                                          backgroundColor: Colors.white,
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                    );
+                                  },
+                                );
+                              }).toList(),
+                            )),
                       ),
               ),
               const SizedBox(height: 15),
@@ -76,11 +98,14 @@ class SinglePageDescriptionScreen extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         final String tag = model.tags[index];
                         return Container(
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: const Color(0xFFD9D9D9)),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                color: const Color(0xFFD9D9D9)),
                             height: 30,
                             width: 50,
                             margin: const EdgeInsets.only(right: 10),
-                            child: Center(child: Text(tag, style: AppStyles.text14Px)));
+                            child: Center(
+                                child: Text(tag, style: AppStyles.text14Px)));
                       },
                     ),
                   ),
@@ -113,7 +138,8 @@ class SinglePageDescriptionScreen extends StatelessWidget {
                     children: [
                       Text("Quantity", style: AppStyles.text16Px.textGrey),
                       const SizedBox(height: 10),
-                      Text(model.quantity.toString(), style: AppStyles.text16Px),
+                      Text(model.quantity.toString(),
+                          style: AppStyles.text16Px),
                       const SizedBox(height: 15),
                     ],
                   ),
@@ -140,12 +166,20 @@ class SinglePageDescriptionScreen extends StatelessWidget {
                         if (IsLoggedIn.isLoggedIn) {
                           quotationBottomSheet(context, model.id);
                         } else {
-                          Get.offAll(const LoginScreen());
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                            (Route<dynamic> route) => false,
+                          );
                         }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF34A853),
-                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
                       ),
                       child: Text("Get Quotation", style: AppStyles.text16Px),
                     ),
@@ -182,14 +216,16 @@ class SinglePageDescriptionScreenBlog extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width - 20,
                 height: 200,
                 // ignore: unnecessary_null_comparison
                 child: model.blogImage == null
                     ? Image.asset("assets/images/logo2.png")
-                    : Image.network("${Environment.apiUrl}/public/images/${model.blogImage}"),
+                    : Image.network(
+                        "${Environment.apiUrl}/public/images/${model.blogImage}"),
               ),
               const SizedBox(height: 10),
               const Row(
@@ -247,9 +283,10 @@ class SinglePageDescriptionScreenFinance extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 20,
                 height: 200,
                 // ignore: unnecessary_null_comparison
-                child: model.blogImage == null || model.blogImage== ""
+                child: model.blogImage == null || model.blogImage == ""
                     ? Image.asset("assets/images/logo2.png")
-                    : Image.network("${Environment.apiUrl}/public/images/${model.blogImage}"),
+                    : Image.network(
+                        "${Environment.apiUrl}/public/images/${model.blogImage}"),
               ),
               const SizedBox(height: 10),
               const Row(
@@ -285,7 +322,8 @@ class SinglePageDescriptionScreenFinance extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF34A853),
-                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
                     ),
                     child: Text("Enquire Now", style: AppStyles.text16Px),
                   ),
@@ -365,7 +403,8 @@ class SinglePageDescriptionScreenGrants extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF34A853),
-                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
                     ),
                     child: Text("Apply for grants", style: AppStyles.text16Px),
                   ),

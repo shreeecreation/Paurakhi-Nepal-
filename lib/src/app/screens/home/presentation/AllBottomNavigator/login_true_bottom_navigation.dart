@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/homescreen/home_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/notifications/notifications_screeen.dart';
-import 'package:paurakhi/src/core/API/Notification%20API/notification_api.dart';
 import 'package:paurakhi/src/core/utils/get_current_location.dart';
 
 import '../profile/profile_screen.dart';
@@ -14,7 +13,8 @@ class LoginTrueBottomNavigator extends StatefulWidget {
   const LoginTrueBottomNavigator({super.key});
 
   @override
-  State<LoginTrueBottomNavigator> createState() => _LoginTrueBottomNavigatorState();
+  State<LoginTrueBottomNavigator> createState() =>
+      _LoginTrueBottomNavigatorState();
 }
 
 class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
@@ -31,11 +31,16 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
       return;
     }
     if (index == 0) {
-      NotificationCountController notificationController = Get.find<NotificationCountController>();
+      NotificationCountController notificationController =
+          Get.find<NotificationCountController>();
       notificationController.resetNotificationCount();
-      GetNotificationAPI.getNotification(1);
+
+      NotificationController notificationControllers =
+          Get.find<NotificationController>();
+      notificationControllers.refreshNotifications();
     }
     setState(() {
+      if (index == 1) {}
       if (index == 2) {
         _selectedIndex = _selectedIndex;
         requestBottomSheet(context);
@@ -50,7 +55,6 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
   @override
   void initState() {
     getLocation();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -58,7 +62,7 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
     try {
       await GetCurrentLocation.getCurrentPosition(context);
     } catch (e) {
-      print(e);
+      debugPrint("$e");
     }
   }
 
@@ -88,7 +92,8 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
               ),
               height: 70,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                 child: Material(
                   // Wrap with Material widget
                   elevation: 16.0, // Set the desired elevation value
@@ -100,15 +105,21 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
                       unselectedItemColor: const Color(0xFF828282),
                       items: <BottomNavigationBarItem>[
                         _selectedIndex == 0
-                            ? _buildRoundedIconBottomNavigationBarItemActive(Icons.notifications_active)
-                            : _buildRoundedIconBottomNavigationBarItemNotification(Icons.notifications_active_outlined),
+                            ? _buildRoundedIconBottomNavigationBarItemActive(
+                                Icons.notifications_active)
+                            : _buildRoundedIconBottomNavigationBarItemNotification(
+                                Icons.notifications_active_outlined),
                         _selectedIndex == 1
-                            ? _buildRoundedIconBottomNavigationBarItemActive(Icons.home)
-                            : _buildRoundedIconBottomNavigationBarItem(Icons.home_outlined),
+                            ? _buildRoundedIconBottomNavigationBarItemActive(
+                                Icons.home)
+                            : _buildRoundedIconBottomNavigationBarItem(
+                                Icons.home_outlined),
                         _buildRoundedIconBottomNavigationBarItem(Icons.add),
                         _selectedIndex == 3
-                            ? _buildRoundedIconBottomNavigationBarItemActive(Icons.person)
-                            : _buildRoundedIconBottomNavigationBarItem(Icons.person_outline),
+                            ? _buildRoundedIconBottomNavigationBarItemActive(
+                                Icons.person)
+                            : _buildRoundedIconBottomNavigationBarItem(
+                                Icons.person_outline),
                       ],
                       currentIndex: _selectedIndex,
                       unselectedLabelStyle: const TextStyle(fontSize: 0.5),
@@ -128,18 +139,21 @@ class _LoginTrueBottomNavigatorState extends State<LoginTrueBottomNavigator> {
   }
 }
 
-BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItem(IconData icon) {
+BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItem(
+    IconData icon) {
   return BottomNavigationBarItem(
-    icon: Padding(padding: const EdgeInsets.all(8.0), child: Icon(icon, size: 30)),
+    icon: Padding(
+        padding: const EdgeInsets.all(8.0), child: Icon(icon, size: 30)),
     label: "",
   );
 }
 
-BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItemActive(IconData icon) {
+BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItemActive(
+    IconData icon) {
   return BottomNavigationBarItem(
     icon: Container(
-      height: 35,
-      width: 35,
+      height: 40,
+      width: 40,
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.green,
@@ -150,7 +164,8 @@ BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItemActive(IconData 
   );
 }
 
-BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItemNotification(IconData icon) {
+BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItemNotification(
+    IconData icon) {
   return BottomNavigationBarItem(
     icon: GetX<NotificationCountController>(
       init: Get.find<NotificationCountController>(),
@@ -168,7 +183,8 @@ BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItemNotification(Ico
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+                  constraints:
+                      const BoxConstraints(minWidth: 16, minHeight: 16),
                   child: Text(
                     notificationCount.toString(),
                     style: const TextStyle(color: Colors.white, fontSize: 10),
@@ -187,9 +203,8 @@ BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItemNotification(Ico
 class NotificationCountController extends GetxController {
   RxInt notificationCount = 0.obs;
 
-  void incrementNotificationCount()async {
+  void incrementNotificationCount() async {
     notificationCount.value++; // Increment the value by 1
-  
   }
 
   void resetNotificationCount() {

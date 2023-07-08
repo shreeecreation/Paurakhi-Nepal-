@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,9 +17,7 @@ import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
 import 'src/app/screens/home/presentation/request/bloc/getprdouct_bloc.dart';
 import 'src/app/screens/internetandSetverError/check_internet_connection.dart';
 import 'src/app/screens/search/bloc/search_bloc.dart';
-import 'src/core/API/userIfno/getuserinfo.dart';
 import 'src/core/InitiallMethod/intial_method.dart';
-import 'src/core/providers/language_provider.dart';
 import 'src/core/providers/location_provider.dart';
 import 'src/core/utils/focuesnode.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -26,27 +25,31 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   IntialMethod.initialMethod();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final NetworkService networkService = Get.put(NetworkService());
   @override
   Widget build(BuildContext context) {
+    IntialMethod.initialMethod();
+
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocationProvider()),
           ChangeNotifierProvider(create: (_) => NetworkProvider()),
-          // ChangeNotifierProvider(create: (_) => NotificationCountProvider()),
         ],
         child: MultiBlocProvider(
             providers: [
               BlocProvider<TabBlocBloc>(create: (context) => TabBlocBloc()),
               BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
               BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
-              BlocProvider<GetprdouctBloc>(create: (context) => GetprdouctBloc()),
+              BlocProvider<GetprdouctBloc>(
+                  create: (context) => GetprdouctBloc()),
               BlocProvider<RequestBloc>(create: (context) => RequestBloc()),
               BlocProvider<NewsBloc>(create: (context) => NewsBloc()),
               BlocProvider<BlogBloc>(create: (context) => BlogBloc()),
@@ -60,43 +63,201 @@ class MyApp extends StatelessWidget {
               child: SafeArea(
                 child: GetMaterialApp(
                   supportedLocales: L10n.all,
-                  locale: Locale(LocalizationManager.storedLocale),
+                  locale: const Locale("en"),
                   localizationsDelegates: const [
                     AppLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate
                   ],
                   debugShowCheckedModeBanner: false,
                   theme: ThemeData(
+                    fontFamily: "poppins",
                     primarySwatch: Colors.blue,
                     brightness: Brightness.light,
                   ),
-                  home: Consumer<NetworkProvider>(builder: (context, networkProvider, child) {
-                    return FutureBuilder<bool>(
-                      future: networkProvider.checkInternetConnection(),
-                      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                        if (snapshot.connectionState == ConnectionState.none) {
-                          // Default case: show an empty Container widget
-                          return Container();
-                        }
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          if (snapshot.hasError) {
-                            // If an error occurred while fetching data, show an error message
-                            return Text('Error: ${snapshot.error}');
-                          } else if (snapshot.data == true) {
-                            GetUserInfo.getUserInfo();
-                            return const SplashScreen();
-                          } else {
-                            return const NoInternetConnectionPage();
-                          }
-                        } else {
-                          return const NoInternetConnectionPage();
-                        }
-                      },
-                    );
-                  }),
+                  home: FutureBuilder<void>(
+                    future: networkService.checkInternetConnection(),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<void> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // Show a loading indicator while checking the connection
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        // If an error occurred while checking the connection, display an error message
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        return Obx(
+                          () {
+                            if (networkService.isConnected.value) {
+                              // If there is an active internet connection
+                              return const SplashScreen();
+                            } else {
+                              // If there is no internet connection
+                              return const NoInternetConnectionPage();
+                            }
+                          },
+                        );
+                      }
+                    },
+                  ),
                 ),
               ),
             )));
   }
 }
+
+class NetworkService extends GetxController {
+  RxBool isConnected = false.obs;
+
+  Future<void> checkInternetConnection() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      isConnected.value = true;
+    } else {
+      isConnected.value = false;
+    }
+  }
+}
+
+// import 'package:connectivity/connectivity.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:get/get.dart';
+// import 'package:paurakhi/src/app/screens/home/presentation/grants/bloc/grants_bloc.dart';
+// import 'package:paurakhi/src/app/screens/home/presentation/tabbars/bloc/tab_bloc_bloc.dart';
+// import 'package:paurakhi/src/app/screens/internetandSetverError/nointernetconnection.dart';
+// import 'package:paurakhi/src/core/utils/splash_screen.dart';
+// import 'package:provider/provider.dart';
+// import 'l10n/l10n.dart';
+// import 'src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
+// import 'src/app/screens/home/presentation/news/bloc/news_bloc.dart';
+// import 'src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
+// import 'src/app/screens/home/presentation/homescreen/bloc/request_bloc.dart';
+// import 'src/app/screens/home/presentation/profile/bloc/profile_bloc.dart';
+// import 'src/app/screens/home/presentation/request/bloc/getprdouct_bloc.dart';
+// import 'src/app/screens/internetandSetverError/check_internet_connection.dart';
+// import 'src/app/screens/search/bloc/search_bloc.dart';
+// import 'src/core/InitiallMethod/intial_method.dart';
+// import 'src/core/providers/language_provider.dart';
+// import 'src/core/providers/location_provider.dart';
+// import 'src/core/utils/focuesnode.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+// void main() {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   IntialMethod.initialMethod();
+//   runApp(MyApp());
+// }
+
+// final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+// class MyApp extends StatelessWidget {
+//   MyApp({super.key});
+
+//   final NetworkService networkService = Get.put(NetworkService());
+//   @override
+//   Widget build(BuildContext context) {
+//     LocalizationManager.getCurrentLocale().then((value) => print(value));
+//     IntialMethod.initialMethod();
+
+//     return FutureBuilder(
+//         future: LocalizationManager.getCurrentLocale(),
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState == ConnectionState.waiting) {
+//             return const CircularProgressIndicator();
+//           } else if (snapshot.hasError) {
+//             return Text('Error: ${snapshot.error}');
+//           }
+//           if (snapshot.hasData) {
+//             return MultiProvider(
+//                 providers: [
+//                   ChangeNotifierProvider(create: (_) => LocationProvider()),
+//                   ChangeNotifierProvider(create: (_) => NetworkProvider()),
+//                 ],
+//                 child: MultiBlocProvider(
+//                     providers: [
+//                       BlocProvider<TabBlocBloc>(
+//                           create: (context) => TabBlocBloc()),
+//                       BlocProvider<SearchBloc>(
+//                           create: (context) => SearchBloc()),
+//                       BlocProvider<ProfileBloc>(
+//                           create: (context) => ProfileBloc()),
+//                       BlocProvider<GetprdouctBloc>(
+//                           create: (context) => GetprdouctBloc()),
+//                       BlocProvider<RequestBloc>(
+//                           create: (context) => RequestBloc()),
+//                       BlocProvider<NewsBloc>(create: (context) => NewsBloc()),
+//                       BlocProvider<BlogBloc>(create: (context) => BlogBloc()),
+//                       BlocProvider<FinanceBloc>(
+//                           create: (context) => FinanceBloc()),
+//                       BlocProvider<GrantsBloc>(
+//                           create: (context) => GrantsBloc()),
+//                     ],
+//                     child: GestureDetector(
+//                       onTap: () {
+//                         unFocusNode(context);
+//                       },
+//                       child: SafeArea(
+//                         child: GetMaterialApp(
+//                           supportedLocales: L10n.all,
+//                           locale: Locale(LocalizationManager.storedLocale),
+//                           localizationsDelegates: const [
+//                             AppLocalizations.delegate,
+//                             GlobalMaterialLocalizations.delegate,
+//                             GlobalCupertinoLocalizations.delegate
+//                           ],
+//                           debugShowCheckedModeBanner: false,
+//                           theme: ThemeData(
+//                             primarySwatch: Colors.blue,
+//                             brightness: Brightness.light,
+//                           ),
+//                           home: FutureBuilder<void>(
+//                             future: networkService.checkInternetConnection(),
+//                             builder: (BuildContext context,
+//                                 AsyncSnapshot<void> snapshot) {
+//                               if (snapshot.connectionState ==
+//                                   ConnectionState.waiting) {
+//                                 // Show a loading indicator while checking the connection
+//                                 return const CircularProgressIndicator();
+//                               } else if (snapshot.hasError) {
+//                                 // If an error occurred while checking the connection, display an error message
+//                                 return Text('Error: ${snapshot.error}');
+//                               } else {
+//                                 return Obx(
+//                                   () {
+//                                     if (networkService.isConnected.value) {
+//                                       // If there is an active internet connection
+//                                       return const SplashScreen();
+//                                     } else {
+//                                       // If there is no internet connection
+//                                       return const NoInternetConnectionPage();
+//                                     }
+//                                   },
+//                                 );
+//                               }
+//                             },
+//                           ),
+//                         ),
+//                       ),
+//                     )));
+//           }
+//           return const CircularProgressIndicator();
+//         });
+//   }
+// }
+
+// class NetworkService extends GetxController {
+//   RxBool isConnected = false.obs;
+
+//   Future<void> checkInternetConnection() async {
+//     var connectivityResult = await Connectivity().checkConnectivity();
+//     if (connectivityResult == ConnectivityResult.mobile ||
+//         connectivityResult == ConnectivityResult.wifi) {
+//       isConnected.value = true;
+//     } else {
+//       isConnected.value = false;
+//     }
+//   }
+// }

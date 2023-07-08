@@ -10,13 +10,17 @@ import 'package:paurakhi/src/core/dialogs/auth/alldialogs.dart';
 import 'package:paurakhi/src/core/routes/authroutes.dart';
 
 class ForgotPasswordAPI {
-  static Future<http.Response?> verifyNumberForgot(String phoneNo, BuildContext context) async {
-    final url = Uri.parse('${Environment.apiUrl}${AllAPIEndPoint.resetPasswordAPI}?phoneNumber=$phoneNo'); // Replace with your API endpoint URL
+  static Future<http.Response?> verifyNumberForgot(
+      String phoneNo, BuildContext context) async {
+    final url = Uri.parse(
+        '${Environment.apiUrl}${AllAPIEndPoint.resetPasswordAPI}?phoneNumber=$phoneNo'); // Replace with your API endpoint URL
 
     try {
       final response = await http.get(
         url,
-        headers: {'Content-Type': 'application/json'}, // Replace with your headers if needed
+        headers: {
+          'Content-Type': 'application/json'
+        }, // Replace with your headers if needed
       );
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
@@ -28,19 +32,26 @@ class ForgotPasswordAPI {
         return response;
       } else if (code == 400) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          LoginDialogs.showIncorrectPassword(context);
+          var result = json.decode(response.body);
+          var message = result["message"];
+          LoginDialogs.showIncorrectPassword(context, message, "Error");
         });
-      } else if (code == 500) {}
+      } else if (code == 500) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          UserDialogs.internalServerError(context);
+        });
+      }
       return null;
     } catch (e) {
-      print(e);
+      debugPrint("$e");
     }
     return null;
   }
 
-  static Future<http.Response?> resetPassword(String newPass, BuildContext context) async {
-    final url = Uri.parse('${Environment.apiUrl}${AllAPIEndPoint.resetPassword}'); // Replace with your API endpoint URLprint
-    print(url);
+  static Future<http.Response?> resetPassword(
+      String newPass, BuildContext context) async {
+    final url = Uri.parse(
+        '${Environment.apiUrl}${AllAPIEndPoint.resetPassword}'); // Replace with your API endpoint URLprint
 
     var cookie = await ManageCookie.getCookie();
 
@@ -49,20 +60,24 @@ class ForgotPasswordAPI {
       final response = await http.post(
         url,
         body: jsonEncode(data),
-        headers: {'Content-Type': 'application/json', 'Cookie': cookie}, // Replace with your headers if needed
+        headers: {
+          'Content-Type': 'application/json',
+          'Cookie': cookie
+        }, // Replace with your headers if needed
       );
       var code = response.statusCode;
       if (code >= 200 && code < 300) {
-        print(response.body);
         return response;
       } else if (code == 400) {
+        var result = json.decode(response.body);
+        var message = result["message"];
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          LoginDialogs.showIncorrectPassword(context);
+          LoginDialogs.showIncorrectPassword(context, message, "Error");
         });
       } else if (code == 500) {}
       return null;
     } catch (e) {
-      print(e);
+      debugPrint("$e");
     }
     return null;
   }

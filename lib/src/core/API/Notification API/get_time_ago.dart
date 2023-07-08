@@ -8,18 +8,18 @@ String getTimeAgo(DateTime timestamp) {
   }
 
   Map<String, int> intervals = {
-    'year': 31536000,
-    'month': 2592000,
-    'week': 604800,
-    'day': 86400,
-    'hour': 3600,
-    'minute': 60,
+    'Y': 31536000,
+    'M': 2592000,
+    'W': 604800,
+    'D': 86400,
+    'hr': 3600,
+    'min': 60,
   };
 
   for (var interval in intervals.entries) {
     if (seconds >= interval.value) {
       int count = (seconds / interval.value).floor();
-      return '${count == 1 ? count : '$count'} ${interval.key}${count == 1 ? '' : 's'} ago';
+      return '${count == 1 ? count : '$count'} ${interval.key}${count == 1 ? '' : 's'} ';
     }
   }
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/auth/login/login_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/homescreen/home_screen.dart';
-import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/utils/get_current_location.dart';
 import '../tabbars/bloc/tab_bloc_bloc.dart';
 
@@ -10,7 +9,8 @@ class LoginFalseBottomNavigator extends StatefulWidget {
   const LoginFalseBottomNavigator({super.key});
 
   @override
-  State<LoginFalseBottomNavigator> createState() => _LoginFalseBottomNavigatorState();
+  State<LoginFalseBottomNavigator> createState() =>
+      _LoginFalseBottomNavigatorState();
 }
 
 class _LoginFalseBottomNavigatorState extends State<LoginFalseBottomNavigator> {
@@ -32,7 +32,6 @@ class _LoginFalseBottomNavigatorState extends State<LoginFalseBottomNavigator> {
   @override
   void initState() {
     getLocation();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -40,7 +39,7 @@ class _LoginFalseBottomNavigatorState extends State<LoginFalseBottomNavigator> {
     try {
       await GetCurrentLocation.getCurrentPosition(context);
     } catch (e) {
-      print(e);
+      debugPrint("$e");
     }
   }
 
@@ -70,7 +69,8 @@ class _LoginFalseBottomNavigatorState extends State<LoginFalseBottomNavigator> {
               ),
               height: 70,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
                 child: Material(
                   // Wrap with Material widget
                   elevation: 8.0, // Set the desired elevation value
@@ -81,15 +81,31 @@ class _LoginFalseBottomNavigatorState extends State<LoginFalseBottomNavigator> {
                       type: BottomNavigationBarType.fixed,
                       unselectedItemColor: const Color(0xFF828282),
                       items: <BottomNavigationBarItem>[
-                        _buildRoundedIconBottomNavigationBarItem(Icons.notifications_active_outlined),
-                        _buildRoundedIconBottomNavigationBarItem(Icons.home_outlined),
-                        _buildRoundedIconBottomNavigationBarItem(Icons.add),
-                        _buildRoundedIconBottomNavigationBarItem(Icons.person),
+                        _selectedIndex == 0
+                            ? _buildRoundedIconBottomNavigationBarItemActive(
+                                Icons.notifications_active)
+                            : _buildRoundedIconBottomNavigationBarItem(
+                                Icons.notifications_active_outlined),
+                        _selectedIndex == 1
+                            ? _buildRoundedIconBottomNavigationBarItemActive(
+                                Icons.home)
+                            : _buildRoundedIconBottomNavigationBarItem(
+                                Icons.home_outlined),
+                        _selectedIndex == 2
+                            ? _buildRoundedIconBottomNavigationBarItemActive(
+                                Icons.add)
+                            : _buildRoundedIconBottomNavigationBarItem(
+                                Icons.add),
+                        _selectedIndex == 3
+                            ? _buildRoundedIconBottomNavigationBarItemActive(
+                                Icons.person)
+                            : _buildRoundedIconBottomNavigationBarItem(
+                                Icons.person_outline),
                       ],
                       currentIndex: _selectedIndex,
                       unselectedLabelStyle: const TextStyle(fontSize: 0.5),
                       selectedLabelStyle: const TextStyle(fontSize: 0.5),
-                      selectedItemColor: Colors.green,
+                      selectedItemColor: Colors.white,
                       onTap: _onItemTapped,
                       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                     ),
@@ -104,14 +120,26 @@ class _LoginFalseBottomNavigatorState extends State<LoginFalseBottomNavigator> {
   }
 }
 
-BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItem(IconData icon) {
+BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItem(
+    IconData icon) {
+  return BottomNavigationBarItem(
+    icon: Padding(
+        padding: const EdgeInsets.all(8.0), child: Icon(icon, size: 30)),
+    label: "",
+  );
+}
+
+BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItemActive(
+    IconData icon) {
   return BottomNavigationBarItem(
     icon: Container(
+      height: 40,
+      width: 40,
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
-        color: AppColors.defaultbackground,
+        color: Colors.green,
       ),
-      child: Padding(padding: const EdgeInsets.all(8.0), child: Icon(icon, size: 25)),
+      child: Center(child: Icon(icon, size: 20)),
     ),
     label: "",
   );

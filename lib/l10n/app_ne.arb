@@ -19,6 +19,7 @@
 "finance_history" :"वित्त इतिहास",
 "grant_history":"अनुदान इतिहास",
 "quotation_history":"उद्धरण इतिहास",
+"product_history":"उत्पादन इतिहास",
 "change_password":"पासवर्ड परिवर्तन गर्नुहोस्",
 "verify_your_account":"आफ्नो खाता प्रमाणित गर्नुहोस्",
 "verified":"प्रमाणित",
@@ -85,7 +86,8 @@
 "enter_a_valid_phone":"मान्य नम्बर प्रविष्ट गर्नुहोस्",
 "password_length_error":"पासवर्डको लम्बाइ ८ भन्दा बढी हुनुपर्छ",
 "login_with_google":"गुगलसँग लगइन गर्नुहोस्",
-
+"privacy_policy":"गोपनीयता नीति",
+"terms_and_conditions":"नियम र सर्तहरू",
 
 "enter_a_valid_product_title":"वैध उत्पादन शीर्षक प्रविष्ट गर्नुहोस्",
 "add_some_product_description":"केहि उत्पादन विवरण थप्नुहोस्",

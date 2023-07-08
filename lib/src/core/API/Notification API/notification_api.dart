@@ -8,7 +8,6 @@ import 'package:paurakhi/src/app/screens/home/presentation/AllBottomNavigator/lo
 import 'package:paurakhi/src/core/API/AllAPIEndPoint/all_api_endpoint.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
-import 'package:provider/provider.dart';
 
 import 'in_app_notification.dart';
 import 'model/notification_model.dart';
@@ -20,7 +19,10 @@ class SSEManager {
   static Future<void> startListening() async {
     var cookie = await ManageCookie.getCookie();
     final headers = {'Cookie': cookie};
-
+    // ignore: unnecessary_null_comparison
+    if (cookie == "" || cookie == null) {
+      return;
+    }
     while (true) {
       try {
         final eventSource = await EventSource.connect(
@@ -28,9 +30,7 @@ class SSEManager {
           headers: headers,
         );
 
-        eventSource.asBroadcastStream().listen((Event event) {
-          print("EventSource connection opened");
-        });
+        eventSource.asBroadcastStream().listen((Event event) {});
 
         eventSource.onMessage.listen((Event event) async {
           if (!notificationHandled) {
@@ -38,28 +38,31 @@ class SSEManager {
             Map<String, dynamic> notificationData = json.decode(notification!);
             String message = notificationData['message'];
 
-            notificationList.add(notification ?? "abcd");
-            InAppNotification.showInAppNotification('Paurakhi', message ?? "");
+            notificationList.add(notification);
+            InAppNotification.showInAppNotification('Paurakhi', message);
 
-            final notificationCountController = Get.find<NotificationCountController>();
+            final notificationCountController =
+                Get.find<NotificationCountController>();
             notificationCountController.incrementNotificationCount();
-            notificationHandled = true; // Set the flag to true after handling the notification
+            notificationHandled =
+                true; // Set the flag to true after handling the notification
           }
+          await Future.delayed(
+              const Duration(seconds: 5)); // Delay before reconnecting
 
           Future.delayed(const Duration(milliseconds: 500), () {
-            notificationHandled = false; // Set the flag to true after handling the notification
-            print("dasdas");
+            notificationHandled =
+                false; // Set the flag to true after handling the notification
           });
         });
 
         eventSource.onError.listen((Event event) {
-          print('Error: $event');
-        });
 
-        await Future.delayed(const Duration(seconds: 5)); // Delay before reconnecting
+          return;
+        });
       } catch (error) {
+
         debugPrint('Error occurred during the EventSource connection: $error');
-        await Future.delayed(const Duration(seconds: 5)); // Delay before reconnecting
       }
     }
   }
@@ -71,15 +74,18 @@ class GetNotificationAPI {
 
     try {
       final response = await http.get(
-        Uri.parse('${Environment.apiUrl}/${AllAPIEndPoint.getnotificationAPI}?page=$page'),
+        Uri.parse(
+            '${Environment.apiUrl}/${AllAPIEndPoint.getnotificationAPI}?page=$page'),
         headers: {'Cookie': cookie},
       );
       if (response.statusCode == 200) {
         List<dynamic> jsonList = jsonDecode(response.body)['data'];
-        List<NotificationModel> notifications = jsonList.map((json) => NotificationModel.fromJson(json)).toList();
+        List<NotificationModel> notifications =
+            jsonList.map((json) => NotificationModel.fromJson(json)).toList();
         return notifications;
       } else {
-        throw Exception('Failed to fetch notifications. Status code: ${response.statusCode}');
+        throw Exception(
+            'Failed to fetch notifications. Status code: ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('Failed to fetch notifications: $e');

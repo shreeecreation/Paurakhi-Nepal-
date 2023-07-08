@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -54,6 +56,7 @@ Future<Object?> chooseProfie(BuildContext context) {
               backgroundColor: Colors.white,
               elevation: 0,
             ),
+            // ignore: unnecessary_null_comparison
             child: image != null
                 ? CircleAvatar(
                     backgroundImage: FileImage(image),

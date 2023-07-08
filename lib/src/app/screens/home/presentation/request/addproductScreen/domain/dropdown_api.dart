@@ -11,6 +11,7 @@ import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'dropdown.dart';
 
 class DropDownAPI {
+  // ignore: prefer_typing_uninitialized_variables
   static var items;
   static Future<List<DropdownMenuItem<String>>> dropdownAPI() async {
     var cookie = await ManageCookie.getCookie();
@@ -42,9 +43,13 @@ class DropDownAPI {
             categoryValues.add(categoryId);
           }
         }
-        List<CategoryModel> categoryItems = categories.map((category) => CategoryModel.fromJson(category as Map<String, dynamic>)).toList();
+        List<CategoryModel> categoryItems = categories
+            .map((category) =>
+                CategoryModel.fromJson(category as Map<String, dynamic>))
+            .toList();
         items = DropdownModel(data: categoryItems);
-        ChoosedUnitController chooseUnitController = Get.find<ChoosedUnitController>();
+        ChoosedUnitController chooseUnitController =
+            Get.find<ChoosedUnitController>();
 
         chooseUnitController.changeunit();
 
@@ -79,16 +84,17 @@ class DropDownAPI {
             categoryValues.add(categoryId);
           }
         }
-        print(response.body);
-        List<CategoryModel> categoryItems = categories.map((category) => CategoryModel.fromJson(category as Map<String, dynamic>)).toList();
+        List<CategoryModel> categoryItems = categories
+            .map((category) =>
+                CategoryModel.fromJson(category as Map<String, dynamic>))
+            .toList();
         DropdownModel dropdownModel = DropdownModel(data: categoryItems);
-        print(dropdownModel);
         return dropdownModel;
       } else {
         // Handle the case when the response code is not 200
       }
     } catch (e) {
-      print(e);
+      debugPrint("$e");
       // Handle any exceptions that occur during the API call
     }
     return DropdownModel(data: []);
@@ -122,7 +128,7 @@ class DropDownAPI {
         return allCategory;
       } else {}
     } catch (e) {
-      print(e);
+      debugPrint("e");
     }
     return allCategory;
   }

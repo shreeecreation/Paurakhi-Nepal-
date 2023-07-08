@@ -1,118 +1,211 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:paurakhi/src/core/API/Notification%20API/get_time_ago.dart';
 import 'package:paurakhi/src/core/API/Notification%20API/model/notification_model.dart';
 import 'package:paurakhi/src/core/API/Notification%20API/notification_api.dart';
+import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({Key? key}) : super(key: key);
-
-  @override
-  NotificationScreenState createState() => NotificationScreenState();
-}
-
-class NotificationScreenState extends State<NotificationScreen> {
-  final List<NotificationModel> _notifications = [];
-  int _currentPage = 1;
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadNotifications();
-  }
-
-  Future<void> _loadNotifications() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      List<NotificationModel> newNotifications = await GetNotificationAPI.getNotification(_currentPage);
-      setState(() {
-        _notifications.addAll(newNotifications);
-        _currentPage++;
-      });
-    } catch (e) {
-      debugPrint('Error fetching notifications: $e');
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
+class NotificationScreen extends GetView<NotificationController> {
+  const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              const Row(
-                children: [SizedBox(width: 20), Text("Notification", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w500))],
-              ),
-              const SizedBox(height: 20),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: _notifications.length + 1,
-                  itemBuilder: (context, index) {
-                    if (index == _notifications.length) {
-                      if (_isLoading) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else {
-                        return GestureDetector(
-                          onTap: _loadNotifications,
-                          child: const Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Text('Load More', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.blue))
-                          ),
-                        );
-                      }
-                    } else {
-                      NotificationModel notification = _notifications[index];
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xFFECECEC)),
-                            height: 119,
-                            width: MediaQuery.of(context).size.width - 30,
-                            child: Center(
-                              child: ListTile(
-                                leading: const Icon(Icons.notifications_active, color: Colors.green),
-                                minVerticalPadding: 10,
-                                title: SizedBox(
-                                  height: 30,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(notification.type,
-                                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Color.fromARGB(255, 0, 0, 0))),
-                                    ],
+      backgroundColor: AppColors.defaultbackground,
+      body: RefreshIndicator(
+        onRefresh: controller.refreshNotifications,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                const Row(
+                  children: [
+                    SizedBox(width: 20),
+                    Text(
+                      "Notification",
+                      style:
+                          TextStyle(fontSize: 27, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: Obx(
+                    () => ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: controller.notifications.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index == controller.notifications.length) {
+                          if (controller.isLoading.value) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            if (controller.notifications.length < 9) {
+                              return SizedBox(
+                                height: 300,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.info,
+                                        size: 100,
+                                        color: Color.fromARGB(87, 76, 175, 79)),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      "Empty Notification!",
+                                      style: AppStyles.text20PxSemiBold,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            } else {
+                              return Align(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    color: Colors.transparent,
+                                    height: 40,
+                                    width: 120,
+                                    child: ElevatedButton(
+                                      onPressed: controller.loadNotifications,
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.textGreen,
+                                      ),
+                                      child: Text(
+                                        AppLocalizations.of(context)!.load_more,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                trailing: Text(getTimeAgo(notification.createdAt), style: AppStyles.text12Px),
-                                subtitle: Text(notification.message, style: const TextStyle(fontSize: 16, color: Color(0xFF646464))),
+                              );
+                            }
+                          }
+                        } else {
+                          NotificationModel notification =
+                              controller.notifications[index];
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: AppColors.defaultbackground,
+                                ),
+                                height: 100,
+                                width: MediaQuery.of(context).size.width,
+                                child: Center(
+                                  child: ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.green,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Icon(
+                                          _buildLeadingWidget(
+                                              notification.type),
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    minVerticalPadding: 10,
+                                    title: SizedBox(
+                                      height: 30,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            notification.type.capitalize!,
+                                            style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w500,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    trailing: Text(
+                                        getTimeAgo(notification.createdAt),
+                                        style: AppStyles.text12Px),
+                                    subtitle: Text(notification.message,
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Color(0xFF646464))),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      );
-                    }
-                  },
+                              const Divider(
+                                color: Color.fromARGB(32, 0, 0, 0),
+                              )
+                            ],
+                          );
+                        }
+                      },
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 100),
-            ],
+                const SizedBox(height: 100),
+              ],
+            ),
           ),
         ),
       ),
       resizeToAvoidBottomInset: false,
     );
+  }
+
+  _buildLeadingWidget(type) {
+    switch (type) {
+      case "product":
+        return Icons.production_quantity_limits_sharp;
+      case "finance":
+        return Icons.monetization_on;
+      case "grant":
+        return Icons.query_builder;
+      case "ticket":
+        return Icons.airplane_ticket;
+      case "query":
+        return Icons.format_quote_sharp;
+    }
+  }
+}
+
+class NotificationController extends GetxController {
+  final notifications = <NotificationModel>[].obs;
+  var currentPage = 1;
+  var isLoading = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadNotifications();
+  }
+
+  Future<void> loadNotifications() async {
+    isLoading.value = true;
+
+    try {
+      List<NotificationModel> newNotifications =
+          await GetNotificationAPI.getNotification(currentPage);
+      notifications.addAll(newNotifications);
+      currentPage++;
+    } catch (e) {
+      debugPrint('Error fetching notifications: $e');
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> refreshNotifications() async {
+    notifications.clear();
+    currentPage = 1;
+    await loadNotifications();
   }
 }

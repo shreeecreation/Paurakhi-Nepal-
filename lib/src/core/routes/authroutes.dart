@@ -20,10 +20,16 @@ class AuthRoutes {
   }
 
   static void otpRoute(verify) {
-    Get.offAll(OTPScreen(verifyOrwhat: verify,));
+    Get.offAll(OTPScreen(
+      verifyOrwhat: verify,
+    ));
   }
 
-   static void otpRouteForForgotPassword() {
+  static void otpRouteVerify() {
+    Get.offAll(OTPScreenVerify());
+  }
+
+  static void otpRouteForForgotPassword() {
     Get.to(OTPForgotScreen());
   }
 

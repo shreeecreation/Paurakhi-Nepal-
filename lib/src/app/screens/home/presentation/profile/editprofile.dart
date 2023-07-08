@@ -13,9 +13,12 @@ import 'model/profile_model.dart';
 void editProfileDialog(BuildContext context) {
   final ValueNotifier<bool> isCheckedNotifier = ValueNotifier<bool>(false);
 
-  TextEditingController firstNameController = TextEditingController(text: Profile.firstName);
-  TextEditingController lastNameController = TextEditingController(text: Profile.lastName);
-  TextEditingController addressController = TextEditingController(text: Profile.address);
+  TextEditingController firstNameController =
+      TextEditingController(text: Profile.firstName);
+  TextEditingController lastNameController =
+      TextEditingController(text: Profile.lastName);
+  TextEditingController addressController =
+      TextEditingController(text: Profile.address);
   GlobalKey<FormState> editProfileKey = GlobalKey<FormState>();
 
   showModalBottomSheet(
@@ -24,11 +27,16 @@ void editProfileDialog(BuildContext context) {
       isScrollControlled: true,
       useSafeArea: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
       ),
       builder: (BuildContext context) {
         return Padding(
-          padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: MediaQuery.of(context).viewInsets.bottom),
+          padding: EdgeInsets.only(
+              top: 20,
+              right: 20,
+              left: 20,
+              bottom: MediaQuery.of(context).viewInsets.bottom),
           child: SingleChildScrollView(
               child: SizedBox(
             child: ClipRRect(
@@ -107,15 +115,15 @@ void editProfileDialog(BuildContext context) {
                                 return Checkbox(
                                   value: ProfileModel.twoFactor,
                                   activeColor: Colors.green,
-                                 onChanged: (newValue) {
-  ProfileModel.twoFactor = newValue!;
-  isCheckedNotifier.value = newValue;
-},
-
+                                  onChanged: (newValue) {
+                                    ProfileModel.twoFactor = newValue!;
+                                    isCheckedNotifier.value = newValue;
+                                  },
                                 );
                               },
                             ),
-                            Text("Two factor authentication", style: AppStyles.text16Px),
+                            Text("Two factor authentication",
+                                style: AppStyles.text16Px),
                           ],
                         ),
                         location(context, addressController),
@@ -125,18 +133,23 @@ void editProfileDialog(BuildContext context) {
                             const SizedBox(width: 15),
                             ElevatedButton(
                               onPressed: () async {
-                                addressController.text = Provider.of<LocationProvider>(context, listen: false).location;
+                                addressController.text =
+                                    Provider.of<LocationProvider>(context,
+                                            listen: false)
+                                        .location;
                               },
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
                                 backgroundColor: const Color(0xFF34A853),
                                 shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
                                 ),
                               ),
                               child: Row(
                                 children: [
-                                  Text('Auto Select ', style: AppStyles.text12Px.white),
+                                  Text('Auto Select ',
+                                      style: AppStyles.text12Px.white),
                                   const Icon(Icons.location_on),
                                 ],
                               ),
@@ -154,16 +167,22 @@ void editProfileDialog(BuildContext context) {
                                   onPressed: () async {
                                     // TODO: editProfile
 
-                                    if (editProfileKey.currentState!.validate()) {
-                                      EditProfileModel model = EditProfileModel();
+                                    if (editProfileKey.currentState!
+                                        .validate()) {
+                                      EditProfileModel model =
+                                          EditProfileModel();
                                       model.address = addressController.text;
-                                      model.firstName = firstNameController.text;
+                                      model.firstName =
+                                          firstNameController.text;
                                       model.lastName = lastNameController.text;
                                       model.twoFactor = isCheckedNotifier.value;
-                                      await EditProfile.editProfile(model, context);
+                                      await EditProfile.editProfile(
+                                          model, context);
 
-                                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                                        BlocProvider.of<ProfileBloc>(context).add(ProfileLoadEvent());
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        BlocProvider.of<ProfileBloc>(context)
+                                            .add(ProfileLoadEvent());
                                       });
                                     }
                                   },
@@ -171,10 +190,12 @@ void editProfileDialog(BuildContext context) {
                                     elevation: 0,
                                     backgroundColor: const Color(0xFF34A853),
                                     shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(15)),
                                     ),
                                   ),
-                                  child: Text("Save", style: AppStyles.text16Px),
+                                  child:
+                                      Text("Save", style: AppStyles.text16Px),
                                 ),
                               ),
                             ),
@@ -189,11 +210,13 @@ void editProfileDialog(BuildContext context) {
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      side: const BorderSide(color: Colors.green, width: 1.5),
+                                      side: const BorderSide(
+                                          color: Colors.green, width: 1.5),
                                     ),
                                     backgroundColor: const Color(0xFFF4FBF3),
                                   ),
-                                  child: Text('Cancel', style: AppStyles.text16Px.black),
+                                  child: Text('Cancel',
+                                      style: AppStyles.text16Px.black),
                                 ),
                               ),
                             ),

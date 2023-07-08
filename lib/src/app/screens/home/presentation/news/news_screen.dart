@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/blog/model/blog_model.dart';
 import 'package:paurakhi/src/core/API/BlogAPI/blog_api.dart';
+import 'package:paurakhi/src/core/env/envmodels.dart';
 import 'package:paurakhi/src/core/routes/homeroutes.dart';
 import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
@@ -38,7 +39,8 @@ class _NewsScreenState extends State<NewsScreen> {
       isLoading = true;
     });
 
-    final List<BlogModelNewsFinanceModel>? response = await BlogNewsFinanceAPI.getAPI(
+    final List<BlogModelNewsFinanceModel>? response =
+        await BlogNewsFinanceAPI.getAPI(
       "news",
       currentPage,
     );
@@ -90,7 +92,8 @@ class _NewsScreenState extends State<NewsScreen> {
                   const SizedBox(height: 24),
                   Padding(
                     padding: const EdgeInsets.only(left: 12.0),
-                    child: Text(AppLocalizations.of(context)!.news, style: AppStyles.text22PxBold),
+                    child: Text(AppLocalizations.of(context)!.news,
+                        style: AppStyles.text22PxBold),
                   ),
                   const SizedBox(height: 10),
                   const Padding(
@@ -98,29 +101,47 @@ class _NewsScreenState extends State<NewsScreen> {
                     child: Divider(thickness: 1, color: Colors.grey),
                   ),
                   const SizedBox(height: 20),
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: items.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final BlogModelNewsFinanceModel model = items[index];
-                      return allNews(context, model);
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: SizedBox(
-                      height: 40,
-                      width: 120,
-                      child: ElevatedButton(
-                        onPressed: isLoading ? null : _loadMore,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: isLoading ? Colors.grey : AppColors.textGreen,
+                  items.isEmpty
+                      ? SizedBox(
+                          height: 300,
+                          child: Center(
+                            child: Text(
+                              "No News Found !",
+                              style: AppStyles.text20PxSemiBold,
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: items.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final BlogModelNewsFinanceModel model =
+                                items[index];
+                            return allNews(context, model);
+                          },
                         ),
-                        child: Text(isLoading ? AppLocalizations.of(context)!.loading : AppLocalizations.of(context)!.load_more),
-                      ),
-                    ),
-                  ),
+                  const SizedBox(height: 20),
+                  items.length > 9
+                      ? Center(
+                          child: SizedBox(
+                            height: 35,
+                            width: 100,
+                            child: ElevatedButton(
+                              onPressed: isLoading ? null : _loadMore,
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0.2,
+                                backgroundColor: isLoading
+                                    ? Colors.grey
+                                    : AppColors.textGreen,
+                              ),
+                              child: Text(isLoading
+                                  ? AppLocalizations.of(context)!.loading
+                                  : AppLocalizations.of(context)!.load_more),
+                            ),
+                          ),
+                        )
+                      : const Text(""),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -133,6 +154,7 @@ class _NewsScreenState extends State<NewsScreen> {
   }
 
   Widget allNews(context, BlogModelNewsFinanceModel model) {
+    print(model.blogImage);
     return GestureDetector(
       onTap: () {
         HomeRoutes.singlePageScreenNews(model);
@@ -142,7 +164,8 @@ class _NewsScreenState extends State<NewsScreen> {
           Container(
             height: 150,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0)),
+            decoration:
+                BoxDecoration(borderRadius: BorderRadius.circular(12.0)),
             child: const Card(elevation: 0.2, color: Color(0xFFF4FBF3)),
           ),
           Column(
@@ -159,14 +182,17 @@ class _NewsScreenState extends State<NewsScreen> {
                       image: DecorationImage(
                         // ignore: unnecessary_null_comparison
                         image: model.blogImage == null
-                            ? const AssetImage("assets/images/logo2.png") as ImageProvider<Object>
-                            : NetworkImage(model.blogImage),
+                            ? const AssetImage("assets/images/logo2.png")
+                                as ImageProvider<Object>
+                            : NetworkImage(
+                                "${Environment.apiUrl}/public/images/${model.blogImage}"),
                         fit: BoxFit.fill,
                       ),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
-                      child: Align(alignment: Alignment.bottomRight, child: Container()),
+                      child: Align(
+                          alignment: Alignment.bottomRight, child: Container()),
                     ),
                   ),
                   const SizedBox(width: 5),
@@ -175,9 +201,15 @@ class _NewsScreenState extends State<NewsScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(height: 10),
-                      SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.title, style: AppStyles.text20PxBold)),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child:
+                              Text(model.title, style: AppStyles.text20PxBold)),
                       const SizedBox(height: 10),
-                      SizedBox(width: MediaQuery.of(context).size.width / 2, child: Text(model.createdAt, style: AppStyles.text14Px)),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child:
+                              Text(model.createdAt, style: AppStyles.text14Px)),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,

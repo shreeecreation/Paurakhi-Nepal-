@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:paurakhi/src/core/dialogs/auth/alldialogs.dart';
+import 'package:paurakhi/src/core/providers/language_provider.dart';
 import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 
 import 'AllBottomNavigator/login_false_bottom_navigtor.dart';
@@ -9,7 +11,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: IsLoggedIn.isLoggedIn ? const LoginTrueBottomNavigator() : const LoginFalseBottomNavigator());
-    // return const Scaffold(body: LoginTrueBottomNavigator());
+    initialStep(context);
+    return WillPopScope(
+      onWillPop: () async {
+        exitDialog(context);
+        return false;
+      },
+      child: Scaffold(
+          body: IsLoggedIn.isLoggedIn
+              ? const LoginTrueBottomNavigator()
+              : const LoginFalseBottomNavigator()),
+    );
   }
+}
+
+void initialStep(context) async {
+  await LocalizationManager.languageDialog(context);
 }

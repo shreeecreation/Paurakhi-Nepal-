@@ -32,7 +32,9 @@ class GrantsSearchResult extends StatelessWidget {
             // If the future has an error, display the error message
           } else {
             // If the future is not complete yet, display a loading indicator
-            return Center(child: Text("No Grants found on title '$title'"));
+            // return Center(child: Text("No Grants found on title '$title'"));
+            return const Center(child: Text(""));
+
           }
         });
   }

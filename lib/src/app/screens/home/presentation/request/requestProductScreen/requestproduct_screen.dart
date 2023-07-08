@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:paurakhi/src/app/screens/auth/login/validators/validators.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown.dart';
 import 'package:paurakhi/src/core/API/RequestProductAPI/request_product_api.dart';
-import 'package:paurakhi/src/core/dialogs/product/product_dialog.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 import 'package:paurakhi/src/core/utils/addmultipleimage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,6 +16,7 @@ void requestProduct(BuildContext context) {
   TextEditingController priceController = TextEditingController();
   TextEditingController minQtyController = TextEditingController();
   GlobalKey<FormState> formKeyRequestProduct = GlobalKey<FormState>();
+  // ignore: unused_local_variable
   List<File> images;
 
 // modal bottom sheet go up with the keyboard appears
@@ -25,12 +25,18 @@ void requestProduct(BuildContext context) {
     backgroundColor: const Color(0xFFF4FBF3),
     isScrollControlled: true,
     useSafeArea: true,
+    isDismissible: false,
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
     ),
     builder: (BuildContext context) {
       return Padding(
-        padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(
+            top: 20,
+            right: 20,
+            left: 20,
+            bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: SizedBox(
@@ -45,29 +51,34 @@ void requestProduct(BuildContext context) {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(AppLocalizations.of(context)!.request_product, style: AppStyles.text20PxBold),
-                          Flexible(
-                              child: IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  icon: const Icon(Icons.close))),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const SizedBox(width: 5),
-                      FutureBuilder<List<DropdownMenuItem<String>>>(
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  AppLocalizations.of(context)!.request_product,
+                                  style: AppStyles.text20PxBold),
+                              Flexible(
+                                  child: IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: const Icon(Icons.close))),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const SizedBox(width: 5),
+                              FutureBuilder<List<DropdownMenuItem<String>>>(
                                 future: DropdownList.returnDropdownforAdding(),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
-                                    List<DropdownMenuItem<String>>? menuItems = snapshot.data;
-                                    print(menuItems);
-                                    return DropdownList.dropdownButton(context, menuItems ?? []);
+                                    List<DropdownMenuItem<String>>? menuItems =
+                                        snapshot.data;
+                                    return DropdownList.dropdownButton(
+                                        context, menuItems ?? []);
                                   } else if (snapshot.hasError) {
                                     return Text('Error: ${snapshot.error}');
                                   } else {
@@ -75,68 +86,78 @@ void requestProduct(BuildContext context) {
                                   }
                                 },
                               ),
-                          const SizedBox(width: 5),
-                          Container(
-                              height: 55,
-                              width: 50,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFFFFFFF),
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
-                              ),
-                              child: IconButton(
-                                  icon: const Icon(Icons.image_rounded),
-                                  onPressed: () async {
-                                    try {
-                                      int length = 0;
-                                      images = (await MultipleImageChooser.pickImages(length));
-                                    } catch (e) {}
-                                  },
-                                  color: const Color(0xFF34A853)))
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      addRequestTitle(context, titleController),
-                      const SizedBox(height: 5),
-                      addProductDescripttion(context, descriptionController),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          productPrice(context, priceController),
-                          const SizedBox(width: 5),
-                          minQty(context, minQtyController),
-                        ],
-                      ),
-                      Center(
-                        child: SizedBox(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width - 50,
-                            child: ElevatedButton(
-                                onPressed: () async {
-                                  //TODO request screen
-                                  if (formKeyRequestProduct.currentState!.validate()) {
-                                    RequestProductModel model = RequestProductModel(
-                                      titleController.text,
-                                      "request",
-                                      descriptionController.text,
-                                      DropdownList.dropDownIndex,
-                                      10,
-                                      10,
-                                      MultipleImageChooser.images,
-                                    );
-                                    await RequestProductAPI.sellProduct(model);
+                              const SizedBox(width: 5),
+                              Container(
+                                  height: 55,
+                                  width: 50,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFFFFFFF),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15)),
+                                  ),
+                                  child: IconButton(
+                                      icon: const Icon(Icons.image_rounded),
+                                      onPressed: () async {
+                                        try {
+                                          int length = 0;
+                                          images = (await MultipleImageChooser
+                                              .pickImages(length));
+                                        } catch (e) {
+                                          debugPrint("$e");
+                                        }
+                                      },
+                                      color: const Color(0xFF34A853)))
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+                          addRequestTitle(context, titleController),
+                          const SizedBox(height: 5),
+                          addProductDescripttion(
+                              context, descriptionController),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              productPrice(context, priceController),
+                              const SizedBox(width: 5),
+                              minQty(context, minQtyController),
+                            ],
+                          ),
+                          Center(
+                            child: SizedBox(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width - 50,
+                                child: ElevatedButton(
+                                    onPressed: () async {
+                                      if (formKeyRequestProduct.currentState!
+                                          .validate()) {
+                                        RequestProductModel model =
+                                            RequestProductModel(
+                                          titleController.text,
+                                          "request",
+                                          descriptionController.text,
+                                          DropdownList.dropDownIndex,
+                                          10,
+                                          10,
+                                          MultipleImageChooser.images,
+                                        );
 
-                                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                                      ProductDialogs().requestProduct(context);
-                                    });
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF34A853),
-                                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                child: Text(AppLocalizations.of(context)!.request_product, style: AppStyles.text16Px))),
-                      ),
-                      const SizedBox(height: 20),
-                    ]),
+                                        await RequestProductAPI.sellProduct(
+                                            model, context);
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xFF34A853),
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15)))),
+                                    child: Text(
+                                        AppLocalizations.of(context)!
+                                            .request_product,
+                                        style: AppStyles.text16Px))),
+                          ),
+                          const SizedBox(height: 20),
+                        ]),
                   ),
                 )),
               ),
@@ -156,7 +177,9 @@ Padding addRequestTitle(BuildContext context, controller) {
       child: TextFormField(
         controller: controller,
         validator: (val) {
-          if (!ExtString.validateFirstName(val!)) return AppLocalizations.of(context)!.enter_a_valid_product_title;
+          if (!ExtString.validateFirstName(val!)) {
+            return AppLocalizations.of(context)!.enter_a_valid_product_title;
+          }
           return null;
         },
         decoration: InputDecoration(
@@ -180,7 +203,9 @@ Padding addProductDescripttion(BuildContext context, controller) {
       width: MediaQuery.of(context).size.width - 30,
       child: TextFormField(
         validator: (val) {
-          if (!ExtString.validateFirstName(val!)) return AppLocalizations.of(context)!.add_some_product_description;
+          if (!ExtString.validateFirstName(val!)) {
+            return AppLocalizations.of(context)!.add_some_product_description;
+          }
           return null;
         },
         controller: controller,
@@ -208,7 +233,9 @@ Padding productPrice(BuildContext context, controller) {
         keyboardType: TextInputType.number,
         controller: controller,
         validator: (val) {
-          if (!ExtString.validateProductPrice(val!)) return AppLocalizations.of(context)!.enter_a_valid_price;
+          if (!ExtString.validateProductPrice(val!)) {
+            return AppLocalizations.of(context)!.enter_a_valid_price;
+          }
           return null;
         },
         decoration: InputDecoration(
@@ -232,8 +259,11 @@ Padding minQty(BuildContext context, controller) {
       width: MediaQuery.of(context).size.width / 3,
       child: TextFormField(
         controller: controller,
+        keyboardType: TextInputType.number,
         validator: (val) {
-          if (!ExtString.validateMinQty(val!)) return AppLocalizations.of(context)!.enter_a_vaid_quantity;
+          if (!ExtString.validateMinQty(val!)) {
+            return AppLocalizations.of(context)!.enter_a_vaid_quantity;
+          }
           return null;
         },
         decoration: InputDecoration(

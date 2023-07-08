@@ -18,7 +18,6 @@ class Datums {
   final String createdAt;
   final String title;
   final String status;
-  final String reply;
   final String body;
 
   Datums({
@@ -26,7 +25,6 @@ class Datums {
     required this.createdAt,
     required this.title,
     required this.status,
-    required this.reply,
     required this.body,
   });
 
@@ -34,7 +32,6 @@ class Datums {
     return Datums(
         id: json['id'] as int,
         createdAt: json['createdAt'],
-        reply: json['reply'] as String,
         body: json['body'] as String,
         title: json['title'] as String,
         status: json['status'] as String);
