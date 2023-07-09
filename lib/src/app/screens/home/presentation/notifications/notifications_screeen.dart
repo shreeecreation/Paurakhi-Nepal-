@@ -27,7 +27,7 @@ class NotificationScreen extends GetView<NotificationController> {
                   children: [
                     SizedBox(width: 20),
                     Text(
-                      "Notification",
+                      "Notifications",
                       style:
                           TextStyle(fontSize: 27, fontWeight: FontWeight.w500),
                     ),
