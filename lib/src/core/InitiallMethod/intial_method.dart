@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:paurakhi/src/app/initial/language_permission.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/AllBottomNavigator/login_true_bottom_navigation.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/history/Finance%20Query%20History/financequery_history.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/history/Grant%20History/getgrant_screen.dart';
@@ -24,8 +23,7 @@ class IntialMethod {
     await LocalizationManager.getCurrentLocale();
     Get.put(NotificationCountController());
     await dotenv.load(fileName: Environment.fileName);
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Colors.white));
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.white));
     await dotenv.load();
     await GetUserInfo.getUserInfo();
     InAppNotification.initNotifications();
@@ -33,15 +31,12 @@ class IntialMethod {
     Get.put(ChoosedUnitController());
     Get.put(FinanceQueryHistoryController());
     Get.put(NotificationController());
-    Get.put(CheckboxController());
     Get.put(TicketHistoryController());
     Get.put(GrantHistoryController());
     Get.put(SearchController());
     Get.put(ProductHistoryController());
     PrivacyPolicyTermsAndConditionsAPI.privacyAPI();
     PrivacyPolicyTermsAndConditionsAPI.termsAPI();
-    // Get.put(LoadMoreControllerGetX());
-
     await SSEManager.startListening();
     await IsVerify.checkVerified();
   }

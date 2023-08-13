@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:paurakhi/src/app/initial/language_permission.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalizationManager {
@@ -23,15 +22,7 @@ class LocalizationManager {
     }
   }
 
-  static languageDialog(context) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? storedPrefs = prefs.getString("language_dialog" ?? "");
-    if (storedPrefs == "" || storedPrefs == null) {
-      LanguageDialog.languageDialog(context);
-    } else {
-      return;
-    }
-  }
+
 
   static setLanguageDialog(value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

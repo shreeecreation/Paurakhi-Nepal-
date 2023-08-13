@@ -11,20 +11,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    initialStep(context);
     return WillPopScope(
       onWillPop: () async {
         exitDialog(context);
         return false;
       },
-      child: Scaffold(
-          body: IsLoggedIn.isLoggedIn
-              ? const LoginTrueBottomNavigator()
-              : const LoginFalseBottomNavigator()),
+      child: Scaffold(body: IsLoggedIn.isLoggedIn ? const LoginTrueBottomNavigator() : const LoginFalseBottomNavigator()),
     );
   }
-}
-
-void initialStep(context) async {
-  await LocalizationManager.languageDialog(context);
 }

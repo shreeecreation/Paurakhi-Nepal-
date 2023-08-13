@@ -10,9 +10,11 @@ import 'package:paurakhi/src/core/env/envmodels.dart';
 class GetUserInfo {
   static Future<void> getUserInfo() async {
     var cookie = await ManageCookie.getCookie();
+    print('${Environment.apiUrl}/user/get-profile');
     try {
       final response = await http.get(
         Uri.parse('${Environment.apiUrl}/user/get-profile'),
+
         headers: {'Cookie': cookie}, // Replace with your headers if needed
       );
       Map<String, dynamic> body = jsonDecode(response.body);
