@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:paurakhi/src/core/dialogs/auth/alldialogs.dart';
-import 'package:paurakhi/src/core/providers/language_provider.dart';
 import 'package:paurakhi/src/core/routes/is_logged_in.dart';
 
 import 'AllBottomNavigator/login_false_bottom_navigtor.dart';

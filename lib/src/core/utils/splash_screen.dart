@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:paurakhi/src/app/screens/features/onboarding/pages/onboarding_page.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/home_page.dart';
 import 'package:paurakhi/src/core/API/CheckLogin/check_login.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
@@ -27,10 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (isLoggedIn) {
       IsLoggedIn.isLoggedIn = true;
-      Get.offAll(const HomePage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
+      Get.offAll(const OnBoardingPage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
     } else {
       IsLoggedIn.isLoggedIn = false;
-      Get.offAll(const HomePage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
+      Get.offAll(const OnBoardingPage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
 //
     }
   }
