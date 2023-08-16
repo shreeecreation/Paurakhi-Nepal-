@@ -22,9 +22,10 @@ import 'src/core/providers/location_provider.dart';
 import 'src/core/utils/focuesnode.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   IntialMethod.initialMethod();
+
   runApp(MyApp());
 }
 
@@ -36,8 +37,6 @@ class MyApp extends StatelessWidget {
   final NetworkService networkService = Get.put(NetworkService());
   @override
   Widget build(BuildContext context) {
-    IntialMethod.initialMethod();
-
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocationProvider()),
@@ -48,8 +47,7 @@ class MyApp extends StatelessWidget {
               BlocProvider<TabBlocBloc>(create: (context) => TabBlocBloc()),
               BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
               BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
-              BlocProvider<GetprdouctBloc>(
-                  create: (context) => GetprdouctBloc()),
+              BlocProvider<GetprdouctBloc>(create: (context) => GetprdouctBloc()),
               BlocProvider<RequestBloc>(create: (context) => RequestBloc()),
               BlocProvider<NewsBloc>(create: (context) => NewsBloc()),
               BlocProvider<BlogBloc>(create: (context) => BlogBloc()),
@@ -77,8 +75,7 @@ class MyApp extends StatelessWidget {
                   ),
                   home: FutureBuilder<void>(
                     future: networkService.checkInternetConnection(),
-                    builder:
-                        (BuildContext context, AsyncSnapshot<void> snapshot) {
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         // Show a loading indicator while checking the connection
                         return const CircularProgressIndicator();
@@ -111,8 +108,7 @@ class NetworkService extends GetxController {
 
   Future<void> checkInternetConnection() async {
     var connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi) {
+    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
       isConnected.value = true;
     } else {
       isConnected.value = false;
@@ -140,6 +136,7 @@ class NetworkService extends GetxController {
 // import 'src/app/screens/internetandSetverError/check_internet_connection.dart';
 // import 'src/app/screens/search/bloc/search_bloc.dart';
 // import 'src/core/InitiallMethod/intial_method.dart';
+// import 'src/core/env/envmodels.dart';
 // import 'src/core/providers/language_provider.dart';
 // import 'src/core/providers/location_provider.dart';
 // import 'src/core/utils/focuesnode.dart';
@@ -178,22 +175,15 @@ class NetworkService extends GetxController {
 //                 ],
 //                 child: MultiBlocProvider(
 //                     providers: [
-//                       BlocProvider<TabBlocBloc>(
-//                           create: (context) => TabBlocBloc()),
-//                       BlocProvider<SearchBloc>(
-//                           create: (context) => SearchBloc()),
-//                       BlocProvider<ProfileBloc>(
-//                           create: (context) => ProfileBloc()),
-//                       BlocProvider<GetprdouctBloc>(
-//                           create: (context) => GetprdouctBloc()),
-//                       BlocProvider<RequestBloc>(
-//                           create: (context) => RequestBloc()),
+//                       BlocProvider<TabBlocBloc>(create: (context) => TabBlocBloc()),
+//                       BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
+//                       BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
+//                       BlocProvider<GetprdouctBloc>(create: (context) => GetprdouctBloc()),
+//                       BlocProvider<RequestBloc>(create: (context) => RequestBloc()),
 //                       BlocProvider<NewsBloc>(create: (context) => NewsBloc()),
 //                       BlocProvider<BlogBloc>(create: (context) => BlogBloc()),
-//                       BlocProvider<FinanceBloc>(
-//                           create: (context) => FinanceBloc()),
-//                       BlocProvider<GrantsBloc>(
-//                           create: (context) => GrantsBloc()),
+//                       BlocProvider<FinanceBloc>(create: (context) => FinanceBloc()),
+//                       BlocProvider<GrantsBloc>(create: (context) => GrantsBloc()),
 //                     ],
 //                     child: GestureDetector(
 //                       onTap: () {
@@ -215,10 +205,8 @@ class NetworkService extends GetxController {
 //                           ),
 //                           home: FutureBuilder<void>(
 //                             future: networkService.checkInternetConnection(),
-//                             builder: (BuildContext context,
-//                                 AsyncSnapshot<void> snapshot) {
-//                               if (snapshot.connectionState ==
-//                                   ConnectionState.waiting) {
+//                             builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+//                               if (snapshot.connectionState == ConnectionState.waiting) {
 //                                 // Show a loading indicator while checking the connection
 //                                 return const CircularProgressIndicator();
 //                               } else if (snapshot.hasError) {
@@ -253,8 +241,7 @@ class NetworkService extends GetxController {
 
 //   Future<void> checkInternetConnection() async {
 //     var connectivityResult = await Connectivity().checkConnectivity();
-//     if (connectivityResult == ConnectivityResult.mobile ||
-//         connectivityResult == ConnectivityResult.wifi) {
+//     if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
 //       isConnected.value = true;
 //     } else {
 //       isConnected.value = false;

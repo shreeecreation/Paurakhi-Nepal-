@@ -67,6 +67,9 @@ dependencies:
   flutter_local_notifications: ^14.1.1
   carousel_slider: ^4.2.1
 
+  #onboarding
+
+  introduction_screen: ^3.1.11
 flutter_icons:
   android: true
   ios: true 

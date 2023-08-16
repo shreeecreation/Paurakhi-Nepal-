@@ -28,8 +28,7 @@ class NotificationScreen extends GetView<NotificationController> {
                     SizedBox(width: 20),
                     Text(
                       "Notifications",
-                      style:
-                          TextStyle(fontSize: 27, fontWeight: FontWeight.w500),
+                      style: TextStyle(fontSize: 27, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -46,15 +45,13 @@ class NotificationScreen extends GetView<NotificationController> {
                               child: CircularProgressIndicator(),
                             );
                           } else {
-                            if (controller.notifications.length < 9) {
+                            if (controller.notifications.isEmpty) {
                               return SizedBox(
                                 height: 300,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Icon(Icons.info,
-                                        size: 100,
-                                        color: Color.fromARGB(87, 76, 175, 79)),
+                                    const Icon(Icons.info, size: 100, color: Color.fromARGB(87, 76, 175, 79)),
                                     const SizedBox(height: 10),
                                     Text(
                                       "Empty Notification!",
@@ -88,8 +85,7 @@ class NotificationScreen extends GetView<NotificationController> {
                             }
                           }
                         } else {
-                          NotificationModel notification =
-                              controller.notifications[index];
+                          NotificationModel notification = controller.notifications[index];
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -107,8 +103,7 @@ class NotificationScreen extends GetView<NotificationController> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Icon(
-                                          _buildLeadingWidget(
-                                              notification.type),
+                                          _buildLeadingWidget(notification.type),
                                           color: Colors.white,
                                         ),
                                       ),
@@ -117,27 +112,17 @@ class NotificationScreen extends GetView<NotificationController> {
                                     title: SizedBox(
                                       height: 30,
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             notification.type.capitalize!,
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color.fromARGB(
-                                                    255, 0, 0, 0)),
+                                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Color.fromARGB(255, 0, 0, 0)),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    trailing: Text(
-                                        getTimeAgo(notification.createdAt),
-                                        style: AppStyles.text12Px),
-                                    subtitle: Text(notification.message,
-                                        style: const TextStyle(
-                                            fontSize: 16,
-                                            color: Color(0xFF646464))),
+                                    trailing: Text(getTimeAgo(notification.createdAt), style: AppStyles.text12Px),
+                                    subtitle: Text(notification.message, style: const TextStyle(fontSize: 16, color: Color(0xFF646464))),
                                   ),
                                 ),
                               ),
@@ -192,8 +177,7 @@ class NotificationController extends GetxController {
     isLoading.value = true;
 
     try {
-      List<NotificationModel> newNotifications =
-          await GetNotificationAPI.getNotification(currentPage);
+      List<NotificationModel> newNotifications = await GetNotificationAPI.getNotification(currentPage);
       notifications.addAll(newNotifications);
       currentPage++;
     } catch (e) {
