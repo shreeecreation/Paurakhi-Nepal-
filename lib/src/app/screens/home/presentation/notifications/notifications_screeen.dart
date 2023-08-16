@@ -17,12 +17,14 @@ class NotificationScreen extends GetView<NotificationController> {
       body: RefreshIndicator(
         onRefresh: controller.refreshNotifications,
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Column(
+
               children: [
-                const SizedBox(height: 20),
+                
+                const SizedBox(height: 60),
                 const Row(
                   children: [
                     SizedBox(width: 20),
@@ -31,8 +33,8 @@ class NotificationScreen extends GetView<NotificationController> {
                       style: TextStyle(fontSize: 27, fontWeight: FontWeight.w500),
                     ),
                   ],
+
                 ),
-                const SizedBox(height: 20),
                 Expanded(
                   child: Obx(
                     () => ListView.builder(
@@ -87,8 +89,9 @@ class NotificationScreen extends GetView<NotificationController> {
                         } else {
                           NotificationModel notification = controller.notifications[index];
                           return Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+
                             children: [
+                            
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
@@ -136,7 +139,7 @@ class NotificationScreen extends GetView<NotificationController> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 100),
+                const SizedBox(height: 120),
               ],
             ),
           ),

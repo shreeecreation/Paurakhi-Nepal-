@@ -20,12 +20,12 @@ import 'package:paurakhi/src/core/providers/language_provider.dart';
 
 class IntialMethod {
   static void initialMethod() async {
-    await dotenv.load(fileName: Environment.fileName);
-    await dotenv.load();
     await LocalizationManager.getCurrentLocale();
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.white));
-    await GetUserInfo.getUserInfo();
     Get.put(NotificationCountController());
+    await dotenv.load(fileName: Environment.fileName);
+   
+    await dotenv.load();
+    await GetUserInfo.getUserInfo();
     InAppNotification.initNotifications();
     Get.put(QuotationHistoryController());
     Get.put(ChoosedUnitController());
@@ -37,6 +37,8 @@ class IntialMethod {
     Get.put(ProductHistoryController());
     PrivacyPolicyTermsAndConditionsAPI.privacyAPI();
     PrivacyPolicyTermsAndConditionsAPI.termsAPI();
+    // Get.put(LoadMoreControllerGetX());
+
     await SSEManager.startListening();
     await IsVerify.checkVerified();
   }

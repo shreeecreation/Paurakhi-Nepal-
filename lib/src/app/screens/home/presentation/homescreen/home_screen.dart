@@ -84,6 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
         physics: const AlwaysScrollableScrollPhysics(),
         child: SizedBox(
             child: Column(children: [
+              SizedBox(height:60),
           // ---------------------------------------------------------------------Search Widget
           searchWidget(context, scaffoldKey),
           const SizedBox(height: 24),

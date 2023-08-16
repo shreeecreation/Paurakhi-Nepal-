@@ -1,5 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -23,8 +24,15 @@ import 'src/core/utils/focuesnode.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+ SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+ ));
+ SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+
   IntialMethod.initialMethod();
+
 
   runApp(MyApp());
 }
@@ -59,6 +67,8 @@ class MyApp extends StatelessWidget {
                 unFocusNode(context);
               },
               child: SafeArea(
+                top:  false,
+                
                 child: GetMaterialApp(
                   supportedLocales: L10n.all,
                   locale: const Locale("en"),
