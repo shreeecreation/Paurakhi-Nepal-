@@ -22,9 +22,10 @@ import 'src/core/providers/location_provider.dart';
 import 'src/core/utils/focuesnode.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   IntialMethod.initialMethod();
+
   runApp(MyApp());
 }
 
@@ -36,8 +37,6 @@ class MyApp extends StatelessWidget {
   final NetworkService networkService = Get.put(NetworkService());
   @override
   Widget build(BuildContext context) {
-    IntialMethod.initialMethod();
-
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocationProvider()),

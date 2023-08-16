@@ -20,12 +20,12 @@ import 'package:paurakhi/src/core/providers/language_provider.dart';
 
 class IntialMethod {
   static void initialMethod() async {
-    await LocalizationManager.getCurrentLocale();
-    Get.put(NotificationCountController());
     await dotenv.load(fileName: Environment.fileName);
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.white));
     await dotenv.load();
+    await LocalizationManager.getCurrentLocale();
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.white));
     await GetUserInfo.getUserInfo();
+    Get.put(NotificationCountController());
     InAppNotification.initNotifications();
     Get.put(QuotationHistoryController());
     Get.put(ChoosedUnitController());

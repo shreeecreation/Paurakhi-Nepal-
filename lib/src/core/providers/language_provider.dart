@@ -21,9 +21,6 @@ class LocalizationManager {
       return 'en';
     }
   }
-
-
-
   static setLanguageDialog(value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString("language_dialog", value);
