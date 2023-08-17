@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
                     future: networkService.checkInternetConnection(),
                     builder:
                         (BuildContext context, AsyncSnapshot<void> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                         // Show a loading indicator while checking the connection
                         return const CircularProgressIndicator();
                       } else if (snapshot.hasError) {
@@ -101,7 +101,7 @@ class MyApp extends StatelessWidget {
                     },
                   ),
                 ),
-              ),
+              ),                                                                                  
             )));
   }
 }
