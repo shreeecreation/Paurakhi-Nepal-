@@ -41,27 +41,21 @@ class SSEManager {
             notificationList.add(notification);
             InAppNotification.showInAppNotification('Paurakhi', message);
 
-            final notificationCountController =
-                Get.find<NotificationCountController>();
+            final notificationCountController = Get.find<NotificationCountController>();
             notificationCountController.incrementNotificationCount();
-            notificationHandled =
-                true; // Set the flag to true after handling the notification
+            notificationHandled = true; // Set the flag to true after handling the notification
           }
-          await Future.delayed(
-              const Duration(seconds: 5)); // Delay before reconnecting
+          await Future.delayed(const Duration(seconds: 5)); // Delay before reconnecting
 
           Future.delayed(const Duration(milliseconds: 500), () {
-            notificationHandled =
-                false; // Set the flag to true after handling the notification
+            notificationHandled = false; // Set the flag to true after handling the notification
           });
         });
 
         eventSource.onError.listen((Event event) {
-
           return;
         });
       } catch (error) {
-
         debugPrint('Error occurred during the EventSource connection: $error');
       }
     }
@@ -74,18 +68,15 @@ class GetNotificationAPI {
 
     try {
       final response = await http.get(
-        Uri.parse(
-            '${Environment.apiUrl}/${AllAPIEndPoint.getnotificationAPI}?page=$page'),
+        Uri.parse('${Environment.apiUrl}/${AllAPIEndPoint.getnotificationAPI}?page=$page'),
         headers: {'Cookie': cookie},
       );
       if (response.statusCode == 200) {
         List<dynamic> jsonList = jsonDecode(response.body)['data'];
-        List<NotificationModel> notifications =
-            jsonList.map((json) => NotificationModel.fromJson(json)).toList();
+        List<NotificationModel> notifications = jsonList.map((json) => NotificationModel.fromJson(json)).toList();
         return notifications;
       } else {
-        throw Exception(
-            'Failed to fetch notifications. Status code: ${response.statusCode}');
+        throw Exception('Failed to fetch notifications. Status code: ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('Failed to fetch notifications: $e');

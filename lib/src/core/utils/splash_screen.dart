@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:paurakhi/src/app/screens/features/onboarding/pages/onboarding_page.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/home_page.dart';
 import 'package:paurakhi/src/core/API/CheckLogin/check_login.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
@@ -34,10 +35,11 @@ class _SplashScreenState extends State<SplashScreen> {
 //
     }
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+   
       body: Stack(
         children: [
           Center(child: Image.asset("assets/images/logo2.png")),
