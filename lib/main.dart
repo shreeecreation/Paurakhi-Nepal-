@@ -106,7 +106,6 @@ class MyApp extends StatelessWidget {
                                   } else {
                                     final onboardingShown =
                                         snapshot.data as bool;
-                                    print(onboardingShown);
                                     return onboardingShown
                                         ? const SplashScreen()
                                         : const OnBoardingPage();

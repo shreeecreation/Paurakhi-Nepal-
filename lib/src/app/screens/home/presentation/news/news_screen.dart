@@ -154,7 +154,6 @@ class _NewsScreenState extends State<NewsScreen> {
   }
 
   Widget allNews(context, BlogModelNewsFinanceModel model) {
-    print(model.blogImage);
     return GestureDetector(
       onTap: () {
         HomeRoutes.singlePageScreenNews(model);
