@@ -10,6 +10,8 @@ import 'package:paurakhi/src/app/screens/internetandSetverError/nointernetconnec
 import 'package:paurakhi/src/core/utils/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'l10n/l10n.dart';
+import 'src/app/screens/features/onboarding/pages/onboarding_page.dart';
+import 'src/app/screens/features/preferences/onboarding_preferences.dart';
 import 'src/app/screens/home/presentation/finance/bloc/finance_bloc.dart';
 import 'src/app/screens/home/presentation/news/bloc/news_bloc.dart';
 import 'src/app/screens/home/presentation/blog/bloc/blog_bloc.dart';
@@ -24,15 +26,14 @@ import 'src/core/utils/focuesnode.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
- SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
- ));
- SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+  ));
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: SystemUiOverlay.values);
 
   IntialMethod.initialMethod();
-
 
   runApp(MyApp());
 }
@@ -68,8 +69,7 @@ class MyApp extends StatelessWidget {
                 unFocusNode(context);
               },
               child: SafeArea(
-                top:  false,
-                
+                top: false,
                 child: GetMaterialApp(
                   supportedLocales: L10n.all,
                   locale: const Locale("en"),
@@ -86,21 +86,34 @@ class MyApp extends StatelessWidget {
                   ),
                   home: FutureBuilder<void>(
                     future: networkService.checkInternetConnection(),
-                    builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+                    builder:
+                        (BuildContext context, AsyncSnapshot<void> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         // Show a loading indicator while checking the connection
                         return const CircularProgressIndicator();
                       } else if (snapshot.hasError) {
-                        // If an error occurred while checking the connection, display an error message
                         return Text('Error: ${snapshot.error}');
                       } else {
                         return Obx(
                           () {
                             if (networkService.isConnected.value) {
-                              // If there is an active internet connection
-                              return const SplashScreen();
+                              return FutureBuilder(
+                                future: checkIfOnboardingShown(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const CircularProgressIndicator(); // Loading indicator
+                                  } else {
+                                    final onboardingShown =
+                                        snapshot.data as bool;
+                                    print(onboardingShown);
+                                    return onboardingShown
+                                        ? const SplashScreen()
+                                        : const OnBoardingPage();
+                                  }
+                                },
+                              );
                             } else {
-                              // If there is no internet connection
                               return const NoInternetConnectionPage();
                             }
                           },
@@ -109,7 +122,7 @@ class MyApp extends StatelessWidget {
                     },
                   ),
                 ),
-              ),                                                                                  
+              ),
             )));
   }
 }
@@ -119,7 +132,8 @@ class NetworkService extends GetxController {
 
   Future<void> checkInternetConnection() async {
     var connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
       isConnected.value = true;
     } else {
       isConnected.value = false;

@@ -4,6 +4,7 @@ import 'package:paurakhi/src/app/screens/home/presentation/home_page.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
 import 'package:paurakhi/src/core/themes/appcolors.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -15,24 +16,33 @@ class OnBoardingPage extends StatefulWidget {
 class OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
-  void _onIntroEnd(context) {
+  void _onIntroEnd(context) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Save the onboarding status as shown
+    await prefs.setBool('onboardingShown', true);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (_) => const HomePage()),
     );
   }
 
-  Widget _buildFullscreenImage([String asset = ""]) {
-    return Image.asset(
-      asset,
-      fit: BoxFit.cover,
-      height: double.infinity,
-      width: double.infinity,
-      alignment: Alignment.center,
+  Widget _buildImage(
+    String assetName,
+  ) {
+    return Column(
+      children: [
+        Image.asset(
+          'assets/images/$assetName',
+          fit: BoxFit.cover,
+          height: MediaQuery.sizeOf(context).height / 1.1,
+          width: double.infinity,
+          alignment: Alignment.center,
+        ),
+        const SizedBox(
+          height: 50,
+        )
+      ],
     );
-  }
-
-  Widget _buildImage(String assetName, [double width = 350]) {
-    return Image.asset('assets/images/$assetName', width: width);
   }
 
   @override
@@ -43,7 +53,6 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
       bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-      pageColor: Colors.white,
       imagePadding: EdgeInsets.zero,
     );
 
@@ -53,30 +62,25 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       allowImplicitScrolling: true,
       autoScrollDuration: 3000,
       infiniteAutoScroll: true,
-
       pages: [
         PageViewModel(
           title: "",
           body: "",
-          image: _buildFullscreenImage('1.jpg'),
-          decoration: pageDecoration,
+          image: _buildImage('1.jpg'),
+          // decoration: pageDecoration,
+          decoration: pageDecoration.copyWith(
+            contentMargin: const EdgeInsets.symmetric(horizontal: 16),
+            fullScreen: true,
+            bodyFlex: 2,
+            imageFlex: 3,
+            safeArea: 100,
+          ),
         ),
         PageViewModel(
           title: " ",
           body: "",
-          image: _buildFullscreenImage('2.jpg'),
-          decoration: pageDecoration,
-        ),
-        PageViewModel(
-          title: "",
-          body: "",
-          image: _buildFullscreenImage('3.jpg'),
-          decoration: pageDecoration,
-        ),
-        PageViewModel(
-          title: "",
-          body: "",
-          image: _buildFullscreenImage(),
+          image: _buildImage('2.jpg'),
+          // decoration: pageDecoration,
           decoration: pageDecoration.copyWith(
             contentMargin: const EdgeInsets.symmetric(horizontal: 16),
             fullScreen: true,
@@ -88,50 +92,43 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "",
           body: "",
-          image: _buildFullscreenImage('4.jpg'),
+          image: _buildImage('3.jpg'),
+          // decoration: pageDecoration,
           decoration: pageDecoration.copyWith(
-            bodyFlex: 6,
-            imageFlex: 6,
-            safeArea: 80,
+            contentMargin: const EdgeInsets.symmetric(horizontal: 16),
+            fullScreen: true,
+            bodyFlex: 2,
+            imageFlex: 3,
           ),
         ),
         PageViewModel(
           title: "",
-          bodyWidget: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Click on ", style: bodyStyle),
-              Icon(Icons.edit),
-              Text(" to edit a post", style: bodyStyle),
-            ],
-          ),
+          body: "",
+          image: _buildImage("4.jpg"),
           decoration: pageDecoration.copyWith(
+            contentMargin: const EdgeInsets.symmetric(horizontal: 16),
+            fullScreen: true,
             bodyFlex: 2,
-            imageFlex: 4,
-            bodyAlignment: Alignment.bottomCenter,
-            imageAlignment: Alignment.topCenter,
+            imageFlex: 3,
           ),
-          image: _buildImage('paurakhi.png'),
-          reverse: true,
         ),
       ],
       onDone: () => _onIntroEnd(context),
-      onSkip: () => _onIntroEnd(context), // You can override onSkip callback
+      onSkip: () => _onIntroEnd(context),
       showSkipButton: true,
       skipOrBackFlex: 0,
       nextFlex: 0,
       showBackButton: false,
-
-      skip: Text('Skip', style: AppStyles.text16Px.textDark),
+      skip: Text('Skip', style: AppStyles.text16PxMedium.textDark),
       next: const Icon(
         Icons.arrow_forward,
         color: AppColors.textDark,
       ),
-      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
+      done: Text('Done', style: AppStyles.text14Px.black),
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: const EdgeInsets.all(16),
       dotsDecorator: const DotsDecorator(
-        size: Size(5.0, 5.0),
+        size: Size(9.0, 9.0),
         color: Color(0xFFBDBDBD),
         activeSize: Size(10.0, 5.0),
         activeColor: AppColors.black,

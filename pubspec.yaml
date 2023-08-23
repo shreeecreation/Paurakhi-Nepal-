@@ -1,35 +1,35 @@
 name: paurakhi
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0-312.0.dev <4.0.0'
+  sdk: ">=3.0.0-312.0.dev <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-    
+
   #localization adding to the application
   intl: ^0.18.0
 
   adaptive_sizer: ^0.0.4
   #using the google fonts
   google_fonts: ^4.0.1
-  
+
   #using the pinput for OTP
   pinput: ^2.2.31
 
-  #used for routing 
+  #used for routing
   get: ^4.6.5
 
-  #env 
+  #env
   flutter_dotenv: ^5.0.2
 
-  #image picker in flutter  and image cropper 
+  #image picker in flutter  and image cropper
   image_picker: ^0.8.7+4
   image_cropper: ^3.0.3
 
@@ -42,7 +42,7 @@ dependencies:
 
   webview_flutter: ^4.2.0
 
-  #state management 
+  #state management
 
   #getting location pacgake
   geolocator: ^8.2.0
@@ -54,7 +54,6 @@ dependencies:
 
   flutter_launcher_icons: ^0.13.1
 
-  
   eventsource: ^0.4.0
 
   #UI packages
@@ -70,20 +69,21 @@ dependencies:
   #onboarding
 
   introduction_screen: ^3.1.11
+
 flutter_icons:
   android: true
-  ios: true 
+  ios: true
   image_path: "assets/images/paurakhi1.png"
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0  
+  flutter_lints: ^2.0.0
 flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/images/  
+    - assets/images/
     - .env
     - .env.production
     - .env.development
