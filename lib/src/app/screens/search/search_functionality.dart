@@ -4,7 +4,6 @@ import 'package:paurakhi/main.dart';
 import 'package:paurakhi/src/core/utils/searchwidget.dart';
 
 import 'bloc/search_bloc.dart';
-import 'domain/search_value.dart';
 import 'search_widget.dart';
 
 class SearchFunctionality extends StatelessWidget {
@@ -22,9 +21,9 @@ class SearchFunctionality extends StatelessWidget {
         BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
             if (state is SearchStartState) {
-              return SearchWidget(name: SearchValue.searchValue);
+              return const SearchWidget();
             }
-         
+
             return const Text("dasdasdasd");
           },
         ),

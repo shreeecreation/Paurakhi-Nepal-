@@ -7,7 +7,7 @@ import 'package:paurakhi/src/core/themes/appstyles.dart';
 
 class OpenTicket extends StatelessWidget {
   OpenTicket({super.key});
-  GlobalKey<FormState> ticketKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> ticketKey = GlobalKey<FormState>();
 
   final TextEditingController subjectController = TextEditingController();
   final TextEditingController messageController = TextEditingController();
@@ -41,7 +41,9 @@ class OpenTicket extends StatelessWidget {
                           controller: messageController,
                           maxLines: 8,
                           validator: (value) {
-                            if (!ExtString.validateNormalName(value!)) return "Message can't be less than 5 ";
+                            if (value!.length < 5) {
+                              return "Message can't be less than 5 ";
+                            }
                             return null;
                           },
                           decoration: InputDecoration(
@@ -61,12 +63,15 @@ class OpenTicket extends StatelessWidget {
                         child: ElevatedButton(
                             onPressed: () {
                               if (ticketKey.currentState!.validate()) {
-                                OpenTickets.openTicket(messageController.text, subjectController.text, context);
+                                OpenTickets.openTicket(messageController.text,
+                                    subjectController.text, context);
                               }
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF34A853),
-                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15)))),
                             child: Text("Submit", style: AppStyles.text16Px))),
                   )
                 ],
@@ -122,7 +127,9 @@ Padding subject(BuildContext context, controller) {
       width: MediaQuery.of(context).size.width - 30,
       child: TextFormField(
           validator: (value) {
-            if (!ExtString.validateNormalName(value!)) return "Subject can't be less than 5 ";
+            if (!ExtString.validateNormalName(value!)) {
+              return "Subject can't be less than 5 ";
+            }
             return null;
           },
           controller: controller,

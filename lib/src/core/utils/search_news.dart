@@ -1,9 +1,7 @@
-//TODO search functionality
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/news/bloc/news_bloc.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/news/search/search_value.dart';
-import 'package:paurakhi/src/core/API/Search/search_api.dart';
 import 'focuesnode.dart';
 
 Widget searchNews(BuildContext context, key) {
@@ -12,7 +10,7 @@ Widget searchNews(BuildContext context, key) {
     children: [
       GestureDetector(
         onTap: () {
-          // BlocProvider.of<NewsBloc>(context).add(SearchNewsEvent());
+          BlocProvider.of<NewsBloc>(context).add(SearchNewsEvent());
         },
         child: SizedBox(
           width: MediaQuery.of(context).size.width - 20,
@@ -76,11 +74,8 @@ Widget searchFilterWidget(BuildContext context, key) {
           child: TextFormField(
               onFieldSubmitted: (value) async {
                 SearchValueNews.searchValue = value;
-                await SearchAPI.getSearchedNews(value);
 
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  BlocProvider.of<NewsBloc>(context).add(SearchedNewsEvent());
-                });
+                BlocProvider.of<NewsBloc>(context).add(SearchedNewsEvent());
               },
               decoration: InputDecoration(
                   border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(9.0)),

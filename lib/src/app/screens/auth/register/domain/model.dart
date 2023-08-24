@@ -1,4 +1,3 @@
-import 'dart:io';
 
 class RegisterModel {
   var firstName = "";
@@ -7,5 +6,6 @@ class RegisterModel {
   var phoneNo = "";
   var address = "";
   var email = "";
-  File? image;
+  // ignore: prefer_typing_uninitialized_variables
+  var image;
 }

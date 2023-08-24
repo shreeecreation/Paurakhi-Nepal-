@@ -9,7 +9,8 @@ class LoginFalseBottomNavigator extends StatefulWidget {
   const LoginFalseBottomNavigator({super.key});
 
   @override
-  State<LoginFalseBottomNavigator> createState() => _LoginFalseBottomNavigatorState();
+  State<LoginFalseBottomNavigator> createState() =>
+      _LoginFalseBottomNavigatorState();
 }
 
 class _LoginFalseBottomNavigatorState extends State<LoginFalseBottomNavigator> {
@@ -31,42 +32,115 @@ class _LoginFalseBottomNavigatorState extends State<LoginFalseBottomNavigator> {
   @override
   void initState() {
     getLocation();
-    // TODO: implement initState
     super.initState();
   }
 
   getLocation() async {
-     try {
+    try {
       await GetCurrentLocation.getCurrentPosition(context);
     } catch (e) {
-      print(e);
+      debugPrint("$e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: SizedBox(
-        height: 70,
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          unselectedItemColor: const Color(0xFF828282),
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.notifications, size: 28), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.home_filled, size: 28), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.add, size: 28), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.person, size: 28), label: ""),
-          ],
-          currentIndex: _selectedIndex,
-          unselectedLabelStyle: const TextStyle(fontSize: 0.5),
-          selectedLabelStyle: const TextStyle(fontSize: 0.5),
-          selectedItemColor: const Color(0xFF34A853),
-          onTap: _onItemTapped,
-        ),
+      extendBody: true,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 400),
+              child: _widgetOptions.elementAt(_selectedIndex),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              width: 200,
+              decoration: const BoxDecoration(
+                color: Colors.transparent,
+              ),
+              height: 70,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                child: Material(
+                  // Wrap with Material widget
+                  elevation: 8.0, // Set the desired elevation value
+                  borderRadius: const BorderRadius.all(Radius.circular(25)),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(25)),
+                    child: BottomNavigationBar(
+                      type: BottomNavigationBarType.fixed,
+                      unselectedItemColor: const Color(0xFF828282),
+                      items: <BottomNavigationBarItem>[
+                        _selectedIndex == 0
+                            ? _buildRoundedIconBottomNavigationBarItemActive(
+                                Icons.notifications_active)
+                            : _buildRoundedIconBottomNavigationBarItem(
+                                Icons.notifications_active_outlined),
+                        _selectedIndex == 1
+                            ? _buildRoundedIconBottomNavigationBarItemActive(
+                                Icons.home)
+                            : _buildRoundedIconBottomNavigationBarItem(
+                                Icons.home_outlined),
+                        _selectedIndex == 2
+                            ? _buildRoundedIconBottomNavigationBarItemActive(
+                                Icons.add)
+                            : _buildRoundedIconBottomNavigationBarItem(
+                                Icons.add),
+                        _selectedIndex == 3
+                            ? _buildRoundedIconBottomNavigationBarItemActive(
+                                Icons.person)
+                            : _buildRoundedIconBottomNavigationBarItem(
+                                Icons.person_outline),
+                      ],
+                      currentIndex: _selectedIndex,
+                      unselectedLabelStyle: const TextStyle(fontSize: 0.5),
+                      selectedLabelStyle: const TextStyle(fontSize: 0.5),
+                      selectedItemColor: Colors.white,
+                      onTap: _onItemTapped,
+                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
+}
+
+BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItem(
+    IconData icon) {
+  return BottomNavigationBarItem(
+    icon: Padding(
+        padding: const EdgeInsets.all(8.0), child: Icon(icon, size: 30)),
+    label: "",
+  );
+}
+
+BottomNavigationBarItem _buildRoundedIconBottomNavigationBarItemActive(
+    IconData icon) {
+  return BottomNavigationBarItem(
+    icon: Container(
+      height: 40,
+      width: 40,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.green,
+      ),
+      child: Center(child: Icon(icon, size: 20)),
+    ),
+    label: "",
+  );
 }

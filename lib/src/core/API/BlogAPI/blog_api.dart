@@ -7,20 +7,23 @@ import 'package:paurakhi/src/core/API/CookieManager/managecookie.dart';
 import 'package:paurakhi/src/core/env/envmodels.dart';
 
 class BlogNewsFinanceAPI {
-  static Future<List<BlogModelNewsFinanceModel>?> getAPI(type) async {
+  static Future<List<BlogModelNewsFinanceModel>?> getAPI(type, page) async {
     var cookie = await ManageCookie.getCookie();
-    final String url = '${Environment.apiUrl}/${AllAPIEndPoint.blogAPI}?type=$type';
+    final String url = '${Environment.apiUrl}/${AllAPIEndPoint.blogAPI}?type=$type&page=$page';
     try {
       final response = await http.get(
         Uri.parse(url),
         headers: {'Cookie': cookie}, // Replace with your headers if needed
       );
+
       final List<dynamic> jsonList = jsonDecode(response.body);
       List<BlogModelNewsFinanceModel> blogs = [];
       blogs = jsonList.map((dynamic json) => BlogModelNewsFinanceModel.fromJson(json as Map<String, dynamic>)).toList();
       return blogs;
-    } catch (e) {
-      print(e);
+    } 
+    
+    catch (e) {
+  
     }
     return null;
   }

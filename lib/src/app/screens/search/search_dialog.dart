@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:paurakhi/src/app/screens/search/search_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/request/addproductScreen/domain/dropdown.dart';
 import 'package:paurakhi/src/core/themes/appstyles.dart';
 
+import 'bloc/search_bloc.dart';
 import 'domain/filter_saver.dart';
 import 'domain/search_value.dart';
 
 class OptionsDialog extends StatefulWidget {
-  const OptionsDialog({super.key});
+  const OptionsDialog({Key? key}) : super(key: key);
 
   @override
   _OptionsDialogState createState() => _OptionsDialogState();
@@ -16,6 +21,24 @@ class _OptionsDialogState extends State<OptionsDialog> {
   final List<DropdownMenuItem> _options = DropdownList.allCategory;
   final Set<String> _checkedValues = {};
   List<String> choosed = [];
+  late SharedPreferences _prefs;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCheckboxState();
+  }
+
+  Future<void> _loadCheckboxState() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _checkedValues.addAll(_prefs.getStringList('checkedValues') ?? []);
+    });
+  }
+
+  void _saveCheckboxState() {
+    _prefs.setStringList('checkedValues', _checkedValues.toList());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +53,7 @@ class _OptionsDialogState extends State<OptionsDialog> {
                   title: option.child,
                   value: _checkedValues.contains(option.value),
                   onChanged: (checked) {
-                    final index = _options.indexOf(option);
+                    final index = _options.indexOf;
                     if (!choosed.contains(index.toString())) {
                       choosed.add(index.toString());
                     }
@@ -44,6 +67,7 @@ class _OptionsDialogState extends State<OptionsDialog> {
                         SearchValue.category.add(option.value);
                       }
                     });
+                    _saveCheckboxState(); // Save the checked state
                   },
                 ),
               )
@@ -65,10 +89,13 @@ class _OptionsDialogState extends State<OptionsDialog> {
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.green, elevation: 0),
                   child: const Text('Request'),
                   onPressed: () {
-                    FilterSaver.saveFilter(choosed, 0);
+                    FilterSaver.saveFilter(choosed.toString(), 0);
                     FilterSaver.getFilter();
                     Navigator.pop(context);
-                    SearchValue.type = "request";
+                    Filter.type = 0;
+                    Get.find<SearchControllerHome>().currentPage = 1;
+                    Get.find<SearchControllerHome>().loadProducts(false);
+                    BlocProvider.of<SearchBloc>(context).add(SearchStartEvent());
                   },
                 ),
                 const SizedBox(width: 20),
@@ -76,11 +103,13 @@ class _OptionsDialogState extends State<OptionsDialog> {
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.green, elevation: 0),
                   child: const Text('Sell'),
                   onPressed: () {
-                    FilterSaver.saveFilter(choosed, 1);
-                    SearchValue.type = "save";
-
+                    FilterSaver.saveFilter(choosed.toString(), 1);
+                    Filter.type = 1;
+                    Get.find<SearchControllerHome>().loadProducts(false);
+                    Get.find<SearchControllerHome>().currentPage = 1;
                     FilterSaver.getFilter();
                     Navigator.pop(context);
+                    BlocProvider.of<SearchBloc>(context).add(SearchStartEvent());
                   },
                 ),
               ],

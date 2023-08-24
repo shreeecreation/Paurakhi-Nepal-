@@ -57,7 +57,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                             width: MediaQuery.of(context).size.width - 50,
                             child: ElevatedButton(
                                 onPressed: () async {
-                                  //TODO add product function
+                                  //
                                   if (forgotKey.currentState!.validate()) {
                                     await ForgotPasswordAPI.verifyNumberForgot(phoneNumber.text, context);
                                   }

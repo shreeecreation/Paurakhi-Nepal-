@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'domain/tag.dart';
-
 class TagGenerator {
-  static Future<Future<List<String>?>> showTagDialog(BuildContext context) async {
-    final List<String> tags = [];
+  static List<String> tags =
+      []; // Move the tags list outside the dialog function
 
+  static Future<List<String>?> showTagDialog(BuildContext context) async {
     return showDialog<List<String>>(
       context: context,
       builder: (BuildContext context) {
@@ -32,7 +31,8 @@ class TagGenerator {
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) {
-                          final TextEditingController controller = TextEditingController();
+                          final TextEditingController controller =
+                              TextEditingController();
 
                           return AlertDialog(
                             title: const Text('Add Tag'),
@@ -41,6 +41,8 @@ class TagGenerator {
                             ),
                             actions: [
                               ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green),
                                 child: const Text('Cancel'),
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -53,7 +55,8 @@ class TagGenerator {
                                     final String tag = controller.text.trim();
                                     if (tag.isNotEmpty) {
                                       tags.add(tag);
-                                      Tag.allTag.add(tag);
+                                      // Remove the line below to prevent modifying Tag.allTag
+                                      // Tag.allTag.add(tag);
                                     }
                                     Navigator.pop(context);
                                   });

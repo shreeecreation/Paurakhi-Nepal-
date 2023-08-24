@@ -8,6 +8,7 @@ class FilterSaver {
     String numbersJson = jsonEncode(category);
     prefs.setString('filterCategory', numbersJson);
     prefs.setInt('type', type);
+    getFilter();
   }
 
   static getFilter() async {
