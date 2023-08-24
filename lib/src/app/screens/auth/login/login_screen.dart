@@ -53,12 +53,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 1.2,
                         child: TextFormField(
-                          controller: phoneNo,
+                          controller:  phoneNo,
                           validator: (val) {
                             
                             if (!ExtString.validatePhoneNumber(val!)) {
                               return AppLocalizations.of(context)!
-                                  .enter_a_valid_phone;
+                                  .enter_a_valid_phone; 
                             }
                             return null;
                           },
