@@ -22,7 +22,7 @@ class NotificationScreen extends GetView<NotificationController> {
             height: MediaQuery.of(context).size.height,
             child: Column(
               children: [
-                const SizedBox(height: 60),
+                const SizedBox(height: 40),
                 const Row(
                   children: [
                     SizedBox(width: 20),
@@ -33,6 +33,7 @@ class NotificationScreen extends GetView<NotificationController> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 10),
                 Expanded(
                   child: Obx(
                     () => ListView.builder(
@@ -149,7 +150,28 @@ class NotificationScreen extends GetView<NotificationController> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 50)
+                const SizedBox(height: 50),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      color: Colors.transparent,
+                      height: 40,
+                      width: 120,
+                      child: ElevatedButton(
+                        onPressed: controller.loadNotifications,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.textGreen,
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)!.load_more,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
