@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/home_page.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
@@ -21,9 +22,9 @@ class OnBoardingPageState extends State<OnBoardingPage> {
 
     // Save the onboarding status as shown
     await prefs.setBool('onboardingShown', true);
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const HomePage()),
-    );
+    Get.offAll(const HomePage(),
+        transition: Transition.downToUp,
+        duration: const Duration(milliseconds: 1000));
   }
 
   Widget _buildImage(

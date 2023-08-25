@@ -32,9 +32,7 @@ void main() async {
   ));
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: SystemUiOverlay.values);
-
   IntialMethod.initialMethod();
-
   runApp(MyApp());
 }
 

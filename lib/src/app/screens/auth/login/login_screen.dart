@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/home_page.dart';
 import 'package:paurakhi/src/core/API/CookieManager/managelogincookie.dart';
-import 'package:paurakhi/src/core/API/GoogleAuthAPI/googleauthapi.dart';
-import 'package:paurakhi/src/core/API/GoogleAuthAPI/googleauthscreen.dart';
 import 'package:paurakhi/src/core/API/Notification%20API/notification_api.dart';
 import 'package:paurakhi/src/core/API/userIfno/getuserinfo.dart';
 import 'package:paurakhi/src/core/extensions/colors_extension.dart';
@@ -24,7 +22,6 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isChecked = false;
@@ -34,12 +31,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFF4FBF3),
-        body:  SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Form(
             key: formKey,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height - 35,
+              height: MediaQuery.of(context).size.height,
               child: Stack(children: [
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,12 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 1.2,
                         child: TextFormField(
-                          controller:  phoneNo,
+                          controller: phoneNo,
                           validator: (val) {
-                            
                             if (!ExtString.validatePhoneNumber(val!)) {
                               return AppLocalizations.of(context)!
-                                  .enter_a_valid_phone; 
+                                  .enter_a_valid_phone;
                             }
                             return null;
                           },
@@ -137,7 +133,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: MediaQuery.of(context).size.width / 1.2,
                           child: ElevatedButton(
                               onPressed: () async {
-                                
                                 loginFunction(formKey, phoneNo, password,
                                     context, isChecked);
                               },
@@ -164,29 +159,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 child: Text(AppLocalizations.of(context)!
                                     .login_as_guest))
-                          ]),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.network(
-                              "http://pngimg.com/uploads/google/google_PNG19635.png",
-                              height: 30,
-                            ),
-                            TextButton(
-                                onPressed: () async {
-                                  var response =
-                                      await GoogleAuthAPI.googleAuthAPI();
-
-                                  var data = response?.body;
-                                  if (data != null) {
-                                    var responseBody = jsonDecode(data);
-
-                                    Get.to(ChooseGooleAccountScreen(
-                                        authUrl: responseBody["redirect_url"]));
-                                  }
-                                },
-                                child: Text(AppLocalizations.of(context)!
-                                    .login_with_google))
                           ]),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
