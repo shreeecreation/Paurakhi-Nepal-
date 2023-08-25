@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:paurakhi/src/app/screens/home/presentation/AllBottomNavigator/login_true_bottom_navigation.dart';
@@ -23,7 +22,7 @@ class IntialMethod {
     await LocalizationManager.getCurrentLocale();
     Get.put(NotificationCountController());
     await dotenv.load(fileName: Environment.fileName);
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.white));
+   
     await dotenv.load();
     await GetUserInfo.getUserInfo();
     InAppNotification.initNotifications();
@@ -37,6 +36,8 @@ class IntialMethod {
     Get.put(ProductHistoryController());
     PrivacyPolicyTermsAndConditionsAPI.privacyAPI();
     PrivacyPolicyTermsAndConditionsAPI.termsAPI();
+    // Get.put(LoadMoreControllerGetX());
+
     await SSEManager.startListening();
     await IsVerify.checkVerified();
   }

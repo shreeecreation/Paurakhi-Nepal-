@@ -28,17 +28,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (isLoggedIn) {
       IsLoggedIn.isLoggedIn = true;
-      Get.offAll(const OnBoardingPage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
+      Get.offAll(const HomePage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
     } else {
       IsLoggedIn.isLoggedIn = false;
-      Get.offAll(const OnBoardingPage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
+      Get.offAll(const HomePage(), transition: Transition.downToUp, duration: const Duration(milliseconds: 1000));
 //
     }
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+   
       body: Stack(
         children: [
           Center(child: Image.asset("assets/images/logo2.png")),

@@ -8,26 +8,31 @@ class CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: Container(
-            color: Colors.black.withOpacity(0.4),
-          ),
-        ),
-        Center(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(100.0),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                radius: 200,
-                backgroundImage: isNetworkImage ? NetworkImage(filePath) : AssetImage(filePath) as ImageProvider,
-              ),
+    return GestureDetector(
+      onTap: (){Navigator.pop(context);
+      
+      Navigator.pop(context);},
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.4),
             ),
           ),
-        )
-      ],
+          Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  radius: 200,
+                  backgroundImage: isNetworkImage ? NetworkImage(filePath) : AssetImage(filePath) as ImageProvider,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

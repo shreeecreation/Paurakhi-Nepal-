@@ -165,7 +165,6 @@ void editProfileDialog(BuildContext context) {
                                 height: 50,
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    // TODO: editProfile
 
                                     if (editProfileKey.currentState!
                                         .validate()) {

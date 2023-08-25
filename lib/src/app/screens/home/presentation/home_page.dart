@@ -15,7 +15,14 @@ class HomePage extends StatelessWidget {
         exitDialog(context);
         return false;
       },
-      child: Scaffold(body: IsLoggedIn.isLoggedIn ? const LoginTrueBottomNavigator() : const LoginFalseBottomNavigator()),
+      child: Scaffold(
+          body: IsLoggedIn.isLoggedIn
+              ? const LoginTrueBottomNavigator()
+              : const LoginFalseBottomNavigator()),
     );
   }
+}
+
+void initialStep(context) async {
+  // await LocalizationManager.languageDialog(context);
 }

@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     _futureData = ListingsGreetingsAPI.listingsAndGreetings(context);
-    
+
     Get.put(SearchControllerHome());
 
     super.initState();
@@ -84,6 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
         physics: const AlwaysScrollableScrollPhysics(),
         child: SizedBox(
             child: Column(children: [
+          const SizedBox(height: 60),
           // ---------------------------------------------------------------------Search Widget
           searchWidget(context, scaffoldKey),
           const SizedBox(height: 24),
@@ -286,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10), color: Colors.green),
             height: 42,
-            width: 110,
+            width: 120,
             child: DropdownButtonFormField2(
               value: AppLocalizations.of(context)!.sell,
               decoration: InputDecoration(
