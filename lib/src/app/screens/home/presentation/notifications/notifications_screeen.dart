@@ -149,7 +149,7 @@ class NotificationScreen extends GetView<NotificationController> {
                     ),
                   ),
                 ),
-                // const SizedBox(height: 120),
+                const SizedBox(height: 50)
               ],
             ),
           ),
